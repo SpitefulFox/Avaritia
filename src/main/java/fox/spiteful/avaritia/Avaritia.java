@@ -1,6 +1,7 @@
 package fox.spiteful.avaritia;
 
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -17,6 +18,9 @@ public class Avaritia {
     @Instance
     public static Avaritia instance;
 
+    @SidedProxy(serverSide="fox.spiteful.avaritia.CommonProxy", clientSide="fox.spiteful.avaritia.ClientProxy")
+    public static CommonProxy proxy;
+    
     @EventHandler
     public void earlyGame(FMLPreInitializationEvent event){
         instance = this;
@@ -28,6 +32,7 @@ public class Avaritia {
     public void midGame(FMLInitializationEvent event){
         Grinder.artsAndCrafts();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GooeyHandler());
+        proxy.makeThingsPretty();
     }
 
     @EventHandler

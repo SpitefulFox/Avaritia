@@ -26,9 +26,9 @@ public class BlockDireCrafting extends Block {
     @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
-        this.top = iconRegister.registerIcon("avaritia:dire_crafting_top");
-        this.sides = iconRegister.registerIcon("avaritia:dire_crafting_side");
-        this.bottom = iconRegister.registerIcon("avaritia:crystal_matrix_block");
+        top = iconRegister.registerIcon("avaritia:dire_crafting_top");
+        sides = iconRegister.registerIcon("avaritia:dire_crafting_side");
+        bottom = iconRegister.registerIcon("avaritia:block_crystal_matrix");
     }
 
     @Override

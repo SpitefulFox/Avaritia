@@ -17,6 +17,8 @@ public class ItemResource extends Item {
 
     @SideOnly(Side.CLIENT)
     public IIcon[] icons;
+    @SideOnly(Side.CLIENT)
+    public IIcon[] halo;
 
     public ItemResource(){
         this.setHasSubtypes(true);
@@ -31,6 +33,10 @@ public class ItemResource extends Item {
         for (int x = 0; x < types.length; x++) {
             icons[x] = ir.registerIcon("avaritia:" + "resource_" + types[x]);
         }
+        
+        halo = new IIcon[2]; 
+        halo[0] = ir.registerIcon("avaritia:halo");
+        halo[1] = ir.registerIcon("avaritia:halonoise");
     }
 
     @SideOnly(Side.CLIENT)
