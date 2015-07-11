@@ -1,0 +1,18 @@
+#
+# Items
+item.avaritia_resource.diamond_lattice.name=Diamond Lattice
+item.avaritia_resource.crystal_matrix_ingot.name=Crystal Matrix Ingot
+item.avaritia_resource.neutron_pile.name=Pile of Neutrons
+item.avaritia_resource.neutron_nugget.name=Neutronium Nugget
+item.avaritia_resource.neutronium_ingot.name=Neutronium Ingot
+#
+# Blocks
+tile.compressed_workbench.name=Compressed Crafting Table
+tile.very_compressed_workbench.name=Double Compressed Crafting Table
+tile.block_crystal_matrix.name=Crystal Matrix
+tile.block_neutronium.name=Neutronium Block
+tile.dire_crafting.name=Dire Crafting Table
+tile.neutron_collector.name=Neutron Collector
+#
+# Misc
+container.neutron_collector=Neutron Collector
