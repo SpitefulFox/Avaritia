@@ -1,4 +1,4 @@
-package fox.spiteful.avaritia.pretties;
+package fox.spiteful.avaritia.render;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;

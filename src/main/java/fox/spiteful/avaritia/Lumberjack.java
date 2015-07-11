@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 public class Lumberjack {
 
-    public static final Logger logger = LogManager.getLogger("Magic Trees");
+    public static final Logger logger = LogManager.getLogger("Avaritia");
 
     public static void log(Level level, Throwable e, String message) {
         log(level, message);

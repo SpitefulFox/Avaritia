@@ -13,12 +13,10 @@ import org.lwjgl.opengl.GL11;
 public class GUINeutron extends GuiContainer
 {
     private static final ResourceLocation furnaceGuiTextures = new ResourceLocation("avaritia", "textures/gui/neutron_collector_gui.png");
-    private TileEntityNeutron tileNeutron;
 
     public GUINeutron(InventoryPlayer player, TileEntityNeutron machine)
     {
         super(new ContainerNeutron(player, machine));
-        this.tileNeutron = machine;
     }
 
     /**
@@ -26,7 +24,8 @@ public class GUINeutron extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
     {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.neutron_collector"), 28, 6, 4210752);
+        String s = StatCollector.translateToLocal("container.neutron_collector");
+        this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
         this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 

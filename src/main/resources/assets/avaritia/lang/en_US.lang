@@ -16,3 +16,4 @@ tile.neutron_collector.name=Neutron Collector
 #
 # Misc
 container.neutron_collector=Neutron Collector
+tc.aspect.terminus=The End of Games, Apocalypse, Grindstones

@@ -14,7 +14,7 @@ public class Grinder {
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 0), new Object[]{"X X", " X ", "X X", 'X', new ItemStack(Items.diamond)});
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 1), new Object[]{"DSD", "DSD", 'D', new ItemStack(LudicrousItems.resource, 1, 0), 'S', new ItemStack(Items.nether_star)});
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(Blocks.crafting_table)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.triple_craft, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(Blocks.crafting_table)});
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.triple_craft, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousBlocks.double_craft)});
         GameRegistry.addShapedRecipe(new ItemStack(Blocks.crafting_table, 9), new Object[]{"C", 'C', new ItemStack(LudicrousBlocks.double_craft)});
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 9), new Object[]{"C", 'C', new ItemStack(LudicrousBlocks.triple_craft)});
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1)});
@@ -28,12 +28,12 @@ public class Grinder {
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.neutron_collector, 1), new Object[]{
                 "IIQQQQQII",
-                "I RRRRR I",
-                "I   R   I",
-                "X  RRR  X",
-                "I  RXR  I",
-                "X  RRR  X",
-                "I       I",
+                "I QQQQQ I",
+                "I  RRR  I",
+                "X RRRRR X",
+                "I RRXRR I",
+                "X RRRRR X",
+                "I  RRR  I",
                 "I       I",
                 "IIIXIXIII",
                 'X', new ItemStack(LudicrousItems.resource, 1, 1),
