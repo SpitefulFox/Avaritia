@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemResource extends Item {
 
     private static final String[] types = new String[]{"diamond_lattice", "crystal_matrix_ingot", "neutron_pile",
-            "neutron_nugget", "neutronium_ingot", "infinity_catalyst"};
+            "neutron_nugget", "neutronium_ingot", "infinity_catalyst", "infinity_ingot"};
 
     @SideOnly(Side.CLIENT)
     public IIcon[] icons;

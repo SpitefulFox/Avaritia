@@ -45,7 +45,15 @@ public class ExtremeShapelessRecipeHandler extends ShapelessRecipeHandler{
         public void setIngredients(List<?> items) {
             ingredients.clear();
             for (int ingred = 0; ingred < items.size(); ingred++) {
-                PositionedStack stack = new PositionedStack(items.get(ingred), 3 + (ingred % 9) * 18, 3 + (ingred / 9) * 18);
+                int ex = 3 + (ingred % 9) * 18;
+                int wy = 3 + (ingred / 9) * 18;
+                if(wy == 129){
+                    if(ex == 3 || ex == 129)
+                        ex -= 1;
+                    else if(ex == 21 || ex == 147)
+                        ex += 1;
+                }
+                PositionedStack stack = new PositionedStack(items.get(ingred), ex, wy);
                 stack.setMaxSize(1);
                 ingredients.add(stack);
             }

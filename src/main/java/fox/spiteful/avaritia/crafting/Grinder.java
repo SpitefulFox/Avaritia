@@ -41,6 +41,58 @@ public class Grinder {
                 'Q', new ItemStack(Blocks.quartz_block, 1),
                 'R', new ItemStack(Blocks.redstone_block, 1)});
 
-        ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{new ItemStack(LudicrousBlocks.crystal_matrix, 1), new ItemStack(LudicrousBlocks.resource_block, 1, 0), new ItemStack(Blocks.dragon_egg)});
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new Object[]{
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIINIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                'I', new ItemStack(Blocks.iron_block, 1),
+                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), new Object[]{
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIINIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                'I', new ItemStack(Blocks.gold_block, 1),
+                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), new Object[]{
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIINIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                'I', new ItemStack(Blocks.lapis_block, 1),
+                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.resource, 1, 6), new Object[]{
+                "NNNNNNNNN",
+                "NCXXCXXCN",
+                "NXCCXCCXN",
+                "NCXXCXXCN",
+                "NNNNNNNNN",
+                'X', new ItemStack(LudicrousItems.resource, 1, 1),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4),
+                'C', new ItemStack(LudicrousItems.resource, 1, 5)});
+
+        ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{
+                new ItemStack(LudicrousBlocks.crystal_matrix, 1), new ItemStack(LudicrousBlocks.resource_block, 1, 0),
+                new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
+                new ItemStack(LudicrousItems.singularity, 1, 2)});
     }
 }

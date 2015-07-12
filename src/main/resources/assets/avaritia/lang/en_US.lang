@@ -6,6 +6,10 @@ item.avaritia_resource.neutron_pile.name=Pile of Neutrons
 item.avaritia_resource.neutron_nugget.name=Neutronium Nugget
 item.avaritia_resource.neutronium_ingot.name=Neutronium Ingot
 item.avaritia_resource.infinity_catalyst.name=Infinity Catalyst
+item.avaritia_resource.infinity_ingot.name=Infinity Ingot
+item.singularity_iron.name=Iron Singularity
+item.singularity_gold.name=Golden Singularity
+item.singularity_lapis.name=Lapis Singularity
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table

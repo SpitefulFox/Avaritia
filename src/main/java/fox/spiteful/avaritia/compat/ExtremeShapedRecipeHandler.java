@@ -45,7 +45,15 @@ public class ExtremeShapedRecipeHandler extends ShapedRecipeHandler
                     {
                         continue;
                     }
-                    PositionedStack stack = new PositionedStack(items[y * width + x], 3 + x * 18, 3 + y * 18);
+                    int ex = 3 + x * 18;
+                    int wy = 3 + y * 18;
+                    if(wy == 129){
+                        if(ex == 3 || ex == 129)
+                            ex -= 1;
+                        else if(ex == 21 || ex == 147)
+                            ex += 1;
+                    }
+                    PositionedStack stack = new PositionedStack(items[y * width + x], ex, wy);
                     stack.setMaxSize(1);
                     this.ingredients.add(stack);
                 }
