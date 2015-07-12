@@ -11,5 +11,6 @@ public class ClientProxy extends CommonProxy {
 		FancyHaloRenderer shiny = new FancyHaloRenderer();
 		
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.resource, shiny);
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.singularity, shiny);
 	}
 }
