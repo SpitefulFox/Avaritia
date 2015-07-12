@@ -5,6 +5,7 @@ item.avaritia_resource.crystal_matrix_ingot.name=Crystal Matrix Ingot
 item.avaritia_resource.neutron_pile.name=Pile of Neutrons
 item.avaritia_resource.neutron_nugget.name=Neutronium Nugget
 item.avaritia_resource.neutronium_ingot.name=Neutronium Ingot
+item.avaritia_resource.infinity_catalyst.name=Infinity Catalyst
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
@@ -17,3 +18,5 @@ tile.neutron_collector.name=Neutron Collector
 # Misc
 container.neutron_collector=Neutron Collector
 tc.aspect.terminus=The End of Games, Apocalypse, Grindstones
+crafting.extreme=Xtreme Crafting
+crafting.extreme.shapeless=Xtreme Shapeless

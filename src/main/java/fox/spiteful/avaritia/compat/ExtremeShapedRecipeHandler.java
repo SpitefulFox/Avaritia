@@ -7,6 +7,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
@@ -14,6 +15,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.RecipeInfo;
 import codechicken.nei.recipe.ShapedRecipeHandler;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,13 +83,13 @@ public class ExtremeShapedRecipeHandler extends ShapedRecipeHandler
     @Override
     public String getRecipeName()
     {
-        return "Xtreme Crafting";
+        return StatCollector.translateToLocal("crafting.extreme");
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results)
     {
-        if(outputId.equals("extended") && getClass() == ExtremeShapedRecipeHandler.class)
+        if(outputId.equals("extreme") && getClass() == ExtremeShapedRecipeHandler.class)
         {
             List<IRecipe> allrecipes = ExtremeCraftingManager.getInstance().getRecipeList();
             for(IRecipe irecipe : allrecipes)
@@ -146,6 +148,16 @@ public class ExtremeShapedRecipeHandler extends ShapedRecipeHandler
             }
 
         }
+    }
+
+    @Override
+    public void loadTransferRects() {
+        transferRects.add(new RecipeTransferRect(new Rectangle(166, 74, 24, 18), "extreme"));
+    }
+
+    @Override
+    public String getOverlayIdentifier() {
+        return "extreme";
     }
 
     @Override

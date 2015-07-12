@@ -19,7 +19,7 @@ public class FancyHaloRenderer implements IItemRenderer {
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
 		int meta = item.getItemDamage();
-		if (meta < 2) { return false; }
+		if (meta < 2 || meta > 4) { return false; }
 		
 		switch(type) {
 		case INVENTORY:

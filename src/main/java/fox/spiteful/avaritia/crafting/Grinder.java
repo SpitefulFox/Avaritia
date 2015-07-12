@@ -40,5 +40,7 @@ public class Grinder {
                 'I', new ItemStack(Blocks.iron_block, 1),
                 'Q', new ItemStack(Blocks.quartz_block, 1),
                 'R', new ItemStack(Blocks.redstone_block, 1)});
+
+        ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{new ItemStack(LudicrousBlocks.crystal_matrix, 1), new ItemStack(LudicrousBlocks.resource_block, 1, 0), new ItemStack(Blocks.dragon_egg)});
     }
 }
