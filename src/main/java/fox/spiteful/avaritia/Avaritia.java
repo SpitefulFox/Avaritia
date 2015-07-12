@@ -13,6 +13,7 @@ import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.gui.GooeyHandler;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = "Avaritia", name = "Avaritia", dependencies = "after:Thaumcraft;after:AWWayofTime;after:Botania")
 public class Avaritia {
@@ -35,6 +36,7 @@ public class Avaritia {
         Grinder.artsAndCrafts();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GooeyHandler());
         proxy.makeThingsPretty();
+        MinecraftForge.EVENT_BUS.register(new LudicrousEvents());
     }
 
     @EventHandler

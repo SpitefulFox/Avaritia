@@ -10,6 +10,7 @@ item.avaritia_resource.infinity_ingot.name=Infinity Ingot
 item.singularity_iron.name=Iron Singularity
 item.singularity_gold.name=Golden Singularity
 item.singularity_lapis.name=Lapis Singularity
+item.infinity_pickaxe.name=Infinity Pickaxe
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table

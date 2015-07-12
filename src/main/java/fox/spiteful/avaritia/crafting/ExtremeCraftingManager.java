@@ -1,5 +1,7 @@
 package fox.spiteful.avaritia.crafting;
 
+import fox.spiteful.avaritia.blocks.LudicrousBlocks;
+import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -98,6 +100,21 @@ public class ExtremeCraftingManager {
         ExtremeShapedRecipe shapedrecipes = new ExtremeShapedRecipe(width, height, ingredients, result);
         this.recipes.add(shapedrecipes);
         return shapedrecipes;
+    }
+
+    public ExtremeShapedRecipe addSingularityRecipe(ItemStack result, ItemStack single){
+        return addRecipe(result, new Object[]{
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIINIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                'I', single,
+                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
     }
 
     public void addShapelessRecipe(ItemStack result, Object ... ingredients)

@@ -41,44 +41,9 @@ public class Grinder {
                 'Q', new ItemStack(Blocks.quartz_block, 1),
                 'R', new ItemStack(Blocks.redstone_block, 1)});
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new Object[]{
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIINIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                'I', new ItemStack(Blocks.iron_block, 1),
-                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
-
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), new Object[]{
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIINIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                'I', new ItemStack(Blocks.gold_block, 1),
-                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
-
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), new Object[]{
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIINIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                'I', new ItemStack(Blocks.lapis_block, 1),
-                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(Blocks.iron_block, 1));
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), new ItemStack(Blocks.gold_block, 1));
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(Blocks.lapis_block, 1));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.resource, 1, 6), new Object[]{
                 "NNNNNNNNN",
@@ -94,5 +59,18 @@ public class Grinder {
                 new ItemStack(LudicrousBlocks.crystal_matrix, 1), new ItemStack(LudicrousBlocks.resource_block, 1, 0),
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 2)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_pickaxe, 1), new Object[]{
+                " IIIIIII ",
+                "IIIIIIIII",
+                "II  N  II",
+                "    N    ",
+                "    N    ",
+                "    N    ",
+                "    N    ",
+                "    N    ",
+                "    N    ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
     }
 }

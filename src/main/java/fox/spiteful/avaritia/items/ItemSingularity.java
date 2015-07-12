@@ -12,7 +12,7 @@ import java.util.List;
 public class ItemSingularity extends Item {
 
     public static final String[] types = new String[]{"iron", "gold", "lapis"};
-    public static final int[] colors = new int[]{0xFFFFFF, 0xFFFF00, 0x0000FF};
+    public static final int[] colors = new int[]{0x7F7F7F, 0xFFFF00, 0x0000FF};
 
     public ItemSingularity(){
         this.setHasSubtypes(true);
