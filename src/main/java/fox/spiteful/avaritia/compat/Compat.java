@@ -22,6 +22,8 @@ public class Compat {
     public static boolean botan = false;
     public static boolean blood = false;
     public static boolean lolDargon = false;
+    public static boolean bigReactors = false;
+    public static boolean ticon = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
@@ -34,6 +36,8 @@ public class Compat {
         botan = Loader.isModLoaded("Botania");
         blood = Loader.isModLoaded("AWWayofTime");
         lolDargon = Loader.isModLoaded("DraconicEvolution");
+        bigReactors = Loader.isModLoaded("BigReactors");
+        ticon = Loader.isModLoaded("TConstruct");
     }
 
     public static void compatify(){
@@ -83,7 +87,9 @@ public class Compat {
             try {
                 Item resource = getItem("appliedenergistics2", "item.ItemMultiMaterial");
                 ItemStack cell = new ItemStack(resource, 1, 38);
+                ItemStack singularity = new ItemStack(resource, 1, 47);
                 Grinder.catalyst.recipeItems.add(cell);
+                Grinder.catalyst.recipeItems.add(singularity);
             }
             catch (Exception e){
                 Lumberjack.log(Level.INFO, "Avaritia couldn't figure out how channels work.");
@@ -138,18 +144,7 @@ public class Compat {
 
         if(botan){
             try {
-                Item resource = getItem("Botania", "manaResource");
-                ItemStack gaia = new ItemStack(resource, 1, 14);
-                GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.resource_block, 1, 2), new Object[]{
-                        "XXX",
-                        "XXX",
-                        "XXX",
-                        'X', gaia
-                });
-                GameRegistry.addShapedRecipe(new ItemStack(resource, 9, 14), new Object[]{
-                        "X", 'X', new ItemStack(LudicrousBlocks.resource_block, 1, 2)
-                });
-                Grinder.catalyst.recipeItems.add(new ItemStack(LudicrousBlocks.resource_block, 1, 2));
+                Tsundere.baka();
             }
             catch (Exception e){
                 Lumberjack.log(Level.INFO, "Avaritia is wondering where all the dayblooms went.");
@@ -179,6 +174,32 @@ public class Compat {
             }
             catch (Exception e){
                 Lumberjack.log(Level.INFO, "Avaritia was distracted by a giant glowing sphere.");
+                e.printStackTrace();
+                lolDargon = false;
+            }
+        }
+
+        if(bigReactors){
+            try {
+                Item ingot = getItem("BigReactors", "BRIngot");
+                ItemStack ludicrite = new ItemStack(ingot, 1, 8);
+                Grinder.catalyst.recipeItems.add(ludicrite);
+            }
+            catch (Exception e){
+                Lumberjack.log(Level.INFO, "Avaritia was distracted by a giant glowing sphere.");
+                e.printStackTrace();
+                lolDargon = false;
+            }
+        }
+
+        if(ticon){
+            try {
+                Block metal = getBlock("TConstruct", "MetalBlock");
+                ItemStack menomena = new ItemStack(metal, 1, 2);
+                Grinder.catalyst.recipeItems.add(menomena);
+            }
+            catch (Exception e){
+                Lumberjack.log(Level.INFO, "Avaritia fell in the smeltery.");
                 e.printStackTrace();
                 lolDargon = false;
             }

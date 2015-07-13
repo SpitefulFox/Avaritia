@@ -117,6 +117,22 @@ public class ExtremeCraftingManager {
                 'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
     }
 
+    public void addOreSingularityRecipe(ItemStack result, String ore){
+        IRecipe recipe = new ExtremeShapedOreRecipe(result, new Object[]{
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIINIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                "IIIIIIIII",
+                'I', ore,
+                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+        recipes.add(recipe);
+    }
+
     public ExtremeShapelessRecipe addShapelessRecipe(ItemStack result, Object ... ingredients)
     {
         ArrayList arraylist = new ArrayList();

@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.items;
 
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -56,6 +57,26 @@ public class ItemResource extends Item {
     public void getSubItems(Item item, CreativeTabs tab, List list) {
         for (int j = 0; j < types.length; ++j) {
             list.add(new ItemStack(item, 1, j));
+        }
+    }
+
+    @Override
+    public EnumRarity getRarity(ItemStack stack)
+    {
+        switch(stack.getItemDamage()){
+            case 0:
+            case 2:
+            case 3:
+                return EnumRarity.uncommon;
+            case 1:
+            case 4:
+                return EnumRarity.rare;
+            case 5:
+                return EnumRarity.epic;
+            case 6:
+                return LudicrousItems.cosmic;
+            default:
+                return EnumRarity.common;
         }
     }
 }

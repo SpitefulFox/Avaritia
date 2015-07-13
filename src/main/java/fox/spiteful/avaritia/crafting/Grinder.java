@@ -3,9 +3,11 @@ package fox.spiteful.avaritia.crafting;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class Grinder {
 
@@ -43,10 +45,6 @@ public class Grinder {
                 'Q', new ItemStack(Blocks.quartz_block, 1),
                 'R', new ItemStack(Blocks.redstone_block, 1)});
 
-        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(Blocks.iron_block, 1));
-        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), new ItemStack(Blocks.gold_block, 1));
-        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(Blocks.lapis_block, 1));
-
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.resource, 1, 6), new Object[]{
                 "NNNNNNNNN",
                 "NCXXCXXCN",
@@ -58,12 +56,14 @@ public class Grinder {
                 'C', new ItemStack(LudicrousItems.resource, 1, 5)});
 
         catalyst = ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{
-                new ItemStack(LudicrousBlocks.crystal_matrix, 1), new ItemStack(LudicrousBlocks.resource_block, 1, 0),
                 new ItemStack(Blocks.emerald_block, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
-                new ItemStack(LudicrousItems.singularity, 1, 2)});
+                new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(LudicrousItems.singularity, 1, 3),
+                new ItemStack(LudicrousItems.singularity, 1, 4)});
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_pickaxe, 1), new Object[]{
+        ItemStack result = new ItemStack(LudicrousItems.infinity_pickaxe, 1);
+        result.addEnchantment(Enchantment.fortune, 10);
+        ExtremeCraftingManager.getInstance().addRecipe(result, new Object[]{
                 " IIIIIII ",
                 "IIIIIIIII",
                 "II  N  II",
@@ -75,5 +75,27 @@ public class Grinder {
                 "    N    ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(Blocks.iron_block, 1));
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), new ItemStack(Blocks.gold_block, 1));
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(Blocks.lapis_block, 1));
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 3), new ItemStack(Blocks.redstone_block, 1));
+        ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 4), new ItemStack(Blocks.quartz_block, 1));
+        if(!OreDictionary.getOres("blockCopper").isEmpty()){
+            ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 5), "blockCopper");
+            catalyst.recipeItems.add(new ItemStack(LudicrousItems.singularity, 1, 5));
+        }
+        if(!OreDictionary.getOres("blockTin").isEmpty()){
+            ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 6), "blockTin");
+            catalyst.recipeItems.add(new ItemStack(LudicrousItems.singularity, 1, 6));
+        }
+        if(!OreDictionary.getOres("blockLead").isEmpty()){
+            ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 7), "blockLead");
+            catalyst.recipeItems.add(new ItemStack(LudicrousItems.singularity, 1, 7));
+        }
+        if(!OreDictionary.getOres("blockSilver").isEmpty()){
+            ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 8), "blockSilver");
+            catalyst.recipeItems.add(new ItemStack(LudicrousItems.singularity, 1, 8));
+        }
     }
 }

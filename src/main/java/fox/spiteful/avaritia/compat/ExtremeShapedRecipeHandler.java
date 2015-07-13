@@ -1,6 +1,9 @@
 package fox.spiteful.avaritia.compat;
 
+import codechicken.core.ReflectionManager;
+import codechicken.nei.NEIClientConfig;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
+import fox.spiteful.avaritia.crafting.ExtremeShapedOreRecipe;
 import fox.spiteful.avaritia.crafting.ExtremeShapedRecipe;
 import fox.spiteful.avaritia.gui.GUIExtremeCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -8,6 +11,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import org.lwjgl.opengl.GL11;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
@@ -72,6 +76,11 @@ public class ExtremeShapedRecipeHandler extends ShapedRecipeHandler
             return this.result;
         }
 
+        public void computeVisuals() {
+            for (PositionedStack p : ingredients)
+                p.generatePermutations();
+        }
+
         public ArrayList<PositionedStack> ingredients;
         public PositionedStack result;
     }
@@ -95,67 +104,75 @@ public class ExtremeShapedRecipeHandler extends ShapedRecipeHandler
     }
 
     @Override
-    public void loadCraftingRecipes(String outputId, Object... results)
-    {
-        if(outputId.equals("extreme") && getClass() == ExtremeShapedRecipeHandler.class)
-        {
-            List<IRecipe> allrecipes = ExtremeCraftingManager.getInstance().getRecipeList();
-            for(IRecipe irecipe : allrecipes)
-            {
-                CachedRecipe recipe = null;
-                if(irecipe instanceof ExtremeShapedRecipe)
-                    recipe = new CachedExtremeRecipe((ExtremeShapedRecipe)irecipe);
+    public void loadCraftingRecipes(String outputId, Object... results) {
+        if (outputId.equals("extreme") && getClass() == ExtremeShapedRecipeHandler.class) {
+            for (IRecipe irecipe : (List<IRecipe>) ExtremeCraftingManager.getInstance().getRecipeList()) {
+                CachedExtremeRecipe recipe = null;
+                if (irecipe instanceof ExtremeShapedRecipe)
+                    recipe = new CachedExtremeRecipe((ExtremeShapedRecipe) irecipe);
+                else if (irecipe instanceof ExtremeShapedOreRecipe)
+                    recipe = forgeExtremeShapedRecipe((ExtremeShapedOreRecipe) irecipe);
 
-                if(recipe == null)
+                if (recipe == null)
                     continue;
 
-                this.arecipes.add(recipe);
+                recipe.computeVisuals();
+                arecipes.add(recipe);
             }
-        }
-        else
-        {
+        } else {
             super.loadCraftingRecipes(outputId, results);
         }
     }
 
     @Override
-    public void loadCraftingRecipes(ItemStack result)
-    {
-        List<IRecipe> allrecipes = ExtremeCraftingManager.getInstance().getRecipeList();
-        for(IRecipe irecipe : allrecipes)
-        {
-            if(NEIServerUtils.areStacksSameTypeCrafting(irecipe.getRecipeOutput(), result))
-            {
-                CachedRecipe recipe = null;
-                if(irecipe instanceof ExtremeShapedRecipe)
-                    recipe = new CachedExtremeRecipe((ExtremeShapedRecipe)irecipe);
+    public void loadCraftingRecipes(ItemStack result) {
+        for (IRecipe irecipe : (List<IRecipe>) ExtremeCraftingManager.getInstance().getRecipeList()) {
+            if (NEIServerUtils.areStacksSameTypeCrafting(irecipe.getRecipeOutput(), result)) {
+                CachedExtremeRecipe recipe = null;
+                if (irecipe instanceof ExtremeShapedRecipe)
+                    recipe = new CachedExtremeRecipe((ExtremeShapedRecipe) irecipe);
+                else if (irecipe instanceof ExtremeShapedOreRecipe)
+                    recipe = forgeExtremeShapedRecipe((ExtremeShapedOreRecipe) irecipe);
 
-                if(recipe == null)
+                if (recipe == null)
                     continue;
 
-                this.arecipes.add(recipe);
+                recipe.computeVisuals();
+                arecipes.add(recipe);
             }
         }
     }
 
     @Override
-    public void loadUsageRecipes(ItemStack ingredient)
-    {
-        List<IRecipe> allrecipes = ExtremeCraftingManager.getInstance().getRecipeList();
-        for(IRecipe irecipe : allrecipes)
-        {
-            if(irecipe instanceof ExtremeShapedRecipe)
-            {
-                CachedExtremeRecipe recipe = new CachedExtremeRecipe((ExtremeShapedRecipe)irecipe);
-                if(recipe.contains(recipe.ingredients, ingredient))
-                {
-                    recipe.setIngredientPermutation(recipe.ingredients, ingredient);
-                    if(!this.arecipes.contains(recipe))
-                        this.arecipes.add(recipe);
-                }
-            }
+    public void loadUsageRecipes(ItemStack ingredient) {
+        for (IRecipe irecipe : (List<IRecipe>) ExtremeCraftingManager.getInstance().getRecipeList()) {
+            CachedExtremeRecipe recipe = null;
+            if (irecipe instanceof ExtremeShapedRecipe)
+                recipe = new CachedExtremeRecipe((ExtremeShapedRecipe) irecipe);
+            else if (irecipe instanceof ExtremeShapedOreRecipe)
+                recipe = forgeExtremeShapedRecipe((ExtremeShapedOreRecipe) irecipe);
 
+            if (recipe == null || !recipe.contains(recipe.ingredients, ingredient.getItem()))
+                continue;
+
+            recipe.computeVisuals();
+            if (recipe.contains(recipe.ingredients, ingredient)) {
+                recipe.setIngredientPermutation(recipe.ingredients, ingredient);
+                arecipes.add(recipe);
+            }
         }
+    }
+
+    public CachedExtremeRecipe forgeExtremeShapedRecipe(ExtremeShapedOreRecipe recipe) {
+        int width = recipe.width;
+        int height = recipe.height;
+
+        Object[] items = recipe.getInput();
+        for (Object item : items)
+            if (item instanceof List && ((List<?>) item).isEmpty())//ore handler, no ores
+                return null;
+
+        return new CachedExtremeRecipe(width, height, items, recipe.getRecipeOutput());
     }
 
     @Override

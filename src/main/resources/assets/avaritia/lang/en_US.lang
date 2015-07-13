@@ -10,6 +10,12 @@ item.avaritia_resource.infinity_ingot.name=Infinity Ingot
 item.singularity_iron.name=Iron Singularity
 item.singularity_gold.name=Golden Singularity
 item.singularity_lapis.name=Lapis Singularity
+item.singularity_redstone.name=Redstone Singularity
+item.singularity_quartz.name=Nether Quartz Singularity
+item.singularity_copper.name=Copper Singularity
+item.singularity_tin.name=Tin Singularity
+item.singularity_lead.name=Leaden Singularity
+item.singularity_silver.name=Silver Singularity
 item.infinity_pickaxe.name=Infinity Pickaxe
 #
 # Blocks
@@ -27,3 +33,7 @@ container.neutron_collector=Neutron Collector
 tc.aspect.terminus=The End of Games, Apocalypse, Grindstones
 crafting.extreme=Xtreme Crafting
 crafting.extreme.shapeless=Xtreme Shapeless
+avaritia.flower.asgardandelion.name=Asgardandelion
+tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
+avaritia.lexicon.asgardandelion=Asgardandelion
+avaritia.lexicon.asgardandelion.0=Rumors abound of some kind of godlike flower that can produce a neverending torrent of mana. Attempting to create such a flower would be a fool's errand, however.<br>&oStill not a SAO reference.&r

@@ -6,11 +6,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.apache.logging.log4j.Level;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
@@ -36,7 +40,33 @@ public class LudicrousEvents {
 
     @SubscribeEvent
     public void extraLuck(HarvestDropsEvent event){
-
+        if(event.harvester == null)
+            return;
+        if(event.harvester.getHeldItem() == null)
+            return;
+        ItemStack held = event.harvester.getHeldItem();
+        if(held.getItem() == LudicrousItems.infinity_pickaxe){
+            if(event.block.getMaterial() == Material.rock){
+                ArrayList<ItemStack> adds = new ArrayList<ItemStack>();
+                ArrayList<ItemStack> removals = new ArrayList<ItemStack>();
+                for(ItemStack drop : event.drops){
+                    if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
+                        drop.stackSize = Math.min(drop.stackSize * 4, drop.getMaxStackSize());
+                    }
+                    else if(drop.getItem() == Item.getItemFromBlock(event.block) && FurnaceRecipes.smelting().getSmeltingResult(drop) != null){
+                        ItemStack smelt = FurnaceRecipes.smelting().getSmeltingResult(drop).copy();
+                        smelt.stackSize = Math.min(drop.stackSize * 8, drop.getMaxStackSize());
+                        adds.add(smelt);
+                        removals.add(drop);
+                    }
+                }
+                for(ItemStack add : adds)
+                    event.drops.add(add);
+                for(ItemStack rem : removals)
+                    event.drops.remove(rem);
+                event.dropChance = 1.0F;
+            }
+        }
     }
 
     private void dropItem(ItemStack drop, World world, int x, int y, int z){
