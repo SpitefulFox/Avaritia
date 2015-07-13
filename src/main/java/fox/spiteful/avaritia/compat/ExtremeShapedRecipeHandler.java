@@ -171,7 +171,7 @@ public class ExtremeShapedRecipeHandler extends ShapedRecipeHandler
     @Override
     public String getGuiTexture()
     {
-        return "avaritia:textures/gui/dire_crafting_gui.png";
+        return "avaritia:textures/gui/extreme_nei.png";
     }
 
     @Override
@@ -184,7 +184,11 @@ public class ExtremeShapedRecipeHandler extends ShapedRecipeHandler
     public void drawBackground(int recipe)
     {
         GL11.glColor4f(1, 1, 1, 1);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
         GuiDraw.changeTexture(getGuiTexture());
-        GuiDraw.drawTexturedModalRect(0, 0, 9, 5, 223, 166);
+        GuiDraw.drawTexturedModalRect(-9, -20, 0, 0, 256, 208);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 }

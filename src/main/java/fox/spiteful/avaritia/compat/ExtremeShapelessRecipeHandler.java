@@ -8,6 +8,7 @@ import fox.spiteful.avaritia.crafting.ExtremeShapelessRecipe;
 import fox.spiteful.avaritia.gui.GUIExtremeCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import codechicken.nei.NEIServerUtils;
@@ -155,11 +156,11 @@ public class ExtremeShapelessRecipeHandler extends ShapelessRecipeHandler{
     @Override
     public String getGuiTexture()
     {
-        return "avaritia:textures/gui/dire_crafting_gui.png";
+        return "avaritia:textures/gui/extreme_nei.png";
     }
 
     @Override
-    public boolean hasOverlay(GuiContainer gui, net.minecraft.inventory.Container container, int recipe)
+    public boolean hasOverlay(GuiContainer gui, Container container, int recipe)
     {
         return RecipeInfo.hasDefaultOverlay(gui, "extreme");
     }
@@ -168,8 +169,12 @@ public class ExtremeShapelessRecipeHandler extends ShapelessRecipeHandler{
     public void drawBackground(int recipe)
     {
         GL11.glColor4f(1, 1, 1, 1);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
         GuiDraw.changeTexture(getGuiTexture());
-        GuiDraw.drawTexturedModalRect(0, 0, 9, 5, 223, 166);
+        GuiDraw.drawTexturedModalRect(-9, -20, 0, 0, 256, 208);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     @Override
