@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 
 public class Grinder {
 
+    public static ExtremeShapelessRecipe catalyst;
+
     public static void artsAndCrafts(){
 
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 0), new Object[]{"X X", " X ", "X X", 'X', new ItemStack(Items.diamond)});
@@ -55,8 +57,9 @@ public class Grinder {
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
                 'C', new ItemStack(LudicrousItems.resource, 1, 5)});
 
-        ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{
+        catalyst = ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{
                 new ItemStack(LudicrousBlocks.crystal_matrix, 1), new ItemStack(LudicrousBlocks.resource_block, 1, 0),
+                new ItemStack(Blocks.emerald_block, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 2)});
 

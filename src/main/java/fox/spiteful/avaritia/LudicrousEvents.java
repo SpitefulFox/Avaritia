@@ -8,11 +8,12 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.apache.logging.log4j.Level;
 
 import java.util.Random;
+
+import static net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 public class LudicrousEvents {
 
@@ -33,6 +34,11 @@ public class LudicrousEvents {
         }
     }
 
+    @SubscribeEvent
+    public void extraLuck(HarvestDropsEvent event){
+
+    }
+
     private void dropItem(ItemStack drop, World world, int x, int y, int z){
         float f = 0.7F;
         double d0 = (double)(randy.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
@@ -42,4 +48,5 @@ public class LudicrousEvents {
         entityitem.delayBeforeCanPickup = 10;
         world.spawnEntityInWorld(entityitem);
     }
+
 }

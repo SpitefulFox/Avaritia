@@ -117,7 +117,7 @@ public class ExtremeCraftingManager {
                 'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
     }
 
-    public void addShapelessRecipe(ItemStack result, Object ... ingredients)
+    public ExtremeShapelessRecipe addShapelessRecipe(ItemStack result, Object ... ingredients)
     {
         ArrayList arraylist = new ArrayList();
         Object[] aobject = ingredients;
@@ -146,7 +146,9 @@ public class ExtremeCraftingManager {
             }
         }
 
-        this.recipes.add(new ExtremeShapelessRecipe(result, arraylist));
+        ExtremeShapelessRecipe recipe = new ExtremeShapelessRecipe(result, arraylist);
+        this.recipes.add(recipe);
+        return recipe;
     }
 
     public ItemStack findMatchingRecipe(InventoryCrafting matrix, World world)

@@ -6,15 +6,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 
 import java.util.List;
 
 public class BlockResource extends Block {
 
-    public static final String[] types = new String[]{"neutronium"};
+    public static final String[] types = new String[]{"neutronium", "infinity", "gaia"};
     private IIcon[] icons;
 
     public BlockResource(){
@@ -62,5 +64,11 @@ public class BlockResource extends Block {
         {
             this.icons[i] = iconRegister.registerIcon("avaritia:block_" + types[i]);
         }
+    }
+
+    @Override
+    public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
+    {
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockCrystalMatrix extends Block {
 
@@ -13,6 +14,12 @@ public class BlockCrystalMatrix extends Block {
         setBlockName("block_crystal_matrix");
         setHarvestLevel("pickaxe", 3);
         setBlockTextureName("avaritia:block_crystal_matrix");
+    }
+
+    @Override
+    public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
+    {
+        return true;
     }
 
 }

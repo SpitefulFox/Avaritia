@@ -17,6 +17,8 @@ tile.compressed_workbench.name=Compressed Crafting Table
 tile.very_compressed_workbench.name=Double Compressed Crafting Table
 tile.block_crystal_matrix.name=Crystal Matrix
 tile.block_neutronium.name=Neutronium Block
+tile.block_infinity.name=Infinity Block
+tile.block_gaia.name=Gaia Block
 tile.dire_crafting.name=Dire Crafting Table
 tile.neutron_collector.name=Neutron Collector
 #

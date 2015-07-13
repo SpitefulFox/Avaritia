@@ -17,8 +17,8 @@ public class TileEntityNeutron extends TileEntity implements IInventory {
     private int progress;
 
     public void updateEntity(){
-        //if(++progress >= 10665){
-        if(++progress >= 300){
+        if(++progress >= 10665){
+        //if(++progress >= 300){
             if(neutrons == null)
                 neutrons = new ItemStack(LudicrousItems.resource, 1, 2);
             else if(neutrons.getItem() == LudicrousItems.resource && neutrons.getItemDamage() == 2 && neutrons.stackSize < 64)
