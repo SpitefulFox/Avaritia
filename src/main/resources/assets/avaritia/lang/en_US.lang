@@ -36,8 +36,12 @@ container.neutron_collector=Neutron Collector
 tc.aspect.terminus=The End of Games, Apocalypse, Grindstones
 crafting.extreme=Xtreme Crafting
 crafting.extreme.shapeless=Xtreme Shapeless
+plus.infinity=+Infinity
+death.attack.infinity=%1$s was sliced to ribbons by %2$s
+death.attack.infinity.item=%1$s was sliced to ribbons by %2$s
+#
+# Botania
 avaritia.flower.asgardandelion.name=Asgardandelion
 tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
 avaritia.lexicon.asgardandelion=Asgardandelion
 avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a neverending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reasoning.<br>&oStill not a SAO reference.&r
-plus.infinity=+Infinity

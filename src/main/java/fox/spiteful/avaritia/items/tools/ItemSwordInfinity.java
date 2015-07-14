@@ -6,6 +6,7 @@ import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -15,7 +16,7 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemSwordInfinity extends ItemSword {
 
-    private static final ToolMaterial opSword = EnumHelper.addToolMaterial("INFINITY_SWORD", 32, 9999, 9999F, 9995.0F, 200);
+    private static final ToolMaterial opSword = EnumHelper.addToolMaterial("INFINITY_SWORD", 32, 9999, 9999F, -3.0F, 200);
 
     public ItemSwordInfinity(){
         super(opSword);
@@ -34,8 +35,11 @@ public class ItemSwordInfinity extends ItemSword {
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player)
     {
+        if(player.worldObj.isRemote)
+            return true;
+        victim.func_110142_aN().func_94547_a(new EntityDamageSource("infinity", player), victim.getHealth(), victim.getHealth());
         victim.setHealth(0);
-        victim.onDeath(new EntityDamageSource("player", player));
+        victim.onDeath(new EntityDamageSource("infinity", player));
         return true;
     }
 
