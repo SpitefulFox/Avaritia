@@ -2,9 +2,12 @@ package fox.spiteful.avaritia.compat;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
+import fox.spiteful.avaritia.compat.tsundere.BlockInfinitato;
+import fox.spiteful.avaritia.compat.tsundere.TileInfinitato;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,6 +15,8 @@ import vazkii.botania.api.BotaniaAPI;
 
 public class Tsundere {
 
+	public static Block infinitato;
+	
     public static void baka() throws Compat.ItemNotFoundException {
         Item resource = Compat.getItem("Botania", "manaResource");
         ItemStack gaia = new ItemStack(resource, 1, 14);
@@ -51,6 +56,10 @@ public class Tsundere {
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
                 'n', new ItemStack(LudicrousItems.resource, 1, 3),
         });
+        
+        infinitato = new BlockInfinitato();
+        GameRegistry.registerBlock(infinitato, "infinitato");
+        GameRegistry.registerTileEntity(TileInfinitato.class, "Avaritia_Infinitato");
     }
 
     private static ItemStack getFlower(String type) throws Compat.ItemNotFoundException {

@@ -5,17 +5,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityNeutron extends TileEntity implements IInventory {
+public class TileEntityNeutron extends TileLudicrous implements IInventory {
 
     private ItemStack neutrons;
     private int facing = 2;
     private int progress;
 
+    @Override
     public void updateEntity(){
         if(++progress >= 10665){
         //if(++progress >= 300){
@@ -35,18 +32,17 @@ public class TileEntityNeutron extends TileEntity implements IInventory {
         facing = dir;
     }
 
-    public void readFromNBT(NBTTagCompound tags)
+    @Override
+    public void readCustomNBT(NBTTagCompound tag)
     {
-        super.readFromNBT(tags);
-        this.neutrons = ItemStack.loadItemStackFromNBT(tags.getCompoundTag("Neutrons"));
-        this.progress = tags.getInteger("Progress");
-        this.facing = tags.getShort("Facing");
-
+        this.neutrons = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Neutrons"));
+        this.progress = tag.getInteger("Progress");
+        this.facing = tag.getShort("Facing");
     }
 
-    public void writeToNBT(NBTTagCompound tag)
+    @Override
+    public void writeCustomNBT(NBTTagCompound tag)
     {
-        super.writeToNBT(tag);
         tag.setInteger("Progress", this.progress);
         tag.setShort("Facing", (short) this.facing);
         if(neutrons != null) {
@@ -54,19 +50,6 @@ public class TileEntityNeutron extends TileEntity implements IInventory {
             neutrons.writeToNBT(produce);
             tag.setTag("Neutrons", produce);
         }
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        readFromNBT(pkt.func_148857_g());
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-    }
-
-    @Override
-    public Packet getDescriptionPacket()  {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        this.writeToNBT(nbttagcompound);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
     }
 
     @Override
@@ -137,6 +120,7 @@ public class TileEntityNeutron extends TileEntity implements IInventory {
     /**
      * Returns the name of the inventory
      */
+    @Override
     public String getInventoryName()
     {
         return  "container.neutron";
@@ -145,6 +129,7 @@ public class TileEntityNeutron extends TileEntity implements IInventory {
     /**
      * Returns if the inventory is named
      */
+    @Override
     public boolean hasCustomInventoryName()
     {
         return false;

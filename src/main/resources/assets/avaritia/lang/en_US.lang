@@ -27,6 +27,7 @@ tile.block_infinity.name=Infinity Block
 tile.block_gaia.name=Gaia Block
 tile.dire_crafting.name=Dire Crafting Table
 tile.neutron_collector.name=Neutron Collector
+tile.infinitato.name=Infinitato
 #
 # Misc
 container.neutron_collector=Neutron Collector
