@@ -2,9 +2,9 @@ package fox.spiteful.avaritia.compat;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import fox.spiteful.avaritia.compat.tsundere.RenderInfinitato;
-import fox.spiteful.avaritia.compat.tsundere.RenderTileInfinitato;
-import fox.spiteful.avaritia.compat.tsundere.TileInfinitato;
+import fox.spiteful.avaritia.compat.botania.RenderInfinitato;
+import fox.spiteful.avaritia.compat.botania.RenderTileInfinitato;
+import fox.spiteful.avaritia.compat.botania.TileInfinitato;
 
 public class CompatClient {
 

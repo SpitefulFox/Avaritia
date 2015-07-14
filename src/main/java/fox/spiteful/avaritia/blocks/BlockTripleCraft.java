@@ -16,6 +16,7 @@ public class BlockTripleCraft extends Block {
         setBlockName("very_compressed_workbench");
         setStepSound(Block.soundTypeWood);
         setBlockTextureName("avaritia:triple_craft");
+        setCreativeTab(Avaritia.tab);
 
     }
 

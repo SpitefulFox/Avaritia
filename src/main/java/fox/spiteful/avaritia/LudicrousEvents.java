@@ -2,6 +2,7 @@ package fox.spiteful.avaritia;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -10,7 +11,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.apache.logging.log4j.Level;
 
@@ -77,6 +80,19 @@ public class LudicrousEvents {
         EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, drop);
         entityitem.delayBeforeCanPickup = 10;
         world.spawnEntityInWorld(entityitem);
+    }
+
+    @SubscribeEvent
+    public void onTooltip(ItemTooltipEvent event) {
+        if (event.itemStack.getItem() instanceof ItemSwordInfinity) {
+            for(int x = 0;x < event.toolTip.size();x++){
+                if(event.toolTip.get(x).contains(StatCollector.translateToLocal("attribute.name.generic.attackDamage"))
+                        || event.toolTip.get(x).contains(StatCollector.translateToLocal("Attack Damage"))){
+                    event.toolTip.set(x, StatCollector.translateToLocal("plus.infinity") + StatCollector.translateToLocal("attribute.name.generic.attackDamage"));
+                    return;
+                }
+            }
+        }
     }
 
 }

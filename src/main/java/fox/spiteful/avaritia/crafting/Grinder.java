@@ -51,11 +51,11 @@ public class Grinder {
                 "NXCCXCCXN",
                 "NCXXCXXCN",
                 "NNNNNNNNN",
-                'X', new ItemStack(LudicrousItems.resource, 1, 1),
+                'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
-                'C', new ItemStack(LudicrousItems.resource, 1, 5)});
+                'X', new ItemStack(LudicrousItems.resource, 1, 5)});
 
-        catalyst = ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{
+        catalyst = ExtremeCraftingManager.getInstance().addShapelessRecipe(new ItemStack(LudicrousItems.resource, 2, 5), new Object[]{
                 new ItemStack(Blocks.emerald_block, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(LudicrousItems.singularity, 1, 3),
@@ -74,6 +74,21 @@ public class Grinder {
                 "    N    ",
                 "    N    ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_sword), new Object[]{
+                "       II",
+                "      III",
+                "     III ",
+                "    III  ",
+                " C III   ",
+                "  CII    ",
+                "  NC     ",
+                " N  C    ",
+                "X        ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4)});
 
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(Blocks.iron_block, 1));

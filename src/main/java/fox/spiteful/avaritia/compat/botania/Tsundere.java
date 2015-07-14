@@ -1,9 +1,8 @@
-package fox.spiteful.avaritia.compat;
+package fox.spiteful.avaritia.compat.botania;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
-import fox.spiteful.avaritia.compat.tsundere.BlockInfinitato;
-import fox.spiteful.avaritia.compat.tsundere.TileInfinitato;
+import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.items.LudicrousItems;
@@ -16,22 +15,14 @@ import vazkii.botania.api.BotaniaAPI;
 
 public class Tsundere {
 
-	public static Block potato;
-	public static Block infinitato;
-	
     public static void baka() throws Compat.ItemNotFoundException {
         Item resource = Compat.getItem("Botania", "manaResource");
-        ItemStack gaia = new ItemStack(resource, 1, 14);
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.resource_block, 1, 2), new Object[]{
-                "XXX",
-                "XXX",
-                "XXX",
-                'X', gaia
-        });
-        GameRegistry.addShapedRecipe(new ItemStack(resource, 9, 14), new Object[]{
-                "X", 'X', new ItemStack(LudicrousBlocks.resource_block, 1, 2)
-        });
-        Grinder.catalyst.recipeItems.add(new ItemStack(LudicrousBlocks.resource_block, 1, 2));
+        Block storage = Compat.getBlock("Botania", "storage");
+        ItemStack terra = new ItemStack(storage, 1, 1);
+        ItemStack gaia = new ItemStack(resource, 1, 5);
+
+        Grinder.catalyst.recipeItems.add(terra);
+        Grinder.catalyst.recipeItems.add(gaia);
 
         BotaniaAPI.registerSubTile("asgardandelion", SubTileCheaty.class);
         BotaniaAPI.registerSubTileSignature(SubTileCheaty.class, new Signature("asgardandelion"));
@@ -58,14 +49,13 @@ public class Tsundere {
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
                 'n', new ItemStack(LudicrousItems.resource, 1, 3),
         });
-        
-        infinitato = new BlockInfinitato();
-        GameRegistry.registerBlock(infinitato, "infinitato");
+
+        LudicrousBlocks.infinitato = GameRegistry.registerBlock(new BlockInfinitato(), "infinitato");
         GameRegistry.registerTileEntity(TileInfinitato.class, "Avaritia_Infinitato");
-        
-        potato = Compat.getBlock("Botania", "tinyPotato");
-        
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(infinitato), new Object[]{
+
+        Block potato = Compat.getBlock("Botania", "tinyPotato");
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.infinitato), new Object[]{
                 "IIIIIIIII",
                 "IIIIIIIII",
                 "IIISISIII",

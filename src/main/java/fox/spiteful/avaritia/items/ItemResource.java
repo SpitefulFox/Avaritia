@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.items;
 
+import fox.spiteful.avaritia.Avaritia;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -26,6 +27,7 @@ public class ItemResource extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setUnlocalizedName("avaritia_resource");
+        this.setCreativeTab(Avaritia.tab);
     }
 
     @SideOnly(Side.CLIENT)

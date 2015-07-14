@@ -33,6 +33,7 @@ public class BlockNeutronCollector extends BlockContainer {
         setHardness(20.0F);
         setBlockName("neutron_collector");
         setHarvestLevel("pickaxe", 3);
+        setCreativeTab(Avaritia.tab);
     }
 
     @SideOnly(Side.CLIENT)

@@ -13,6 +13,8 @@ public class LudicrousBlocks {
     public static Block dire_crafting;
     public static Block neutron_collector;
 
+    public static Block infinitato;
+
     public static void voxelize(){
         double_craft = GameRegistry.registerBlock(new BlockDoubleCraft(), "Double_Craft");
         triple_craft = GameRegistry.registerBlock(new BlockTripleCraft(), "Triple_Craft");

@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
+import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
@@ -14,8 +15,7 @@ public class LudicrousItems {
     public static Item resource;
     public static Item singularity;
     public static Item infinity_pickaxe;
-
-    public static ToolMaterial opPickaxe = EnumHelper.addToolMaterial("INFINITY_PICKAXE", 32, 9999, 9999F, 5.0F, 200);
+    public static Item infinity_sword;
 
     public static EnumRarity cosmic = EnumHelper.addRarity("COSMIC", EnumChatFormatting.DARK_RED, "Cosmic");
 
@@ -26,5 +26,7 @@ public class LudicrousItems {
         GameRegistry.registerItem(singularity, "Singularity");
         infinity_pickaxe = new ItemPickaxeInfinity();
         GameRegistry.registerItem(infinity_pickaxe, "Infinity_Pickaxe");
+        infinity_sword = new ItemSwordInfinity();
+        GameRegistry.registerItem(infinity_sword, "Infinity_Sword");
     }
 }

@@ -16,6 +16,7 @@ public class BlockDoubleCraft extends Block {
         setBlockName("compressed_workbench");
         setStepSound(Block.soundTypeWood);
         setBlockTextureName("avaritia:double_craft");
+        setCreativeTab(Avaritia.tab);
 
     }
 

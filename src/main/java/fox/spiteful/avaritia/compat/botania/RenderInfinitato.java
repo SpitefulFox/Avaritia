@@ -1,4 +1,4 @@
-package fox.spiteful.avaritia.compat.tsundere;
+package fox.spiteful.avaritia.compat.botania;
 
 import org.lwjgl.opengl.GL11;
 

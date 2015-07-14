@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import fox.spiteful.avaritia.Avaritia;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
@@ -28,6 +29,7 @@ public class ItemSingularity extends Item {
         this.setMaxDamage(0);
         this.setUnlocalizedName("avaritia_singularity");
         this.setTextureName("avaritia:singularity");
+        this.setCreativeTab(Avaritia.tab);
     }
 
     @SideOnly(Side.CLIENT)

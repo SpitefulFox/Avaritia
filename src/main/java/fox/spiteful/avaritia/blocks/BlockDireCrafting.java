@@ -20,6 +20,7 @@ public class BlockDireCrafting extends Block {
         setResistance(2000.0F);
         setBlockName("dire_crafting");
         setHarvestLevel("pickaxe", 3);
+        setCreativeTab(Avaritia.tab);
     }
 
     @SideOnly(Side.CLIENT)

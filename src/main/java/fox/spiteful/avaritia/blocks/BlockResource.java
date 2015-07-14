@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import fox.spiteful.avaritia.Avaritia;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class BlockResource extends Block {
 
-    public static final String[] types = new String[]{"neutronium", "infinity", "gaia"};
+    public static final String[] types = new String[]{"neutronium", "infinity"};
     private IIcon[] icons;
 
     public BlockResource(){
@@ -26,6 +27,7 @@ public class BlockResource extends Block {
         setResistance(2000.0F);
         setBlockName("avaritia_resource");
         setHarvestLevel("pickaxe", 3);
+        setCreativeTab(Avaritia.tab);
     }
 
     /**

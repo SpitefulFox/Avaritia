@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.items.tools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,15 +12,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.util.EnumHelper;
 
 import java.util.List;
 
 public class ItemPickaxeInfinity extends ItemPickaxe {
 
+    private static final ToolMaterial opPickaxe = EnumHelper.addToolMaterial("INFINITY_PICKAXE", 32, 9999, 9999F, 5.0F, 200);
+
     public ItemPickaxeInfinity(){
-        super(LudicrousItems.opPickaxe);
+        super(opPickaxe);
         setUnlocalizedName("infinity_pickaxe");
         setTextureName("avaritia:infinity_pickaxe");
+        setCreativeTab(Avaritia.tab);
     }
 
     @Override

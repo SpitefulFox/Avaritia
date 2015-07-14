@@ -3,7 +3,7 @@ package fox.spiteful.avaritia.compat;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Lumberjack;
-import fox.spiteful.avaritia.blocks.LudicrousBlocks;
+import fox.spiteful.avaritia.compat.botania.Tsundere;
 import fox.spiteful.avaritia.crafting.Grinder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -24,6 +24,7 @@ public class Compat {
     public static boolean lolDargon = false;
     public static boolean bigReactors = false;
     public static boolean ticon = false;
+    public static boolean pe = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
@@ -38,6 +39,7 @@ public class Compat {
         lolDargon = Loader.isModLoaded("DraconicEvolution");
         bigReactors = Loader.isModLoaded("BigReactors");
         ticon = Loader.isModLoaded("TConstruct");
+        pe = Loader.isModLoaded("ProjectE");
     }
 
     public static void compatify(){
@@ -186,9 +188,9 @@ public class Compat {
                 Grinder.catalyst.recipeItems.add(ludicrite);
             }
             catch (Exception e){
-                Lumberjack.log(Level.INFO, "Avaritia was distracted by a giant glowing sphere.");
+                Lumberjack.log(Level.INFO, "Avaritia decided it just didn't need all that RF.");
                 e.printStackTrace();
-                lolDargon = false;
+                bigReactors = false;
             }
         }
 
@@ -201,7 +203,20 @@ public class Compat {
             catch (Exception e){
                 Lumberjack.log(Level.INFO, "Avaritia fell in the smeltery.");
                 e.printStackTrace();
-                lolDargon = false;
+                ticon = false;
+            }
+        }
+
+        if(pe){
+            try {
+                Item matter = getItem("ProjectE", "item.pe_matter");
+                ItemStack red = new ItemStack(matter, 1, 1);
+                Grinder.catalyst.recipeItems.add(red);
+            }
+            catch (Exception e){
+                Lumberjack.log(Level.INFO, "Avaritia got tired of abusing the blaze rod exploit.");
+                e.printStackTrace();
+                pe = false;
             }
         }
     }

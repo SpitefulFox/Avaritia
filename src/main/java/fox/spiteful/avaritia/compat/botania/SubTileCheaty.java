@@ -1,4 +1,4 @@
-package fox.spiteful.avaritia.compat;
+package fox.spiteful.avaritia.compat.botania;
 
 import net.minecraft.util.IIcon;
 import vazkii.botania.api.BotaniaAPI;

@@ -1,4 +1,4 @@
-package fox.spiteful.avaritia.compat.tsundere;
+package fox.spiteful.avaritia.compat.botania;
 
 import fox.spiteful.avaritia.tile.TileLudicrous;
 import net.minecraft.nbt.NBTTagCompound;
