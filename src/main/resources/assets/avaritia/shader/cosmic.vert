@@ -3,6 +3,8 @@ vec4 Diffuse;
 vec4 Specular;
  
 attribute short activelights;
+
+varying vec3 position;
  
 void pointLight(in int i, in vec3 normal, in vec3 eye, in vec3 ecPosition3)
 {
@@ -215,4 +217,6 @@ void main (void)
 	//gl_TexCoord[1] = gl_MultiTexCoord1;
 	//gl_TexCoord[2] = gl_MultiTexCoord2;
 	//gl_TexCoord[3] = gl_MultiTexCoord3;
+	
+	position = (gl_ModelViewMatrix * gl_Vertex).xyz;
 }

@@ -1,10 +1,15 @@
 package fox.spiteful.avaritia.render;
 
+import java.nio.FloatBuffer;
+
 import org.apache.logging.log4j.Level;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL13;
+
+import scala.actors.threadpool.Arrays;
 
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
@@ -29,7 +34,6 @@ public class CosmicItemRenderer implements IItemRenderer {
 
 	private final ShaderCallback shaderCallback;
 	private float[] lightlevel = new float[3];
-	private ItemStack renderStack;
 	
 	private String[] lightmapobf = new String[] {"lightmapColors", "field_78504_Q", "U"};
 	
@@ -39,22 +43,33 @@ public class CosmicItemRenderer implements IItemRenderer {
 			public void call(int shader) {
 				Minecraft mc = Minecraft.getMinecraft();
 
-				//int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
-				//ARBShaderObjects.glUniform1fARB(x, (float)((mc.thePlayer.rotationYaw * 2 * Math.PI) / 360.0));
+				int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
+				ARBShaderObjects.glUniform1fARB(x, (float)((mc.thePlayer.rotationYaw * 2 * Math.PI) / 360.0));
 				
-				//int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
-				//ARBShaderObjects.glUniform1fARB(z, - (float)((mc.thePlayer.rotationPitch * 2 * Math.PI) / 360.0));
+				int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
+				ARBShaderObjects.glUniform1fARB(z, - (float)((mc.thePlayer.rotationPitch * 2 * Math.PI) / 360.0));
 				
 				int l = ARBShaderObjects.glGetUniformLocationARB(shader, "lightlevel");
 				ARBShaderObjects.glUniform3fARB(l, lightlevel[0], lightlevel[1], lightlevel[2]);
 				
-				/*if (renderStack != null && renderStack.getItem() != null && renderStack.getItem() instanceof ICosmicRenderItem) {
-					ICosmicRenderItem item = (ICosmicRenderItem)(renderStack.getItem());
-					IIcon maskicon = item.getMaskTexture(renderStack);
-					
-					int m = ARBShaderObjects.glGetUniformLocationARB(shader, "maskUV");
-					ARBShaderObjects.glUniform4fARB(m, maskicon.getMinU(), maskicon.getMinV(), maskicon.getMaxU(), maskicon.getMaxV());
-				}*/
+				int lightmix = ARBShaderObjects.glGetUniformLocationARB(shader, "lightmix");
+				ARBShaderObjects.glUniform1fARB(lightmix, 0.2f);
+				
+				IIcon[] icons = LudicrousRenderEvents.cosmicIcons;
+				FloatBuffer cosmicUVs = BufferUtils.createFloatBuffer(4 * icons.length);
+				IIcon icon;
+				for (int i=0; i<icons.length; i++) {
+					icon = icons[i];
+
+					cosmicUVs.put(icon.getMinU());
+					cosmicUVs.put(icon.getMinV());
+					cosmicUVs.put(icon.getMaxU());
+					cosmicUVs.put(icon.getMaxV());
+				}
+				cosmicUVs.flip();
+				
+				int uvs = ARBShaderObjects.glGetUniformLocationARB(shader, "cosmicuvs");
+				ARBShaderObjects.glUniformMatrix2ARB(uvs, false, cosmicUVs);
 			}
 		};
 	}
