@@ -3,7 +3,9 @@ package fox.spiteful.avaritia.compat;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
+import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
 import fox.spiteful.avaritia.crafting.Grinder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -54,7 +56,7 @@ public class Compat {
                 api.getMethod("registerRecipeHandler", Class.forName("codechicken.nei.recipe.ICraftingHandler")).invoke(null, handler2.newInstance());
                 api.getMethod("registerUsageHandler", Class.forName("codechicken.nei.recipe.IUsageHandler")).invoke(null, handler2.newInstance());
             }
-            catch(Exception e)
+            catch(Throwable e)
             {
                 e.printStackTrace();
             }
@@ -78,7 +80,7 @@ public class Compat {
                 ItemStack galg = new ItemStack(resource, 1, 2);
                 Grinder.catalyst.recipeItems.add(galg);
             }
-            catch(Exception e){
+            catch(Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia died of old age while trying to craft the Galgadorian Drill.");
                 e.printStackTrace();
                 sc2 = false;
@@ -93,7 +95,7 @@ public class Compat {
                 Grinder.catalyst.recipeItems.add(cell);
                 Grinder.catalyst.recipeItems.add(singularity);
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia couldn't figure out how channels work.");
                 e.printStackTrace();
                 ae2 = false;
@@ -109,7 +111,7 @@ public class Compat {
                 Grinder.catalyst.recipeItems.add(bed);
                 Grinder.catalyst.recipeItems.add(unstable);
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia was unable to stop Lavos.");
                 e.printStackTrace();
                 exu = false;
@@ -124,7 +126,7 @@ public class Compat {
                         ItemStack osmir = new ItemStack(resource, 1, 8682);
                         Grinder.catalyst.recipeItems.add(osmir);
                     }
-                    catch(Exception e){
+                    catch(Throwable e){
                         Lumberjack.log(Level.INFO, "Avaritia got sick of only getting 2 planks per log.");
                         e.printStackTrace();
                         gt = false;
@@ -137,7 +139,7 @@ public class Compat {
                     Grinder.catalyst.recipeItems.add(plate);
                 }
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia blew up the macerator.");
                 e.printStackTrace();
                 ic2 = false;
@@ -148,7 +150,7 @@ public class Compat {
             try {
                 Tsundere.baka();
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia is wondering where all the dayblooms went.");
                 e.printStackTrace();
                 botan = false;
@@ -157,11 +159,9 @@ public class Compat {
 
         if(blood){
             try {
-                Block crystal = getBlock("AWWayofTime", "blockCrystal");
-                ItemStack cluster = new ItemStack(crystal, 1, 0);
-                Grinder.catalyst.recipeItems.add(cluster);
+                Bloody.bloodlett();
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia decided to use a Fallen Kanade instead.");
                 e.printStackTrace();
                 blood = false;
@@ -174,7 +174,7 @@ public class Compat {
                 ItemStack lol = new ItemStack(dargon, 1, 0);
                 Grinder.catalyst.recipeItems.add(lol);
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia was distracted by a giant glowing sphere.");
                 e.printStackTrace();
                 lolDargon = false;
@@ -187,7 +187,7 @@ public class Compat {
                 ItemStack ludicrite = new ItemStack(ingot, 1, 8);
                 Grinder.catalyst.recipeItems.add(ludicrite);
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia decided it just didn't need all that RF.");
                 e.printStackTrace();
                 bigReactors = false;
@@ -200,7 +200,7 @@ public class Compat {
                 ItemStack menomena = new ItemStack(metal, 1, 2);
                 Grinder.catalyst.recipeItems.add(menomena);
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia fell in the smeltery.");
                 e.printStackTrace();
                 ticon = false;
@@ -213,7 +213,7 @@ public class Compat {
                 ItemStack red = new ItemStack(matter, 1, 1);
                 Grinder.catalyst.recipeItems.add(red);
             }
-            catch (Exception e){
+            catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia got tired of abusing the blaze rod exploit.");
                 e.printStackTrace();
                 pe = false;

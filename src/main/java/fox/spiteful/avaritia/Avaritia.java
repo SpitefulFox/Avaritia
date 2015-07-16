@@ -10,6 +10,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import fox.spiteful.avaritia.achievements.Achievements;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.Grinder;
@@ -63,5 +64,6 @@ public class Avaritia {
     @EventHandler
     public void endGame(FMLPostInitializationEvent event){
         Compat.compatify();
+        Achievements.achieve();
     }
 }

@@ -1,6 +1,7 @@
 package fox.spiteful.avaritia.items;
 
 import fox.spiteful.avaritia.Avaritia;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -10,6 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -41,6 +43,22 @@ public class ItemResource extends Item {
         halo = new IIcon[2];
         halo[0] = ir.registerIcon("avaritia:halo");
         halo[1] = ir.registerIcon("avaritia:halonoise");
+    }
+
+    @Override
+    public void addInformation(ItemStack item, EntityPlayer player, List tooltip, boolean wut) {
+
+        switch(item.getItemDamage()) {
+            case 1:
+                tooltip.add(StatCollector.translateToLocal("tooltip.crystal_matrix.desc"));
+                break;
+            case 2:
+                tooltip.add(StatCollector.translateToLocal("tooltip.neutron_pile.desc"));
+                break;
+            case 4:
+                tooltip.add(StatCollector.translateToLocal("tooltip.neutronium.desc"));
+                break;
+        }
     }
 
     @SideOnly(Side.CLIENT)

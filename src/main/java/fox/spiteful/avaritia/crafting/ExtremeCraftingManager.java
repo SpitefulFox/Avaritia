@@ -102,6 +102,12 @@ public class ExtremeCraftingManager {
         return shapedrecipes;
     }
 
+    public ExtremeShapedOreRecipe addExtremeShapedOreRecipe(ItemStack result, Object[] recipe){
+        ExtremeShapedOreRecipe craft = new ExtremeShapedOreRecipe(result, recipe);
+        recipes.add(craft);
+        return craft;
+    }
+
     public ExtremeShapedRecipe addSingularityRecipe(ItemStack result, ItemStack single){
         return addRecipe(result, new Object[]{
                 "IIIIIIIII",

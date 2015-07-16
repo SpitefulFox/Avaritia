@@ -6,13 +6,18 @@ import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.apache.logging.log4j.Level;
@@ -93,6 +98,31 @@ public class LudicrousEvents {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onGetHurt(LivingHurtEvent event){
+        if(!(event.entityLiving instanceof EntityPlayer))
+            return;
+        EntityPlayer player = (EntityPlayer)event.entityLiving;
+        if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.infinity_sword && player.isUsingItem())
+            event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public void onLivingDrops(LivingDropsEvent event) {
+        if(event.recentlyHit && event.entityLiving instanceof EntitySkeleton && event.source.getEntity() instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer)event.source.getEntity();
+            if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.skull_sword){
+                addDrop(event, new ItemStack(Items.skull, 1, 1));
+            }
+        }
+    }
+
+    private void addDrop(LivingDropsEvent event, ItemStack drop) {
+        EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, drop);
+        entityitem.delayBeforeCanPickup = 10;
+        event.drops.add(entityitem);
     }
 
 }

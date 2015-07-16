@@ -18,6 +18,9 @@ item.singularity_lead.name=Leaden Singularity
 item.singularity_silver.name=Silver Singularity
 item.infinity_pickaxe.name=Infinity Pickaxe
 item.infinity_sword.name=Infinity Sword
+item.skullfire_sword.name=Skullfire Sword
+item.akashic_record.name=Akashic Records
+item.orb_armok.name=Blood Orb of Armok
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
@@ -30,6 +33,30 @@ tile.dire_crafting.name=Dire Crafting Table
 tile.neutron_collector.name=Neutron Collector
 tile.infinitato.name=Infinitato
 #
+# Tooltips
+tooltip.armok.desc=Stores unlimited Life Essence while held
+tooltip.crystal_matrix.desc=This isn't even its final form.
+tooltip.neutron_pile.desc=Try not to think about it.
+tooltip.neutronium.desc=The dense heart of a star in convenient ingot form.
+#
+# Achievements
+achievement.avaritia:crystal_matrix=The Beginning of the End
+achievement.avaritia:crystal_matrix.desc=Create your first Crystal Matrix Ingot
+achievement.avaritia:dire_crafting=HELLO, EVERYONE!
+achievement.avaritia:dire_crafting.desc=Use a regular Crafting Table to craft a Dire Crafting Table
+achievement.avaritia:collector=Now We Play The Waiting Game
+achievement.avaritia:collector.desc=Create your first Neutron Collector and get ready to chunkload
+achievement.avaritia:neutronium=Waiting Game Sucks
+achievement.avaritia:neutronium.desc=Create the first of many Neutronium Ingots
+achievement.avaritia:singularity=Event Horizon
+achievement.avaritia:singularity.desc=Craft your first Singularity
+achievement.avaritia:catalyst=All The Kitchen Sinks
+achievement.avaritia:catalyst.desc=Craft your first Infinity Catalyst
+achievement.avaritia:infinity=INFINITE POWER!
+achievement.avaritia:infinity.desc=Craft your first Infinity Ingot
+achievement.avaritia:armok=☺♦
+achievement.avaritia:armok.desc=Craft the Blood Orb of Armok
+#
 # Misc
 itemGroup.avaritia=Avaritia
 container.neutron_collector=Neutron Collector
@@ -39,6 +66,10 @@ crafting.extreme.shapeless=Xtreme Shapeless
 plus.infinity=+Infinity
 death.attack.infinity=%1$s was sliced to ribbons by %2$s
 death.attack.infinity.item=%1$s was sliced to ribbons by %2$s
+death.attack.infinity.1=%1$s was obliterated by %2$s
+death.attack.infinity.2=%1$s was excised from existence by %2$s
+death.attack.infinity.3=%1$s was overkilled by %2$s
+death.attack.infinity.4=%1$s was annihilated by %2$s
 #
 # Botania
 avaritia.flower.asgardandelion.name=Asgardandelion

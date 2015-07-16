@@ -91,11 +91,28 @@ public class Grinder {
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4)});
 
+        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.skull_sword), new Object[]{
+                "       IX",
+                "      IXI",
+                "     IXI ",
+                "    IXI  ",
+                " B IXI   ",
+                "  BXI    ",
+                "  WB     ",
+                " W  B    ",
+                "D        ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 1),
+                'X', new ItemStack(Items.blaze_powder),
+                'B', new ItemStack(Items.bone),
+                'D', new ItemStack(Items.nether_star),
+                'W', "logWood"});
+
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(Blocks.iron_block, 1));
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), new ItemStack(Blocks.gold_block, 1));
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(Blocks.lapis_block, 1));
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 3), new ItemStack(Blocks.redstone_block, 1));
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 4), new ItemStack(Blocks.quartz_block, 1));
+
         if(!OreDictionary.getOres("blockCopper").isEmpty()){
             ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 5), "blockCopper");
             catalyst.recipeItems.add(new ItemStack(LudicrousItems.singularity, 1, 5));
