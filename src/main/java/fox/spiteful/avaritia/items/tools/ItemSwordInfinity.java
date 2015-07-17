@@ -21,11 +21,12 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
 
     private static final ToolMaterial opSword = EnumHelper.addToolMaterial("INFINITY_SWORD", 32, 9999, 9999F, -3.0F, 200);
     private IIcon cosmicMask;
+    private IIcon pommel;
 
     public ItemSwordInfinity(){
         super(opSword);
         setUnlocalizedName("infinity_sword");
-        setTextureName("avaritia:infinity_sword_clean");
+        setTextureName("avaritia:infinity_sword");
         setCreativeTab(Avaritia.tab);
     }
 
@@ -62,5 +63,21 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
         super.registerIcons(ir);
 
         this.cosmicMask = ir.registerIcon("avaritia:infinity_sword_mask");
+        this.pommel = ir.registerIcon("avaritia:infinity_sword_pommel");
+    }
+    
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass)
+    {
+    	if (pass == 1) { return this.pommel; }
+    	
+    	return super.getIcon(stack, pass);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean requiresMultipleRenderPasses()
+    {
+        return true;
     }
 }

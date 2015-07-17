@@ -36,6 +36,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 	private float[] lightlevel = new float[3];
 	
 	private String[] lightmapobf = new String[] {"lightmapColors", "field_78504_Q", "U"};
+	private static boolean inventoryRender = false;
 	
 	public CosmicItemRenderer() {
 		shaderCallback = new ShaderCallback() {
@@ -43,11 +44,22 @@ public class CosmicItemRenderer implements IItemRenderer {
 			public void call(int shader) {
 				Minecraft mc = Minecraft.getMinecraft();
 
+				float yaw = 0;
+				float pitch = 0;
+				float scale = 1.0f;
+				
+				if (!inventoryRender) {
+					yaw = (float)((mc.thePlayer.rotationYaw * 2 * Math.PI) / 360.0);
+					pitch = - (float)((mc.thePlayer.rotationPitch * 2 * Math.PI) / 360.0);
+				} else {
+					scale = 25.0f;
+				}
+				
 				int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
-				ARBShaderObjects.glUniform1fARB(x, (float)((mc.thePlayer.rotationYaw * 2 * Math.PI) / 360.0));
+				ARBShaderObjects.glUniform1fARB(x, yaw);
 				
 				int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
-				ARBShaderObjects.glUniform1fARB(z, - (float)((mc.thePlayer.rotationPitch * 2 * Math.PI) / 360.0));
+				ARBShaderObjects.glUniform1fARB(z, pitch);
 				
 				int l = ARBShaderObjects.glGetUniformLocationARB(shader, "lightlevel");
 				ARBShaderObjects.glUniform3fARB(l, lightlevel[0], lightlevel[1], lightlevel[2]);
@@ -55,21 +67,11 @@ public class CosmicItemRenderer implements IItemRenderer {
 				int lightmix = ARBShaderObjects.glGetUniformLocationARB(shader, "lightmix");
 				ARBShaderObjects.glUniform1fARB(lightmix, 0.2f);
 				
-				IIcon[] icons = LudicrousRenderEvents.cosmicIcons;
-				FloatBuffer cosmicUVs = BufferUtils.createFloatBuffer(4 * icons.length);
-				IIcon icon;
-				for (int i=0; i<icons.length; i++) {
-					icon = icons[i];
-
-					cosmicUVs.put(icon.getMinU());
-					cosmicUVs.put(icon.getMinV());
-					cosmicUVs.put(icon.getMaxU());
-					cosmicUVs.put(icon.getMaxV());
-				}
-				cosmicUVs.flip();
-				
 				int uvs = ARBShaderObjects.glGetUniformLocationARB(shader, "cosmicuvs");
-				ARBShaderObjects.glUniformMatrix2ARB(uvs, false, cosmicUVs);
+				ARBShaderObjects.glUniformMatrix2ARB(uvs, false, LudicrousRenderEvents.cosmicUVs);
+				
+				int s = ARBShaderObjects.glGetUniformLocationARB(shader, "externalScale");
+				ARBShaderObjects.glUniform1fARB(s, scale);
 			}
 		};
 	}
@@ -129,6 +131,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
 				GL11.glDisable(GL11.GL_DEPTH_TEST);
 				
+				inventoryRender = true;
 				ShaderHelper.useShader(ShaderHelper.testShader, this.shaderCallback);
 				ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
 				IIcon cosmicicon = icri.getMaskTexture(item);
@@ -150,6 +153,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 				t.draw();
 				
 				ShaderHelper.releaseShader();
+				inventoryRender = false;
 			}
 			
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -171,20 +175,44 @@ public class CosmicItemRenderer implements IItemRenderer {
 
 	public void render(ItemStack item) {
 		int dmg = item.getItemDamage();
-		IIcon icon = item.getItem().getIconFromDamageForRenderPass(dmg, 0);
-
-		float f = icon.getMinU();
-		float f1 = icon.getMaxU();
-		float f2 = icon.getMinV();
-		float f3 = icon.getMaxV();
-		float scale = 1F / 16F;
-
+		int passes = 1;
+		if (item.getItem().requiresMultipleRenderPasses())
+        {
+			passes = item.getItem().getRenderPasses(item.getItemDamage());
+        }
+		
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
+		//ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
+		float r,g,b;
+		IIcon icon;
+		float f,f1,f2,f3;
+		float scale = 1F / 16F;
+
+		//Lumberjack.log(Level.INFO, "passes: "+passes);
+		
+        for (int i = 0; i < passes; i++)
+        {
+        	icon = item.getItem().getIcon(item, i);
+        	
+        	//Lumberjack.log(Level.INFO, "icon "+i+": "+icon);
+
+    		f = icon.getMinU();
+    		f1 = icon.getMaxU();
+    		f2 = icon.getMinV();
+    		f3 = icon.getMaxV();
+        	
+            int colour = item.getItem().getColorFromItemStack(item, i);
+            r = (float)(colour >> 16 & 255) / 255.0F;
+            g = (float)(colour >> 8 & 255) / 255.0F;
+            b = (float)(colour & 255) / 255.0F;
+            GL11.glColor4f(r, g, b, 1.0F);
+            ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
+        }
+		
 		if (item.getItem() instanceof ICosmicRenderItem) {
 			ShaderHelper.useShader(ShaderHelper.testShader, this.shaderCallback);
 			ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());

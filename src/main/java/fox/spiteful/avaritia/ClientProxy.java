@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import fox.spiteful.avaritia.compat.CompatClient;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.CosmicItemRenderer;
@@ -24,7 +25,9 @@ public class ClientProxy extends CommonProxy {
 		
 		CompatClient.comprettify();
 		
-		MinecraftForge.EVENT_BUS.register(new LudicrousRenderEvents());
+		LudicrousRenderEvents fancyevents = new LudicrousRenderEvents();
+		MinecraftForge.EVENT_BUS.register(fancyevents);
+		FMLCommonHandler.instance().bus().register(fancyevents);
 		
 		ShaderHelper.initShaders();
 	}

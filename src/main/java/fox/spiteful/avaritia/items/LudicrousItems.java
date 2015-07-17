@@ -22,7 +22,7 @@ public class LudicrousItems {
     public static Item akashic_record;
     public static Item armok_orb;
 
-    public static EnumRarity cosmic = EnumHelper.addRarity("COSMIC", EnumChatFormatting.DARK_RED, "Cosmic");
+    public static EnumRarity cosmic = EnumHelper.addRarity("COSMIC", EnumChatFormatting.RED, "Cosmic");
 
     public static void grind(){
         resource = new ItemResource();

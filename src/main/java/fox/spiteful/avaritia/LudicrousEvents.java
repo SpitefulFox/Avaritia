@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -93,7 +94,7 @@ public class LudicrousEvents {
             for(int x = 0;x < event.toolTip.size();x++){
                 if(event.toolTip.get(x).contains(StatCollector.translateToLocal("attribute.name.generic.attackDamage"))
                         || event.toolTip.get(x).contains(StatCollector.translateToLocal("Attack Damage"))){
-                    event.toolTip.set(x, StatCollector.translateToLocal("plus.infinity") + StatCollector.translateToLocal("attribute.name.generic.attackDamage"));
+                    event.toolTip.set(x, EnumChatFormatting.BLUE + "+" + LudicrousText.makeFabulous(StatCollector.translateToLocal("tip.infinity")) + " " + EnumChatFormatting.BLUE + StatCollector.translateToLocal("attribute.name.generic.attackDamage"));
                     return;
                 }
             }

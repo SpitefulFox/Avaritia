@@ -10,6 +10,7 @@ uniform int time;
 
 uniform float yaw;
 uniform float pitch;
+uniform float externalScale;
 
 uniform float lightmix;
 
@@ -36,6 +37,8 @@ void main (void)
     vec4 light = gl_Color;
     vec4 mask = texture2D(texture0, gl_TexCoord[0].xy);
     light.rgb *= lightlevel;
+    
+    float oneOverExternalScale = 1.0/externalScale;
     
     int uvtiles = 16;
     
@@ -84,9 +87,9 @@ void main (void)
 		
 		// get UV scaled for layers and offset by time;
 		float scale = mult*0.5 + 2.75;
-		float u = rawu * scale;
+		float u = rawu * scale * externalScale;
 		//float v = (rawv + time * 0.00006) * scale * 0.6;
-		float v = (rawv + time * 0.0002) * scale * 0.6;
+		float v = (rawv + time * 0.0002 * oneOverExternalScale) * scale * 0.6 * externalScale;
 		
 		vec2 tex = vec2( u, v );
 		
@@ -97,7 +100,12 @@ void main (void)
 		// get pseudorandom variants
 		int position = ((1777541 * tu) + (7649689 * tv) + (3612703 * (i+31)) + 1723609 ) ^ 50943779;
 		int symbol = mod(position, cosmicoutof);
-		int rotation = mod (pow(tu,tv) + tu + 3 + tv*i, 4);
+		int rotation = mod (pow(tu,tv) + tu + 3 + tv*i, 8);
+		bool flip = false;
+		if (rotation >= 4) {
+			rotation -= 4;
+			flip = true;
+		}
 		
 		// if it's an icon, then add the colour!
 		if (symbol < cosmiccount) {
@@ -109,9 +117,13 @@ void main (void)
 			float ru = clamp(mod(u,1.0)*uvtiles - tu, 0.0, 1.0);
 			float rv = clamp(mod(v,1.0)*uvtiles - tv, 0.0, 1.0);
 			
+			if (flip) {
+				ru = 1.0 - ru;
+			}
+			
 			float oru = ru;
 			float orv = rv;
-			
+
 			// rotate uvs if necessary
 			if (rotation == 1) {
 				oru = 1.0-rv;

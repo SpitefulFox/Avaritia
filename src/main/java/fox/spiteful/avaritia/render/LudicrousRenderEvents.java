@@ -8,6 +8,8 @@ import org.lwjgl.BufferUtils;
 import scala.actors.threadpool.Arrays;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -23,7 +25,7 @@ public class LudicrousRenderEvents {
 		}
 	}
 	
-	public static FloatBuffer cosmicUVs = null;
+	public static FloatBuffer cosmicUVs = BufferUtils.createFloatBuffer(4 * cosmicTextures.length);
 	public static IIcon[] cosmicIcons = new IIcon[cosmicTextures.length];
 	
 	@SubscribeEvent
@@ -36,5 +38,22 @@ public class LudicrousRenderEvents {
 		}
 		
 		//Lumberjack.log(Level.INFO, "COSMIC QUILTING: "+Arrays.toString(cosmicIcons));
+	}
+	
+	@SubscribeEvent
+	public void pushTheCosmicFancinessToTheLimit(RenderTickEvent event) {
+		if (event.phase == Phase.START) {
+			cosmicUVs = BufferUtils.createFloatBuffer(4 * cosmicIcons.length);
+			IIcon icon;
+			for (int i=0; i<cosmicIcons.length; i++) {
+				icon = cosmicIcons[i];
+
+				cosmicUVs.put(icon.getMinU());
+				cosmicUVs.put(icon.getMinV());
+				cosmicUVs.put(icon.getMaxU());
+				cosmicUVs.put(icon.getMaxV());
+			}
+			cosmicUVs.flip();
+		}
 	}
 }
