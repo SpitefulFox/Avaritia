@@ -60,7 +60,8 @@ public class Grinder {
                 new ItemStack(Blocks.emerald_block, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(LudicrousItems.singularity, 1, 3),
-                new ItemStack(LudicrousItems.singularity, 1, 4)});
+                new ItemStack(LudicrousItems.singularity, 1, 4), new ItemStack(LudicrousItems.ultimate_stew),
+                new ItemStack(LudicrousItems.cosmic_meatballs)});
 
         ItemStack result = new ItemStack(LudicrousItems.infinity_pickaxe, 1);
         result.addEnchantment(Enchantment.fortune, 10);

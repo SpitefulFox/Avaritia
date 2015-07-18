@@ -1,11 +1,15 @@
 package fox.spiteful.avaritia.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordSkulls;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 
@@ -21,6 +25,9 @@ public class LudicrousItems {
 
     public static Item akashic_record;
     public static Item armok_orb;
+    
+    public static Item ultimate_stew;
+    public static Item cosmic_meatballs;
 
     public static EnumRarity cosmic = EnumHelper.addRarity("COSMIC", EnumChatFormatting.RED, "Cosmic");
 
@@ -35,5 +42,10 @@ public class LudicrousItems {
         GameRegistry.registerItem(infinity_sword, "Infinity_Sword");
         skull_sword = new ItemSwordSkulls();
         GameRegistry.registerItem(skull_sword, "Skull_Sword");
+        
+        ultimate_stew = new ItemFood(20,20.0f,false).setPotionEffect(Potion.regeneration.getId(), 300, 1, 1.0f).setTextureName("avaritia:stew").setUnlocalizedName("avaritia_stew").setCreativeTab(Avaritia.tab);
+        GameRegistry.registerItem(ultimate_stew, "Ultimate_Stew");
+        cosmic_meatballs = new ItemFood(20,20.0f,false).setPotionEffect(Potion.damageBoost.getId(), 300, 1, 1.0f).setTextureName("avaritia:meatballs").setUnlocalizedName("avaritia_meatballs").setCreativeTab(Avaritia.tab);
+        GameRegistry.registerItem(cosmic_meatballs, "Cosmic_Meatballs");
     }
 }

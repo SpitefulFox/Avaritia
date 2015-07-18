@@ -7,12 +7,16 @@ public class Lumberjack {
 
     public static final Logger logger = LogManager.getLogger("Avaritia");
 
-    public static void log(Level level, Throwable e, String message) {
+    public static void log(Level level, Throwable e, Object message) {
         log(level, message);
         e.printStackTrace();
     }
 
-    public static void log(Level level, String message) {
+    public static void log(Level level, Object message) {
         logger.log(level, message);
+    }
+    
+    public static void info(Object message) {
+    	log(Level.INFO, message);
     }
 }

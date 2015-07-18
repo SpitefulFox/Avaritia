@@ -21,6 +21,8 @@ item.infinity_sword.name=Infinity Sword
 item.skullfire_sword.name=Skullfire Sword
 item.akashic_record.name=Akashic Records
 item.orb_armok.name=Blood Orb of Armok
+item.avaritia_stew.name=Ultimate Stew
+item.avaritia_meatballs.name=Cosmic Meatballs
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
