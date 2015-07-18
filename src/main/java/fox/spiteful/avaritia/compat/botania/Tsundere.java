@@ -21,8 +21,8 @@ public class Tsundere {
         ItemStack terra = new ItemStack(storage, 1, 1);
         ItemStack gaia = new ItemStack(resource, 1, 5);
 
-        Grinder.catalyst.recipeItems.add(terra);
-        Grinder.catalyst.recipeItems.add(gaia);
+        Grinder.catalyst.getInput().add(terra);
+        Grinder.catalyst.getInput().add(gaia);
 
         BotaniaAPI.registerSubTile("asgardandelion", SubTileCheaty.class);
         BotaniaAPI.registerSubTileSignature(SubTileCheaty.class, new Signature("asgardandelion"));

@@ -14,6 +14,7 @@ import net.minecraft.item.crafting.IRecipe;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -90,6 +91,8 @@ public class ExtremeShapelessRecipeHandler extends ShapelessRecipeHandler{
                 CachedExtremeShapelessRecipe recipe = null;
                 if (irecipe instanceof ExtremeShapelessRecipe)
                     recipe = shapelessRecipe((ExtremeShapelessRecipe) irecipe);
+                else if (irecipe instanceof ShapelessOreRecipe)
+                    recipe = forgeExtremeShapelessRecipe((ShapelessOreRecipe) irecipe);
 
                 if (recipe == null)
                     continue;
@@ -109,6 +112,8 @@ public class ExtremeShapelessRecipeHandler extends ShapelessRecipeHandler{
                 CachedExtremeShapelessRecipe recipe = null;
                 if (irecipe instanceof ExtremeShapelessRecipe)
                     recipe = shapelessRecipe((ExtremeShapelessRecipe) irecipe);
+                else if (irecipe instanceof ShapelessOreRecipe)
+                    recipe = forgeExtremeShapelessRecipe((ShapelessOreRecipe) irecipe);
 
                 if (recipe == null)
                     continue;
@@ -125,6 +130,8 @@ public class ExtremeShapelessRecipeHandler extends ShapelessRecipeHandler{
             CachedExtremeShapelessRecipe recipe = null;
             if (irecipe instanceof ExtremeShapelessRecipe)
                 recipe = shapelessRecipe((ExtremeShapelessRecipe) irecipe);
+            else if (irecipe instanceof ShapelessOreRecipe)
+                recipe = forgeExtremeShapelessRecipe((ShapelessOreRecipe) irecipe);
 
             if (recipe == null)
                 continue;
@@ -141,6 +148,16 @@ public class ExtremeShapelessRecipeHandler extends ShapelessRecipeHandler{
             return null;
 
         return new CachedExtremeShapelessRecipe(recipe.recipeItems, recipe.getRecipeOutput());
+    }
+
+    public CachedExtremeShapelessRecipe forgeExtremeShapelessRecipe(ShapelessOreRecipe recipe) {
+        ArrayList<Object> items = recipe.getInput();
+
+        for (Object item : items)
+            if (item instanceof List && ((List<?>) item).isEmpty())//ore handler, no ores
+                return null;
+
+        return new CachedExtremeShapelessRecipe(items, recipe.getRecipeOutput());
     }
 
     @Override

@@ -4,9 +4,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.DamageSourceInfinitySword;
+import fox.spiteful.avaritia.achievements.Achievements;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -42,6 +44,22 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     }
 
     @Override
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
+    {
+        if(!entity.worldObj.isRemote && entity instanceof EntityPlayer) {
+            EntityPlayer victim = (EntityPlayer)entity;
+            if(victim.capabilities.isCreativeMode && !victim.isDead && victim.getHealth() > 0){
+                victim.func_110142_aN().func_94547_a(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
+                victim.setHealth(0);
+                victim.onDeath(new EntityDamageSource("infinity", player));
+                player.addStat(Achievements.creative_kill, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public EnumRarity getRarity(ItemStack stack)
     {
         return LudicrousItems.cosmic;
@@ -65,15 +83,15 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
         this.cosmicMask = ir.registerIcon("avaritia:infinity_sword_mask");
         this.pommel = ir.registerIcon("avaritia:infinity_sword_pommel");
     }
-    
+
     @Override
     public IIcon getIcon(ItemStack stack, int pass)
     {
     	if (pass == 1) { return this.pommel; }
-    	
+
     	return super.getIcon(stack, pass);
     }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
     public boolean requiresMultipleRenderPasses()

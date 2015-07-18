@@ -14,7 +14,7 @@ public class Bloody {
     public static void bloodlett() throws Compat.ItemNotFoundException {
         Block crystal = Compat.getBlock("AWWayofTime", "blockCrystal");
         ItemStack cluster = new ItemStack(crystal, 1, 0);
-        Grinder.catalyst.recipeItems.add(cluster);
+        Grinder.catalyst.getInput().add(cluster);
 
         LudicrousItems.armok_orb = new ItemOrbArmok();
         GameRegistry.registerItem(LudicrousItems.armok_orb, "Orb_Armok");

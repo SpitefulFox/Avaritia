@@ -4,6 +4,8 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
@@ -21,6 +23,8 @@ public class Achievements {
     public static Achievement infinity;
     public static Achievement armok;
 
+    public static Achievement creative_kill;
+
     public static void achieve(){
         crystal_matrix = new LudicrousAchievement("crystal_matrix", 0, 0, new ItemStack(LudicrousItems.resource, 1, 1), null);
         dire_crafting = new LudicrousAchievement("dire_crafting", 1, 1, new ItemStack(LudicrousBlocks.dire_crafting), crystal_matrix);
@@ -29,6 +33,7 @@ public class Achievements {
         singularity = new LudicrousAchievement("singularity", 6, 3, new ItemStack(LudicrousItems.singularity, 1, 0), neutronium);
         catalyst = new LudicrousAchievement("catalyst", 6, -3, new ItemStack(LudicrousItems.resource, 1, 5), singularity).setSpecial();
         infinity = new LudicrousAchievement("infinity", 4, -6, new ItemStack(LudicrousItems.resource, 1, 6), neutronium).setSpecial();
+        creative_kill = new LudicrousAchievement("creative_kill", -6, -6, new ItemStack(Items.skull, 1, 3), null).setSpecial();
 
         if(Compat.blood)
             armok = new LudicrousAchievement("armok", 2, -5, LudicrousItems.armok_orb, infinity);

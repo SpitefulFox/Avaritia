@@ -78,7 +78,7 @@ public class Compat {
             try {
                 Block resource = getBlock("StevesCarts", "BlockMetalStorage");
                 ItemStack galg = new ItemStack(resource, 1, 2);
-                Grinder.catalyst.recipeItems.add(galg);
+                Grinder.catalyst.getInput().add(galg);
             }
             catch(Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia died of old age while trying to craft the Galgadorian Drill.");
@@ -92,8 +92,8 @@ public class Compat {
                 Item resource = getItem("appliedenergistics2", "item.ItemMultiMaterial");
                 ItemStack cell = new ItemStack(resource, 1, 38);
                 ItemStack singularity = new ItemStack(resource, 1, 47);
-                Grinder.catalyst.recipeItems.add(cell);
-                Grinder.catalyst.recipeItems.add(singularity);
+                Grinder.catalyst.getInput().add(cell);
+                Grinder.catalyst.getInput().add(singularity);
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia couldn't figure out how channels work.");
@@ -108,8 +108,8 @@ public class Compat {
                 Block deco = getBlock("ExtraUtilities", "decorativeBlock1");
                 ItemStack bed = new ItemStack(bedrockium, 1, 0);
                 ItemStack unstable = new ItemStack(deco, 1, 5);
-                Grinder.catalyst.recipeItems.add(bed);
-                Grinder.catalyst.recipeItems.add(unstable);
+                Grinder.catalyst.getInput().add(bed);
+                Grinder.catalyst.getInput().add(unstable);
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia was unable to stop Lavos.");
@@ -124,7 +124,7 @@ public class Compat {
                     try {
                         Block resource = getBlock("gregtech", "gt.meta.storage.ingot");
                         ItemStack osmir = new ItemStack(resource, 1, 8682);
-                        Grinder.catalyst.recipeItems.add(osmir);
+                        Grinder.catalyst.getInput().add(osmir);
                     }
                     catch(Throwable e){
                         Lumberjack.log(Level.INFO, "Avaritia got sick of only getting 2 planks per log.");
@@ -136,7 +136,7 @@ public class Compat {
                 if(!gt){
                     Item iridium = getItem("IC2", "itemPartIridium");
                     ItemStack plate = new ItemStack(iridium, 1, 0);
-                    Grinder.catalyst.recipeItems.add(plate);
+                    Grinder.catalyst.getInput().add(plate);
                 }
             }
             catch (Throwable e){
@@ -172,7 +172,7 @@ public class Compat {
             try {
                 Block dargon = getBlock("DraconicEvolution", "draconicBlock");
                 ItemStack lol = new ItemStack(dargon, 1, 0);
-                Grinder.catalyst.recipeItems.add(lol);
+                Grinder.catalyst.getInput().add(lol);
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia was distracted by a giant glowing sphere.");
@@ -185,7 +185,7 @@ public class Compat {
             try {
                 Item ingot = getItem("BigReactors", "BRIngot");
                 ItemStack ludicrite = new ItemStack(ingot, 1, 8);
-                Grinder.catalyst.recipeItems.add(ludicrite);
+                Grinder.catalyst.getInput().add(ludicrite);
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia decided it just didn't need all that RF.");
@@ -198,7 +198,7 @@ public class Compat {
             try {
                 Block metal = getBlock("TConstruct", "MetalBlock");
                 ItemStack menomena = new ItemStack(metal, 1, 2);
-                Grinder.catalyst.recipeItems.add(menomena);
+                Grinder.catalyst.getInput().add(menomena);
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia fell in the smeltery.");
@@ -211,7 +211,7 @@ public class Compat {
             try {
                 Item matter = getItem("ProjectE", "item.pe_matter");
                 ItemStack red = new ItemStack(matter, 1, 1);
-                Grinder.catalyst.recipeItems.add(red);
+                Grinder.catalyst.getInput().add(red);
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia got tired of abusing the blaze rod exploit.");
