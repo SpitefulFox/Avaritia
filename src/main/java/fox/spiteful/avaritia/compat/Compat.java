@@ -5,6 +5,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
+import fox.spiteful.avaritia.compat.modtweaker.Tweak;
 import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
 import fox.spiteful.avaritia.crafting.Grinder;
 import net.minecraft.block.Block;
@@ -27,6 +28,7 @@ public class Compat {
     public static boolean bigReactors = false;
     public static boolean ticon = false;
     public static boolean pe = false;
+    public static boolean tweak = false;
     public static boolean mfr = false;
 
     public static void census(){
@@ -43,6 +45,7 @@ public class Compat {
         bigReactors = Loader.isModLoaded("BigReactors");
         ticon = Loader.isModLoaded("TConstruct");
         pe = Loader.isModLoaded("ProjectE");
+        tweak = Loader.isModLoaded("MineTweaker3");
         mfr = Loader.isModLoaded("MineFactoryReloaded");
     }
 
@@ -60,6 +63,17 @@ public class Compat {
             }
             catch(Throwable e)
             {
+                e.printStackTrace();
+            }
+        }
+
+        if(tweak){
+            try
+            {
+                Tweak.registrate();
+            }
+            catch(Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia is too good for tweaking, apparently.");
                 e.printStackTrace();
             }
         }
@@ -221,7 +235,7 @@ public class Compat {
                 pe = false;
             }
         }
-        
+
         if(mfr){
             try {
                 Item ponk = getItem("MineFactoryReloaded", "mfr.pinkslime");
@@ -234,6 +248,7 @@ public class Compat {
                 mfr = false;
             }
         }
+
     }
 
     public static Block getBlock(String mod, String block) throws ItemNotFoundException {

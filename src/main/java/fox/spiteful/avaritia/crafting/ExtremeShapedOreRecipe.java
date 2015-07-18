@@ -150,6 +150,13 @@ public class ExtremeShapedOreRecipe implements IRecipe {
         }
     }
 
+    public ExtremeShapedOreRecipe(ItemStack result, Object[] ingredients, int wid, int hei){
+        width = wid;
+        height = hei;
+        output = result;
+        input = ingredients;
+    }
+
     /**
      * Returns an Item that is the result of this recipe
      */
