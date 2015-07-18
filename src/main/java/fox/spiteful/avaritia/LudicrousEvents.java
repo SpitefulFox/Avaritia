@@ -115,7 +115,30 @@ public class LudicrousEvents {
         if(event.recentlyHit && event.entityLiving instanceof EntitySkeleton && event.source.getEntity() instanceof EntityPlayer){
             EntityPlayer player = (EntityPlayer)event.source.getEntity();
             if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.skull_sword){
-                addDrop(event, new ItemStack(Items.skull, 1, 1));
+            	// ok, we need to drop a skull then.
+            	if (event.drops.isEmpty()) {
+            		addDrop(event, new ItemStack(Items.skull, 1, 1));
+            	} else {
+            		int skulls = 0;
+            		
+            		for (int i=0; i<event.drops.size(); i++) {
+            			EntityItem drop = event.drops.get(i);
+            			ItemStack stack = drop.getEntityItem();
+            			if (stack.getItem() == Items.skull) {
+            				if (stack.getItemDamage() == 1) {
+            					skulls++;
+            				} else if (stack.getItemDamage() == 0) {
+            					skulls++;
+            					stack.setItemDamage(1);
+            				}
+            			}
+            		}
+            		
+            		if (skulls == 0) {
+            			addDrop(event, new ItemStack(Items.skull, 1, 1));
+            		}
+            	}
+                
             }
         }
     }
