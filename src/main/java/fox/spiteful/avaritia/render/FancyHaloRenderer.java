@@ -5,9 +5,6 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import fox.spiteful.avaritia.items.ItemResource;
-import fox.spiteful.avaritia.items.LudicrousItems;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,14 +20,13 @@ public class FancyHaloRenderer implements IItemRenderer {
 	
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-		int meta = item.getItemDamage();
 		Item itype = item.getItem();
-		if (itype == LudicrousItems.resource) {
-			if (meta < 2) { return false; }
-		} else if (itype == LudicrousItems.singularity) {
+		if (itype instanceof IHaloRenderItem) {
+			IHaloRenderItem ihri = (IHaloRenderItem)itype;
 			
-		} else {
-			return false;
+			if (!(ihri.drawHalo(item) || ihri.drawPulseEffect(item))) {
+				return false;
+			}
 		}
 		
 		switch(type) {
@@ -48,42 +44,28 @@ public class FancyHaloRenderer implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
+		boolean renderHalo = false;
+		boolean renderPulse = false;
+		
+		int spread = 0;
+		IIcon halo = null;
+		int haloColour = 0;
+		
+		Item itype = item.getItem();
+		if (itype instanceof IHaloRenderItem) {
+			IHaloRenderItem ihri = (IHaloRenderItem)itype;
+			
+			spread = ihri.getHaloSize(item);
+			halo = ihri.getHaloTexture(item);
+			haloColour = ihri.getHaloColour(item);
+			
+			renderHalo = ihri.drawHalo(item);
+			renderPulse = ihri.drawPulseEffect(item);
+		}
+		
 		RenderItem r = RenderItem.getInstance();
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator t = Tessellator.instance;
-		IIcon[] halos = ((ItemResource)LudicrousItems.resource).halo;
-		IIcon halo = halos[1];
-		int spread = 8;
-		int meta = item.getItemDamage();
-		Item itype = item.getItem();
-		
-		if (itype == LudicrousItems.resource) {
-			switch(meta) {
-			case 2:
-				GL11.glColor4d(1.0, 1.0, 1.0, 0.2);
-				spread = 8;
-				break;
-			case 3:
-				GL11.glColor4d(1.0, 1.0, 1.0, 0.3);
-				spread = 8;
-				break;
-			case 4:
-				GL11.glColor4d(1.0, 1.0, 1.0, 0.6);
-				spread = 8;
-				break;
-			case 5:
-			case 6:
-				GL11.glColor4d(0, 0, 0, 1.0);
-				spread = 10;
-				break;
-			default:
-				GL11.glColor4d(1.0, 1.0, 1.0, 1.0);
-				spread = 5;
-			}
-		} else if (itype == LudicrousItems.singularity) {
-			GL11.glColor4d(0, 0, 0, 1.0);
-			spread = 4;
-		}
 		
 		switch(type) {
 		case ENTITY:
@@ -97,22 +79,28 @@ public class FancyHaloRenderer implements IItemRenderer {
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			
-			t.startDrawingQuads();
-			t.addVertexWithUV(0-spread, 0-spread, 0, halo.getMinU(), halo.getMinV());
-			t.addVertexWithUV(0-spread, 16+spread, 0, halo.getMinU(), halo.getMaxV());
-			t.addVertexWithUV(16+spread, 16+spread, 0, halo.getMaxU(), halo.getMaxV());
-			t.addVertexWithUV(16+spread, 0-spread, 0, halo.getMaxU(), halo.getMinV());
-			t.draw();
+			if (renderHalo) {
+				float ca = (float)(haloColour >> 24 & 255) / 255.0F;
+				float cr = (float)(haloColour >> 16 & 255) / 255.0F;
+	            float cg = (float)(haloColour >> 8 & 255) / 255.0F;
+	            float cb = (float)(haloColour & 255) / 255.0F;
+	            GL11.glColor4f(cr, cg, cb, ca);
+				
+				t.startDrawingQuads();
+				t.addVertexWithUV(0-spread, 0-spread, 0, halo.getMinU(), halo.getMinV());
+				t.addVertexWithUV(0-spread, 16+spread, 0, halo.getMinU(), halo.getMaxV());
+				t.addVertexWithUV(16+spread, 16+spread, 0, halo.getMaxU(), halo.getMaxV());
+				t.addVertexWithUV(16+spread, 0-spread, 0, halo.getMaxU(), halo.getMinV());
+				t.draw();
+			}
 			
-			if (itype == LudicrousItems.resource && (meta == 5 || meta == 6)) {
+			if (renderPulse) {
 				GL11.glPushMatrix();
 				double xs = (rand.nextGaussian() * 0.15) + 0.95;
 				double ox = (1-xs)/2.0;
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glTranslated(ox*16.0, ox*16.0, 1.0);
 				GL11.glScaled(xs, xs, 1.0);
-				
-				//GL11.glColor4d(1.0, 1.0, 1.0, 0.3);
 				
 				IIcon icon = item.getItem().getIcon(item, 0);
 				

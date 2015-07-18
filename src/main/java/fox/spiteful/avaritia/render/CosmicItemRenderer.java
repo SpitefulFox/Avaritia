@@ -1,20 +1,10 @@
 package fox.spiteful.avaritia.render;
 
-import java.nio.FloatBuffer;
-
-import org.apache.logging.log4j.Level;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL13;
-
-import scala.actors.threadpool.Arrays;
 
 import cpw.mods.fml.relauncher.ReflectionHelper;
-
-import fox.spiteful.avaritia.Lumberjack;
-import fox.spiteful.avaritia.items.LudicrousItems;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -27,7 +17,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
 public class CosmicItemRenderer implements IItemRenderer {
@@ -174,7 +163,6 @@ public class CosmicItemRenderer implements IItemRenderer {
 	}
 
 	public void render(ItemStack item) {
-		int dmg = item.getItemDamage();
 		int passes = 1;
 		if (item.getItem().requiresMultipleRenderPasses())
         {

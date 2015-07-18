@@ -18,6 +18,7 @@ public class ClientProxy extends CommonProxy {
 		
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.resource, shiny);
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.singularity, shiny);
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.endest_pearl, shiny);
 		
 		CosmicItemRenderer sparkly = new CosmicItemRenderer();
 		

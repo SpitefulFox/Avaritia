@@ -1,12 +1,14 @@
 package fox.spiteful.avaritia.items;
 
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.render.IHaloRenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -15,10 +17,10 @@ import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
-public class ItemResource extends Item {
+public class ItemResource extends Item implements IHaloRenderItem {
 
     private static final String[] types = new String[]{"diamond_lattice", "crystal_matrix_ingot", "neutron_pile",
-            "neutron_nugget", "neutronium_ingot", "infinity_catalyst", "infinity_ingot"};
+            "neutron_nugget", "neutronium_ingot", "infinity_catalyst", "infinity_ingot", "record_fragment"};
 
     @SideOnly(Side.CLIENT)
     public IIcon[] icons;
@@ -45,20 +47,14 @@ public class ItemResource extends Item {
         halo[1] = ir.registerIcon("avaritia:halonoise");
     }
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     public void addInformation(ItemStack item, EntityPlayer player, List tooltip, boolean wut) {
 
-        switch(item.getItemDamage()) {
-            case 1:
-                tooltip.add(StatCollector.translateToLocal("tooltip.crystal_matrix.desc"));
-                break;
-            case 2:
-                tooltip.add(StatCollector.translateToLocal("tooltip.neutron_pile.desc"));
-                break;
-            case 4:
-                tooltip.add(StatCollector.translateToLocal("tooltip.neutronium.desc"));
-                break;
-        }
+    	int meta = item.getItemDamage();
+    	if (meta != 0) {
+    		tooltip.add(EnumChatFormatting.DARK_GRAY +""+ EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip."+types[meta]+".desc"));
+    	}
     }
 
     @SideOnly(Side.CLIENT)
@@ -72,7 +68,8 @@ public class ItemResource extends Item {
         return super.getUnlocalizedName() + "." + types[i];
     }
 
-    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item item, CreativeTabs tab, List list) {
         for (int j = 0; j < types.length; ++j) {
@@ -99,4 +96,56 @@ public class ItemResource extends Item {
                 return EnumRarity.common;
         }
     }
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean drawHalo(ItemStack stack) {
+		int meta = stack.getItemDamage();
+		return (meta >= 2 && meta <= 6);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getHaloTexture(ItemStack stack) {
+		int meta = stack.getItemDamage();
+		if (meta == 2 || meta == 3 || meta == 4) {
+			return halo[1];
+		}
+		return halo[0];
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getHaloSize(ItemStack stack) {
+		int meta = stack.getItemDamage();
+		switch(meta) {
+		case 5:
+		case 6:
+			return 10;
+		}
+		return 8;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean drawPulseEffect(ItemStack stack) {
+		int meta = stack.getItemDamage();
+		return meta == 5 || meta == 6;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getHaloColour(ItemStack stack) {
+		int meta = stack.getItemDamage();
+		if (meta == 2) {
+			return 0x33FFFFFF;
+		}
+		if (meta == 3) {
+			return 0x4DFFFFFF;
+		}
+		if (meta == 4) {
+			return 0x99FFFFFF;
+		}
+		return 0xFF000000;
+	}
 }

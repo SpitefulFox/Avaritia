@@ -2,15 +2,11 @@ package fox.spiteful.avaritia.render;
 
 import java.nio.FloatBuffer;
 
-import org.apache.logging.log4j.Level;
 import org.lwjgl.BufferUtils;
-
-import scala.actors.threadpool.Arrays;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
-import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.TextureStitchEvent;
 

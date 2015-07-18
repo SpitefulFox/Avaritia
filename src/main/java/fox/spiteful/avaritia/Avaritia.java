@@ -66,6 +66,7 @@ public class Avaritia {
     public void endGame(FMLPostInitializationEvent event){
         Compat.compatify();
         Mincer.countThoseCalories();
+        Grinder.lastMinuteChanges();
         Achievements.achieve();
     }
 }

@@ -27,6 +27,7 @@ public class Compat {
     public static boolean bigReactors = false;
     public static boolean ticon = false;
     public static boolean pe = false;
+    public static boolean mfr = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
@@ -42,6 +43,7 @@ public class Compat {
         bigReactors = Loader.isModLoaded("BigReactors");
         ticon = Loader.isModLoaded("TConstruct");
         pe = Loader.isModLoaded("ProjectE");
+        mfr = Loader.isModLoaded("MineFactoryReloaded");
     }
 
     public static void compatify(){
@@ -217,6 +219,19 @@ public class Compat {
                 Lumberjack.log(Level.INFO, "Avaritia got tired of abusing the blaze rod exploit.");
                 e.printStackTrace();
                 pe = false;
+            }
+        }
+        
+        if(mfr){
+            try {
+                Item ponk = getItem("MineFactoryReloaded", "mfr.pinkslime");
+                ItemStack pank = new ItemStack(ponk, 1, 1);
+                Grinder.catalyst.getInput().add(pank);
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia walked into the laser drill.");
+                e.printStackTrace();
+                mfr = false;
             }
         }
     }

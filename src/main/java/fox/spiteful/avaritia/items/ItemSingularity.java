@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.render.IHaloRenderItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
@@ -13,7 +14,7 @@ import net.minecraft.util.MathHelper;
 
 import java.util.List;
 
-public class ItemSingularity extends Item {
+public class ItemSingularity extends Item implements IHaloRenderItem {
 
     public static final String[] types = new String[]{"iron", "gold", "lapis", "redstone", "quartz", "copper",
         "tin", "lead", "silver"};
@@ -46,7 +47,8 @@ public class ItemSingularity extends Item {
         return "item.singularity_" + types[i];
     }
 
-    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item item, CreativeTabs tab, List list) {
         for (int j = 0; j < types.length; ++j) {
@@ -80,4 +82,34 @@ public class ItemSingularity extends Item {
     {
         return EnumRarity.uncommon;
     }
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean drawHalo(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getHaloTexture(ItemStack stack) {
+		return ((ItemResource)LudicrousItems.resource).halo[0];
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getHaloSize(ItemStack stack) {
+		return 4;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean drawPulseEffect(ItemStack stack) {
+		return false;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getHaloColour(ItemStack stack) {
+		return 0xFF000000;
+	}
 }

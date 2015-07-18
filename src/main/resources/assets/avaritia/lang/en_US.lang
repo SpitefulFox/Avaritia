@@ -7,6 +7,7 @@ item.avaritia_resource.neutron_nugget.name=Neutronium Nugget
 item.avaritia_resource.neutronium_ingot.name=Neutronium Ingot
 item.avaritia_resource.infinity_catalyst.name=Infinity Catalyst
 item.avaritia_resource.infinity_ingot.name=Infinity Ingot
+item.avaritia_resource.record_fragment.name=Record Fragment
 item.singularity_iron.name=Iron Singularity
 item.singularity_gold.name=Golden Singularity
 item.singularity_lapis.name=Lapis Singularity
@@ -23,6 +24,7 @@ item.akashic_record.name=Akashic Records
 item.orb_armok.name=Blood Orb of Armok
 item.avaritia_stew.name=Ultimate Stew
 item.avaritia_meatballs.name=Cosmic Meatballs
+item.avaritia_endest_pearl.name=Endest Pearl
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
@@ -37,9 +39,13 @@ tile.infinitato.name=Infinitato
 #
 # Tooltips
 tooltip.armok.desc=Stores unlimited Life Essence while held
-tooltip.crystal_matrix.desc=This isn't even its final form.
+tooltip.crystal_matrix_ingot.desc=This isn't even its final form.
 tooltip.neutron_pile.desc=Try not to think about it.
-tooltip.neutronium.desc=The dense heart of a star in convenient ingot form.
+tooltip.neutron_nugget.desc=About 35.6 million metric tons.
+tooltip.neutronium_ingot.desc=The dense heart of a star in convenient ingot form.
+tooltip.infinity_catalyst.desc=One is all and all is one.
+tooltip.infinity_ingot.desc=The fury of the universe in the palm of your hand.
+tooltip.record_fragment.desc=One likes to believe in the freedom of music~
 #
 # Achievements
 achievement.avaritia:crystal_matrix=The Beginning of the End

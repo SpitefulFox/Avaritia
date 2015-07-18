@@ -2,11 +2,14 @@ package fox.spiteful.avaritia.crafting;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
+import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -61,7 +64,7 @@ public class Grinder {
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(LudicrousItems.singularity, 1, 3),
                 new ItemStack(LudicrousItems.singularity, 1, 4), new ItemStack(LudicrousItems.ultimate_stew),
-                new ItemStack(LudicrousItems.cosmic_meatballs)});
+                new ItemStack(LudicrousItems.cosmic_meatballs), new ItemStack(LudicrousItems.endest_pearl)});
 
         ItemStack result = new ItemStack(LudicrousItems.infinity_pickaxe, 1);
         result.addEnchantment(Enchantment.fortune, 10);
@@ -134,5 +137,35 @@ public class Grinder {
         if(!OreDictionary.getOres("blockPlatinum").isEmpty()){
             catalyst.getInput().add(OreDictionary.getOres("blockPlatinum"));
         }
+        
+        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.endest_pearl), new Object[]{
+            "   EEE   ",
+            " EEPPPEE ",
+            " EPPPPPE ",
+            "EPPPNPPPE",
+            "EPPNSNPPE",
+            "EPPPNPPPE",
+            " EPPPPPE ",
+            " EEPPPEE ",
+            "   EEE   ",
+            'E', new ItemStack(Blocks.end_stone),
+            'P', new ItemStack(Items.ender_pearl),
+            'S', new ItemStack(Items.nether_star),
+            'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+    }
+    
+    public static void lastMinuteChanges(){
+    	if (Compat.mfr) {
+    		catalyst.getInput().add(OreDictionary.getOres("record"));
+    	} else {
+    		catalyst.getInput().add(new ItemStack(LudicrousItems.resource, 1, 7));
+    		IRecipe smashysmashy;
+    		//if (Compat.botan) {
+    		//	smashysmashy = new ShapelessOreRecipe(new ItemStack(LudicrousItems.resource, 4, 7), "record");
+    		//} else {
+    			smashysmashy = new ShapelessOreRecipe(new ItemStack(LudicrousItems.resource, 8, 7), "record");
+    		//}
+    		GameRegistry.addRecipe(smashysmashy);
+    	}
     }
 }
