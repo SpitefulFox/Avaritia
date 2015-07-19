@@ -15,6 +15,7 @@ import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.crafting.Mincer;
+import fox.spiteful.avaritia.entity.LudicrousEntities;
 import fox.spiteful.avaritia.gui.GooeyHandler;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.creativetab.CreativeTabs;
@@ -51,6 +52,7 @@ public class Avaritia {
         instance = this;
         LudicrousItems.grind();
         LudicrousBlocks.voxelize();
+        LudicrousEntities.letLooseTheDogsOfWar();
         Compat.census();
     }
 
