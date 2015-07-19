@@ -7,6 +7,8 @@ import net.minecraft.world.World;
 
 public class EntityGapingVoid extends Entity {
 	
+	public static final int maxLifetime = 200;
+	
 	public EntityGapingVoid(World world) {
 		super(world);
 		this.isImmuneToFire = true;
@@ -23,13 +25,13 @@ public class EntityGapingVoid extends Entity {
 	public void onUpdate() {
 		super.onUpdate();
 		
-		/*int age = this.getAge();
+		int age = this.getAge();
 		
-		if (age >= 100) {
+		if (age >= maxLifetime) {
 			this.setDead();
 		} else {
 			this.setAge(age+1);
-		}*/
+		}
 	}
 
 	
