@@ -9,6 +9,7 @@ import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.CosmicItemRenderer;
 import fox.spiteful.avaritia.render.FancyHaloRenderer;
 import fox.spiteful.avaritia.render.LudicrousRenderEvents;
+import fox.spiteful.avaritia.render.RenderGapingVoid;
 import fox.spiteful.avaritia.render.ShaderHelper;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -16,6 +17,8 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
 
+	public static final double toDeg = (1.0/(Math.PI*2))*360.0;
+	
 	@Override
 	public void makeThingsPretty() {
 		FancyHaloRenderer shiny = new FancyHaloRenderer();
@@ -25,7 +28,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.endest_pearl, shiny);
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityEndestPearl.class, new RenderSnowball(LudicrousItems.endest_pearl));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGapingVoid.class, new RenderSnowball(LudicrousItems.cosmic_meatballs));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGapingVoid.class, new RenderGapingVoid());
 		
 		CosmicItemRenderer sparkly = new CosmicItemRenderer();
 		

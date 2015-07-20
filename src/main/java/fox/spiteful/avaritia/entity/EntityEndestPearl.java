@@ -8,6 +8,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityEndestPearl extends EntityThrowable {
 
@@ -30,9 +31,9 @@ public class EntityEndestPearl extends EntityThrowable {
             pos.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 0.0F);
         }
 
-		for (int i = 0; i < 32; ++i)
+		for (int i = 0; i < 100; ++i)
         {
-            this.worldObj.spawnParticle("portal", this.posX, this.posY + this.rand.nextDouble() * 2.0D, this.posZ, this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
+            this.worldObj.spawnParticle("portal", this.posX, this.posY, this.posZ, this.rand.nextGaussian()*3, this.rand.nextGaussian()*3, this.rand.nextGaussian()*3);
         }
 
         if (!this.worldObj.isRemote)
@@ -41,12 +42,11 @@ public class EntityEndestPearl extends EntityThrowable {
 
         	Entity ent = new EntityGapingVoid(this.worldObj);
         	//Entity ent = new EntityChicken(this.worldObj);
-            ent.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+        	ForgeDirection dir = ForgeDirection.getOrientation(pos.sideHit);
+            ent.setLocationAndAngles(this.posX + dir.offsetX*0.25, this.posY + dir.offsetY*0.25, this.posZ + dir.offsetZ*0.25, this.rotationYaw, 0.0F);
             this.worldObj.spawnEntityInWorld(ent);
             
             this.setDead();
-            
-            Lumberjack.info("ded");
         }
 	}
 
