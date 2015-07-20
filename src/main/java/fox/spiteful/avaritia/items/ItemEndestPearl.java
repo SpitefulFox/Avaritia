@@ -24,7 +24,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-        if (player.capabilities.isCreativeMode)
+        if (!player.capabilities.isCreativeMode)
         {
         	--stack.stackSize;
         }
@@ -42,7 +42,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem {
 	@Override
     public EnumRarity getRarity(ItemStack stack)
     {
-        return EnumRarity.uncommon;
+        return EnumRarity.rare;
     }
 	
 	@Override
