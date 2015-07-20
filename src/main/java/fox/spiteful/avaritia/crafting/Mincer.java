@@ -1,24 +1,27 @@
 package fox.spiteful.avaritia.crafting;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class Mincer {
+    public static ShapelessOreRecipe meatballRecipe;
+
 	// here's where all the food magic goes on
-	private static String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin"};
-	private static String[] knownMeatEntries = new String[]{"nuggetMeat", "ingotMeat", "dustMeat"};
+	private static String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus"};
+    private static String[] forbiddenCropNames = new String[] {"cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton"};
+	private static String[] knownMeatEntries = new String[]{"nuggetMeat", "ingotMeat", "dustMeat", "rawMutton"};
 	private static List<ItemStack> knownMeats = new ArrayList<ItemStack>();
-	static {
+
+    static {
 		knownMeats.add(new ItemStack(Items.beef));
 		knownMeats.add(new ItemStack(Items.chicken));
 		knownMeats.add(new ItemStack(Items.porkchop));
@@ -27,12 +30,13 @@ public class Mincer {
 			knownMeats.add(new ItemStack(Items.fish, 1, i));
 		}*/
 		knownMeats.add(new ItemStack(Items.fish));
+        OreDictionary.registerOre("cropCactus", new ItemStack(Blocks.cactus));
 	}
 	private static Random randy;
 	
 	public static void countThoseCalories() {
 		
-		String[] orenames = OreDictionary.getOreNames();
+        String[] orenames = OreDictionary.getOreNames();
 		
 		List<String> rawCrops = new ArrayList<String>();
 		List<String> crops = new ArrayList<String>();
@@ -43,14 +47,14 @@ public class Mincer {
 		String orename;
 		for (int i=0; i<orenames.length; i++) {
 			orename = orenames[i];
-			if (orename.startsWith("crop")) {
+			if (orename.startsWith("crop") && !bannedCrop(orename)) {
 				rawCrops.add(orename);
 			}
-			if ((!orename.startsWith("food")) 
+			/*if ((!orename.startsWith("food"))
 				&& (!(orename.contains("cooked") || orename.contains("Cooked")))
 				&& (orename.contains("raw") || orename.contains("Raw"))
 				&& (orename.contains("meat") 
-				|| orename.contains("fish") 
+				|| orename.contains("fish")
 				|| orename.contains("lamb") 
 				|| orename.contains("chicken")
 				|| orename.contains("beef")
@@ -58,7 +62,7 @@ public class Mincer {
 				|| orename.contains("mutton")
 				|| orename.contains("venison"))) {
 				meatNames.add(orename);
-			}
+			}*/
 		}
 
 		//Lumberjack.info("End of ore crop names: "+rawCrops.size()+" names found.");
@@ -157,7 +161,7 @@ public class Mincer {
 		// Cosmic Meatball recipe
 		List<FoodInfo> meatSortingList = new ArrayList<FoodInfo>();
 		randy = new Random(54321);
-		
+
 		for (int i=0; i<knownMeatEntries.length; i++) {
 			if(OreDictionary.doesOreNameExist(knownMeatEntries[i])) {
 				List<ItemStack> meatstacks = OreDictionary.getOres(knownMeatEntries[i]);
@@ -176,6 +180,26 @@ public class Mincer {
 				}
 			}
 		}
+
+        if(Compat.twilight){
+            try {
+                Item venison = Compat.getItem("TwilightForest", "item.venisonRaw");
+                Item meef = Compat.getItem("TwilightForest", "item.meefRaw");
+                knownMeats.add(new ItemStack(venison));
+                knownMeats.add(new ItemStack(meef));
+            }
+            catch(Exception e){}
+        }
+
+        if(Compat.natura){
+            try {
+                Item imp = Compat.getItem("Natura", "impmeat");
+                knownMeats.add(new ItemStack(imp));
+            }
+            catch(Exception e){
+                Compat.natura = false;
+            }
+        }
 		
 		Lumberjack.info("rawMeats: "+rawMeats);
 		Lumberjack.info("knownMeats: "+knownMeats);
@@ -234,7 +258,7 @@ public class Mincer {
 		
 		// time to actually MAKE the damn thing...
 		
-		ShapelessOreRecipe meatballRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.cosmic_meatballs, makesmeatballs), new ItemStack(LudicrousItems.resource, 1, 2));
+		meatballRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.cosmic_meatballs, makesmeatballs), new ItemStack(LudicrousItems.resource, 1, 2));
 		
 		List<Object> meatballInputs = meatballRecipe.getInput();
 		
@@ -262,5 +286,13 @@ public class Mincer {
 			return this.orename+": "+this.count;
 		}
 	}
+
+    private static boolean bannedCrop(String crop){
+        for(String ban : forbiddenCropNames){
+            if(ban.equals(crop))
+                return true;
+        }
+        return false;
+    }
 	
 }

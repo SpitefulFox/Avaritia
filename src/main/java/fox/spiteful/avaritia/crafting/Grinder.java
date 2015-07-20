@@ -134,8 +134,18 @@ public class Grinder {
             ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 8), "blockSilver");
             catalyst.getInput().add(new ItemStack(LudicrousItems.singularity, 1, 8));
         }
-        if(!OreDictionary.getOres("blockPlatinum").isEmpty()){
-            catalyst.getInput().add(OreDictionary.getOres("blockPlatinum"));
+        if(!OreDictionary.getOres("blockNickel").isEmpty()){
+            ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 9), "blockNickel");
+            catalyst.getInput().add(new ItemStack(LudicrousItems.singularity, 1, 9));
+        }
+        if(!OreDictionary.getOres("blockEnderium").isEmpty()){
+            catalyst.getInput().add(OreDictionary.getOres("blockEnderium"));
+        }
+        if(!OreDictionary.getOres("blockSteel").isEmpty()){
+            catalyst.getInput().add(OreDictionary.getOres("blockSteel"));
+        }
+        if(!OreDictionary.getOres("ingotTartarite").isEmpty()){
+            catalyst.getInput().add(OreDictionary.getOres("ingotTartarite"));
         }
         
         ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.endest_pearl), new Object[]{

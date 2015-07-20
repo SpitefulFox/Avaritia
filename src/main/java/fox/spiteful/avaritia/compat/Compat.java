@@ -11,6 +11,7 @@ import fox.spiteful.avaritia.crafting.Grinder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
 public class Compat {
@@ -30,6 +31,11 @@ public class Compat {
     public static boolean pe = false;
     public static boolean tweak = false;
     public static boolean mfr = false;
+    public static boolean twilight = false;
+    public static boolean natura = false;
+    public static boolean magicrops = false;
+    public static boolean ganyland = false;
+    public static boolean pams = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
@@ -47,6 +53,11 @@ public class Compat {
         pe = Loader.isModLoaded("ProjectE");
         tweak = Loader.isModLoaded("MineTweaker3");
         mfr = Loader.isModLoaded("MineFactoryReloaded");
+        twilight = Loader.isModLoaded("TwilightForest");
+        natura = Loader.isModLoaded("Natura");
+        magicrops = Loader.isModLoaded("magicalcrops");
+        ganyland = Loader.isModLoaded("ganyssurface");
+        pams = Loader.isModLoaded("harvestcraft");
     }
 
     public static void compatify(){
@@ -246,6 +257,82 @@ public class Compat {
                 Lumberjack.log(Level.INFO, "Avaritia walked into the laser drill.");
                 e.printStackTrace();
                 mfr = false;
+            }
+        }
+
+        if(twilight){
+            try {
+                Item ironwood = getItem("TwilightForest", "item.ironwoodIngot");
+                ItemStack wood = new ItemStack(ironwood, 1);
+                Grinder.catalyst.getInput().add(wood);
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia was killed by a hydra.");
+                e.printStackTrace();
+                twilight = false;
+            }
+        }
+
+        if(magicrops){
+            try {
+                Item essence = getItem("magicalcrops", "magicalcrops_MagicEssence");
+                Item meat = getItem("magicalcrops", "magicalcrops_RawMeat");
+                Item crop = getItem("magicalcrops", "magicalcrops_CropProduce");
+                ItemStack extreme = new ItemStack(essence, 1, 4);
+                Grinder.catalyst.getInput().add(extreme);
+                OreDictionary.registerOre("cropBlackberry", new ItemStack(crop, 1, 0));
+                OreDictionary.registerOre("cropBlueberry", new ItemStack(crop, 1, 1));
+                OreDictionary.registerOre("cropChilipepper", new ItemStack(crop, 1, 2));
+                OreDictionary.registerOre("cropCucumber", new ItemStack(crop, 1, 3));
+                OreDictionary.registerOre("cropGrape", new ItemStack(crop, 1, 4));
+                OreDictionary.registerOre("cropRaspberry", new ItemStack(crop, 1, 5));
+                OreDictionary.registerOre("cropStrawberry", new ItemStack(crop, 1, 6));
+                OreDictionary.registerOre("cropCorn", new ItemStack(crop, 1, 7));
+                OreDictionary.registerOre("cropTomato", new ItemStack(crop, 1, 8));
+                OreDictionary.registerOre("rawMutton", new ItemStack(meat, 1, 0));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia got bored of waiting for magical crops to grow.");
+                e.printStackTrace();
+                magicrops = false;
+            }
+        }
+
+        if(ganyland){
+            try {
+                Item mutton = getItem("ganyssurface", "mutton_raw");
+                OreDictionary.registerOre("rawMutton", new ItemStack(mutton, 1, 0));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia forgot which Gany's mod it was dealing with.");
+                e.printStackTrace();
+                ganyland = false;
+            }
+        }
+
+        if(pams){
+            try {
+                Item mutton = getItem("harvestcraft", "muttonrawItem");
+                Item beet = getItem("harvestcraft", "beetItem");
+                OreDictionary.registerOre("rawMutton", new ItemStack(mutton, 1, 0));
+                OreDictionary.registerOre("cropBeetroot", new ItemStack(beet, 1, 0));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia got overwhelmed by all the food choices. D:");
+                e.printStackTrace();
+                pams = false;
+            }
+        }
+
+        if(natura){
+            try {
+                Item barley = getItem("Natura", "barleyFood");
+                OreDictionary.registerOre("cropBarley", new ItemStack(barley, 1, 0));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia got overwhelmed by all the food choices. D:");
+                e.printStackTrace();
+                pams = false;
             }
         }
 
