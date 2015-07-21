@@ -57,7 +57,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
             stupidMojangProtectedVariable.setInt(victim, 60);
         }
         catch(Exception e){
-            Lumberjack.log(Level.ERROR, e);
+            Lumberjack.log(Level.ERROR, e, "WHAT THE FUCK");
         }
         victim.func_110142_aN().func_94547_a(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
         victim.setHealth(0);

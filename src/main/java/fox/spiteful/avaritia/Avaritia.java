@@ -70,5 +70,6 @@ public class Avaritia {
         Mincer.countThoseCalories();
         Grinder.lastMinuteChanges();
         Achievements.achieve();
+        PotionHelper.healthInspection();
     }
 }
