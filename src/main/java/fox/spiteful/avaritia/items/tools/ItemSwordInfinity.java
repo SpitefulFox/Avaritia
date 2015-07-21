@@ -53,6 +53,16 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     {
         if(player.worldObj.isRemote)
             return true;
+        if(victim instanceof EntityPlayer){
+            EntityPlayer pvp = (EntityPlayer)victim;
+            if(LudicrousItems.isInfinite(pvp)){
+                victim.attackEntityFrom(new DamageSourceInfinitySword(player).setDamageBypassesArmor(), 4.0F);
+                return true;
+            }
+            if(pvp.getHeldItem() != null && pvp.getHeldItem().getItem() == LudicrousItems.infinity_sword && pvp.isUsingItem())
+                return true;
+        }
+
         try {
             stupidMojangProtectedVariable.setInt(victim, 60);
         }

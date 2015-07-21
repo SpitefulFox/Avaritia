@@ -5,6 +5,7 @@ import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordSkulls;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -63,5 +64,16 @@ public class LudicrousItems {
         GameRegistry.registerItem(infinity_pants, "Infinity_Pants");
         infinity_shoes = new ItemArmorInfinity(3);
         GameRegistry.registerItem(infinity_shoes, "Infinity_Shoes");
+    }
+
+    public static boolean isInfinite(EntityPlayer player){
+        if(player.getEquipmentInSlot(1) == null || player.getEquipmentInSlot(2) == null
+                || player.getEquipmentInSlot(3) == null || player.getEquipmentInSlot(4) == null)
+            return false;
+        if(player.getEquipmentInSlot(1).getItem() == infinity_shoes && player.getEquipmentInSlot(2).getItem() == infinity_pants
+                && player.getEquipmentInSlot(3).getItem() == infinity_armor && player.getEquipmentInSlot(4).getItem() == infinity_helm)
+            return true;
+        else
+            return false;
     }
 }

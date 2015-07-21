@@ -96,6 +96,55 @@ public class Grinder {
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4)});
 
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_armor), new Object[]{
+                " NN   NN ",
+                "NNN   NNN",
+                "NNN   NNN",
+                " NIIIIIN ",
+                " NIIXIIN ",
+                " NIIIIIN ",
+                " NIIIIIN ",
+                " NIIIIIN ",
+                "  NNNNN  ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_helm), new Object[]{
+                "  NNNNN  ",
+                " NIIXIIN ",
+                " N  I  N ",
+                " NIIIIIN ",
+                " NIIIIIN ",
+                " NI I IN ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_pants), new Object[]{
+                "NNNNNNNNN",
+                "NIIIXIIIN",
+                "NINNXNNIN",
+                "NIN   NIN",
+                "NIN   NIN",
+                "NIN   NIN",
+                "NIN   NIN",
+                "NIN   NIN",
+                "NNN   NNN",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_shoes), new Object[]{
+                " NNN NNN ",
+                " NIN NIN ",
+                " NIN NIN ",
+                "NNIN NINN",
+                "NIIN NIIN",
+                "NNNN NNNN",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+
         ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.skull_sword), new Object[]{
                 "       IX",
                 "      IXI",

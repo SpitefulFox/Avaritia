@@ -109,14 +109,8 @@ public class LudicrousEvents {
         EntityPlayer player = (EntityPlayer)event.entityLiving;
         if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.infinity_sword && player.isUsingItem())
             event.setCanceled(true);
-        if(player.getEquipmentInSlot(1) != null && player.getEquipmentInSlot(2) != null && player.getEquipmentInSlot(3) != null
-                && player.getEquipmentInSlot(4) != null){
-            if(player.getEquipmentInSlot(1).getItem() instanceof ItemArmorInfinity &&
-                    player.getEquipmentInSlot(2).getItem() instanceof ItemArmorInfinity &&
-                    player.getEquipmentInSlot(3).getItem() instanceof ItemArmorInfinity &&
-                    player.getEquipmentInSlot(4).getItem() instanceof ItemArmorInfinity)
-                event.setCanceled(true);
-        }
+        if(LudicrousItems.isInfinite(player) && !event.source.damageType.equals("infinity"))
+            event.setCanceled(true);
     }
 
     @SubscribeEvent
