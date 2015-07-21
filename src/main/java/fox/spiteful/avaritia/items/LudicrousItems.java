@@ -26,6 +26,11 @@ public class LudicrousItems {
     public static Item cosmic_meatballs;
     public static Item endest_pearl;
 
+    public static Item infinity_helm;
+    public static Item infinity_armor;
+    public static Item infinity_pants;
+    public static Item infinity_shoes;
+
     public static Item akashic_record;
     public static Item armok_orb;
     
@@ -50,5 +55,13 @@ public class LudicrousItems {
         GameRegistry.registerItem(cosmic_meatballs, "Cosmic_Meatballs");
         endest_pearl = new ItemEndestPearl();
         GameRegistry.registerItem(endest_pearl, "Endest_Pearl");
+        infinity_helm = new ItemArmorInfinity(0);
+        GameRegistry.registerItem(infinity_helm, "Infinity_Helm");
+        infinity_armor = new ItemArmorInfinity(1);
+        GameRegistry.registerItem(infinity_armor, "Infinity_Chest");
+        infinity_pants = new ItemArmorInfinity(2);
+        GameRegistry.registerItem(infinity_pants, "Infinity_Pants");
+        infinity_shoes = new ItemArmorInfinity(3);
+        GameRegistry.registerItem(infinity_shoes, "Infinity_Shoes");
     }
 }

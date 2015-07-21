@@ -26,6 +26,10 @@ item.orb_armok.name=Blood Orb of Armok
 item.avaritia_stew.name=Ultimate Stew
 item.avaritia_meatballs.name=Cosmic Meatballs
 item.avaritia_endest_pearl.name=Endest Pearl
+item.infinity_armor_0.name=Infinity Helmet
+item.infinity_armor_1.name=Infinity Breastplate
+item.infinity_armor_2.name=Infinity Pants
+item.infinity_armor_3.name=Infinity Boots
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table

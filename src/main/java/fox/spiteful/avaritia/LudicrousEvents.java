@@ -1,6 +1,7 @@
 package fox.spiteful.avaritia;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import fox.spiteful.avaritia.items.ItemArmorInfinity;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import net.minecraft.block.Block;
@@ -108,6 +109,14 @@ public class LudicrousEvents {
         EntityPlayer player = (EntityPlayer)event.entityLiving;
         if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.infinity_sword && player.isUsingItem())
             event.setCanceled(true);
+        if(player.getEquipmentInSlot(1) != null && player.getEquipmentInSlot(2) != null && player.getEquipmentInSlot(3) != null
+                && player.getEquipmentInSlot(4) != null){
+            if(player.getEquipmentInSlot(1).getItem() instanceof ItemArmorInfinity &&
+                    player.getEquipmentInSlot(2).getItem() instanceof ItemArmorInfinity &&
+                    player.getEquipmentInSlot(3).getItem() instanceof ItemArmorInfinity &&
+                    player.getEquipmentInSlot(4).getItem() instanceof ItemArmorInfinity)
+                event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
