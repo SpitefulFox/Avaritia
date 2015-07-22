@@ -28,13 +28,13 @@ public final class ShaderHelper {
 	private static final int FRAG = ARBFragmentShader.GL_FRAGMENT_SHADER_ARB;
 	private static final String PREFIX = "/assets/avaritia/shader/";
 
-	public static int testShader = 0;
+	public static int cosmicShader = 0;
 
 	public static void initShaders() {
 		if(!useShaders())
 			return;
 		
-		testShader = createProgram("cosmic.vert", "cosmic.frag");
+		cosmicShader = createProgram("cosmic.vert", "cosmic.frag");
 	}
 
 	public static void useShader(int shader, ShaderCallback callback) {

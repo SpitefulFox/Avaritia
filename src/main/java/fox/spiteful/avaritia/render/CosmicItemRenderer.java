@@ -1,13 +1,9 @@
 package fox.spiteful.avaritia.render;
 
-import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -20,50 +16,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.IItemRenderer;
 
 public class CosmicItemRenderer implements IItemRenderer {
-
-	private final ShaderCallback shaderCallback;
-	private float[] lightlevel = new float[3];
-	
-	private String[] lightmapobf = new String[] {"lightmapColors", "field_78504_Q", "U"};
-	private static boolean inventoryRender = false;
-	
-	public CosmicItemRenderer() {
-		shaderCallback = new ShaderCallback() {
-			@Override
-			public void call(int shader) {
-				Minecraft mc = Minecraft.getMinecraft();
-
-				float yaw = 0;
-				float pitch = 0;
-				float scale = 1.0f;
-				
-				if (!inventoryRender) {
-					yaw = (float)((mc.thePlayer.rotationYaw * 2 * Math.PI) / 360.0);
-					pitch = - (float)((mc.thePlayer.rotationPitch * 2 * Math.PI) / 360.0);
-				} else {
-					scale = 25.0f;
-				}
-				
-				int x = ARBShaderObjects.glGetUniformLocationARB(shader, "yaw");
-				ARBShaderObjects.glUniform1fARB(x, yaw);
-				
-				int z = ARBShaderObjects.glGetUniformLocationARB(shader, "pitch");
-				ARBShaderObjects.glUniform1fARB(z, pitch);
-				
-				int l = ARBShaderObjects.glGetUniformLocationARB(shader, "lightlevel");
-				ARBShaderObjects.glUniform3fARB(l, lightlevel[0], lightlevel[1], lightlevel[2]);
-				
-				int lightmix = ARBShaderObjects.glGetUniformLocationARB(shader, "lightmix");
-				ARBShaderObjects.glUniform1fARB(lightmix, 0.2f);
-				
-				int uvs = ARBShaderObjects.glGetUniformLocationARB(shader, "cosmicuvs");
-				ARBShaderObjects.glUniformMatrix2ARB(uvs, false, LudicrousRenderEvents.cosmicUVs);
-				
-				int s = ARBShaderObjects.glGetUniformLocationARB(shader, "externalScale");
-				ARBShaderObjects.glUniform1fARB(s, scale);
-			}
-		};
-	}
 	
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -120,8 +72,8 @@ public class CosmicItemRenderer implements IItemRenderer {
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
 				GL11.glDisable(GL11.GL_DEPTH_TEST);
 				
-				inventoryRender = true;
-				ShaderHelper.useShader(ShaderHelper.testShader, this.shaderCallback);
+				CosmicRenderShenanigans.inventoryRender = true;
+				CosmicRenderShenanigans.useShader();
 				ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
 				IIcon cosmicicon = icri.getMaskTexture(item);
 				
@@ -141,8 +93,8 @@ public class CosmicItemRenderer implements IItemRenderer {
 				t.addVertexWithUV(16, 0, 0, maxu, minv);
 				t.draw();
 				
-				ShaderHelper.releaseShader();
-				inventoryRender = false;
+				CosmicRenderShenanigans.releaseShader();
+				CosmicRenderShenanigans.inventoryRender = false;
 			}
 			
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -202,7 +154,7 @@ public class CosmicItemRenderer implements IItemRenderer {
         }
 		
 		if (item.getItem() instanceof ICosmicRenderItem) {
-			ShaderHelper.useShader(ShaderHelper.testShader, this.shaderCallback);
+			CosmicRenderShenanigans.useShader();
 			ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
 			IIcon cosmicicon = icri.getMaskTexture(item);
 			
@@ -211,7 +163,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 			float minv = cosmicicon.getMinV();
 			float maxv = cosmicicon.getMaxV();
 			ItemRenderer.renderItemIn2D(Tessellator.instance, maxu, minv, minu, maxv, cosmicicon.getIconWidth(), cosmicicon.getIconHeight(), scale);
-			ShaderHelper.releaseShader();
+			CosmicRenderShenanigans.releaseShader();
 		}
 		
 		GL11.glDisable(GL11.GL_BLEND);
@@ -221,56 +173,36 @@ public class CosmicItemRenderer implements IItemRenderer {
 	}
 
 	public void processLightLevel(ItemRenderType type, ItemStack item, Object... data) {
-		int lightcoord = 0;
-		
 		switch(type) {
 		case ENTITY : {
 			EntityItem ent = (EntityItem)(data[1]);
 			if (ent != null) {
-				lightcoord = ent.worldObj.getLightBrightnessForSkyBlocks(MathHelper.floor_double(ent.posX), MathHelper.floor_double(ent.posY), MathHelper.floor_double(ent.posZ), 0);
+				CosmicRenderShenanigans.setLightFromLocation(ent.worldObj, MathHelper.floor_double(ent.posX), MathHelper.floor_double(ent.posY), MathHelper.floor_double(ent.posZ));
 			}
 			break;
 		}
 		case EQUIPPED : {
 			EntityLivingBase ent = (EntityLivingBase)(data[1]);
 			if (ent != null) {
-				lightcoord = ent.worldObj.getLightBrightnessForSkyBlocks(MathHelper.floor_double(ent.posX), MathHelper.floor_double(ent.posY), MathHelper.floor_double(ent.posZ), 0);
+				CosmicRenderShenanigans.setLightFromLocation(ent.worldObj, MathHelper.floor_double(ent.posX), MathHelper.floor_double(ent.posY), MathHelper.floor_double(ent.posZ));
 			}
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON : {
 			EntityLivingBase ent = (EntityLivingBase)(data[1]);
 			if (ent != null) {
-				lightcoord = ent.worldObj.getLightBrightnessForSkyBlocks(MathHelper.floor_double(ent.posX), MathHelper.floor_double(ent.posY), MathHelper.floor_double(ent.posZ), 0);
+				CosmicRenderShenanigans.setLightFromLocation(ent.worldObj, MathHelper.floor_double(ent.posX), MathHelper.floor_double(ent.posY), MathHelper.floor_double(ent.posZ));
 			}
 			break;
 		}
 		case INVENTORY: {
-			lightcoord = 0;
-			this.lightlevel[0] = 1.2f;
-	        this.lightlevel[1] = 1.2f;
-	        this.lightlevel[2] = 1.2f;
+			CosmicRenderShenanigans.setLightLevel(1.2f);
 			return;
 		}
 		default : {
-			lightcoord = 0;
-			this.lightlevel[0] = 1.0f;
-	        this.lightlevel[1] = 1.0f;
-	        this.lightlevel[2] = 1.0f;
+	        CosmicRenderShenanigans.setLightLevel(1.0f);
 			return;
 		}
 		}
-		
-		int x = (lightcoord % 65536) / 16;
-        int y = (lightcoord / 65536) / 16;
-        
-        int[] lightmap = ReflectionHelper.getPrivateValue(EntityRenderer.class, Minecraft.getMinecraft().entityRenderer, this.lightmapobf);
-        
-        int lightcolour = lightmap[y*16+x];
-        
-        this.lightlevel[0] = ((lightcolour >> 16) & 0xFF) / 256.0f;
-        this.lightlevel[1] = ((lightcolour >> 8) & 0xFF) / 256.0f;
-        this.lightlevel[2] = ((lightcolour) & 0xFF) / 256.0f;
-
 	}
 }
