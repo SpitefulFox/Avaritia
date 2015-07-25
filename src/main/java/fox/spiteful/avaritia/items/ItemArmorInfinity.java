@@ -28,8 +28,10 @@ import java.util.Collection;
 public class ItemArmorInfinity extends ItemArmor {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
+    @SideOnly(Side.CLIENT)
     public static final ModelArmorInfinity armorModel = new ModelArmorInfinity(1.0f);
-    public static final ModelArmorInfinity legModel = new ModelArmorInfinity(0.5f);
+    @SideOnly(Side.CLIENT)
+    public static final ModelArmorInfinity legModel = new ModelArmorInfinity(0.5f).setLegs(true);
 
     public ItemArmorInfinity(int slot){
         super(infinite_armor, 0, slot);
@@ -41,9 +43,9 @@ public class ItemArmorInfinity extends ItemArmor {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
     {
-        if(slot == 2)
-            return "avaritia:textures/models/infinity_pants.png";
-        else
+        //if(slot == 2)
+        //    return "avaritia:textures/models/infinity_pants.png";
+        //else
             return "avaritia:textures/models/infinity_armor.png";
     }
 
@@ -96,42 +98,7 @@ public class ItemArmorInfinity extends ItemArmor {
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemstack, int armorSlot){
         ModelArmorInfinity model = armorSlot == 2 ? legModel : armorModel;
 
-        model.bipedHead.showModel = armorSlot == 0;
-        model.bipedHeadwear.showModel = armorSlot == 0;
-        model.bipedBody.showModel = armorSlot == 1;
-        model.bipedRightArm.showModel = armorSlot == 1;
-        model.bipedLeftArm.showModel = armorSlot == 1;
-        model.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3;
-        model.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3;
-
-        model.isSneak = entityLiving.isSneaking();
-        model.isRiding = entityLiving.isRiding();
-        model.isChild = entityLiving.isChild();
-
-        model.heldItemRight = 0;
-        model.aimedBow = false;
-
-        EntityPlayer player = (EntityPlayer)entityLiving;
-
-        ItemStack held_item = player.getEquipmentInSlot(0);
-
-        if (held_item != null){
-            model.heldItemRight = 1;
-
-            if (player.getItemInUseCount() > 0){
-
-                EnumAction enumaction = held_item.getItemUseAction();
-
-                if (enumaction == EnumAction.bow){
-                    model.aimedBow = true;
-                }else if (enumaction == EnumAction.block){
-                    model.heldItemRight = 3;
-                }
-
-
-            }
-
-        }
+        model.update(entityLiving, itemstack, armorSlot);
 
         return model;
     }

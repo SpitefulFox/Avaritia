@@ -3,11 +3,15 @@ package fox.spiteful.avaritia.render;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
+import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.items.ItemArmorInfinity;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 
 public class LudicrousRenderEvents {
@@ -33,7 +37,21 @@ public class LudicrousRenderEvents {
 			cosmicIcons[i] = icon;
 		}
 		
+		ModelArmorInfinity.overlayIcon = event.map.registerIcon("avaritia:infinity_armor_mask");
+		ModelArmorInfinity.invulnOverlayIcon = event.map.registerIcon("avaritia:infinity_armor_mask2");
 		//Lumberjack.log(Level.INFO, "COSMIC QUILTING: "+Arrays.toString(cosmicIcons));
+	}
+	
+	@SubscribeEvent
+	public void weMadeAQuilt(TextureStitchEvent.Post event) {
+		if (event.map.getTextureType() == 0) { return; }
+		
+		CosmicRenderShenanigans.bindItemTexture();
+		ModelArmorInfinity.itempagewidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+		ModelArmorInfinity.itempageheight = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
+		
+		ItemArmorInfinity.armorModel.rebuildOverlay();
+		ItemArmorInfinity.legModel.rebuildOverlay();
 	}
 	
 	@SubscribeEvent
@@ -51,5 +69,15 @@ public class LudicrousRenderEvents {
 			}
 			cosmicUVs.flip();
 		}
+	}
+	
+	@SubscribeEvent
+	public void makeCosmicStuffLessDumbInGUIs(GuiScreenEvent.DrawScreenEvent.Pre event) {
+		CosmicRenderShenanigans.inventoryRender = true;
+	}
+	
+	@SubscribeEvent
+	public void finishMakingCosmicStuffLessDumbInGUIs(GuiScreenEvent.DrawScreenEvent.Post event) {
+		CosmicRenderShenanigans.inventoryRender = false;
 	}
 }
