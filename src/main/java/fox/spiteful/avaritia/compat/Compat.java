@@ -36,6 +36,7 @@ public class Compat {
     public static boolean magicrops = false;
     public static boolean ganyland = false;
     public static boolean pams = false;
+    public static boolean am2 = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
@@ -58,6 +59,7 @@ public class Compat {
         magicrops = Loader.isModLoaded("magicalcrops");
         ganyland = Loader.isModLoaded("ganyssurface");
         pams = Loader.isModLoaded("harvestcraft");
+        am2 = Loader.isModLoaded("arsmagica2");
     }
 
     public static void compatify(){
@@ -332,7 +334,21 @@ public class Compat {
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia got overwhelmed by all the food choices. D:");
                 e.printStackTrace();
-                pams = false;
+                natura = false;
+            }
+        }
+
+        if(am2){
+            try {
+                Item gem = getItem("arsmagica2", "itemOre");
+                Item essence = getItem("arsmagica2", "essence");
+
+                Grinder.catalyst.getInput().add(new ItemStack(essence, 1, 10));
+                Grinder.catalyst.getInput().add(new ItemStack(gem, 1, 6));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, e, "Avaritia got sick of the arcane guardian's healspam.");
+                am2 = false;
             }
         }
 

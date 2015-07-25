@@ -11,12 +11,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import org.apache.logging.log4j.Level;
 
 public class Mincer {
     public static ShapelessOreRecipe meatballRecipe;
 
 	// here's where all the food magic goes on
-	private static String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus"};
+	private static String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown"};
     private static String[] forbiddenCropNames = new String[] {"cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton"};
 	private static String[] knownMeatEntries = new String[]{"nuggetMeat", "ingotMeat", "dustMeat", "rawMutton"};
 	private static List<ItemStack> knownMeats = new ArrayList<ItemStack>();
@@ -31,6 +32,8 @@ public class Mincer {
 		}*/
 		knownMeats.add(new ItemStack(Items.fish));
         OreDictionary.registerOre("cropCactus", new ItemStack(Blocks.cactus));
+        OreDictionary.registerOre("cropMushroomRed", new ItemStack(Blocks.red_mushroom));
+        OreDictionary.registerOre("cropMushroomBrown", new ItemStack(Blocks.brown_mushroom));
 	}
 	private static Random randy;
 	
@@ -198,6 +201,17 @@ public class Mincer {
             }
             catch(Exception e){
                 Compat.natura = false;
+            }
+        }
+
+        if(Compat.am2){
+            try {
+                Item stuff = Compat.getItem("arsmagica2", "itemOre");
+                knownMeats.add(new ItemStack(stuff, 1, 8));
+            }
+            catch(Exception e){
+                Lumberjack.log(Level.INFO, e, "Avaritia got sick of the arcane guardian's healspam.");
+                Compat.am2 = false;
             }
         }
 		

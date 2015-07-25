@@ -80,7 +80,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     {
         if(!entity.worldObj.isRemote && entity instanceof EntityPlayer) {
             EntityPlayer victim = (EntityPlayer)entity;
-            if(victim.capabilities.isCreativeMode && !victim.isDead && victim.getHealth() > 0){
+            if(victim.capabilities.isCreativeMode && !victim.isDead && victim.getHealth() > 0 && !LudicrousItems.isInfinite(victim)){
                 victim.func_110142_aN().func_94547_a(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
                 victim.setHealth(0);
                 victim.onDeath(new EntityDamageSource("infinity", player));
