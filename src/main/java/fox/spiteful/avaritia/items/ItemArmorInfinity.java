@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.items;
 
+import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.render.ModelArmorInfinity;
@@ -7,15 +8,15 @@ import net.minecraft.client.model.ModelBiped;
 import fox.spiteful.avaritia.PotionHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
 import org.apache.logging.log4j.Level;
 
@@ -101,6 +102,17 @@ public class ItemArmorInfinity extends ItemArmor {
         model.update(entityLiving, itemstack, armorSlot);
 
         return model;
+    }
+
+    @Override
+    public Multimap getAttributeModifiers(ItemStack stack)
+    {
+        Multimap multimap = super.getAttributeModifiers(stack);
+        if(armorType == 2)
+            multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 1.0, 1));
+        if(armorType == 3)
+            multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 0.7, 1));
+        return multimap;
     }
 
 }

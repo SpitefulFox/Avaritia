@@ -67,7 +67,7 @@ public class LudicrousEvents {
                             && drop.getItem() != Item.getItemFromBlock(Blocks.netherrack)
                             && !(FurnaceRecipes.smelting().getSmeltingResult(drop).getItem() instanceof ItemBlock)){
                         ItemStack smelt = FurnaceRecipes.smelting().getSmeltingResult(drop).copy();
-                        smelt.stackSize = Math.min(drop.stackSize * 8, drop.getMaxStackSize());
+                        smelt.stackSize = Math.min(drop.stackSize * 10, drop.getMaxStackSize());
                         adds.add(smelt);
                         removals.add(drop);
                     }

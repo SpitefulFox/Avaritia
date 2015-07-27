@@ -92,3 +92,7 @@ avaritia.flower.asgardandelion.name=Asgardandelion
 tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
 avaritia.lexicon.asgardandelion=Asgardandelion
 avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a neverending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reasoning.<br>&oStill not a SAO reference.&r
+#
+# Thaumcraft
+item.Wand.infinity.rod=Cosmic Neutronium
+item.Wand.matrix.cap=Crystal Studded

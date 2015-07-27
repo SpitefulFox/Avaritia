@@ -2,17 +2,25 @@ package fox.spiteful.avaritia.compat.thaumcraft;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
+import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.wands.WandCap;
+import thaumcraft.api.wands.WandRod;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class Lucrum {
 
     public static Aspect ULTRA_DEATH;
+    public static WandRod WAND_ROD_NEUTRONIUM;
+    public static WandCap WAND_CAP_CRYSTAL;
 
     public static void abracadabra(){
         ULTRA_DEATH = new Aspect("terminus", 0xb90000, new Aspect[] { Aspect.GREED, Aspect.ELDRITCH }, new ResourceLocation("avaritia", "textures/misc/terminus.png"), 771);
@@ -36,6 +44,29 @@ public class Lucrum {
         ThaumcraftApi.registerObjectTag(new ItemStack(LudicrousItems.singularity, 1, 8), new AspectList().add(ULTRA_DEATH, 3).add(Aspect.METAL, 100));
         ThaumcraftApi.registerObjectTag(new ItemStack(LudicrousItems.infinity_sword), new AspectList().add(ULTRA_DEATH, 60).add(Aspect.WEAPON, 999).add(Aspect.DEATH, 999).add(Aspect.ELDRITCH, 100));
         ThaumcraftApi.registerComplexObjectTag(new ItemStack(LudicrousItems.skull_sword), new AspectList().add(ULTRA_DEATH, 1).add(Aspect.FIRE, 2).add(Aspect.CRYSTAL, 16).add(Aspect.DEATH, 4));
+
+        WAND_ROD_NEUTRONIUM = new WandRod("infinity", 9999999, new ItemStack(LudicrousBlocks.resource_block, 1, 0), 9999, new CheatyWandUpdate(), new ResourceLocation("avaritia", "textures/models/wand_rod_neutronium.png"));
+        WAND_ROD_NEUTRONIUM.setGlowing(true);
+        WAND_CAP_CRYSTAL = new WandCap("matrix", 0.0F, new ItemStack(Blocks.command_block), 1000);
+        WAND_CAP_CRYSTAL.setTexture(new ResourceLocation("avaritia", "textures/models/wand_cap_crystal.png"));
+
+        ItemStack wand = new ItemStack(ConfigItems.itemWandCasting, 1, 9000);
+        ((ItemWandCasting)ConfigItems.itemWandCasting).setRod(wand, WAND_ROD_NEUTRONIUM);
+        ((ItemWandCasting)ConfigItems.itemWandCasting).setCap(wand, WAND_CAP_CRYSTAL);
+
+        ExtremeCraftingManager.getInstance().addRecipe(wand, new Object[]{
+                "      C  ",
+                "     CIC ",
+                "     NIIC",
+                "    NINC ",
+                "   NIN   ",
+                " CNIN    ",
+                "CIIN     ",
+                " CIC     ",
+                "  C      ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'C', new ItemStack(LudicrousItems.resource, 1, 1),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
 
     }
 

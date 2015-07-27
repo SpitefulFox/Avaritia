@@ -49,8 +49,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player)
-    {
+    public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player){
         if(player.worldObj.isRemote)
             return true;
         if(victim instanceof EntityPlayer){
@@ -67,7 +66,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
             stupidMojangProtectedVariable.setInt(victim, 60);
         }
         catch(Exception e){
-            Lumberjack.log(Level.ERROR, e, "WHAT THE FUCK");
+            Lumberjack.log(Level.ERROR, e, "The sword isn't reflecting right! Polish it!");
         }
         victim.func_110142_aN().func_94547_a(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
         victim.setHealth(0);
@@ -76,8 +75,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     }
 
     @Override
-    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
-    {
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity){
         if(!entity.worldObj.isRemote && entity instanceof EntityPlayer) {
             EntityPlayer victim = (EntityPlayer)entity;
             if(victim.capabilities.isCreativeMode && !victim.isDead && victim.getHealth() > 0 && !LudicrousItems.isInfinite(victim)){
@@ -117,8 +115,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     }
 
     @Override
-    public IIcon getIcon(ItemStack stack, int pass)
-    {
+    public IIcon getIcon(ItemStack stack, int pass){
     	if (pass == 1) { return this.pommel; }
 
     	return super.getIcon(stack, pass);
