@@ -39,7 +39,7 @@ public class LudicrousRenderEvents {
 		
 		ModelArmorInfinity.overlayIcon = event.map.registerIcon("avaritia:infinity_armor_mask");
 		ModelArmorInfinity.invulnOverlayIcon = event.map.registerIcon("avaritia:infinity_armor_mask2");
-		//Lumberjack.log(Level.INFO, "COSMIC QUILTING: "+Arrays.toString(cosmicIcons));
+		ModelArmorInfinity.wingOverlayIcon = event.map.registerIcon("avaritia:infinity_armor_wingmask");
 	}
 	
 	@SubscribeEvent

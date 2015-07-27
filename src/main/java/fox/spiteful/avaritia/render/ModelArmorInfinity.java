@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.render;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
@@ -23,10 +24,16 @@ public class ModelArmorInfinity extends ModelBiped {
 	public static IIcon overlayIcon = null;
 	public static IIcon invulnOverlayIcon = null;
 	public static IIcon eyesIcon = null;
+	public static IIcon wingOverlayIcon = null;
+	
 	public static ResourceLocation eyeTex = new ResourceLocation("avaritia","textures/models/infinity_armor_eyes.png");
+	public static ResourceLocation wingTex = new ResourceLocation("avaritia","textures/models/infinity_armor_wing.png");
+	public static ResourceLocation wingGlowTex = new ResourceLocation("avaritia","textures/models/infinity_armor_wingglow.png");
 	public static int itempagewidth = 0;
 	public static int itempageheight = 0;
 	public boolean legs = false;
+	
+	public int currentSlot = 0;
 	
 	private Random randy = new Random();
 	
@@ -35,6 +42,9 @@ public class ModelArmorInfinity extends ModelBiped {
 	private boolean invulnRender = true;
 	
 	private float expand;
+	
+	public ModelRenderer bipedLeftWing;
+	public ModelRenderer bipedRightWing;
 	
 	public ModelArmorInfinity(float expand) {
 		super(expand, 0, 64,64);
@@ -67,9 +77,39 @@ public class ModelArmorInfinity extends ModelBiped {
 		return this;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public void rebuildWings() {
+		
+		// remove the old items from the list so that the new ones don't just stack up
+		if (this.bipedBody.childModels == null) {
+			this.bipedBody.childModels = new ArrayList();
+		}
+		if (this.bipedLeftWing != null) {
+			this.bipedBody.childModels.remove(this.bipedLeftWing);
+		}
+		if (this.bipedRightWing != null) {
+			this.bipedBody.childModels.remove(this.bipedRightWing);
+		}
+		
+		// define new 
+		this.bipedLeftWing = new ModelRendererWing(this, 0,0);
+		this.bipedLeftWing.mirror = true;
+		this.bipedLeftWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+		this.bipedLeftWing.setRotationPoint(-1.5f, 0.0f, 2.0f);
+		this.bipedLeftWing.rotateAngleY = (float) (Math.PI*0.4);
+		this.bipedBody.addChild(this.bipedLeftWing);
+		
+		this.bipedRightWing = new ModelRendererWing(this, 0,0);
+		this.bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+		this.bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
+		this.bipedRightWing.rotateAngleY = (float) (-Math.PI*0.4);
+		this.bipedBody.addChild(this.bipedRightWing);
+	}
+	
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		Minecraft mc = Minecraft.getMinecraft();
+		boolean isFlying = entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying && entity.isAirBorne;
 		
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		
@@ -119,9 +159,45 @@ public class ModelArmorInfinity extends ModelBiped {
 		
 		mc.entityRenderer.enableLightmap(0.0);
 		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glColor4d(1,1,1,1);
+		
+		// WINGS
+		if (isFlying && !CosmicRenderShenanigans.inventoryRender) {
+			this.setWings();
+			mc.renderEngine.bindTexture(wingTex);
+			super.render(entity, f, f1, f2, f3, f4, f5);
+			
+			CosmicRenderShenanigans.useShader();
+			CosmicRenderShenanigans.bindItemTexture();
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glDepthMask(false);
+			this.overlay.render(entity, f, f1, f2, f3, f4, f5);
+
+			CosmicRenderShenanigans.releaseShader();
+			
+			mc.renderEngine.bindTexture(wingGlowTex);
+			GL11.glDisable(GL11.GL_LIGHTING);
+			mc.entityRenderer.disableLightmap(0.0);
+			
+			GL11.glColor4d(0.84, 1, 0.95, pulse*pulse*pulse*pulse*pulse*pulse*0.5);
+			
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+			super.render(entity, f, f1, f2, f3, f4, f5);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			
+			GL11.glDepthMask(true);
+			GL11.glDisable(GL11.GL_BLEND);
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
+			mc.entityRenderer.enableLightmap(0.0);
+			GL11.glEnable(GL11.GL_LIGHTING);
+			GL11.glColor4d(1,1,1,1);
+		}
 	}
 	
 	public void update(EntityLivingBase entityLiving, ItemStack itemstack, int armorSlot) {
+		this.currentSlot = armorSlot;
+		
 		this.bipedHead.showModel = armorSlot == 0;
         this.bipedHeadwear.showModel = armorSlot == 0;
         this.bipedBody.showModel = armorSlot == 1 || armorSlot == 2;
@@ -137,6 +213,11 @@ public class ModelArmorInfinity extends ModelBiped {
         this.overlay.bipedLeftArm.showModel = armorSlot == 1;
         this.overlay.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3;
         this.overlay.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3;
+        
+        this.bipedLeftWing.showModel = false;
+        this.bipedRightWing.showModel = false;
+        this.overlay.bipedLeftWing.showModel = false;
+        this.overlay.bipedRightWing.showModel = false;
         
         this.isSneak = entityLiving.isSneaking();
         this.isRiding = entityLiving.isRiding();
@@ -159,32 +240,34 @@ public class ModelArmorInfinity extends ModelBiped {
         this.invulnOverlay.heldItemRight = 0;
         this.invulnOverlay.aimedBow = false;
 
-        EntityPlayer player = (EntityPlayer)entityLiving;
-        
-        ItemStack held_item = player.getEquipmentInSlot(0);
-
-        if (held_item != null){
-            this.heldItemRight = 1;
-            this.overlay.heldItemRight = 1;
-            this.invulnOverlay.heldItemRight = 1;
-
-            if (player.getItemInUseCount() > 0){
-
-                EnumAction enumaction = held_item.getItemUseAction();
-
-                if (enumaction == EnumAction.bow){
-                    this.aimedBow = true;
-                    this.overlay.aimedBow = true;
-                    this.invulnOverlay.aimedBow = true;
-                }else if (enumaction == EnumAction.block){
-                    this.heldItemRight = 3;
-                    this.overlay.heldItemRight = 3;
-                    this.invulnOverlay.heldItemRight = 3;
-                }
-
-
-            }
-
+        if(entityLiving instanceof EntityPlayer) {
+	        EntityPlayer player = (EntityPlayer)entityLiving;
+	        
+	        ItemStack held_item = player.getEquipmentInSlot(0);
+	
+	        if (held_item != null){
+	            this.heldItemRight = 1;
+	            this.overlay.heldItemRight = 1;
+	            this.invulnOverlay.heldItemRight = 1;
+	
+	            if (player.getItemInUseCount() > 0){
+	
+	                EnumAction enumaction = held_item.getItemUseAction();
+	
+	                if (enumaction == EnumAction.bow){
+	                    this.aimedBow = true;
+	                    this.overlay.aimedBow = true;
+	                    this.invulnOverlay.aimedBow = true;
+	                }else if (enumaction == EnumAction.block){
+	                    this.heldItemRight = 3;
+	                    this.overlay.heldItemRight = 3;
+	                    this.invulnOverlay.heldItemRight = 3;
+	                }
+	
+	
+	            }
+	
+	        }
         }
         
         this.invulnRender = armorSlot == 0;
@@ -197,22 +280,42 @@ public class ModelArmorInfinity extends ModelBiped {
         this.bipedLeftArm.showModel = false;
         this.bipedRightLeg.showModel = false;
         this.bipedLeftLeg.showModel = false;
-        this.bipedHeadwear.showModel = true;
+        this.bipedHeadwear.showModel = this.currentSlot == 0 ? true : false;
 	}
 	
 	public void setGems() {
 		this.bipedHead.showModel = false;
 		this.bipedHeadwear.showModel = false;
-        this.bipedBody.showModel = this.legs ? false : true;
-        this.bipedRightArm.showModel = this.legs ? false : true;
-        this.bipedLeftArm.showModel = this.legs ? false : true;
-        this.bipedRightLeg.showModel = this.legs ? true : false;
-        this.bipedLeftLeg.showModel = this.legs ? true : false;
+        this.bipedBody.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
+        this.bipedRightArm.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
+        this.bipedLeftArm.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
+        this.bipedRightLeg.showModel = this.legs ? (this.currentSlot == 2 ? true : false) : false;
+        this.bipedLeftLeg.showModel = this.legs ? (this.currentSlot == 2 ? true : false) : false;
+	}
+	
+	public void setWings() {
+		this.bipedBody.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
+		this.bipedLeftWing.showModel = true;
+		this.bipedRightWing.showModel = true;
+		this.bipedHeadwear.showModel = false;
+		this.bipedRightArm.showModel = false;
+        this.bipedLeftArm.showModel = false;
+        this.bipedRightLeg.showModel = false;
+        this.bipedLeftLeg.showModel = false;
+        this.bipedHeadwear.showModel = false;
+        this.bipedHead.showModel = false;
+        
+        this.overlay.bipedBody.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
+        this.overlay.bipedLeftWing.showModel = true;
+		this.overlay.bipedRightWing.showModel = true;
+		this.overlay.bipedHead.showModel = false;
+		this.overlay.bipedHeadwear.showModel = false;
 	}
 	
 	public void rebuildOverlay() {
-		this.overlay.rebuild(overlayIcon);
-		this.invulnOverlay.rebuild(invulnOverlayIcon);
+		this.rebuildWings();
+		this.overlay.rebuild(overlayIcon, wingOverlayIcon);
+		this.invulnOverlay.rebuild(invulnOverlayIcon, null);
 	}
 	
 	public class Overlay extends ModelBiped {
@@ -220,12 +323,16 @@ public class ModelArmorInfinity extends ModelBiped {
 		public ModelArmorInfinity parent;
 		public float expand;
 		
+		public ModelRenderer bipedLeftWing;
+		public ModelRenderer bipedRightWing;
+		
 		public Overlay(ModelArmorInfinity parent, float expand) {
 			this.parent = parent;
 			this.expand = expand;
 		}
 		
-		public void rebuild(IIcon icon) {
+		@SuppressWarnings("rawtypes")
+		public void rebuild(IIcon icon, IIcon wingicon) {
 			int ox = MathHelper.floor_float(icon.getMinU() * itempagewidth);
 			int oy = MathHelper.floor_float(icon.getMinV() * itempageheight);
 			
@@ -261,6 +368,35 @@ public class ModelArmorInfinity extends ModelBiped {
 	        this.bipedLeftLeg.mirror = true;
 	        this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, this.expand);
 	        this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F + heightoffset, 0.0F);
+	        
+	        // rebuild wings!
+	        if (wingicon != null) {
+				int oxw = MathHelper.floor_float(wingicon.getMinU() * itempagewidth);
+				int oyw = MathHelper.floor_float(wingicon.getMinV() * itempageheight);
+		        
+		        if (this.bipedBody.childModels == null) {
+					this.bipedBody.childModels = new ArrayList();
+				}
+				if (this.bipedLeftWing != null) {
+					this.bipedBody.childModels.remove(this.bipedLeftWing);
+				}
+				if (this.bipedRightWing != null) {
+					this.bipedBody.childModels.remove(this.bipedRightWing);
+				}
+	
+				this.bipedLeftWing = new ModelRendererWing(this, oxw,oyw);
+				this.bipedLeftWing.mirror = true;
+				this.bipedLeftWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+				this.bipedLeftWing.setRotationPoint(-1.5f, 0.0f, 2.0f);
+				this.bipedLeftWing.rotateAngleY = (float) (Math.PI*0.4);
+				this.bipedBody.addChild(this.bipedLeftWing);
+				
+				this.bipedRightWing = new ModelRendererWing(this, oxw,oyw);
+				this.bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+				this.bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
+				this.bipedRightWing.rotateAngleY = (float) (-Math.PI*0.4);
+				this.bipedBody.addChild(this.bipedRightWing);
+	        }
 	    }
 		
 		@Override
