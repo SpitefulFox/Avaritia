@@ -251,7 +251,7 @@ public class Compat {
 
         if(mfr){
             try {
-                Item ponk = getItem("MineFactoryReloaded", "mfr.pinkslime");
+                Item ponk = getItem("MineFactoryReloaded", "pinkslime");
                 ItemStack pank = new ItemStack(ponk, 1, 1);
                 Grinder.catalyst.getInput().add(pank);
             }

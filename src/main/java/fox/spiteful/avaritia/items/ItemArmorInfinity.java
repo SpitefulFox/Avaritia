@@ -24,12 +24,18 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.common.Optional;
 import thaumcraft.api.IGoggles;
+import thaumcraft.api.IVisDiscountGear;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.nodes.IRevealer;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Optional.Interface(iface = "thaumcraft.api.IGoggles", modid="Thaumcraft")
-public class ItemArmorInfinity extends ItemArmor implements IGoggles {
+@Optional.InterfaceList({
+        @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"),
+        @Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft")
+})
+public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer, IVisDiscountGear {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
     @SideOnly(Side.CLIENT)
@@ -124,6 +130,20 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles {
         if(armorType == 0)
             return true;
         return false;
+    }
+
+    @Optional.Method(modid = "Thaumcraft")
+    @Override
+    public boolean showNodes(ItemStack itemStack, EntityLivingBase entityLivingBase){
+        if(armorType == 0)
+            return true;
+        return false;
+    }
+
+    @Optional.Method(modid = "Thaumcraft")
+    @Override
+    public int getVisDiscount(ItemStack itemStack, EntityPlayer entityPlayer, Aspect aspect){
+        return 100;
     }
 
 }

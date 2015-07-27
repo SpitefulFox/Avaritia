@@ -19,7 +19,7 @@ public class Mincer {
 	// here's where all the food magic goes on
 	private static String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown"};
     private static String[] forbiddenCropNames = new String[] {"cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton"};
-	private static String[] knownMeatEntries = new String[]{"nuggetMeat", "ingotMeat", "dustMeat", "rawMutton"};
+	private static String[] knownMeatEntries = new String[]{"ingotMeatRaw", "dustMeat", "rawMutton"};
 	private static List<ItemStack> knownMeats = new ArrayList<ItemStack>();
 
     static {
@@ -117,7 +117,7 @@ public class Mincer {
 					return b.count > a.count ? 1 : -1;
 				}
 				
-				return randy.nextBoolean() ? 1 : -1;
+				return 0;
 			}
 		});
 		

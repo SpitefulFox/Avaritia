@@ -3,7 +3,9 @@ package fox.spiteful.avaritia;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import fox.spiteful.avaritia.items.ItemArmorInfinity;
 import fox.spiteful.avaritia.items.LudicrousItems;
+import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
+import fox.spiteful.avaritia.items.tools.ToolHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -35,16 +37,31 @@ public class LudicrousEvents {
 
     @SubscribeEvent
     public void onPlayerMine(PlayerInteractEvent event) {
-        //Lumberjack.log(Level.INFO, event.block.getLocalizedName());
-        if(event.face == -1 || event.world.isRemote || event.action != PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || event.entityPlayer.getHeldItem() == null)
+        if(event.face == -1 || event.world.isRemote || event.action != PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || event.entityPlayer.getHeldItem() == null || event.entityPlayer.capabilities.isCreativeMode)
             return;
         Block block = event.world.getBlock(event.x, event.y, event.z);
+        int meta = event.world.getBlockMetadata(event.x, event.y, event.z);
         if(block.getBlockHardness(event.entityPlayer.worldObj, event.x, event.y, event.z) <= -1 &&
                 event.entityPlayer.getHeldItem().getItem() == LudicrousItems.infinity_pickaxe &&
                         (block.getMaterial() == Material.rock || block.getMaterial() == Material.iron)){
-            dropItem(new ItemStack(block, 1, event.world.getBlockMetadata(event.x, event.y, event.z)), event.entityPlayer.worldObj, event.x, event.y, event.z);
-            event.entityPlayer.worldObj.setBlockToAir(event.x, event.y, event.z);
-            event.world.playSoundEffect(event.x, event.y, event.z, block.stepSound.getBreakSound(), block.stepSound.getVolume(), block.stepSound.getPitch());
+
+            if(event.entityPlayer.getHeldItem().getTagCompound() != null && event.entityPlayer.getHeldItem().getTagCompound().getBoolean("hammer")) {
+                LudicrousItems.infinity_pickaxe.onBlockStartBreak(event.entityPlayer.getHeldItem(), event.x, event.y, event.z, event.entityPlayer);
+            }
+            else {
+
+                if(block.quantityDropped(randy) == 0) {
+                    ItemStack drop = block.getPickBlock(ToolHelper.raytraceFromEntity(event.world, event.entityPlayer, true, 10),
+                            event.world, event.x, event.y, event.z, event.entityPlayer);
+                    if(drop == null)
+                        drop = new ItemStack(block, 1, meta);
+                    dropItem(drop, event.entityPlayer.worldObj, event.x, event.y, event.z);
+                }
+                else
+                    block.harvestBlock(event.world, event.entityPlayer, event.x, event.y, event.z, meta);
+                event.entityPlayer.worldObj.setBlockToAir(event.x, event.y, event.z);
+                event.world.playAuxSFX(2001, event.x, event.y, event.z, Block.getIdFromBlock(block) + (meta << 12));
+            }
         }
     }
 
