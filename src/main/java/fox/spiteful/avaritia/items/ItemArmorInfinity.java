@@ -22,11 +22,14 @@ import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import cpw.mods.fml.common.Optional;
+import thaumcraft.api.IGoggles;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ItemArmorInfinity extends ItemArmor {
+@Optional.Interface(iface = "thaumcraft.api.IGoggles", modid="Thaumcraft")
+public class ItemArmorInfinity extends ItemArmor implements IGoggles {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
     @SideOnly(Side.CLIENT)
@@ -113,6 +116,14 @@ public class ItemArmorInfinity extends ItemArmor {
         if(armorType == 3)
             multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 0.7, 1));
         return multimap;
+    }
+
+    @Optional.Method(modid = "Thaumcraft")
+    @Override
+    public boolean showIngamePopups(ItemStack itemStack, EntityLivingBase entityLivingBase){
+        if(armorType == 0)
+            return true;
+        return false;
     }
 
 }
