@@ -6,10 +6,14 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.items.LudicrousItems;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -268,10 +272,44 @@ public class ModelArmorInfinity extends ModelBiped {
 	            }
 	
 	        }
-        }
+        } 
         
-        this.invulnRender = armorSlot == 0;
+        // set effect
+        this.invulnRender = false;
+        if (armorSlot == 0) {
+	        ItemStack hat = entityLiving.getEquipmentInSlot(4);
+	        ItemStack chest = entityLiving.getEquipmentInSlot(3);
+	        ItemStack leg = entityLiving.getEquipmentInSlot(2);
+	        ItemStack foot = entityLiving.getEquipmentInSlot(1);
+	        
+	        boolean hasHat = hat != null && hat.getItem() == LudicrousItems.infinity_helm;
+	        boolean hasChest = chest != null && chest.getItem() == LudicrousItems.infinity_armor;
+	        boolean hasLeg = leg != null && leg.getItem() == LudicrousItems.infinity_pants;
+	        boolean hasFoot = foot != null && foot.getItem() == LudicrousItems.infinity_shoes;
+	        
+	        if (hasHat && hasChest && hasLeg && hasFoot) {
+	        	this.invulnRender = true;
+	        }
+		} 
 	}
+	
+	@Override
+	public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity entity)
+    {
+        super.setRotationAngles(p_78087_1_, p_78087_2_, p_78087_3_, p_78087_4_, p_78087_5_, p_78087_6_, entity);
+        
+        if (RenderManager.instance.entityRenderMap.containsKey(entity.getClass())) {
+        	Render r = (Render) RenderManager.instance.entityRenderMap.get(entity.getClass());
+        	
+        	if (r instanceof RenderBiped) {
+        		ModelBiped m = ((RenderBiped) r).modelBipedMain;
+        		
+        		//Lumberjack.info("Entity model: "+m);
+        		
+        		copyBipedAngles(m, this);
+        	}
+        }
+    }
 	
 	public void setEyes() {
 		this.bipedHead.showModel = false;
@@ -316,6 +354,24 @@ public class ModelArmorInfinity extends ModelBiped {
 		this.rebuildWings();
 		this.overlay.rebuild(overlayIcon, wingOverlayIcon);
 		this.invulnOverlay.rebuild(invulnOverlayIcon, null);
+	}
+	
+	public static void copyPartAngles(ModelRenderer source, ModelRenderer dest) {
+		dest.rotateAngleX = source.rotateAngleX;
+		dest.rotateAngleY = source.rotateAngleY;
+		dest.rotateAngleZ = source.rotateAngleZ;
+	}
+	
+	public static void copyBipedAngles(ModelBiped source, ModelBiped dest) {
+		copyPartAngles(source.bipedBody, dest.bipedBody);
+		copyPartAngles(source.bipedCloak, dest.bipedCloak);
+		copyPartAngles(source.bipedEars, dest.bipedEars);
+		copyPartAngles(source.bipedHead, dest.bipedHead);
+		copyPartAngles(source.bipedHeadwear, dest.bipedHeadwear);
+		copyPartAngles(source.bipedLeftArm, dest.bipedLeftArm);
+		copyPartAngles(source.bipedLeftLeg, dest.bipedLeftLeg);
+		copyPartAngles(source.bipedRightArm, dest.bipedRightArm);
+		copyPartAngles(source.bipedRightLeg, dest.bipedRightLeg);
 	}
 	
 	public class Overlay extends ModelBiped {
@@ -403,5 +459,21 @@ public class ModelArmorInfinity extends ModelBiped {
 		public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 			super.render(entity, f, f1, f2, f3, f4, f5);
 		}
+		
+		@Override
+		public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity entity)
+	    {
+	        super.setRotationAngles(p_78087_1_, p_78087_2_, p_78087_3_, p_78087_4_, p_78087_5_, p_78087_6_, entity);
+	        
+	        if (RenderManager.instance.entityRenderMap.containsKey(entity.getClass())) {
+	        	Render r = (Render) RenderManager.instance.entityRenderMap.get(entity.getClass());
+	        	
+	        	if (r instanceof RenderBiped) {
+	        		ModelBiped m = ((RenderBiped) r).modelBipedMain;
+	        		
+	        		copyBipedAngles(m, this);
+	        	}
+	        }
+	    }
 	}
 }
