@@ -143,7 +143,7 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
     @Optional.Method(modid = "Thaumcraft")
     @Override
     public int getVisDiscount(ItemStack itemStack, EntityPlayer entityPlayer, Aspect aspect){
-        return 100;
+        return 10;
     }
 
 }
