@@ -8,6 +8,7 @@ import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import fox.spiteful.avaritia.items.tools.ToolHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,12 +24,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import static net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import static net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 public class LudicrousEvents {
@@ -161,6 +164,19 @@ public class LudicrousEvents {
             		}
             	}
                 
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void diggity(BreakSpeed event){
+        if(event.entityPlayer.getHeldItem() != null){
+            ItemStack held = event.entityPlayer.getHeldItem();
+            if(held.getItem() == LudicrousItems.infinity_pickaxe){
+                if(!event.entityPlayer.onGround)
+                    event.newSpeed *= 5;
+                if(!event.entityPlayer.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(event.entityPlayer))
+                    event.newSpeed *= 5;
             }
         }
     }

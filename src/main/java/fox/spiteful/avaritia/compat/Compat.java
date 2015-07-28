@@ -292,6 +292,7 @@ public class Compat {
                 OreDictionary.registerOre("cropCorn", new ItemStack(crop, 1, 7));
                 OreDictionary.registerOre("cropTomato", new ItemStack(crop, 1, 8));
                 OreDictionary.registerOre("rawMutton", new ItemStack(meat, 1, 0));
+                OreDictionary.registerOre("rawCalamari", new ItemStack(meat, 1, 1));
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia got bored of waiting for magical crops to grow.");
@@ -316,7 +317,9 @@ public class Compat {
             try {
                 Item mutton = getItem("harvestcraft", "muttonrawItem");
                 Item beet = getItem("harvestcraft", "beetItem");
+                Item calamari = getItem("harvestcraft", "calamarirawItem");
                 OreDictionary.registerOre("rawMutton", new ItemStack(mutton, 1, 0));
+                OreDictionary.registerOre("rawCalamari", new ItemStack(calamari, 1, 0));
                 OreDictionary.registerOre("cropBeetroot", new ItemStack(beet, 1, 0));
             }
             catch (Throwable e){

@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.items;
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.render.ModelArmorInfinity;
 import net.minecraft.client.model.ModelBiped;
 import fox.spiteful.avaritia.PotionHelper;
@@ -14,8 +15,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import org.apache.logging.log4j.Level;
@@ -27,15 +31,18 @@ import thaumcraft.api.IGoggles;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
+import vazkii.botania.api.item.IPhantomInkable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Optional.InterfaceList({
         @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"),
-        @Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft")
+        @Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"),
+        @Optional.Interface(iface = "vazkii.botania.api.item.IPhantomInkable", modid = "Botania")
 })
-public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer, IVisDiscountGear {
+public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
     @SideOnly(Side.CLIENT)
@@ -56,6 +63,9 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
         //if(slot == 2)
         //    return "avaritia:textures/models/infinity_pants.png";
         //else
+        if(Compat.botan && hasPhantomInk(stack))
+            return "botania:textures/model/invisibleArmor.png";
+        else
             return "avaritia:textures/models/infinity_armor.png";
     }
 
@@ -117,8 +127,6 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
     public Multimap getAttributeModifiers(ItemStack stack)
     {
         Multimap multimap = super.getAttributeModifiers(stack);
-        if(armorType == 2)
-            multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 1.0, 1));
         if(armorType == 3)
             multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 0.7, 1));
         return multimap;
@@ -143,7 +151,33 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
     @Optional.Method(modid = "Thaumcraft")
     @Override
     public int getVisDiscount(ItemStack itemStack, EntityPlayer entityPlayer, Aspect aspect){
-        return 10;
+        return 20;
+    }
+
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+        if(Compat.thaumic)
+            list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + this.getVisDiscount(stack, player, (Aspect)null) + "%");
+        if(Compat.botan) {
+            if (hasPhantomInk(stack))
+                list.add(StatCollector.translateToLocal("botaniamisc.hasPhantomInk").replaceAll("&", "\u00a7"));
+        }
+        super.addInformation(stack, player, list, par4);
+    }
+
+    public boolean hasPhantomInk(ItemStack stack) {
+        if(stack.getTagCompound() == null)
+            return false;
+        return stack.getTagCompound().getBoolean("phantomInk");
+    }
+
+    public void setPhantomInk(ItemStack stack, boolean ink) {
+
+        NBTTagCompound tag = stack.getTagCompound();
+        if(tag == null){
+            tag = new NBTTagCompound();
+            stack.setTagCompound(tag);
+        }
+        tag.setBoolean("phantomInk", ink);
     }
 
 }

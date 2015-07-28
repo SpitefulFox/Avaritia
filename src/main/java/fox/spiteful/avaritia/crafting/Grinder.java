@@ -196,6 +196,9 @@ public class Grinder {
         if(!OreDictionary.getOres("ingotTartarite").isEmpty()){
             catalyst.getInput().add(OreDictionary.getOres("ingotTartarite"));
         }
+        if(!OreDictionary.getOres("blockIronCompressed").isEmpty()){
+            catalyst.getInput().add(OreDictionary.getOres("blockIronCompressed"));
+        }
         
         ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.endest_pearl), new Object[]{
             "   EEE   ",

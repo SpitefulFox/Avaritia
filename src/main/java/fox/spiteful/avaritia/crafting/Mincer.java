@@ -19,7 +19,7 @@ public class Mincer {
 	// here's where all the food magic goes on
 	private static String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown"};
     private static String[] forbiddenCropNames = new String[] {"cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton"};
-	private static String[] knownMeatEntries = new String[]{"ingotMeatRaw", "dustMeat", "rawMutton"};
+	private static String[] knownMeatEntries = new String[]{"ingotMeatRaw", "dustMeat", "rawMutton", "rawCalamari"};
 	private static List<ItemStack> knownMeats = new ArrayList<ItemStack>();
 
     static {
@@ -175,14 +175,14 @@ public class Mincer {
 			}
 		}
 		
-		for (int i=0; i<meatNames.size(); i++) {
+		/*for (int i=0; i<meatNames.size(); i++) {
 			if (!rawMeats.contains(meatNames.get(i))) {
 				List<ItemStack> meatstacks = OreDictionary.getOres(meatNames.get(i));
 				if (!meatstacks.isEmpty()) {
 					meatSortingList.add(new FoodInfo(meatNames.get(i), meatstacks.size()));
 				}
 			}
-		}
+		}*/
 
         if(Compat.twilight){
             try {
