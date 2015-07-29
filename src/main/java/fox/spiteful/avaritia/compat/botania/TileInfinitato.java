@@ -10,8 +10,17 @@ public class TileInfinitato extends TileLudicrous {
 
 	public int jumpTicks = 0;
 	public String name = "";
+    public int nextDoIt = 0;
 
-	public void jump() {
+    public void interact() {
+        jump();
+        if(name.equalsIgnoreCase("shia labeouf") && !worldObj.isRemote && nextDoIt == 0) {
+            nextDoIt = 40;
+            worldObj.playSoundEffect(xCoord, yCoord, zCoord, "botania:doit", 2.5F, 0.7F);
+        }
+    }
+
+    public void jump() {
 		if(jumpTicks == 0)
 			jumpTicks = 40;
 	}
@@ -27,6 +36,8 @@ public class TileInfinitato extends TileLudicrous {
 				this.worldObj.createExplosion(null, this.xCoord+0.5, this.yCoord, this.zCoord+0.5, 0.0f, true);
 			}
 		}
+        if(nextDoIt > 0)
+            nextDoIt--;
 	}
 
 	@Override

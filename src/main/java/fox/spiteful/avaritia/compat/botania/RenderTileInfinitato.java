@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.compat.botania;
 
+import net.minecraft.util.MovingObjectPosition;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -108,7 +109,8 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
 		GL11.glColor3f(1F, 1F, 1F);
 		GL11.glScalef(1F, -1F, -1F);
 
-		if(!potato.name.isEmpty()) {
+        MovingObjectPosition pos = mc.objectMouseOver;
+        if(!potato.name.isEmpty() && pos != null && pos.blockX == potato.xCoord && pos.blockY == potato.yCoord && pos.blockZ == potato.zCoord) {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0F, -0.6F, 0F);
 			GL11.glRotatef(-RenderManager.instance.playerViewY, 0.0F, 1.0F, 0.0F);

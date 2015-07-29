@@ -43,7 +43,7 @@ public class BlockInfinitato extends BlockContainer implements ILexiconable {
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
 		if(tile instanceof TileInfinitato) {
-			((TileInfinitato) tile).jump();
+			((TileInfinitato) tile).interact();
 			par1World.spawnParticle("heart", par2 + minX + Math.random() * (maxX - minX), par3 + maxY, par4 + minZ + Math.random() * (maxZ - minZ), 0, 0 ,0);
 			par1World.spawnParticle("heart", par2 + minX + Math.random() * (maxX - minX), par3 + maxY, par4 + minZ + Math.random() * (maxZ - minZ), 0, 0 ,0);
 			par1World.spawnParticle("heart", par2 + minX + Math.random() * (maxX - minX), par3 + maxY, par4 + minZ + Math.random() * (maxZ - minZ), 0, 0 ,0);
