@@ -1,8 +1,10 @@
+#version 120
+
 vec4 Ambient;
 vec4 Diffuse;
 vec4 Specular;
  
-attribute short activelights;
+attribute float activelights;
 
 varying vec3 position;
  

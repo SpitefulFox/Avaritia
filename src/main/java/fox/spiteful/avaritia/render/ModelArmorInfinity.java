@@ -6,6 +6,7 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.items.ItemArmorInfinity;
 import fox.spiteful.avaritia.items.LudicrousItems;
 
 import net.minecraft.client.Minecraft;
@@ -44,6 +45,10 @@ public class ModelArmorInfinity extends ModelBiped {
 	private Overlay overlay;
 	private Overlay invulnOverlay;
 	private boolean invulnRender = true;
+	private boolean showHat;
+	private boolean showChest;
+	private boolean showLeg;
+	private boolean showFoot;
 	
 	private float expand;
 	
@@ -202,21 +207,44 @@ public class ModelArmorInfinity extends ModelBiped {
 	public void update(EntityLivingBase entityLiving, ItemStack itemstack, int armorSlot) {
 		this.currentSlot = armorSlot;
 		
-		this.bipedHead.showModel = armorSlot == 0;
-        this.bipedHeadwear.showModel = armorSlot == 0;
-        this.bipedBody.showModel = armorSlot == 1 || armorSlot == 2;
-        this.bipedRightArm.showModel = armorSlot == 1;
-        this.bipedLeftArm.showModel = armorSlot == 1;
-        this.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3;
-        this.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3;
+		this.invulnRender = false;
         
-        this.overlay.bipedHead.showModel = armorSlot == 0;
-        this.overlay.bipedHeadwear.showModel = armorSlot == 0;
-        this.overlay.bipedBody.showModel = armorSlot == 1 || armorSlot == 2;
-        this.overlay.bipedRightArm.showModel = armorSlot == 1;
-        this.overlay.bipedLeftArm.showModel = armorSlot == 1;
-        this.overlay.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3;
-        this.overlay.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3;
+        ItemStack hat = entityLiving.getEquipmentInSlot(4);
+        ItemStack chest = entityLiving.getEquipmentInSlot(3);
+        ItemStack leg = entityLiving.getEquipmentInSlot(2);
+        ItemStack foot = entityLiving.getEquipmentInSlot(1);
+        
+        boolean hasHat = hat != null && hat.getItem() == LudicrousItems.infinity_helm && !((ItemArmorInfinity)(LudicrousItems.infinity_helm)).hasPhantomInk(hat);
+        boolean hasChest = chest != null && chest.getItem() == LudicrousItems.infinity_armor && !((ItemArmorInfinity)(LudicrousItems.infinity_armor)).hasPhantomInk(chest);
+        boolean hasLeg = leg != null && leg.getItem() == LudicrousItems.infinity_pants && !((ItemArmorInfinity)(LudicrousItems.infinity_pants)).hasPhantomInk(leg);
+        boolean hasFoot = foot != null && foot.getItem() == LudicrousItems.infinity_shoes && !((ItemArmorInfinity)(LudicrousItems.infinity_shoes)).hasPhantomInk(foot);
+	        
+	    if (armorSlot == 0) {
+	        if (hasHat && hasChest && hasLeg && hasFoot) {
+	        	this.invulnRender = true;
+	        }
+		}
+		
+	    this.showHat = hasHat && armorSlot == 0;
+	    this.showChest = hasChest && armorSlot == 1;
+	    this.showLeg = hasLeg && armorSlot == 2;
+	    this.showFoot = hasFoot && armorSlot == 3;
+	    
+		this.bipedHead.showModel = showHat;
+        this.bipedHeadwear.showModel = showHat;
+        this.bipedBody.showModel = showChest || showLeg;
+        this.bipedRightArm.showModel = showChest;
+        this.bipedLeftArm.showModel = showChest;
+        this.bipedRightLeg.showModel = showLeg || showFoot;
+        this.bipedLeftLeg.showModel = showLeg || showFoot;
+        
+        this.overlay.bipedHead.showModel = showHat;
+        this.overlay.bipedHeadwear.showModel = showHat;
+        this.overlay.bipedBody.showModel = showChest || showLeg;
+        this.overlay.bipedRightArm.showModel = showChest;
+        this.overlay.bipedLeftArm.showModel = showChest;
+        this.overlay.bipedRightLeg.showModel = showLeg || showFoot;
+        this.overlay.bipedLeftLeg.showModel = showLeg || showFoot;
         
         this.bipedLeftWing.showModel = false;
         this.bipedRightWing.showModel = false;
@@ -273,38 +301,19 @@ public class ModelArmorInfinity extends ModelBiped {
 	
 	        }
         } 
-        
-        // set effect
-        this.invulnRender = false;
-        if (armorSlot == 0) {
-	        ItemStack hat = entityLiving.getEquipmentInSlot(4);
-	        ItemStack chest = entityLiving.getEquipmentInSlot(3);
-	        ItemStack leg = entityLiving.getEquipmentInSlot(2);
-	        ItemStack foot = entityLiving.getEquipmentInSlot(1);
-	        
-	        boolean hasHat = hat != null && hat.getItem() == LudicrousItems.infinity_helm;
-	        boolean hasChest = chest != null && chest.getItem() == LudicrousItems.infinity_armor;
-	        boolean hasLeg = leg != null && leg.getItem() == LudicrousItems.infinity_pants;
-	        boolean hasFoot = foot != null && foot.getItem() == LudicrousItems.infinity_shoes;
-	        
-	        if (hasHat && hasChest && hasLeg && hasFoot) {
-	        	this.invulnRender = true;
-	        }
-		} 
+         
 	}
 	
 	@Override
-	public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity entity)
+	public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity)
     {
-        super.setRotationAngles(p_78087_1_, p_78087_2_, p_78087_3_, p_78087_4_, p_78087_5_, p_78087_6_, entity);
+        super.setRotationAngles(f1, f2, f3, f4, f5, f6, entity);
         
         if (RenderManager.instance.entityRenderMap.containsKey(entity.getClass())) {
         	Render r = (Render) RenderManager.instance.entityRenderMap.get(entity.getClass());
         	
         	if (r instanceof RenderBiped) {
         		ModelBiped m = ((RenderBiped) r).modelBipedMain;
-        		
-        		//Lumberjack.info("Entity model: "+m);
         		
         		copyBipedAngles(m, this);
         	}
@@ -318,21 +327,21 @@ public class ModelArmorInfinity extends ModelBiped {
         this.bipedLeftArm.showModel = false;
         this.bipedRightLeg.showModel = false;
         this.bipedLeftLeg.showModel = false;
-        this.bipedHeadwear.showModel = this.currentSlot == 0 ? true : false;
+        this.bipedHeadwear.showModel = this.showHat ? true : false;
 	}
 	
 	public void setGems() {
 		this.bipedHead.showModel = false;
 		this.bipedHeadwear.showModel = false;
-        this.bipedBody.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
-        this.bipedRightArm.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
-        this.bipedLeftArm.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
-        this.bipedRightLeg.showModel = this.legs ? (this.currentSlot == 2 ? true : false) : false;
-        this.bipedLeftLeg.showModel = this.legs ? (this.currentSlot == 2 ? true : false) : false;
+        this.bipedBody.showModel = this.legs ? false : (this.showChest ? true : false);
+        this.bipedRightArm.showModel = this.legs ? false : (this.showChest ? true : false);
+        this.bipedLeftArm.showModel = this.legs ? false : (this.showChest ? true : false);
+        this.bipedRightLeg.showModel = this.legs ? (this.showLeg ? true : false) : false;
+        this.bipedLeftLeg.showModel = this.legs ? (this.showLeg ? true : false) : false;
 	}
 	
 	public void setWings() {
-		this.bipedBody.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
+		this.bipedBody.showModel = this.legs ? false : (this.showChest ? true : false);
 		this.bipedLeftWing.showModel = true;
 		this.bipedRightWing.showModel = true;
 		this.bipedHeadwear.showModel = false;
@@ -343,7 +352,7 @@ public class ModelArmorInfinity extends ModelBiped {
         this.bipedHeadwear.showModel = false;
         this.bipedHead.showModel = false;
         
-        this.overlay.bipedBody.showModel = this.legs ? false : (this.currentSlot == 1 ? true : false);
+        this.overlay.bipedBody.showModel = this.legs ? false : (this.showChest ? true : false);
         this.overlay.bipedLeftWing.showModel = true;
 		this.overlay.bipedRightWing.showModel = true;
 		this.overlay.bipedHead.showModel = false;
@@ -461,9 +470,9 @@ public class ModelArmorInfinity extends ModelBiped {
 		}
 		
 		@Override
-		public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity entity)
+		public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity)
 	    {
-	        super.setRotationAngles(p_78087_1_, p_78087_2_, p_78087_3_, p_78087_4_, p_78087_5_, p_78087_6_, entity);
+	        super.setRotationAngles(f1,f2,f3,f4,f5,f6, entity);
 	        
 	        if (RenderManager.instance.entityRenderMap.containsKey(entity.getClass())) {
 	        	Render r = (Render) RenderManager.instance.entityRenderMap.get(entity.getClass());

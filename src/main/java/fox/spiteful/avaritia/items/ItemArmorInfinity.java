@@ -2,10 +2,11 @@ package fox.spiteful.avaritia.items;
 
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
-import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import fox.spiteful.avaritia.render.ModelArmorInfinity;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import fox.spiteful.avaritia.PotionHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,10 +20,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
-import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,18 +41,22 @@ import java.util.List;
 @Optional.InterfaceList({
         @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"),
         @Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"),
+        @Optional.Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"),
         @Optional.Interface(iface = "vazkii.botania.api.item.IPhantomInkable", modid = "Botania")
 })
-public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable {
+public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
     @SideOnly(Side.CLIENT)
     public static final ModelArmorInfinity armorModel = new ModelArmorInfinity(1.0f);
     @SideOnly(Side.CLIENT)
     public static final ModelArmorInfinity legModel = new ModelArmorInfinity(0.5f).setLegs(true);
+    public IIcon cosmicMask;
+    public final int slot;
 
     public ItemArmorInfinity(int slot){
         super(infinite_armor, 0, slot);
+        this.slot = slot;
         setCreativeTab(Avaritia.tab);
         setUnlocalizedName("infinity_armor_" + slot);
         setTextureName("avaritia:infinity_armor_" + slot);
@@ -60,13 +65,7 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
     {
-        //if(slot == 2)
-        //    return "avaritia:textures/models/infinity_pants.png";
-        //else
-        if(Compat.botan && hasPhantomInk(stack))
-            return "botania:textures/model/invisibleArmor.png";
-        else
-            return "avaritia:textures/models/infinity_armor.png";
+        return "avaritia:textures/models/infinity_armor.png";
     }
 
     @Override
@@ -74,7 +73,8 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
         super.setDamage(stack, 0);
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
     {
         if(armorType == 0){
@@ -123,7 +123,8 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
         return model;
     }
 
-    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
     public Multimap getAttributeModifiers(ItemStack stack)
     {
         Multimap multimap = super.getAttributeModifiers(stack);
@@ -154,7 +155,8 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
         return 20;
     }
 
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if(Compat.thaumic)
             list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + this.getVisDiscount(stack, player, (Aspect)null) + "%");
         if(Compat.botan) {
@@ -179,5 +181,19 @@ public class ItemArmorInfinity extends ItemArmor implements IGoggles, IRevealer,
         }
         tag.setBoolean("phantomInk", ink);
     }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IIconRegister ir) {
+        super.registerIcons(ir);
+
+        this.cosmicMask = ir.registerIcon("avaritia:infinity_armor_" + slot + "_mask");
+    }
+    
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getMaskTexture(ItemStack stack) {
+		return this.cosmicMask;
+	}
 
 }

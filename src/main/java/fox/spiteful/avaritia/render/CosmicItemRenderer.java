@@ -3,6 +3,8 @@ package fox.spiteful.avaritia.render;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import fox.spiteful.avaritia.Lumberjack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;

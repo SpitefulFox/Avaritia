@@ -1,3 +1,5 @@
+#version 130
+
 #define M_PI 3.1415926535897932384626433832795
 
 const int cosmiccount = 10;
@@ -94,13 +96,13 @@ void main (void)
 		vec2 tex = vec2( u, v );
 		
 		// tile position of the current uv
-		int tu = mod(floor(u*uvtiles),uvtiles);
-		int tv = mod(floor(v*uvtiles),uvtiles); 
+		int tu = int(mod(floor(u*uvtiles),uvtiles));
+		int tv = int(mod(floor(v*uvtiles),uvtiles)); 
 		
 		// get pseudorandom variants
 		int position = ((1777541 * tu) + (7649689 * tv) + (3612703 * (i+31)) + 1723609 ) ^ 50943779;
-		int symbol = mod(position, cosmicoutof);
-		int rotation = mod (pow(tu,tv) + tu + 3 + tv*i, 8);
+		int symbol = int(mod(position, cosmicoutof));
+		int rotation = int(mod(pow(tu,float(tv)) + tu + 3 + tv*i, 8));
 		bool flip = false;
 		if (rotation >= 4) {
 			rotation -= 4;
@@ -108,7 +110,7 @@ void main (void)
 		}
 		
 		// if it's an icon, then add the colour!
-		if (symbol < cosmiccount) {
+		if (symbol >= 0 && symbol < cosmiccount) {
 			
 			vec2 cosmictex = vec2(1.0,1.0);
 			vec4 tcol = vec4(1.0,0.0,0.0,1.0);

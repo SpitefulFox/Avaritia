@@ -33,6 +33,10 @@ public class ClientProxy extends CommonProxy {
 		CosmicItemRenderer sparkly = new CosmicItemRenderer();
 		
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_sword, sparkly);
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_helm, sparkly);
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_armor, sparkly);
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_pants, sparkly);
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_shoes, sparkly);
 		
 		CompatClient.comprettify();
 		
