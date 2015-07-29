@@ -12,6 +12,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
 import static net.minecraft.item.Item.ToolMaterial;
@@ -64,6 +65,8 @@ public class LudicrousItems {
         GameRegistry.registerItem(infinity_pants, "Infinity_Pants");
         infinity_shoes = new ItemArmorInfinity(3);
         GameRegistry.registerItem(infinity_shoes, "Infinity_Shoes");
+        
+        MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
     }
 
     public static boolean isInfinite(EntityPlayer player){

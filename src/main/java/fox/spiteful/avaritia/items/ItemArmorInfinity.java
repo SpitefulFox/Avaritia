@@ -2,9 +2,11 @@ package fox.spiteful.avaritia.items;
 
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import fox.spiteful.avaritia.render.ModelArmorInfinity;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import fox.spiteful.avaritia.PotionHelper;
@@ -24,10 +26,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
@@ -83,7 +88,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
             player.getFoodStats().setFoodSaturationLevel(20F);
         }
         else if(armorType == 1){
-            player.capabilities.allowFlying = true;
+            //player.capabilities.allowFlying = true;
             Collection effects = player.getActivePotionEffects();
             if(effects.size() > 0){
                 ArrayList<Potion> bad = new ArrayList<Potion>();
@@ -128,8 +133,8 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
     public Multimap getAttributeModifiers(ItemStack stack)
     {
         Multimap multimap = super.getAttributeModifiers(stack);
-        if(armorType == 3)
-            multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 0.7, 1));
+        //if(armorType == 3)
+        //    multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 0.7, 1));
         return multimap;
     }
 
@@ -196,4 +201,125 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 		return this.cosmicMask;
 	}
 
+	public static class abilityHandler {
+		public static List<String> playersWithHat = new ArrayList<String>();
+		public static List<String> playersWithChest = new ArrayList<String>();
+		public static List<String> playersWithLeg = new ArrayList<String>();
+		public static List<String> playersWithFoot = new ArrayList<String>();
+		
+		public static boolean playerHasHat(EntityPlayer player) {
+			ItemStack armour = player.getCurrentArmor(3);
+			return armour != null && armour.getItem() == LudicrousItems.infinity_helm;
+		}
+		
+		public static boolean playerHasChest(EntityPlayer player) {
+			ItemStack armour = player.getCurrentArmor(2);
+			return armour != null && armour.getItem() == LudicrousItems.infinity_armor;
+		}
+		
+		public static boolean playerHasLeg(EntityPlayer player) {
+			ItemStack armour = player.getCurrentArmor(1);
+			return armour != null && armour.getItem() == LudicrousItems.infinity_pants;
+		}
+		
+		public static boolean playerHasFoot(EntityPlayer player) {
+			ItemStack armour = player.getCurrentArmor(0);
+			return armour != null && armour.getItem() == LudicrousItems.infinity_shoes;
+		}
+		
+		public static String playerKey(EntityPlayer player) {
+			return player.getGameProfile().getName() +":"+ player.worldObj.isRemote;
+		}
+		
+		@SubscribeEvent
+		public void updatePlayerAbilityStatus(LivingUpdateEvent event) {
+			if (event.entityLiving instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer)event.entityLiving;
+				String key = playerKey(player);
+				
+				// hat
+				Boolean hasHat = playerHasHat(player);
+				if (playersWithHat.contains(key)) {
+					if (hasHat) {
+						
+					} else {
+						playersWithHat.remove(key);
+					}
+				} else if (hasHat) {
+					playersWithHat.add(key);
+				}
+				
+				// chest
+				Boolean hasChest = playerHasChest(player);
+				if (playersWithChest.contains(key)) {
+					if (hasChest) {
+						player.capabilities.allowFlying = true;
+					} else {
+						if (!player.capabilities.isCreativeMode) {
+							player.capabilities.allowFlying = false;
+							player.capabilities.isFlying = false;
+						}
+						playersWithChest.remove(key);
+					}
+				} else if (hasChest) {
+					playersWithChest.add(key);
+				}
+				
+				// legs
+				Boolean hasLeg = playerHasLeg(player);
+				if (playersWithLeg.contains(key)) {
+					if (hasLeg) {
+						
+					} else {
+						playersWithLeg.remove(key);
+					}
+				} else if (hasLeg) {
+					playersWithLeg.add(key);
+				}
+				
+				// shoes
+				Boolean hasFoot = playerHasFoot(player);
+				if (playersWithFoot.contains(key)) {
+					if (hasFoot) {
+						boolean flying = player.capabilities.isFlying;
+						boolean swimming = player.isInsideOfMaterial(Material.water) || player.isInWater();
+						if (player.onGround || flying || swimming) {
+							boolean sneaking = player.isSneaking();
+							
+							float speed = 0.2f 
+								* (flying ? 1.5f : 1.0f) 
+								* (swimming ? 1.2f : 1.0f) 
+								* (sneaking ? 0.3f : 1.0f); 
+							
+							if (player.moveForward > 0f) {
+								player.moveFlying(0f, 1f, speed);
+							} else if (player.moveForward < 0f) {
+								player.moveFlying(0f, 1f, -speed * 0.3f);
+							}
+							
+							if (player.moveStrafing != 0f) {
+								player.moveFlying(1f, 0f, speed * 0.5f * Math.signum(player.moveStrafing));
+							}
+						}
+					} else {
+						playersWithFoot.remove(key);
+					}
+				} else if (hasFoot) {
+					playersWithFoot.add(key);
+				}
+			}
+		}
+		
+		@SubscribeEvent
+		public void jumpBoost(LivingJumpEvent event) {
+			if (event.entityLiving instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer)event.entityLiving;
+				String key = playerKey(player);
+				
+				if (playersWithFoot.contains(key)) {
+					player.motionY += 0.4f;
+				}
+			}
+		}
+	}
 }
