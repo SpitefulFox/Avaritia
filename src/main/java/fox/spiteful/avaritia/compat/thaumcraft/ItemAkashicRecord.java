@@ -29,7 +29,7 @@ public class ItemAkashicRecord extends Item {
             PacketHandler.INSTANCE.sendTo(new PacketAspectPool(aspect.getTag(), (short)999, Short.valueOf(Thaumcraft.proxy.playerKnowledge.getAspectPoolFor(player.getCommandSenderName(), aspect))), (EntityPlayerMP) player);
         }
         if(--stack.stackSize <= 0)
-            return null;
+            return stack;
         else
             return stack;
     }
