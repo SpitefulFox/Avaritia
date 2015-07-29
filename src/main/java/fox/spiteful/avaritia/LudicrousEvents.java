@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -177,6 +178,17 @@ public class LudicrousEvents {
                     event.newSpeed *= 5;
                 if(!event.entityPlayer.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(event.entityPlayer))
                     event.newSpeed *= 5;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onDeath(LivingDeathEvent event){
+        if(event.entityLiving instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer)event.entityLiving;
+            if(LudicrousItems.isInfinite(player) && !event.source.getDamageType().equals("infinity")){
+                event.setCanceled(true);
+                player.setHealth(player.getMaxHealth());
             }
         }
     }
