@@ -1,7 +1,9 @@
 package fox.spiteful.avaritia.items;
 
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.render.IHaloRenderItem;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -14,6 +16,7 @@ import net.minecraft.util.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -148,4 +151,18 @@ public class ItemResource extends Item implements IHaloRenderItem {
 		}
 		return 0xFF000000;
 	}
+	
+	@Override
+    public boolean hasCustomEntity (ItemStack stack)
+    {
+		int meta = stack.getItemDamage();
+        return meta == 5 || meta == 6;
+    }
+
+    @Override
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+    	int meta = itemstack.getItemDamage();
+        return (meta == 5 || meta == 6) ? new EntityImmortalItem(world, location, itemstack) : null;
+    }
 }

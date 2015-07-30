@@ -2,8 +2,10 @@ package fox.spiteful.avaritia.items;
 
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.LudicrousText;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import fox.spiteful.avaritia.render.ModelArmorInfinity;
 import net.minecraft.block.material.Material;
@@ -168,6 +170,10 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
             if (hasPhantomInk(stack))
                 list.add(StatCollector.translateToLocal("botaniamisc.hasPhantomInk").replaceAll("&", "\u00a7"));
         }
+        if (this.slot == 3) {
+        	list.add("");
+        	list.add(EnumChatFormatting.BLUE+"+"+EnumChatFormatting.ITALIC+LudicrousText.makeSANIC("SANIC")+EnumChatFormatting.RESET+""+EnumChatFormatting.BLUE+"% Speed");
+        }
         super.addInformation(stack, player, list, par4);
     }
 
@@ -200,6 +206,18 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 	public IIcon getMaskTexture(ItemStack stack) {
 		return this.cosmicMask;
 	}
+	
+	@Override
+	public boolean hasCustomEntity (ItemStack stack)
+    {
+        return true;
+    }
+
+	@Override
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+        return new EntityImmortalItem(world, location, itemstack);
+    }
 
 	public static class abilityHandler {
 		public static List<String> playersWithHat = new ArrayList<String>();
@@ -286,10 +304,10 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 						if (player.onGround || flying || swimming) {
 							boolean sneaking = player.isSneaking();
 							
-							float speed = 0.2f 
-								* (flying ? 1.5f : 1.0f) 
-								* (swimming ? 1.2f : 1.0f) 
-								* (sneaking ? 0.3f : 1.0f); 
+							float speed = 0.15f 
+								* (flying ? 1.1f : 1.0f) 
+								//* (swimming ? 1.2f : 1.0f) 
+								* (sneaking ? 0.1f : 1.0f); 
 							
 							if (player.moveForward > 0f) {
 								player.moveFlying(0f, 1f, speed);

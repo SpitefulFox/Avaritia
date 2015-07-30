@@ -7,6 +7,7 @@ import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.DamageSourceInfinitySword;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.achievements.Achievements;
+import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import org.apache.logging.log4j.Level;
 
@@ -128,4 +130,15 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
         return true;
     }
 
+    @Override
+    public boolean hasCustomEntity (ItemStack stack)
+    {
+        return true;
+    }
+
+    @Override
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+        return new EntityImmortalItem(world, location, itemstack);
+    }
 }

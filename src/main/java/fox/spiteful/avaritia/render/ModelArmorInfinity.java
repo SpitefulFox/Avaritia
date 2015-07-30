@@ -12,6 +12,7 @@ import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -120,8 +121,12 @@ public class ModelArmorInfinity extends ModelBiped {
 		Minecraft mc = Minecraft.getMinecraft();
 		boolean isFlying = entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying && entity.isAirBorne;
 		
-		super.render(entity, f, f1, f2, f3, f4, f5);
+		//copyBipedAngles(this, this.overlay);
+		//copyBipedAngles(this, this.invulnOverlay);
 		
+		super.render(entity, f, f1, f2, f3, f4, f5);
+
+		GL11.glColor4d(1, 1, 1, 1);
 		CosmicRenderShenanigans.useShader();
 		CosmicRenderShenanigans.bindItemTexture();
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -133,7 +138,6 @@ public class ModelArmorInfinity extends ModelBiped {
 		}
 		this.overlay.render(entity, f, f1, f2, f3, f4, f5);
 		
-
 		CosmicRenderShenanigans.releaseShader();
 		
 		mc.renderEngine.bindTexture(eyeTex);
@@ -166,7 +170,9 @@ public class ModelArmorInfinity extends ModelBiped {
 			super.render(entity, f, f1, f2, f3, f4, f5);
 		}
 		
-		mc.entityRenderer.enableLightmap(0.0);
+		if (!CosmicRenderShenanigans.inventoryRender) {
+			mc.entityRenderer.enableLightmap(15.0);
+		}
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glColor4d(1,1,1,1);
 		
@@ -198,10 +204,14 @@ public class ModelArmorInfinity extends ModelBiped {
 			GL11.glDepthMask(true);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			mc.entityRenderer.enableLightmap(0.0);
+			if (!CosmicRenderShenanigans.inventoryRender) {
+				mc.entityRenderer.enableLightmap(0.0);
+			}
 			GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glColor4d(1,1,1,1);
+			
 		}
+		
 	}
 	
 	public void update(EntityLivingBase entityLiving, ItemStack itemstack, int armorSlot) {
@@ -263,6 +273,9 @@ public class ModelArmorInfinity extends ModelBiped {
         this.invulnOverlay.isRiding = entityLiving.isRiding();
         this.invulnOverlay.isChild = entityLiving.isChild();
 
+        this.overlay.onGround = this.onGround;
+        this.invulnOverlay.onGround = this.onGround;
+        
         this.heldItemRight = 0;
         this.aimedBow = false;
         
@@ -305,9 +318,11 @@ public class ModelArmorInfinity extends ModelBiped {
 	}
 	
 	@Override
-	public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity)
+	public void setRotationAngles(float f1, float speed, float ticks, float headYaw, float headPitch, float f6, Entity entity)
     {
-        super.setRotationAngles(f1, f2, f3, f4, f5, f6, entity);
+        super.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
+        this.overlay.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
+        this.invulnOverlay.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
         
         if (RenderManager.instance.entityRenderMap.containsKey(entity.getClass())) {
         	Render r = (Render) RenderManager.instance.entityRenderMap.get(entity.getClass());
@@ -466,6 +481,8 @@ public class ModelArmorInfinity extends ModelBiped {
 		
 		@Override
 		public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+			copyBipedAngles(this.parent, this);
+			
 			super.render(entity, f, f1, f2, f3, f4, f5);
 		}
 		

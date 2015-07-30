@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
+import fox.spiteful.avaritia.crafting.ExtremeShapedRecipe;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
@@ -14,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.BotaniaAPI;
 
 public class Tsundere {
-
+	
     public static void baka() throws Compat.ItemNotFoundException {
         Item resource = Compat.getItem("Botania", "manaResource");
         Block storage = Compat.getBlock("Botania", "storage");
@@ -55,7 +56,7 @@ public class Tsundere {
 
         Block potato = Compat.getBlock("Botania", "tinyPotato");
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.infinitato), new Object[]{
+        ExtremeShapedRecipe tatorecipe = ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.infinitato), new Object[]{
                 "IIIIIIIII",
                 "IIIIIIIII",
                 "IIISISIII",
@@ -68,6 +69,13 @@ public class Tsundere {
                 'I', new ItemStack(potato),
                 'X', new ItemStack(LudicrousItems.resource, 1, 5),
                 'S', new ItemStack(Items.diamond)});
+        
+        BlockInfinitato.lexiconEntry = new LudicrousLexicon("infinitato", BotaniaAPI.categoryMisc);
+        BlockInfinitato.lexiconEntry.setLexiconPages(
+        		BotaniaAPI.internalHandler.textPage("avaritia.lexicon.infinitato.0"),
+        		new PageLudicrousRecipe("avaritia.lexicon.infinitato.1", tatorecipe)
+        ).setIcon(new ItemStack(LudicrousBlocks.infinitato));
+
     }
 
     private static ItemStack getFlower(String type) throws Compat.ItemNotFoundException {

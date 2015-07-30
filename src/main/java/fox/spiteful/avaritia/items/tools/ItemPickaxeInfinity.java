@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.items.tools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -10,6 +11,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -154,6 +156,18 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
         ToolHelper.removeBlocksInIteration(player, stack, world, x, y, z, -range, doY ? -1 : -range, -range, range, doY ? range * 2 - 2 : range, range, null, MATERIALS, silk, fortune, false);
 
+    }
+    
+    @Override
+    public boolean hasCustomEntity (ItemStack stack)
+    {
+        return true;
+    }
+
+    @Override
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+        return new EntityImmortalItem(world, location, itemstack);
     }
 
 }

@@ -53,6 +53,8 @@ public class EntityGapingVoid extends Entity {
 				if (p.capabilities.isCreativeMode) {
 					return false;
 				}
+			} else if (ent instanceof EntityImmortalItem) {
+				return false;
 			}
 			
 			return true;
