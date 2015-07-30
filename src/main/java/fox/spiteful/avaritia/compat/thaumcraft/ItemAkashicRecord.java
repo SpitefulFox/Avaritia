@@ -28,10 +28,12 @@ public class ItemAkashicRecord extends Item {
             Thaumcraft.proxy.playerKnowledge.addAspectPool(player.getCommandSenderName(), aspect, (short) 999);
             PacketHandler.INSTANCE.sendTo(new PacketAspectPool(aspect.getTag(), (short)999, Short.valueOf(Thaumcraft.proxy.playerKnowledge.getAspectPoolFor(player.getCommandSenderName(), aspect))), (EntityPlayerMP) player);
         }
-        if(--stack.stackSize <= 0)
-            return null;
-        else
-            return stack;
+
+        if (!player.capabilities.isCreativeMode)
+        {
+            --stack.stackSize;
+        }
+        return stack;
     }
 
 }
