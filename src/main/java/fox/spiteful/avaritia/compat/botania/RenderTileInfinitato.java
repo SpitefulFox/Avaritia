@@ -20,13 +20,13 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
 	private static final ModelInfinitato model = new ModelInfinitato();
 
 	@Override
-	public void renderTileEntityAt(TileEntity var1, double d0, double d1, double d2, float var8) {
+	public void renderTileEntityAt(TileEntity var1, double x, double y, double z, float partialTicks) {
 		TileInfinitato potato = (TileInfinitato) var1;
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+		GL11.glTranslated(x, y, z);
 
 		Minecraft mc = Minecraft.getMinecraft();
 		
@@ -34,34 +34,25 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glScalef(1F, -1F, -1F);
 		int meta = potato.getWorldObj() == null ? 3 : potato.getBlockMetadata();
-		float rotY = meta * 90F - 180F;
-		GL11.glRotatef(rotY, 0F, 1F, 0F);
-
-		float jump = potato.jumpTicks*0.5f;
-		if(jump > 0)
-			jump += var8*0.5f;
-
-		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
-		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
-
+		
 		if (drawHalo){
 			mc.renderEngine.bindTexture(halo);
 			GL11.glPushMatrix();
 			
-			double xdiff = potato.xCoord + 0.5 - mc.thePlayer.posX;
-			double ydiff = potato.yCoord + 0.4 - (mc.thePlayer.posY + mc.thePlayer.eyeHeight);
-			double zdiff = potato.zCoord + 0.5 - mc.thePlayer.posZ;
+			double xdiff = (potato.xCoord + 0.5) - RenderManager.instance.viewerPosX;//.renderPosX;
+			double ydiff = (potato.yCoord + 0.4) - RenderManager.instance.viewerPosY;//.renderPosY;
+			double zdiff = (potato.zCoord + 0.5) - RenderManager.instance.viewerPosZ;//.renderPosZ;
 			
 			double len = Math.sqrt(xdiff*xdiff + ydiff*ydiff + zdiff*zdiff);
-			
+						
 			xdiff /= len;
 			ydiff /= len;
 			zdiff /= len;
 			
-			GL11.glTranslated(xdiff, ydiff, -zdiff);
+			GL11.glTranslated(-xdiff, ydiff, zdiff);
 			
-			GL11.glRotatef(-rotZ, 0F, 0F, 1F);
-			GL11.glRotatef(-rotY, 0F, 1F, 0F);
+			//GL11.glRotatef(-rotZ, 0F, 0F, 1F);
+			//GL11.glRotatef(-rotY, 0F, 1F, 0F);
 			GL11.glScalef(1F, -1F, -1F);
 			
 			GL11.glTranslatef(0F, -1.15F, 0F);
@@ -97,6 +88,19 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
 			
 			GL11.glPopMatrix();
 		}
+		
+		
+		float rotY = meta * 90F - 180F;
+		GL11.glRotatef(rotY, 0F, 1F, 0F);
+
+		float jump = potato.jumpTicks*0.5f;
+		if(jump > 0)
+			jump += partialTicks*0.5f;
+
+		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
+		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
+
+		
 		
 		GL11.glTranslatef(0F, up, 0F);
 		GL11.glRotatef(rotZ, 0F, 0F, 1F);
