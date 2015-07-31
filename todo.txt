@@ -1,18 +1,15 @@
 - Finish the main tools
   - World Breaker (Infinity Pickaxe)
     - Mass destruction EntityItem
-    - Less derpy hammer sprite
   - Planet Eater (Infinity Shovel)
     - Destroyer Mode - 17x17x17 AOE, No Drops
   - Nature's Ruin (Infinity Axe)
     - Treecapitating?
     - 17x17 all trees ded on right click
-- Write a Lexicon entry for the Infinitato
 - Make Infinity block not look so derpy
-- Finish off Infinity Armor render
-  - Phantom Ink support
-- EntityItem that does not despawn or burn, for end-game items
-  - End game ingredients get slower despawn?
+- Dire Crafting Table stores inventory
+- Neutronium Compressor
+  - 100+ ingredients per singularity
 - Finish MineTweaker support
   - Add and remove catalyst, stew, and meatball ingredients
 - Cross-mod support
