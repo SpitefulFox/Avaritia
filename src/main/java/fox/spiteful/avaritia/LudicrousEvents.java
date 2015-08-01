@@ -27,6 +27,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.oredict.OreDictionary;
+
 import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
@@ -69,7 +71,7 @@ public class LudicrousEvents {
         }
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void extraLuck(HarvestDropsEvent event){
         if(event.harvester == null)
             return;
@@ -98,6 +100,34 @@ public class LudicrousEvents {
                 for(ItemStack rem : removals)
                     event.drops.remove(rem);
                 event.dropChance = 1.0F;
+            }
+        }
+    }*/
+    
+    public void extraLuck(HarvestDropsEvent event){
+        if(event.harvester == null)
+            return;
+        if(event.harvester.getHeldItem() == null)
+            return;
+        ItemStack held = event.harvester.getHeldItem();
+        if(held.getItem() == LudicrousItems.infinity_pickaxe){
+            if(event.block.getMaterial() == Material.rock){
+            	for(ItemStack drop : event.drops){
+                    if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
+                        drop.stackSize = Math.min(drop.stackSize * 4, drop.getMaxStackSize());
+                    }
+                    else if(drop.getItem() == Item.getItemFromBlock(event.block))
+                    {
+                        int[] oreids = OreDictionary.getOreIDs(drop);
+                        for (int i=0; i<oreids.length; i++) {
+                        	String orename = OreDictionary.getOreName(oreids[i]);
+                        	if (orename.startsWith("ore")) {
+                        		// add the fractured ores
+                        		break;
+                        	}
+                        }
+                    }
+                }
             }
         }
     }

@@ -8,6 +8,7 @@ import fox.spiteful.avaritia.entity.EntityGapingVoid;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.CosmicItemRenderer;
 import fox.spiteful.avaritia.render.FancyHaloRenderer;
+import fox.spiteful.avaritia.render.FracturedOreRenderer;
 import fox.spiteful.avaritia.render.LudicrousRenderEvents;
 import fox.spiteful.avaritia.render.RenderGapingVoid;
 import fox.spiteful.avaritia.render.ShaderHelper;
@@ -37,6 +38,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_armor, sparkly);
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_pants, sparkly);
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_shoes, sparkly);
+		
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.fractured_ore, new FracturedOreRenderer());
 		
 		CompatClient.comprettify();
 		

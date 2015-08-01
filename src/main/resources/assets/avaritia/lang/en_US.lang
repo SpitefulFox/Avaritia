@@ -30,6 +30,8 @@ item.infinity_armor_0.name=Infinity Helmet
 item.infinity_armor_1.name=Infinity Breastplate
 item.infinity_armor_2.name=Infinity Pants
 item.infinity_armor_3.name=Infinity Boots
+item.avaritia_fracturedore.name=Unknown Fractured Ore
+item.avaritia_fracturedore.prefix=Fractured
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table

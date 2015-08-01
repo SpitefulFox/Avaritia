@@ -27,6 +27,7 @@ public class LudicrousItems {
     public static Item ultimate_stew;
     public static Item cosmic_meatballs;
     public static Item endest_pearl;
+    public static Item fractured_ore;
 
     public static Item infinity_helm;
     public static Item infinity_armor;
@@ -65,6 +66,8 @@ public class LudicrousItems {
         GameRegistry.registerItem(infinity_pants, "Infinity_Pants");
         infinity_shoes = new ItemArmorInfinity(3);
         GameRegistry.registerItem(infinity_shoes, "Infinity_Shoes");
+        fractured_ore = new ItemFracturedOre();
+        GameRegistry.registerItem(fractured_ore, "Fractured_Ore");
         
         MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
     }

@@ -17,6 +17,7 @@ import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.crafting.Mincer;
 import fox.spiteful.avaritia.entity.LudicrousEntities;
 import fox.spiteful.avaritia.gui.GooeyHandler;
+import fox.spiteful.avaritia.items.ItemFracturedOre;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -62,6 +63,7 @@ public class Avaritia {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GooeyHandler());
         proxy.makeThingsPretty();
         MinecraftForge.EVENT_BUS.register(new LudicrousEvents());
+        ItemFracturedOre.brushUpUncomfortablyAgainstTheOreDictionary();
     }
 
     @EventHandler
@@ -71,5 +73,6 @@ public class Avaritia {
         Grinder.lastMinuteChanges();
         Achievements.achieve();
         PotionHelper.healthInspection();
+        
     }
 }
