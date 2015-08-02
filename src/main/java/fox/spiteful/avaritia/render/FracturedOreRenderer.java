@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import fox.spiteful.avaritia.items.ItemFracturedOre;
+import fox.spiteful.avaritia.items.ItemFracturedOre.NameStack;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -65,7 +66,7 @@ public class FracturedOreRenderer implements IItemRenderer {
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			
 			if (item.hasTagCompound() && item.getTagCompound().hasKey(ItemFracturedOre.OREKEY)) {
-				ItemStack orestack = ItemStack.loadItemStackFromNBT(item.getTagCompound().getCompoundTag(ItemFracturedOre.OREKEY));
+				ItemStack orestack = NameStack.loadFromNBT(item.getTagCompound().getCompoundTag(ItemFracturedOre.OREKEY)).getStack();
 				
 				mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 				
@@ -167,7 +168,7 @@ public class FracturedOreRenderer implements IItemRenderer {
         ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
         
         if (item.hasTagCompound() && item.getTagCompound().hasKey(ItemFracturedOre.OREKEY)) {
-			ItemStack orestack = ItemStack.loadItemStackFromNBT(item.getTagCompound().getCompoundTag(ItemFracturedOre.OREKEY));
+        	ItemStack orestack = NameStack.loadFromNBT(item.getTagCompound().getCompoundTag(ItemFracturedOre.OREKEY)).getStack();
 			
 			mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 			

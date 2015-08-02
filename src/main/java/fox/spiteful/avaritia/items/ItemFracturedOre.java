@@ -2,8 +2,10 @@ package fox.spiteful.avaritia.items;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.HashMultimap;
@@ -27,7 +29,8 @@ public class ItemFracturedOre extends Item {
 
 	public static final String OREKEY = "ore";
 	protected static List<ItemStack> emulatedOres = new ArrayList<ItemStack>();
-	
+	protected static Map<String, ItemStack> nameMapping = new HashMap<String, ItemStack>();
+		
 	public ItemFracturedOre() {
 		this.setCreativeTab(Avaritia.tab);
 		this.setUnlocalizedName("avaritia_fracturedore");
@@ -46,7 +49,8 @@ public class ItemFracturedOre extends Item {
     }
 	
 	public ItemStack getStackForOre(ItemStack orestack, int stacksize) {
-		NBTTagCompound oretag = orestack.writeToNBT(new NBTTagCompound());
+		//NBTTagCompound oretag = orestack.writeToNBT(new NBTTagCompound());
+		NBTTagCompound oretag = NameStack.saveStackToNBT(orestack);
 		
 		ItemStack outstack = new ItemStack(this, stacksize, 0);
 		NBTTagCompound stacktag = new NBTTagCompound();
@@ -61,7 +65,7 @@ public class ItemFracturedOre extends Item {
 	public String getItemStackDisplayName(ItemStack stack)
     {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey(OREKEY)) {
-			ItemStack orestack = ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag(OREKEY));
+			ItemStack orestack = NameStack.loadFromNBT(stack.getTagCompound().getCompoundTag(OREKEY)).getStack();
 			return StatCollector.translateToLocal("item.avaritia_fracturedore.prefix") +" "+ orestack.getItem().getItemStackDisplayName(orestack);
 		}
 		return super.getItemStackDisplayName(stack);
@@ -70,10 +74,12 @@ public class ItemFracturedOre extends Item {
 	@Override
 	public int getDamage(ItemStack stack) {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey(OREKEY)) {
-;			NBTTagCompound tag = stack.getTagCompound().getCompoundTag(OREKEY);
-			int id = tag.getInteger("id");
-			int meta = tag.getInteger("Damage");
-			return meta + (id << 4);
+			NameStack nstack = NameStack.loadFromNBT(stack.getTagCompound().getCompoundTag(OREKEY));
+			int id = Item.getIdFromItem(nstack.getItem());
+			int meta = nstack.damage;
+			int out = meta + (id << 4);
+			stack.setItemDamage(out);
+			return out;
 		}
 		return 0;
 	}
@@ -111,7 +117,8 @@ public class ItemFracturedOre extends Item {
 		for (String name : toRegister.keySet()) {
 			Collection<ItemStack> stacks = toRegister.get(name);
 			for (ItemStack stack : stacks) {
-				ItemStack orestack = ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag(OREKEY)); 
+				//ItemStack orestack = ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag(OREKEY));
+				ItemStack orestack = NameStack.loadFromNBT(stack.getTagCompound().getCompoundTag(OREKEY)).getStack();
 				int[] oreids = OreDictionary.getOreIDs(orestack);
 				for (int i=0; i<oreids.length; i++) {
 					String oreidname = OreDictionary.getOreName(oreids[i]);
@@ -173,6 +180,59 @@ public class ItemFracturedOre extends Item {
 		@Override
 		public String toString() {
 			return this.stack.toString();
+		}
+	}
+	
+	public static class NameStack {
+		String name;
+		int damage;
+		NBTTagCompound tag;
+		int size;
+		
+		public NameStack(ItemStack source) {
+			this(source.getItem().delegate.name(), source.getItemDamage(), source.stackSize, source.getTagCompound());
+		}
+		
+		public NameStack(String name, int damage, int size, NBTTagCompound nbt) {
+			this.name = name;
+			this.damage = damage;
+			this.tag = nbt;
+			this.size = size;
+		}
+		
+		public NBTTagCompound saveToNBT() {
+			NBTTagCompound savetag = new NBTTagCompound();
+			savetag.setInteger("meta", this.damage);
+			if (this.tag != null) {
+				savetag.setTag("nbt", this.tag);
+			}
+			savetag.setString("name", this.name);
+			savetag.setInteger("size", this.size);
+			return savetag;
+		}
+		
+		public static NameStack loadFromNBT(NBTTagCompound tag) {
+			NBTTagCompound stacktag = null;
+			if (tag.hasKey("nbt")) {
+				stacktag = tag.getCompoundTag("nbt");
+			}
+			return new NameStack(tag.getString("name"), tag.getInteger("meta"), tag.getInteger("size"), stacktag);
+		}
+		
+		public Item getItem() {
+			return (Item) Item.itemRegistry.getObject(this.name);
+		}
+		
+		public static NBTTagCompound saveStackToNBT(ItemStack stack) {
+			return new NameStack(stack).saveToNBT();
+		}
+		
+		public ItemStack getStack() {
+			ItemStack stack = new ItemStack(this.getItem(), this.size, this.damage);
+			if(this.tag != null) {
+				stack.setTagCompound((NBTTagCompound) this.tag.copy());
+			}
+			return stack;
 		}
 	}
 }
