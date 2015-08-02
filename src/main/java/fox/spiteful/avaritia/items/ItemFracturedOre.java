@@ -17,11 +17,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -30,6 +32,7 @@ public class ItemFracturedOre extends Item {
 	public static final String OREKEY = "ore";
 	protected static List<ItemStack> emulatedOres = new ArrayList<ItemStack>();
 	protected static Map<String, ItemStack> nameMapping = new HashMap<String, ItemStack>();
+	public static IIcon unknownIcon;
 		
 	public ItemFracturedOre() {
 		this.setCreativeTab(Avaritia.tab);
@@ -43,13 +46,13 @@ public class ItemFracturedOre extends Item {
 	@Override
     public void getSubItems(Item item, CreativeTabs tab, List list)
     {
-        for (ItemStack stack : emulatedOres) {
+		// for debug purposes only - don't want these cluttering up the tab.
+        /*for (ItemStack stack : emulatedOres) {
         	list.add(getStackForOre(stack, 1));
-        }
+        }*/
     }
 	
 	public ItemStack getStackForOre(ItemStack orestack, int stacksize) {
-		//NBTTagCompound oretag = orestack.writeToNBT(new NBTTagCompound());
 		NBTTagCompound oretag = NameStack.saveStackToNBT(orestack);
 		
 		ItemStack outstack = new ItemStack(this, stacksize, 0);
@@ -82,6 +85,14 @@ public class ItemFracturedOre extends Item {
 			return out;
 		}
 		return 0;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister ir) {
+		super.registerIcons(ir);
+		
+		this.unknownIcon = ir.registerIcon("avaritia:unknown");
 	}
 	
 	// ########################################
@@ -117,7 +128,6 @@ public class ItemFracturedOre extends Item {
 		for (String name : toRegister.keySet()) {
 			Collection<ItemStack> stacks = toRegister.get(name);
 			for (ItemStack stack : stacks) {
-				//ItemStack orestack = ItemStack.loadItemStackFromNBT(stack.getTagCompound().getCompoundTag(OREKEY));
 				ItemStack orestack = NameStack.loadFromNBT(stack.getTagCompound().getCompoundTag(OREKEY)).getStack();
 				int[] oreids = OreDictionary.getOreIDs(orestack);
 				for (int i=0; i<oreids.length; i++) {

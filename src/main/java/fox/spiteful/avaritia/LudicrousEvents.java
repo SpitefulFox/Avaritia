@@ -2,6 +2,7 @@ package fox.spiteful.avaritia;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import fox.spiteful.avaritia.items.ItemArmorInfinity;
+import fox.spiteful.avaritia.items.ItemFracturedOre;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
@@ -32,6 +33,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -70,40 +72,8 @@ public class LudicrousEvents {
             }
         }
     }
-
-    /*@SubscribeEvent
-    public void extraLuck(HarvestDropsEvent event){
-        if(event.harvester == null)
-            return;
-        if(event.harvester.getHeldItem() == null)
-            return;
-        ItemStack held = event.harvester.getHeldItem();
-        if(held.getItem() == LudicrousItems.infinity_pickaxe){
-            if(event.block.getMaterial() == Material.rock){
-                ArrayList<ItemStack> adds = new ArrayList<ItemStack>();
-                ArrayList<ItemStack> removals = new ArrayList<ItemStack>();
-                for(ItemStack drop : event.drops){
-                    if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
-                        drop.stackSize = Math.min(drop.stackSize * 4, drop.getMaxStackSize());
-                    }
-                    else if(drop.getItem() == Item.getItemFromBlock(event.block) && FurnaceRecipes.smelting().getSmeltingResult(drop) != null
-                            && drop.getItem() != Item.getItemFromBlock(Blocks.netherrack)
-                            && !(FurnaceRecipes.smelting().getSmeltingResult(drop).getItem() instanceof ItemBlock)){
-                        ItemStack smelt = FurnaceRecipes.smelting().getSmeltingResult(drop).copy();
-                        smelt.stackSize = Math.min(drop.stackSize * 10, drop.getMaxStackSize());
-                        adds.add(smelt);
-                        removals.add(drop);
-                    }
-                }
-                for(ItemStack add : adds)
-                    event.drops.add(add);
-                for(ItemStack rem : removals)
-                    event.drops.remove(rem);
-                event.dropChance = 1.0F;
-            }
-        }
-    }*/
     
+    @SubscribeEvent
     public void extraLuck(HarvestDropsEvent event){
         if(event.harvester == null)
             return;
@@ -112,22 +82,26 @@ public class LudicrousEvents {
         ItemStack held = event.harvester.getHeldItem();
         if(held.getItem() == LudicrousItems.infinity_pickaxe){
             if(event.block.getMaterial() == Material.rock){
+            	List<ItemStack> adds = new ArrayList<ItemStack>();
             	for(ItemStack drop : event.drops){
                     if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
                         drop.stackSize = Math.min(drop.stackSize * 4, drop.getMaxStackSize());
                     }
                     else if(drop.getItem() == Item.getItemFromBlock(event.block))
                     {
+                    	ItemFracturedOre ifo = (ItemFracturedOre)LudicrousItems.fractured_ore;
                         int[] oreids = OreDictionary.getOreIDs(drop);
                         for (int i=0; i<oreids.length; i++) {
                         	String orename = OreDictionary.getOreName(oreids[i]);
                         	if (orename.startsWith("ore")) {
                         		// add the fractured ores
+                        		adds.add(ifo.getStackForOre(drop, Math.min(drop.stackSize * 4, drop.getMaxStackSize())));
                         		break;
                         	}
                         }
                     }
                 }
+            	event.drops.addAll(adds);
             }
         }
     }
