@@ -74,9 +74,12 @@ public class CosmicItemRenderer implements IItemRenderer {
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
 				GL11.glDisable(GL11.GL_DEPTH_TEST);
 				
+				ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
+				
+				CosmicRenderShenanigans.cosmicOpacity = icri.getMaskMultiplier(item);
 				CosmicRenderShenanigans.inventoryRender = true;
 				CosmicRenderShenanigans.useShader();
-				ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
+				
 				IIcon cosmicicon = icri.getMaskTexture(item);
 				
 				GL11.glColor4d(1, 1, 1, 1);
@@ -156,8 +159,11 @@ public class CosmicItemRenderer implements IItemRenderer {
         }
 		
 		if (item.getItem() instanceof ICosmicRenderItem) {
-			CosmicRenderShenanigans.useShader();
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
+			CosmicRenderShenanigans.cosmicOpacity = icri.getMaskMultiplier(item);
+			CosmicRenderShenanigans.useShader();
+			
 			IIcon cosmicicon = icri.getMaskTexture(item);
 			
 			float minu = cosmicicon.getMinU();
@@ -166,6 +172,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 			float maxv = cosmicicon.getMaxV();
 			ItemRenderer.renderItemIn2D(Tessellator.instance, maxu, minv, minu, maxv, cosmicicon.getIconWidth(), cosmicicon.getIconHeight(), scale);
 			CosmicRenderShenanigans.releaseShader();
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
 		}
 		
 		GL11.glDisable(GL11.GL_BLEND);

@@ -3,6 +3,7 @@ package fox.spiteful.avaritia;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import fox.spiteful.avaritia.items.ItemArmorInfinity;
 import fox.spiteful.avaritia.items.ItemFracturedOre;
+import fox.spiteful.avaritia.items.ItemMatterCluster;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
@@ -25,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -83,6 +85,7 @@ public class LudicrousEvents {
         if(held.getItem() == LudicrousItems.infinity_pickaxe){
             if(event.block.getMaterial() == Material.rock){
             	List<ItemStack> adds = new ArrayList<ItemStack>();
+            	List<ItemStack> removals = new ArrayList<ItemStack>();
             	for(ItemStack drop : event.drops){
                     if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
                         drop.stackSize = Math.min(drop.stackSize * 4, drop.getMaxStackSize());
@@ -95,13 +98,24 @@ public class LudicrousEvents {
                         	String orename = OreDictionary.getOreName(oreids[i]);
                         	if (orename.startsWith("ore")) {
                         		// add the fractured ores
-                        		adds.add(ifo.getStackForOre(drop, Math.min(drop.stackSize * 4, drop.getMaxStackSize())));
+                        		adds.add(ifo.getStackForOre(drop, Math.min(drop.stackSize * 5, drop.getMaxStackSize())));
+                        		removals.add(drop);
                         		break;
                         	}
                         }
                     }
                 }
             	event.drops.addAll(adds);
+            	event.drops.removeAll(removals);
+            }
+            
+            if (held.getTagCompound().getBoolean("hammer") 
+            	&& ToolHelper.hammering.contains(event.harvester) 
+            	&& ToolHelper.hammerdrops.containsKey(event.harvester)
+            	&& ToolHelper.hammerdrops.get(event.harvester) != null) {
+            	
+            	ToolHelper.hammerdrops.get(event.harvester).addAll(event.drops);
+            	event.drops.clear();
             }
         }
     }
@@ -203,4 +217,21 @@ public class LudicrousEvents {
         event.drops.add(entityitem);
     }
 
+    @SubscribeEvent
+    public void clusterClustererererer(EntityItemPickupEvent event) {
+    	if(event.entityPlayer != null && event.item.getEntityItem().getItem() == LudicrousItems.matter_cluster) {
+    		ItemStack stack = event.item.getEntityItem();
+    		EntityPlayer player = event.entityPlayer;
+    		
+    		for (int i=0; i<player.inventory.mainInventory.length; i++) {
+    			if (stack.stackSize == 0) {
+    				break;
+    			}
+    			ItemStack slot = player.inventory.mainInventory[i];
+    			if (slot != null && slot.getItem() != null && slot.getItem() == LudicrousItems.matter_cluster) {
+    				ItemMatterCluster.mergeClusters(stack, slot);
+    			}
+    		}
+    	}
+    }
 }

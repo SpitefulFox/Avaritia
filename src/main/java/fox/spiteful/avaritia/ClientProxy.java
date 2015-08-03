@@ -38,6 +38,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_armor, sparkly);
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_pants, sparkly);
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_shoes, sparkly);
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.matter_cluster, sparkly);
 		
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.fractured_ore, new FracturedOreRenderer());
 		

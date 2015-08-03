@@ -12,13 +12,29 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
+import java.util.WeakHashMap;
+
+import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.entity.EntityCollationItem;
+import fox.spiteful.avaritia.items.ItemMatterCluster;
+import fox.spiteful.avaritia.items.ItemStackWrapper;
+import fox.spiteful.avaritia.items.LudicrousItems;
 
 public class ToolHelper {
 
@@ -27,14 +43,47 @@ public class ToolHelper {
     public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood };
 
     private static Random randy = new Random();
+    
+    public static Set<EntityPlayer> hammering = new HashSet<EntityPlayer>();
+    public static Map<EntityPlayer, List<ItemStack>> hammerdrops = new WeakHashMap<EntityPlayer, List<ItemStack>>();
 
     public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
         float blockHardness = block == null ? 1F : block.getBlockHardness(world, x, y, z);
 
+        if (!hammerdrops.containsKey(player) || hammerdrops.get(player) == null) {
+        	hammerdrops.put(player, new ArrayList<ItemStack>());
+        }
+        
+        if (!hammering.contains(player)) {
+        	hammering.add(player);
+        }
+        
         for(int x1 = xs; x1 < xe; x1++)
             for(int y1 = ys; y1 < ye; y1++)
                 for(int z1 = zs; z1 < ze; z1++)
                     removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, block, materialsListing, silk, fortune, blockHardness, dispose);
+        
+        int meta = world.getBlockMetadata(x, y, z);
+        if(!world.isRemote /*&& ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool*/)
+                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+        
+        if (hammering.contains(player)) {
+        	hammering.remove(player);
+        }
+        
+        //List<ItemStack> drops = collateDropList(hammerdrops.get(player));
+        //Lumberjack.info(drops);
+        
+        if(!world.isRemote) {
+	        List<ItemStack> clusters = ItemMatterCluster.makeClusters(hammerdrops.get(player));
+	        
+	        for (ItemStack cluster : clusters) {
+	        	EntityItem ent = new EntityItem(world, x,y,z, cluster);
+	        	world.spawnEntityInWorld(ent);
+	        }
+        }
+        
+        hammerdrops.put(player, null);
     }
 
     public static boolean isRightMaterial(Material material, Material[] materialsListing) {
@@ -80,8 +129,8 @@ public class ToolHelper {
 
             } else world.setBlockToAir(x, y, z);
 
-            if(!world.isRemote /*&& ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool*/)
-                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
+            //if(!world.isRemote /*&& ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool*/)
+            //    world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
         }
     }
 
@@ -109,7 +158,7 @@ public class ToolHelper {
         return world.rayTraceBlocks(vec3, vec31, wut);
     }
 
-    private static void dropItem(ItemStack drop, World world, int x, int y, int z){
+    public static void dropItem(ItemStack drop, World world, int x, int y, int z){
         float f = 0.7F;
         double d0 = (double)(randy.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
         double d1 = (double)(randy.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
@@ -117,5 +166,51 @@ public class ToolHelper {
         EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, drop);
         entityitem.delayBeforeCanPickup = 10;
         world.spawnEntityInWorld(entityitem);
+    }
+    
+    public static List<ItemStack> collateDropList(List<ItemStack> input) {
+    	return collateMatterClusterContents(collateMatterCluster(input));
+    }
+    
+    public static List<ItemStack> collateMatterClusterContents(Map<ItemStackWrapper, Integer> input) {
+    	List<ItemStack> collated = new ArrayList<ItemStack>();
+    	
+    	for (Entry<ItemStackWrapper, Integer> e : input.entrySet()) {
+    		int count = e.getValue();
+    		ItemStackWrapper wrap = e.getKey();
+    		
+    		int size = wrap.stack.getMaxStackSize();
+    		int fullstacks = (int) Math.floor(count / size);
+    		
+    		for(int i=0; i<fullstacks; i++) {
+    			count -= size;
+    			ItemStack stack = wrap.stack.copy();
+    			stack.stackSize = size;
+    			collated.add(stack);
+    		}
+    		
+    		if (count > 0) {
+    			ItemStack stack = wrap.stack.copy();
+    			stack.stackSize = count;
+    			collated.add(stack);
+    		}
+    	}
+    	
+    	return collated;
+    }
+    
+    public static Map<ItemStackWrapper, Integer> collateMatterCluster(List<ItemStack> input) {
+    	Map<ItemStackWrapper, Integer> counts = new HashMap<ItemStackWrapper, Integer>();
+    	
+    	for (ItemStack stack : input) {
+    		ItemStackWrapper wrap = new ItemStackWrapper(stack);
+    		if (!counts.containsKey(wrap)) {
+    			counts.put(wrap, 0);
+    		}
+    		
+    		counts.put(wrap, counts.get(wrap) + stack.stackSize);
+    	}
+    	
+    	return counts;
     }
 }

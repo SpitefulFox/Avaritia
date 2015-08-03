@@ -41,7 +41,7 @@ public class ItemFracturedOre extends Item {
 		this.setHasSubtypes(true);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes"})
 	@SideOnly(Side.CLIENT)
 	@Override
     public void getSubItems(Item item, CreativeTabs tab, List list)
@@ -92,7 +92,7 @@ public class ItemFracturedOre extends Item {
     public void registerIcons(IIconRegister ir) {
 		super.registerIcons(ir);
 		
-		this.unknownIcon = ir.registerIcon("avaritia:unknown");
+		unknownIcon = ir.registerIcon("avaritia:unknown");
 	}
 	
 	// ########################################
@@ -143,53 +143,6 @@ public class ItemFracturedOre extends Item {
 					GameRegistry.addSmelting(stack, smeltingResult, exp);
 				}
 			}
-		}
-	}
-	
-	private static class ItemStackWrapper {
-		public final ItemStack stack;
-		
-		public ItemStackWrapper(ItemStack stack) {
-			this.stack = stack;
-		}
-		
-		@Override
-		public boolean equals(Object otherobj) {
-			if (otherobj instanceof ItemStackWrapper) {
-				ItemStackWrapper other = (ItemStackWrapper)otherobj;
-				
-				if (this.stack.getItem().equals(other.stack.getItem()) 
-					&& this.stack.getItemDamage() == other.stack.getItemDamage()
-				) {
-					
-					if (this.stack.stackTagCompound == null && other.stack.stackTagCompound == null) {
-						return true;
-					} else {
-						if (this.stack.stackTagCompound == null ^ other.stack.stackTagCompound == null) {
-							return false;
-						}
-						else if (this.stack.stackTagCompound.equals(other.stack.stackTagCompound)) {
-							return true;
-						}
-					}
-					
-				}
-			}
-			return false;
-		}
-		
-		@Override 
-		public int hashCode() {
-			int h = this.stack.getItem().hashCode();
-			if (this.stack.stackTagCompound != null) {
-				h ^= this.stack.stackTagCompound.hashCode();
-			}
-			return h ^ this.stack.getItemDamage();
-		}
-		
-		@Override
-		public String toString() {
-			return this.stack.toString();
 		}
 	}
 	

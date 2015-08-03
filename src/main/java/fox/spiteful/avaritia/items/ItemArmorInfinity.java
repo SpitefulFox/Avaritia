@@ -208,6 +208,12 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
+	public float getMaskMultiplier(ItemStack stack) {
+		return 1.0f;
+	}
+	
+	@Override
 	public boolean hasCustomEntity (ItemStack stack)
     {
         return true;

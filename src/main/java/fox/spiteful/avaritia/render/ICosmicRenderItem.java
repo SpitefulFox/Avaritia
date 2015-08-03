@@ -9,4 +9,7 @@ public interface ICosmicRenderItem {
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getMaskTexture(ItemStack stack);
+	
+	@SideOnly(Side.CLIENT)
+	public float getMaskMultiplier(ItemStack stack);
 }

@@ -20,6 +20,7 @@ public class CosmicRenderShenanigans {
 	
 	public static String[] lightmapobf = new String[] {"lightmapColors", "field_78504_Q", "U"};
 	public static boolean inventoryRender = false;
+	public static float cosmicOpacity = 1.0f;
 	
 	static {
 		shaderCallback = new ShaderCallback() {
@@ -55,6 +56,9 @@ public class CosmicRenderShenanigans {
 				
 				int s = ARBShaderObjects.glGetUniformLocationARB(shader, "externalScale");
 				ARBShaderObjects.glUniform1fARB(s, scale);
+				
+				int o = ARBShaderObjects.glGetUniformLocationARB(shader, "opacity");
+				ARBShaderObjects.glUniform1fARB(o, cosmicOpacity);
 			}
 		};
 	}

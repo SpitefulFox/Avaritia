@@ -15,6 +15,7 @@ uniform float pitch;
 uniform float externalScale;
 
 uniform float lightmix;
+uniform float opacity;
 
 uniform mat2 cosmicuvs[cosmiccount];
 
@@ -169,7 +170,7 @@ void main (void)
     col.rgb *= shade;
     
     // apply mask
-    col.a *= mask.r;
+    col.a *= mask.r * opacity;
     
 	col = clamp(col,0.0,1.0);
 	
