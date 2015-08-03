@@ -1,12 +1,10 @@
 - Finish the main tools
   - World Breaker (Infinity Pickaxe)
-    - Mass destruction EntityItem
   - Planet Eater (Infinity Shovel)
     - Destroyer Mode - 17x17x17 AOE, No Drops
   - Nature's Ruin (Infinity Axe)
     - Treecapitating?
     - 17x17 all trees ded on right click
-- Make Infinity block not look so derpy
 - Dire Crafting Table stores inventory
 - Neutronium Compressor
   - 100+ ingredients per singularity
@@ -15,6 +13,7 @@
 - Cross-mod support
   - Clean up the code
   - Finish Thaumcraft support
+  - TiCon Materials
 - Add configs
   - Configs for all cross-mod interaction
   - Config to gut entire mod except for 9x9 crafting, for modpack use

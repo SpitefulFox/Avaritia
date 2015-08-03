@@ -33,6 +33,7 @@ item.infinity_armor_3.name=Infinity Boots
 item.avaritia_fracturedore.name=Unknown Fractured Ore
 item.avaritia_fracturedore.prefix=Fractured
 item.avaritia_mattercluster.name=Matter Cluster
+item.avaritia_mattercluster.full.name=Critical Matter Cluster
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
@@ -56,7 +57,7 @@ tooltip.infinity_ingot.desc=The fury of the universe in the palm of your hand.
 tooltip.record_fragment.desc=One likes to believe in the freedom of music~
 tooltip.skullfire_sword.desc=Beheads skeletons and scorches them black.
 tooltip.matter_cluster.desc=Use to deconstruct.
-tooltip.matter_cluster.desc2=Hold SHIFT for more info.
+tooltip.matter_cluster.desc2=Hold SHIFT for contents.
 tooltip.matter_cluster.counter=items
 #
 # Achievements

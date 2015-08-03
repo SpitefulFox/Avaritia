@@ -196,7 +196,6 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 		int donorcount = getClusterSize(donor);
 		int recipientcount = getClusterSize(recipient);
 		
-		Lumberjack.info("merge 1");
 		Lumberjack.info(donorcount +", "+ recipientcount);
 		if (donorcount == 0 || donorcount == capacity || recipientcount == capacity) {
 			return;
@@ -207,7 +206,6 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 		List<Entry<ItemStackWrapper, Integer>> datalist = new ArrayList<Entry<ItemStackWrapper, Integer>>();
 		datalist.addAll(donordata.entrySet());
 		
-		Lumberjack.info("merge 2");
 		while (recipientcount < capacity && donorcount > 0) {
 			Entry<ItemStackWrapper, Integer> e = datalist.get(0);
 			ItemStackWrapper wrap = e.getKey();
@@ -231,8 +229,6 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 				datalist.remove(0);
 			}
 		}
-		
-		Lumberjack.info("merge 4");
 		setClusterData(recipient, recipientdata, recipientcount);
 		
 		if (donorcount > 0) {
@@ -246,10 +242,12 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
-		List<ItemStack> drops = ToolHelper.collateMatterClusterContents(ItemMatterCluster.getClusterData(stack));
-		
-		for (ItemStack drop : drops) {
-			ToolHelper.dropItem(drop, world, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+		if(!world.isRemote) {
+			List<ItemStack> drops = ToolHelper.collateMatterClusterContents(ItemMatterCluster.getClusterData(stack));
+			
+			for (ItemStack drop : drops) {
+				ToolHelper.dropItem(drop, world, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+			}
 		}
 		
         stack.stackSize = 0;
@@ -287,5 +285,15 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
     public IIcon getIconIndex(ItemStack stack)
     {
         return this.getIcon(stack, 0);
+    }
+	
+	@Override
+	public String getUnlocalizedName(ItemStack stack)
+    {
+		int count = getClusterSize(stack);
+		if (count == capacity) {
+			return super.getUnlocalizedName(stack) + ".full";
+		}
+        return super.getUnlocalizedName(stack);
     }
 }

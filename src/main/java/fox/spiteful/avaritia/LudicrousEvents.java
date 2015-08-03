@@ -196,6 +196,9 @@ public class LudicrousEvents {
                     event.newSpeed *= 5;
                 if(!event.entityPlayer.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(event.entityPlayer))
                     event.newSpeed *= 5;
+                if(held.getTagCompound().getBoolean("hammer")) {
+                	event.newSpeed *= 0.1;
+                }
             }
         }
     }
