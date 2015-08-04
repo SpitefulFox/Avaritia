@@ -21,6 +21,11 @@ public class ClientProxy extends CommonProxy {
 	public static final double toDeg = (1.0/(Math.PI*2))*360.0;
 	
 	@Override
+	public void prepareForPretty() {
+		CompatClient.earlyComprettify();
+	}
+	
+	@Override
 	public void makeThingsPretty() {
 		FancyHaloRenderer shiny = new FancyHaloRenderer();
 		
@@ -49,5 +54,10 @@ public class ClientProxy extends CommonProxy {
 		FMLCommonHandler.instance().bus().register(fancyevents);
 		
 		ShaderHelper.initShaders();
+	}
+	
+	@Override
+	public void theAfterPretty() {
+		CompatClient.lateComprettify();
 	}
 }

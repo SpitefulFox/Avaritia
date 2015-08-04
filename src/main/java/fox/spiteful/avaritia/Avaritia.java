@@ -55,6 +55,7 @@ public class Avaritia {
         LudicrousBlocks.voxelize();
         LudicrousEntities.letLooseTheDogsOfWar();
         Compat.census();
+        proxy.prepareForPretty();
     }
 
     @EventHandler

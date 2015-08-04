@@ -16,7 +16,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import fox.spiteful.avaritia.Avaritia;
-import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -107,14 +106,14 @@ public class ItemFracturedOre extends Item {
 		
 		for (String name : names) {
 			if (name.startsWith("ore")) {
-				Lumberjack.info("ORE: "+name);
+				//Lumberjack.info("ORE: "+name);
 				
 				List<ItemStack> ores = OreDictionary.getOres(name);
 				
 				for(ItemStack ore : ores) {
 					ItemStackWrapper compare = new ItemStackWrapper(ore);
 					if (!antiDupePool.contains(compare)) {
-						Lumberjack.info(ore);
+						//Lumberjack.info(ore);
 						antiDupePool.add(compare);
 						emulatedOres.add(ore.copy());
 						
@@ -132,14 +131,14 @@ public class ItemFracturedOre extends Item {
 				int[] oreids = OreDictionary.getOreIDs(orestack);
 				for (int i=0; i<oreids.length; i++) {
 					String oreidname = OreDictionary.getOreName(oreids[i]);
-					Lumberjack.info("Registering "+orestack.getItem().getItemStackDisplayName(orestack)+" ("+orestack+") ---> "+stack.getItem().getItemStackDisplayName(stack)+"#"+stack.getItemDamage()+" as "+oreidname);
+					//Lumberjack.info("Registering "+orestack.getItem().getItemStackDisplayName(orestack)+" ("+orestack+") ---> "+stack.getItem().getItemStackDisplayName(stack)+"#"+stack.getItemDamage()+" as "+oreidname);
 					OreDictionary.registerOre(oreidname, stack);
 				}
 				
 				ItemStack smeltingResult = FurnaceRecipes.smelting().getSmeltingResult(orestack);
 				if (smeltingResult != null) {
 					float exp = FurnaceRecipes.smelting().func_151398_b(orestack);
-					Lumberjack.info("Registering "+stack+" to smelt to "+smeltingResult+" for "+exp+" experience");
+					//Lumberjack.info("Registering "+stack+" to smelt to "+smeltingResult+" for "+exp+" experience");
 					GameRegistry.addSmelting(stack, smeltingResult, exp);
 				}
 			}

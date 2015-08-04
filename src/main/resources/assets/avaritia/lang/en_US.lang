@@ -106,3 +106,9 @@ avaritia.lexicon.infinitato.1=Trust me, &oit'll fit.&r
 # Thaumcraft
 item.Wand.infinity.rod=Cosmic Neutronium
 item.Wand.matrix.cap=Crystal Studded
+#
+# Tinkers Construct
+material.avaritia_neutronium=Neutronium
+material.avaritia_neutronium.ability=Supermassive
+material.avaritia_infinitymetal=Infinity Metal
+material.avaritia_infinitymetal.ability=Cosmic

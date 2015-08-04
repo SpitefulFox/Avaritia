@@ -7,6 +7,7 @@ import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
 import fox.spiteful.avaritia.compat.modtweaker.Tweak;
 import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
+import fox.spiteful.avaritia.compat.ticon.Tonkers;
 import fox.spiteful.avaritia.crafting.Grinder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -228,6 +229,7 @@ public class Compat {
                 Block metal = getBlock("TConstruct", "MetalBlock");
                 ItemStack menomena = new ItemStack(metal, 1, 2);
                 Grinder.catalyst.getInput().add(menomena);
+                Tonkers.buildstruct();
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia fell in the smeltery.");
