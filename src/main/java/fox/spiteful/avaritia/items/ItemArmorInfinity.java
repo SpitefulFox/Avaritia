@@ -54,10 +54,6 @@ import java.util.List;
 public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
-    @SideOnly(Side.CLIENT)
-    public static final ModelArmorInfinity armorModel = new ModelArmorInfinity(1.0f);
-    @SideOnly(Side.CLIENT)
-    public static final ModelArmorInfinity legModel = new ModelArmorInfinity(0.5f).setLegs(true);
     public IIcon cosmicMask;
     public final int slot;
 
@@ -123,7 +119,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
     @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemstack, int armorSlot){
-        ModelArmorInfinity model = armorSlot == 2 ? legModel : armorModel;
+        ModelArmorInfinity model = armorSlot == 2 ? ModelArmorInfinity.legModel : ModelArmorInfinity.armorModel;
 
         model.update(entityLiving, itemstack, armorSlot);
 

@@ -50,8 +50,8 @@ public class LudicrousRenderEvents {
 		ModelArmorInfinity.itempagewidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
 		ModelArmorInfinity.itempageheight = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
 		
-		ItemArmorInfinity.armorModel.rebuildOverlay();
-		ItemArmorInfinity.legModel.rebuildOverlay();
+		ModelArmorInfinity.armorModel.rebuildOverlay();
+		ModelArmorInfinity.legModel.rebuildOverlay();
 	}
 	
 	@SubscribeEvent

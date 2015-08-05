@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 public class ContainerExtremeCrafting extends Container {
 
-    /** The crafting matrix inventory (3x3). */
+    /** The crafting matrix inventory (9x9). */
     public InventoryCrafting craftMatrix = new InventoryCrafting(this, 9, 9);
     public IInventory craftResult = new InventoryCraftResult();
     private World worldObj;
