@@ -76,40 +76,16 @@ public class LudicrousEvents {
     }
     
     @SubscribeEvent
-    public void extraLuck(HarvestDropsEvent event){
-        if(event.harvester == null)
+    public void handleExtraLuck(HarvestDropsEvent event) {
+    	if(event.harvester == null)
             return;
         if(event.harvester.getHeldItem() == null)
             return;
         ItemStack held = event.harvester.getHeldItem();
-        if(held.getItem() == LudicrousItems.infinity_pickaxe){
-            if(event.block.getMaterial() == Material.rock){
-            	List<ItemStack> adds = new ArrayList<ItemStack>();
-            	List<ItemStack> removals = new ArrayList<ItemStack>();
-            	for(ItemStack drop : event.drops){
-                    if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
-                        drop.stackSize = Math.min(drop.stackSize * 4, drop.getMaxStackSize());
-                    }
-                    else if(drop.getItem() == Item.getItemFromBlock(event.block))
-                    {
-                    	ItemFracturedOre ifo = (ItemFracturedOre)LudicrousItems.fractured_ore;
-                        int[] oreids = OreDictionary.getOreIDs(drop);
-                        for (int i=0; i<oreids.length; i++) {
-                        	String orename = OreDictionary.getOreName(oreids[i]);
-                        	if (orename.startsWith("ore")) {
-                        		// add the fractured ores
-                        		adds.add(ifo.getStackForOre(drop, Math.min(drop.stackSize * 5, drop.getMaxStackSize())));
-                        		removals.add(drop);
-                        		break;
-                        	}
-                        }
-                    }
-                }
-            	event.drops.addAll(adds);
-            	event.drops.removeAll(removals);
-            }
-            
-            if (held.getTagCompound().getBoolean("hammer") 
+        if(held.getItem() == LudicrousItems.infinity_pickaxe) {
+        	extraLuck(event, 4);
+        	
+        	if (held.getTagCompound().getBoolean("hammer") 
             	&& ToolHelper.hammering.contains(event.harvester) 
             	&& ToolHelper.hammerdrops.containsKey(event.harvester)
             	&& ToolHelper.hammerdrops.get(event.harvester) != null) {
@@ -117,6 +93,34 @@ public class LudicrousEvents {
             	ToolHelper.hammerdrops.get(event.harvester).addAll(event.drops);
             	event.drops.clear();
             }
+        }
+    }
+    
+    public static void extraLuck(HarvestDropsEvent event, int mult){
+        if(event.block.getMaterial() == Material.rock){
+        	List<ItemStack> adds = new ArrayList<ItemStack>();
+        	List<ItemStack> removals = new ArrayList<ItemStack>();
+        	for(ItemStack drop : event.drops){
+                if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
+                    drop.stackSize = Math.min(drop.stackSize * mult, drop.getMaxStackSize());
+                }
+                else if(drop.getItem() == Item.getItemFromBlock(event.block))
+                {
+                	ItemFracturedOre ifo = (ItemFracturedOre)LudicrousItems.fractured_ore;
+                    int[] oreids = OreDictionary.getOreIDs(drop);
+                    for (int i=0; i<oreids.length; i++) {
+                    	String orename = OreDictionary.getOreName(oreids[i]);
+                    	if (orename.startsWith("ore")) {
+                    		// add the fractured ores
+                    		adds.add(ifo.getStackForOre(drop, Math.min(drop.stackSize * (mult+1), drop.getMaxStackSize())));
+                    		removals.add(drop);
+                    		break;
+                    	}
+                    }
+                }
+            }
+        	event.drops.addAll(adds);
+        	event.drops.removeAll(removals);
         }
     }
 

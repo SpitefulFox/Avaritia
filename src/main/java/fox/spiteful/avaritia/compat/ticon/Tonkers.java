@@ -1,6 +1,8 @@
 package fox.spiteful.avaritia.compat.ticon;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.MinecraftForge;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.ToolMaterial;
@@ -31,6 +33,8 @@ public class Tonkers {
 		TConstructRegistry.addArrowMaterial(neutroniumId, 5.0f, 0.0f);
 		TConstructRegistry.addArrowMaterial(infinityMetalId, 2.0f, 0.0f);
 		
-		
+		TonkersEvents events = new TonkersEvents();
+		MinecraftForge.EVENT_BUS.register(events);
+        FMLCommonHandler.instance().bus().register(events);
 	}
 }
