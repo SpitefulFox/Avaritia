@@ -103,14 +103,14 @@ public class ExtremeCraftingManager {
         return shapedrecipes;
     }
 
-    public ExtremeShapedOreRecipe addExtremeShapedOreRecipe(ItemStack result, Object[] recipe){
+    public ExtremeShapedOreRecipe addExtremeShapedOreRecipe(ItemStack result, Object... recipe){
         ExtremeShapedOreRecipe craft = new ExtremeShapedOreRecipe(result, recipe);
         recipes.add(craft);
         return craft;
     }
 
     public ExtremeShapedRecipe addSingularityRecipe(ItemStack result, ItemStack single){
-        return addRecipe(result, new Object[]{
+        return addRecipe(result,
                 "IIIIIIIII",
                 "IIIIIIIII",
                 "IIIIIIIII",
@@ -121,11 +121,11 @@ public class ExtremeCraftingManager {
                 "IIIIIIIII",
                 "IIIIIIIII",
                 'I', single,
-                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0));
     }
 
     public void addOreSingularityRecipe(ItemStack result, String ore){
-        IRecipe recipe = new ExtremeShapedOreRecipe(result, new Object[]{
+        IRecipe recipe = new ExtremeShapedOreRecipe(result,
                 "IIIIIIIII",
                 "IIIIIIIII",
                 "IIIIIIIII",
@@ -136,7 +136,7 @@ public class ExtremeCraftingManager {
                 "IIIIIIIII",
                 "IIIIIIIII",
                 'I', ore,
-                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0));
         recipes.add(recipe);
     }
 

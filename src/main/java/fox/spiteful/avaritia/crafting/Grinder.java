@@ -19,22 +19,22 @@ public class Grinder {
 
     public static void artsAndCrafts(){
 
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 0), new Object[]{"X X", " X ", "X X", 'X', new ItemStack(Items.diamond)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 1), new Object[]{"DSD", "DSD", 'D', new ItemStack(LudicrousItems.resource, 1, 0), 'S', new ItemStack(Items.nether_star)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(Blocks.crafting_table)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.triple_craft, 1), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousBlocks.double_craft)});
-        GameRegistry.addShapedRecipe(new ItemStack(Blocks.crafting_table, 9), new Object[]{"C", 'C', new ItemStack(LudicrousBlocks.double_craft)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 9), new Object[]{"C", 'C', new ItemStack(LudicrousBlocks.triple_craft)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 1), new Object[]{"C", 'C', new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.dire_crafting, 1), new Object[]{"CCC", "CXC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1), 'X', new ItemStack(LudicrousBlocks.triple_craft)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 3), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 2)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 4), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 3)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 3), new Object[]{"C", 'C', new ItemStack(LudicrousItems.resource, 1, 4)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.resource_block, 1, 0), new Object[]{"CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 4)});
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 4), new Object[]{"C", 'C', new ItemStack(LudicrousBlocks.resource_block, 1, 0)});
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 0), "X X", " X ", "X X", 'X', new ItemStack(Items.diamond));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 1), "DSD", "DSD", 'D', new ItemStack(LudicrousItems.resource, 1, 0), 'S', new ItemStack(Items.nether_star));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(Blocks.crafting_table));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.triple_craft, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousBlocks.double_craft));
+        GameRegistry.addShapedRecipe(new ItemStack(Blocks.crafting_table, 9), "C", 'C', new ItemStack(LudicrousBlocks.double_craft));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 9), "C", 'C', new ItemStack(LudicrousBlocks.triple_craft));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 1), "C", 'C', new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.dire_crafting, 1), "CCC", "CXC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1), 'X', new ItemStack(LudicrousBlocks.triple_craft));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 3), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 2));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 4), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 3));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 3), "C", 'C', new ItemStack(LudicrousItems.resource, 1, 4));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.resource_block, 1, 0), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 4));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 4), "C", 'C', new ItemStack(LudicrousBlocks.resource_block, 1, 0));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.neutron_collector, 1), new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.neutron_collector, 1),
                 "IIQQQQQII",
                 "I QQQQQ I",
                 "I  RRR  I",
@@ -47,9 +47,9 @@ public class Grinder {
                 'X', new ItemStack(LudicrousItems.resource, 1, 1),
                 'I', new ItemStack(Blocks.iron_block, 1),
                 'Q', new ItemStack(Blocks.quartz_block, 1),
-                'R', new ItemStack(Blocks.redstone_block, 1)});
+                'R', new ItemStack(Blocks.redstone_block, 1));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.resource, 1, 6), new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.resource, 1, 6),
                 "NNNNNNNNN",
                 "NCXXCXXCN",
                 "NXCCXCCXN",
@@ -57,7 +57,7 @@ public class Grinder {
                 "NNNNNNNNN",
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
-                'X', new ItemStack(LudicrousItems.resource, 1, 5)});
+                'X', new ItemStack(LudicrousItems.resource, 1, 5));
 
         catalyst = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.resource, 2, 5), new Object[]{
                 new ItemStack(Blocks.emerald_block, 1),
@@ -68,7 +68,7 @@ public class Grinder {
 
         ItemStack result = new ItemStack(LudicrousItems.infinity_pickaxe, 1);
         result.addEnchantment(Enchantment.fortune, 10);
-        ExtremeCraftingManager.getInstance().addRecipe(result, new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(result,
                 " IIIIIII ",
                 "IIIIIIIII",
                 "II  N  II",
@@ -79,9 +79,9 @@ public class Grinder {
                 "    N    ",
                 "    N    ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_sword), new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_sword),
                 "       II",
                 "      III",
                 "     III ",
@@ -94,9 +94,9 @@ public class Grinder {
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'X', new ItemStack(LudicrousItems.resource, 1, 5),
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_armor), new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_armor),
                 " NN   NN ",
                 "NNN   NNN",
                 "NNN   NNN",
@@ -108,9 +108,9 @@ public class Grinder {
                 "  NNNNN  ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'X', new ItemStack(LudicrousItems.resource, 1, 5),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_helm), new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_helm),
                 "  NNNNN  ",
                 " NIIXIIN ",
                 " N  I  N ",
@@ -119,9 +119,9 @@ public class Grinder {
                 " NI I IN ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'X', new ItemStack(LudicrousItems.resource, 1, 5),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_pants), new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_pants),
                 "NNNNNNNNN",
                 "NIIIXIIIN",
                 "NINNXNNIN",
@@ -133,9 +133,9 @@ public class Grinder {
                 "NNN   NNN",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'X', new ItemStack(LudicrousItems.resource, 1, 5),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_shoes), new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_shoes),
                 " NNN NNN ",
                 " NIN NIN ",
                 " NIN NIN ",
@@ -143,9 +143,9 @@ public class Grinder {
                 "NIIN NIIN",
                 "NNNN NNNN",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.skull_sword), new Object[]{
+        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.skull_sword),
                 "       IX",
                 "      IXI",
                 "     IXI ",
@@ -159,7 +159,7 @@ public class Grinder {
                 'X', new ItemStack(Items.blaze_powder),
                 'B', new ItemStack(Items.bone),
                 'D', new ItemStack(Items.nether_star),
-                'W', "logWood"});
+                'W', "logWood");
 
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(Blocks.iron_block, 1));
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), new ItemStack(Blocks.gold_block, 1));
@@ -200,7 +200,7 @@ public class Grinder {
             catalyst.getInput().add(OreDictionary.getOres("blockIronCompressed"));
         }
         
-        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.endest_pearl), new Object[]{
+        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.endest_pearl),
             "   EEE   ",
             " EEPPPEE ",
             " EPPPPPE ",
@@ -213,7 +213,7 @@ public class Grinder {
             'E', new ItemStack(Blocks.end_stone),
             'P', new ItemStack(Items.ender_pearl),
             'S', new ItemStack(Items.nether_star),
-            'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+            'N', new ItemStack(LudicrousItems.resource, 1, 4));
     }
     
     public static void lastMinuteChanges(){
