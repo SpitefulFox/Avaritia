@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.gui;
 
+import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -11,9 +12,9 @@ public class GUIExtremeCrafting extends GuiContainer {
 
     private static final ResourceLocation tex = new ResourceLocation("avaritia:textures/gui/dire_crafting_gui.png");
 
-    public GUIExtremeCrafting(InventoryPlayer par1InventoryPlayer, World par2World, int par3, int par4, int par5)
+    public GUIExtremeCrafting(InventoryPlayer par1InventoryPlayer, World par2World, int x, int y, int z, TileEntityDireCrafting table)
     {
-        super(new ContainerExtremeCrafting(par1InventoryPlayer, par2World, par3, par4, par5));
+        super(new ContainerExtremeCrafting(par1InventoryPlayer, par2World, x, y, z, table));
         this.ySize = 256;
         this.xSize = 238;
     }

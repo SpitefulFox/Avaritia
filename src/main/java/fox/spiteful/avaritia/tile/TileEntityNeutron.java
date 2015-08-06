@@ -50,6 +50,8 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
             neutrons.writeToNBT(produce);
             tag.setTag("Neutrons", produce);
         }
+        else
+            tag.removeTag("Neutrons");
     }
 
     @Override
