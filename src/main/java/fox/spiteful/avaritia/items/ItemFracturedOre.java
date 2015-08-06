@@ -16,6 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -67,8 +68,14 @@ public class ItemFracturedOre extends Item {
 	public String getItemStackDisplayName(ItemStack stack)
     {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey(OREKEY)) {
-			ItemStack orestack = NameStack.loadFromNBT(stack.getTagCompound().getCompoundTag(OREKEY)).getStack();
-			return StatCollector.translateToLocal("item.avaritia_fracturedore.prefix") +" "+ orestack.getItem().getItemStackDisplayName(orestack);
+			NBTTagCompound tag = stack.getTagCompound().getCompoundTag(OREKEY);
+			NameStack namestack = NameStack.loadFromNBT(tag);
+			
+			if (namestack != null && namestack.tag != null) {
+				ItemStack orestack = namestack.getStack();
+				Item oreitem = orestack.getItem();
+				return StatCollector.translateToLocal("item.avaritia_fracturedore.prefix") +" "+ oreitem.getItemStackDisplayName(orestack);
+			}
 		}
 		return super.getItemStackDisplayName(stack);
     }

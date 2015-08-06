@@ -7,8 +7,10 @@ import net.minecraftforge.common.MinecraftForge;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
+import tconstruct.modifiers.tools.ModExtraModifier;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
 
@@ -24,7 +26,7 @@ public class Tonkers {
 	public static void buildstruct() {
 		
 		neutronium = new ToolMaterial(neutroniumName, "material."+neutroniumName, 5, 2400, 900, 6, 2.5f, 0, 0.0f, EnumChatFormatting.DARK_GRAY.toString(), 0x303030);
-		infinityMetal = new ToolMaterial(infinityMetalName, "material."+infinityMetalName, 5, 10000, 3000, 50, 10.0f, 5, 0.0f, LudicrousItems.cosmic.rarityColor.toString(), 0xFFFFFF);
+		infinityMetal = new ToolMaterial(infinityMetalName, "material."+infinityMetalName, 5, 10000, 6000, 50, 10.0f, 5, 0.0f, LudicrousItems.cosmic.rarityColor.toString(), 0xFFFFFF);
 
 		TConstructRegistry.addtoolMaterial(neutroniumId, neutronium);
 		TConstructRegistry.addtoolMaterial(infinityMetalId, infinityMetal);
@@ -273,5 +275,8 @@ public class Tonkers {
             	"XXX ",
             	" XXX",
             	'X', ingot);
+        
+        // extra modifier from catalyst
+        ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(LudicrousItems.resource, 1, 5) }, "AvaritiaFree"));
 	}
 }
