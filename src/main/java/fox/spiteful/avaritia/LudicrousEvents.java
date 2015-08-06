@@ -43,7 +43,7 @@ import static net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 public class LudicrousEvents {
 
-    private Random randy = new Random();
+    private static Random randy = new Random();
 
     @SubscribeEvent
     public void onPlayerMine(PlayerInteractEvent event) {
@@ -124,7 +124,7 @@ public class LudicrousEvents {
         }
     }
 
-    private void dropItem(ItemStack drop, World world, int x, int y, int z){
+    public static void dropItem(ItemStack drop, World world, int x, int y, int z){
         float f = 0.7F;
         double d0 = (double)(randy.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
         double d1 = (double)(randy.nextFloat() * f) + (double)(1.0F - f) * 0.5D;

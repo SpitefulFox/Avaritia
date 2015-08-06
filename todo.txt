@@ -5,7 +5,6 @@
   - Nature's Ruin (Infinity Axe)
     - Treecapitating?
     - 17x17 all trees ded on right click
-- Dire Crafting Table stores inventory
 - Neutronium Compressor
   - 100+ ingredients per singularity
 - Finish MineTweaker support
@@ -13,7 +12,6 @@
 - Cross-mod support
   - Clean up the code
   - Finish Thaumcraft support
-  - TiCon Materials
 - Add configs
   - Configs for all cross-mod interaction
   - Config to gut entire mod except for 9x9 crafting, for modpack use

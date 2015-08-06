@@ -2,14 +2,18 @@ package fox.spiteful.avaritia.compat.ticon;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.AbilityHelper;
@@ -17,6 +21,8 @@ import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import fox.spiteful.avaritia.LudicrousEvents;
 import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.items.LudicrousItems;
+import fox.spiteful.avaritia.items.tools.ToolHelper;
 
 public class TonkersEvents {
 	private Random randy = new Random();
@@ -146,4 +152,36 @@ public class TonkersEvents {
 			}
 		}
 	}
+	
+	// bedrock SMASH!
+	@SubscribeEvent
+    public void onPlayerMine(PlayerInteractEvent event) {
+        if(event.face == -1 || event.world.isRemote || event.action != PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || event.entityPlayer.getHeldItem() == null || event.entityPlayer.capabilities.isCreativeMode)
+            return;
+        Block block = event.world.getBlock(event.x, event.y, event.z);
+        int meta = event.world.getBlockMetadata(event.x, event.y, event.z);
+        ItemStack held = event.entityPlayer.getHeldItem();
+        if(block.getBlockHardness(event.entityPlayer.worldObj, event.x, event.y, event.z) <= -1 &&
+                held.hasTagCompound() && held.getItem() instanceof ToolCore &&
+                        (block.getMaterial() == Material.rock || block.getMaterial() == Material.iron)){
+
+        	NBTTagCompound toolTag = held.getTagCompound().getCompoundTag("InfiTool");
+        	ToolCore tool = (ToolCore)held.getItem();
+        	
+        	if (toolTag != null && toolTag.getInteger("Head") == Tonkers.infinityMetalId && tool.canHarvestBlock(Blocks.stone, held)) {
+	            if(block.quantityDropped(randy) == 0) {
+	                ItemStack drop = block.getPickBlock(ToolHelper.raytraceFromEntity(event.world, event.entityPlayer, true, 10),
+	                        event.world, event.x, event.y, event.z, event.entityPlayer);
+	                if(drop == null)
+	                    drop = new ItemStack(block, 1, meta);
+	                LudicrousEvents.dropItem(drop, event.entityPlayer.worldObj, event.x, event.y, event.z);
+	            }
+	            else {
+	            	block.harvestBlock(event.world, event.entityPlayer, event.x, event.y, event.z, meta);
+	            }
+	            event.entityPlayer.worldObj.setBlockToAir(event.x, event.y, event.z);
+	            event.world.playAuxSFX(2001, event.x, event.y, event.z, Block.getIdFromBlock(block) + (meta << 12));
+        	}
+        }
+    }
 }

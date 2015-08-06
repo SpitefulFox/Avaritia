@@ -110,6 +110,8 @@ public class Mincer {
 		//Lumberjack.info("first sort: "+cropSortingList);
 		
 		// sort into size/random order, should be deterministic because previous sort
+		Collections.shuffle(cropSortingList, randy);
+		
 		Collections.sort(cropSortingList, new Comparator<FoodInfo>(){
 			@Override
 			public int compare(FoodInfo a, FoodInfo b) {
