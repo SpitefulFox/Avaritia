@@ -8,6 +8,11 @@
     - Rain of arrows on firing outdoors
     - Infinite ammo
     - Shotgun blast of arrows indoors
+- Re-balance recipes
+  - Make singularities require compressor
+  - Internal value based on mods present
+  - Scale recipes based on value
+  - Config to manually set value?
 - Neutronium Compressor machine
   - 100+ ingredients per singularity
   - NEI Support
