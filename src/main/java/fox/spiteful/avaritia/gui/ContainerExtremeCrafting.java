@@ -2,6 +2,9 @@ package fox.spiteful.avaritia.gui;
 
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
+import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
+import fox.spiteful.avaritia.tile.inventory.InventoryDireCraftResult;
+import fox.spiteful.avaritia.tile.inventory.InventoryDireCrafting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
@@ -13,19 +16,21 @@ import net.minecraft.world.World;
 public class ContainerExtremeCrafting extends Container {
 
     /** The crafting matrix inventory (9x9). */
-    public InventoryCrafting craftMatrix = new InventoryCrafting(this, 9, 9);
-    public IInventory craftResult = new InventoryCraftResult();
+    public InventoryCrafting craftMatrix;
+    public IInventory craftResult;
     private World worldObj;
     private int posX;
     private int posY;
     private int posZ;
 
-    public ContainerExtremeCrafting(InventoryPlayer player, World world, int x, int y, int z)
+    public ContainerExtremeCrafting(InventoryPlayer player, World world, int x, int y, int z, TileEntityDireCrafting table)
     {
         this.worldObj = world;
         this.posX = x;
         this.posY = y;
         this.posZ = z;
+        craftMatrix = new InventoryDireCrafting(this, table);
+        craftResult = new InventoryDireCraftResult(table);
         this.addSlotToContainer(new SlotCrafting(player.player, this.craftMatrix, this.craftResult, 0, 210, 80));
         int wy;
         int ex;
@@ -69,18 +74,6 @@ public class ContainerExtremeCrafting extends Container {
     {
         super.onContainerClosed(player);
 
-        if (!this.worldObj.isRemote)
-        {
-            for (int i = 0; i < this.craftMatrix.getSizeInventory(); ++i)
-            {
-                ItemStack itemstack = this.craftMatrix.getStackInSlotOnClosing(i);
-
-                if (itemstack != null)
-                {
-                    player.dropPlayerItemWithRandomChoice(itemstack, false);
-                }
-            }
-        }
     }
 
     public boolean canInteractWith(EntityPlayer player)

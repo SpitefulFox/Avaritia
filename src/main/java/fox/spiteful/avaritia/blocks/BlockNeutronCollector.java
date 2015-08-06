@@ -85,9 +85,7 @@ public class BlockNeutronCollector extends BlockContainer {
         }
     }
 
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing the block.
-     */
+    @Override
     public TileEntity createNewTileEntity(World world, int meta)
     {
         return new TileEntityNeutron();
