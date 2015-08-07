@@ -5,12 +5,15 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import fox.spiteful.avaritia.compat.CompatClient;
 import fox.spiteful.avaritia.entity.EntityEndestPearl;
 import fox.spiteful.avaritia.entity.EntityGapingVoid;
+import fox.spiteful.avaritia.entity.EntityHeavenArrow;
+import fox.spiteful.avaritia.entity.EntityHeavenSubArrow;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.CosmicItemRenderer;
 import fox.spiteful.avaritia.render.FancyHaloRenderer;
 import fox.spiteful.avaritia.render.FracturedOreRenderer;
 import fox.spiteful.avaritia.render.LudicrousRenderEvents;
 import fox.spiteful.avaritia.render.RenderGapingVoid;
+import fox.spiteful.avaritia.render.RenderHeavenArrow;
 import fox.spiteful.avaritia.render.ShaderHelper;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -35,6 +38,10 @@ public class ClientProxy extends CommonProxy {
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityEndestPearl.class, new RenderSnowball(LudicrousItems.endest_pearl));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGapingVoid.class, new RenderGapingVoid());
+		
+		RenderHeavenArrow arrowrender = new RenderHeavenArrow();
+		RenderingRegistry.registerEntityRenderingHandler(EntityHeavenArrow.class, arrowrender);
+		RenderingRegistry.registerEntityRenderingHandler(EntityHeavenSubArrow.class, arrowrender);
 		
 		CosmicItemRenderer sparkly = new CosmicItemRenderer();
 		

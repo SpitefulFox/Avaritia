@@ -34,6 +34,7 @@ item.avaritia_fracturedore.name=Unknown Fractured Ore
 item.avaritia_fracturedore.prefix=Fractured
 item.avaritia_mattercluster.name=Matter Cluster
 item.avaritia_mattercluster.full.name=Critical Matter Cluster
+item.infinity_bow.name=Longbow of the Heavens
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table

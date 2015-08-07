@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.items.tools.ItemBowInfinity;
 import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
 import fox.spiteful.avaritia.items.tools.ItemSwordSkulls;
@@ -29,6 +30,7 @@ public class LudicrousItems {
     public static Item endest_pearl;
     public static Item fractured_ore;
     public static Item matter_cluster;
+    public static Item infinity_bow;
 
     public static Item infinity_helm;
     public static Item infinity_armor;
@@ -71,6 +73,8 @@ public class LudicrousItems {
         GameRegistry.registerItem(fractured_ore, "Fractured_Ore");
         matter_cluster = new ItemMatterCluster();
         GameRegistry.registerItem(matter_cluster, "Matter_Cluster");
+        infinity_bow = new ItemBowInfinity();
+        GameRegistry.registerItem(infinity_bow, "Infinity_Bow");
         
         MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
     }
