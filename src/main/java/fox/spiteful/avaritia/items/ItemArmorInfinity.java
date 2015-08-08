@@ -221,6 +221,13 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         return new EntityImmortalItem(world, location, itemstack);
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    {
+        return false;
+    }
+
 	public static class abilityHandler {
 		public static List<String> playersWithHat = new ArrayList<String>();
 		public static List<String> playersWithChest = new ArrayList<String>();

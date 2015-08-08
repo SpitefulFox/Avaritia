@@ -170,4 +170,11 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
         return new EntityImmortalItem(world, location, itemstack);
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    {
+        return false;
+    }
+
 }
