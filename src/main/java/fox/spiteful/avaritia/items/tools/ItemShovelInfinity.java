@@ -16,7 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
@@ -29,30 +29,20 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
-public class ItemPickaxeInfinity extends ItemPickaxe {
+public class ItemShovelInfinity extends ItemSpade {
 
-    private static final ToolMaterial opPickaxe = EnumHelper.addToolMaterial("INFINITY_PICKAXE", 32, 9999, 9999F, 6.0F, 200);
-    private IIcon hammer;
+    public static final ToolMaterial opShovel = EnumHelper.addToolMaterial("INFINITY_SHOVEL", 32, 9999, 9999F, 7.0F, 200);
+    private IIcon destroyer;
 
-    public static final Material[] MATERIALS = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
-
-    public ItemPickaxeInfinity(){
-        super(opPickaxe);
-        setUnlocalizedName("infinity_pickaxe");
+    public ItemShovelInfinity(){
+        super(opShovel);
+        setUnlocalizedName("infinity_shovel");
         setCreativeTab(Avaritia.tab);
     }
 
     @Override
     public void setDamage(ItemStack stack, int damage){
         super.setDamage(stack, 0);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
-        ItemStack pick = new ItemStack(this);
-        pick.addEnchantment(Enchantment.fortune, 10);
-        list.add(pick);
     }
 
     @Override
@@ -63,7 +53,7 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta){
-        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("hammer")){
+        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("destroyer")){
             return 5.0F;
         }
         if (ForgeHooks.isToolEffective(stack, block, meta))
@@ -76,8 +66,8 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
 
-        this.itemIcon = ir.registerIcon("avaritia:infinity_pickaxe");
-        hammer = ir.registerIcon("avaritia:infinity_hammer");
+        this.itemIcon = ir.registerIcon("avaritia:infinity_shovel");
+        destroyer = ir.registerIcon("avaritia:infinity_destroyer");
     }
 
     @Override
@@ -85,8 +75,8 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
         NBTTagCompound tags = stack.getTagCompound();
         if(tags != null){
-            if(tags.getBoolean("hammer"))
-                return hammer;
+            if(tags.getBoolean("destroyer"))
+                return destroyer;
         }
         return itemIcon;
     }
@@ -105,30 +95,15 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
                 tags = new NBTTagCompound();
                 stack.setTagCompound(tags);
             }
-            if(EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack) < 10)
-                stack.addEnchantment(Enchantment.fortune, 10);
-            tags.setBoolean("hammer", !tags.getBoolean("hammer"));
+            tags.setBoolean("destroyer", !tags.getBoolean("destroyer"));
             player.swingItem();
         }
         return stack;
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player){
-        if(stack.getTagCompound() != null){
-            if(stack.getTagCompound().getBoolean("hammer")) {
-                if(!(victim instanceof EntityPlayer && LudicrousItems.isInfinite((EntityPlayer)victim))) {
-                    int i = 10;
-                    victim.addVelocity((double) (-MathHelper.sin(player.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F), 2.0D, (double) (MathHelper.cos(player.rotationYaw * (float) Math.PI / 180.0F) * (float) i * 0.5F));
-                }
-            }
-        }
-        return true;
-    }
-
-    @Override
     public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
-        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("hammer")) {
+        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("destroyer")) {
             MovingObjectPosition raycast = ToolHelper.raytraceFromEntity(player.worldObj, player, true, 10);
             if (raycast != null) {
                 breakOtherBlock(player, stack, x, y, z, x, y, z, raycast.sideHit);
@@ -141,7 +116,7 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
         World world = player.worldObj;
         Material mat = world.getBlock(x, y, z).getMaterial();
-        if(!ToolHelper.isRightMaterial(mat, MATERIALS))
+        if(!ToolHelper.isRightMaterial(mat, ItemPickaxeInfinity.MATERIALS))
             return;
 
         if(world.isAirBlock(x, y, z))
@@ -154,10 +129,10 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
         int range = 8;
 
-        ToolHelper.removeBlocksInIteration(player, stack, world, x, y, z, -range, doY ? -1 : -range, -range, range, doY ? range * 2 - 2 : range, range, null, MATERIALS, silk, fortune, false);
+        ToolHelper.removeBlocksInIteration(player, stack, world, x, y, z, -range, doY ? -1 : -range, -range, range, doY ? range * 2 - 2 : range, range, null, ItemPickaxeInfinity.MATERIALS, silk, fortune, false);
 
     }
-    
+
     @Override
     public boolean hasCustomEntity (ItemStack stack)
     {

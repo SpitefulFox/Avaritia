@@ -20,6 +20,9 @@ item.singularity_silver.name=Silver Singularity
 item.singularity_nickel.name=Nickel Singularity
 item.infinity_pickaxe.name=World Breaker
 item.infinity_sword.name=Sword of the Cosmos
+item.infinity_shovel.name=Planet Eater
+item.infinity_axe.name=Nature's Ruin
+item.infinity_bow.name=Longbow of the Heavens
 item.skullfire_sword.name=Skullfire Sword
 item.akashic_record.name=Akashic Records
 item.orb_armok.name=Blood Orb of Armok
@@ -34,7 +37,6 @@ item.avaritia_fracturedore.name=Unknown Fractured Ore
 item.avaritia_fracturedore.prefix=Fractured
 item.avaritia_mattercluster.name=Matter Cluster
 item.avaritia_mattercluster.full.name=Critical Matter Cluster
-item.infinity_bow.name=Longbow of the Heavens
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table

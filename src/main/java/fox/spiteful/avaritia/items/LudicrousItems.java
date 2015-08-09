@@ -2,10 +2,7 @@ package fox.spiteful.avaritia.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Avaritia;
-import fox.spiteful.avaritia.items.tools.ItemBowInfinity;
-import fox.spiteful.avaritia.items.tools.ItemPickaxeInfinity;
-import fox.spiteful.avaritia.items.tools.ItemSwordInfinity;
-import fox.spiteful.avaritia.items.tools.ItemSwordSkulls;
+import fox.spiteful.avaritia.items.tools.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -22,14 +19,17 @@ public class LudicrousItems {
 
     public static Item resource;
     public static Item singularity;
-    public static Item infinity_pickaxe;
-    public static Item infinity_sword;
     public static Item skull_sword;
     public static Item ultimate_stew;
     public static Item cosmic_meatballs;
     public static Item endest_pearl;
     public static Item fractured_ore;
     public static Item matter_cluster;
+
+    public static Item infinity_pickaxe;
+    public static Item infinity_sword;
+    public static Item infinity_shovel;
+    public static Item infinity_axe;
     public static Item infinity_bow;
 
     public static Item infinity_helm;
@@ -75,6 +75,10 @@ public class LudicrousItems {
         GameRegistry.registerItem(matter_cluster, "Matter_Cluster");
         infinity_bow = new ItemBowInfinity();
         GameRegistry.registerItem(infinity_bow, "Infinity_Bow");
+        infinity_shovel = new ItemShovelInfinity();
+        GameRegistry.registerItem(infinity_shovel, "Infinity_Shovel");
+        infinity_axe = new ItemAxeInfinity();
+        GameRegistry.registerItem(infinity_axe, "Infinity_Axe");
         
         MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
     }

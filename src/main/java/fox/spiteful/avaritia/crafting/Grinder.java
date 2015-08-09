@@ -59,7 +59,7 @@ public class Grinder {
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
                 'X', new ItemStack(LudicrousItems.resource, 1, 5));
 
-        catalyst = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.resource, 2, 5), new Object[]{
+        catalyst = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.resource, 1, 5), new Object[]{
                 new ItemStack(Blocks.emerald_block, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(LudicrousItems.singularity, 1, 3),
@@ -96,6 +96,33 @@ public class Grinder {
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_shovel),
+                "      III",
+                "     IIXI",
+                "      III",
+                "     N I ",
+                "    N    ",
+                "   N     ",
+                "  N      ",
+                " N       ",
+                "N        ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'X', new ItemStack(LudicrousBlocks.resource_block, 1, 1),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
+
+        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_axe),
+                " I   ",
+                "IIIII",
+                "IIII ",
+                " IN  ",
+                "  N  ",
+                "  N  ",
+                "  N  ",
+                "  N  ",
+                "  N  ",
+                'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
+
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_armor),
                 " NN   NN ",
                 "NNN   NNN",
@@ -112,8 +139,8 @@ public class Grinder {
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_helm),
                 "  NNNNN  ",
-                " NIIXIIN ",
-                " N  I  N ",
+                " NIIIIIN ",
+                " NXXIXXN ",
                 " NIIIIIN ",
                 " NIIIIIN ",
                 " NI I IN ",
