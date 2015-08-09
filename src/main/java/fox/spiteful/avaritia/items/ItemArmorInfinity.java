@@ -82,8 +82,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
     {
         if(armorType == 0){
             player.setAir(300);
-            player.getFoodStats().setFoodLevel(20);
-            player.getFoodStats().setFoodSaturationLevel(20F);
+            player.getFoodStats().addStats(20, 20F);
         }
         else if(armorType == 1){
             //player.capabilities.allowFlying = true;
