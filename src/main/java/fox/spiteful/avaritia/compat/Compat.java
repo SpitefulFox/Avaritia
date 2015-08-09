@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.compat;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
@@ -19,48 +20,34 @@ public class Compat {
 
     public static boolean nei = false;
     public static boolean thaumic = false;
-    public static boolean sc2 = false;
     public static boolean ae2 = false;
     public static boolean exu = false;
     public static boolean ic2 = false;
     public static boolean gt = false;
     public static boolean botan = false;
     public static boolean blood = false;
-    public static boolean lolDargon = false;
     public static boolean bigReactors = false;
     public static boolean ticon = false;
     public static boolean pe = false;
     public static boolean tweak = false;
     public static boolean mfr = false;
-    public static boolean twilight = false;
-    public static boolean natura = false;
-    public static boolean magicrops = false;
-    public static boolean ganyland = false;
-    public static boolean pams = false;
     public static boolean am2 = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
-        thaumic = Loader.isModLoaded("Thaumcraft");
-        sc2 = Loader.isModLoaded("StevesCarts");
-        ae2 = Loader.isModLoaded("appliedenergistics2");
-        exu = Loader.isModLoaded("ExtraUtilities");
-        ic2 = Loader.isModLoaded("IC2");
-        gt = Loader.isModLoaded("gregtech");
-        botan = Loader.isModLoaded("Botania");
-        blood = Loader.isModLoaded("AWWayofTime");
-        lolDargon = Loader.isModLoaded("DraconicEvolution");
-        bigReactors = Loader.isModLoaded("BigReactors");
-        ticon = Loader.isModLoaded("TConstruct");
-        pe = Loader.isModLoaded("ProjectE");
         tweak = Loader.isModLoaded("MineTweaker3");
-        mfr = Loader.isModLoaded("MineFactoryReloaded");
-        twilight = Loader.isModLoaded("TwilightForest");
-        natura = Loader.isModLoaded("Natura");
-        magicrops = Loader.isModLoaded("magicalcrops");
-        ganyland = Loader.isModLoaded("ganyssurface");
-        pams = Loader.isModLoaded("harvestcraft");
-        am2 = Loader.isModLoaded("arsmagica2");
+        thaumic = Loader.isModLoaded("Thaumcraft") && Config.thaumic;
+        ae2 = Loader.isModLoaded("appliedenergistics2") && Config.ae2;
+        exu = Loader.isModLoaded("ExtraUtilities") && Config.exu;
+        ic2 = Loader.isModLoaded("IC2") && Config.ic2;
+        gt = Loader.isModLoaded("gregtech") && Config.gt;
+        botan = Loader.isModLoaded("Botania") && Config.botan;
+        blood = Loader.isModLoaded("AWWayofTime") && Config.blood;
+        bigReactors = Loader.isModLoaded("BigReactors") && Config.bigReactors;
+        ticon = Loader.isModLoaded("TConstruct") && Config.ticon;
+        pe = Loader.isModLoaded("ProjectE") && Config.pe;
+        mfr = Loader.isModLoaded("MineFactoryReloaded") && Config.mfr;
+        am2 = Loader.isModLoaded("arsmagica2") && Config.am2;
     }
 
     public static void compatify(){
@@ -92,6 +79,9 @@ public class Compat {
             }
         }
 
+        if(Config.craftingOnly)
+            return;
+
         if(thaumic){
             try
             {
@@ -104,7 +94,7 @@ public class Compat {
             }
         }
 
-        if(sc2){
+        if(Loader.isModLoaded("StevesCarts") && Config.sc2){
             try {
                 Block resource = getBlock("StevesCarts", "BlockMetalStorage");
                 ItemStack galg = new ItemStack(resource, 1, 2);
@@ -113,7 +103,6 @@ public class Compat {
             catch(Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia died of old age while trying to craft the Galgadorian Drill.");
                 e.printStackTrace();
-                sc2 = false;
             }
         }
 
@@ -198,16 +187,14 @@ public class Compat {
             }
         }
 
-        if(lolDargon){
+        if(Loader.isModLoaded("DraconicEvolution") && Config.lolDargon){
             try {
                 Block dargon = getBlock("DraconicEvolution", "draconicBlock");
                 ItemStack lol = new ItemStack(dargon, 1, 0);
                 Grinder.catalyst.getInput().add(lol);
             }
             catch (Throwable e){
-                Lumberjack.log(Level.INFO, "Avaritia was distracted by a giant glowing sphere.");
-                e.printStackTrace();
-                lolDargon = false;
+                Lumberjack.log(Level.INFO, e, "Avaritia was distracted by a giant glowing sphere.");
             }
         }
 
@@ -264,7 +251,7 @@ public class Compat {
             }
         }
 
-        if(twilight){
+        if(Loader.isModLoaded("TwilightForest") && Config.twilight){
             try {
                 Item ironwood = getItem("TwilightForest", "item.ironwoodIngot");
                 ItemStack wood = new ItemStack(ironwood, 1);
@@ -273,11 +260,10 @@ public class Compat {
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia was killed by a hydra.");
                 e.printStackTrace();
-                twilight = false;
             }
         }
 
-        if(magicrops){
+        if(Loader.isModLoaded("magicalcrops") && Config.magicrops){
             try {
                 Item essence = getItem("magicalcrops", "magicalcrops_MagicEssence");
                 Item meat = getItem("magicalcrops", "magicalcrops_RawMeat");
@@ -297,25 +283,21 @@ public class Compat {
                 OreDictionary.registerOre("rawCalamari", new ItemStack(meat, 1, 1));
             }
             catch (Throwable e){
-                Lumberjack.log(Level.INFO, "Avaritia got bored of waiting for magical crops to grow.");
-                e.printStackTrace();
-                magicrops = false;
+                Lumberjack.log(Level.INFO, e, "Avaritia got bored of waiting for magical crops to grow.");
             }
         }
 
-        if(ganyland){
+        if(Loader.isModLoaded("ganyssurface")){
             try {
                 Item mutton = getItem("ganyssurface", "mutton_raw");
                 OreDictionary.registerOre("rawMutton", new ItemStack(mutton, 1, 0));
             }
             catch (Throwable e){
-                Lumberjack.log(Level.INFO, "Avaritia forgot which Gany's mod it was dealing with.");
-                e.printStackTrace();
-                ganyland = false;
+                Lumberjack.log(Level.INFO, e, "Avaritia forgot which Gany's mod it was dealing with.");
             }
         }
 
-        if(pams){
+        if(Loader.isModLoaded("harvestcraft")){
             try {
                 Item mutton = getItem("harvestcraft", "muttonrawItem");
                 Item beet = getItem("harvestcraft", "beetItem");
@@ -327,19 +309,16 @@ public class Compat {
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia got overwhelmed by all the food choices. D:");
                 e.printStackTrace();
-                pams = false;
             }
         }
 
-        if(natura){
+        if(Loader.isModLoaded("Natura")){
             try {
                 Item barley = getItem("Natura", "barleyFood");
                 OreDictionary.registerOre("cropBarley", new ItemStack(barley, 1, 0));
             }
             catch (Throwable e){
-                Lumberjack.log(Level.INFO, "Avaritia got overwhelmed by all the food choices. D:");
-                e.printStackTrace();
-                natura = false;
+                Lumberjack.log(Level.INFO, e, "Avaritia got overwhelmed by all the food choices. D:");
             }
         }
 

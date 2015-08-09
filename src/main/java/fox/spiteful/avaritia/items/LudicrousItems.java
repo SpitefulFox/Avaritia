@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.items.tools.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -47,6 +48,10 @@ public class LudicrousItems {
     public static void grind(){
         resource = new ItemResource();
         GameRegistry.registerItem(resource, "Resource");
+
+        if(Config.craftingOnly)
+            return;
+
         singularity = new ItemSingularity();
         GameRegistry.registerItem(singularity, "Singularity");
         infinity_pickaxe = new ItemPickaxeInfinity();

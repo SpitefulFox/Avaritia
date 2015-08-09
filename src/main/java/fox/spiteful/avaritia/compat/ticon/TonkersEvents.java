@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.compat.ticon;
 
 import java.util.Random;
 
+import fox.spiteful.avaritia.Config;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -156,7 +157,7 @@ public class TonkersEvents {
 	// bedrock SMASH!
 	@SubscribeEvent
     public void onPlayerMine(PlayerInteractEvent event) {
-        if(event.face == -1 || event.world.isRemote || event.action != PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || event.entityPlayer.getHeldItem() == null || event.entityPlayer.capabilities.isCreativeMode)
+        if(!Config.bedrockBreaker || event.face == -1 || event.world.isRemote || event.action != PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || event.entityPlayer.getHeldItem() == null || event.entityPlayer.capabilities.isCreativeMode)
             return;
         Block block = event.world.getBlock(event.x, event.y, event.z);
         int meta = event.world.getBlockMetadata(event.x, event.y, event.z);

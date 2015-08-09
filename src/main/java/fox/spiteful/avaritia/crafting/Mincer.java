@@ -2,6 +2,8 @@ package fox.spiteful.avaritia.crafting;
 
 import java.util.*;
 
+import cpw.mods.fml.common.Loader;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.items.LudicrousItems;
@@ -14,6 +16,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.logging.log4j.Level;
 
 public class Mincer {
+    public static ShapelessOreRecipe stewRecipe;
     public static ShapelessOreRecipe meatballRecipe;
 
 	// here's where all the food magic goes on
@@ -39,6 +42,12 @@ public class Mincer {
 	
 	public static void countThoseCalories() {
 		
+        if(Config.boringFood){
+            stewRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.ultimate_stew, 1), "cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown");
+            meatballRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.cosmic_meatballs, 1), new ItemStack(Items.beef), new ItemStack(Items.beef), new ItemStack(Items.chicken), new ItemStack(Items.chicken), new ItemStack(Items.porkchop), new ItemStack(Items.porkchop), new ItemStack(Items.fish), new ItemStack(Items.fish));
+            return;
+        }
+
         String[] orenames = OreDictionary.getOreNames();
 		
 		List<String> rawCrops = new ArrayList<String>();
@@ -118,7 +127,7 @@ public class Mincer {
 				if (a.count != b.count) {
 					return b.count > a.count ? 1 : -1;
 				}
-				
+
 				return 0;
 			}
 		});
@@ -150,7 +159,7 @@ public class Mincer {
 		
 		// time to actually MAKE the damn thing...
 		
-		ShapelessOreRecipe stewRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.ultimate_stew, makesstew), new ItemStack(LudicrousItems.resource, 1, 2));
+		stewRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.ultimate_stew, makesstew), new ItemStack(LudicrousItems.resource, 1, 2));
 		
 		List<Object> stewInputs = stewRecipe.getInput();
 		for (int i=0; i<crops.size(); i++) {
@@ -186,7 +195,7 @@ public class Mincer {
 			}
 		}*/
 
-        if(Compat.twilight){
+        if(Loader.isModLoaded("TwilightForest") && Config.twilight){
             try {
                 Item venison = Compat.getItem("TwilightForest", "item.venisonRaw");
                 Item meef = Compat.getItem("TwilightForest", "item.meefRaw");
@@ -196,14 +205,12 @@ public class Mincer {
             catch(Exception e){}
         }
 
-        if(Compat.natura){
+        if(Loader.isModLoaded("Natura")){
             try {
                 Item imp = Compat.getItem("Natura", "impmeat");
                 knownMeats.add(new ItemStack(imp));
             }
-            catch(Exception e){
-                Compat.natura = false;
-            }
+            catch(Exception e){}
         }
 
         if(Compat.am2){

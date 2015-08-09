@@ -1,6 +1,7 @@
 package fox.spiteful.avaritia.crafting;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.items.LudicrousItems;
@@ -25,9 +26,13 @@ public class Grinder {
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.triple_craft, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousBlocks.double_craft));
         GameRegistry.addShapedRecipe(new ItemStack(Blocks.crafting_table, 9), "C", 'C', new ItemStack(LudicrousBlocks.double_craft));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 9), "C", 'C', new ItemStack(LudicrousBlocks.triple_craft));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.dire_crafting, 1), "CCC", "CXC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1), 'X', new ItemStack(LudicrousBlocks.triple_craft));
+
+        if(Config.craftingOnly)
+            return;
+
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 1), "C", 'C', new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0));
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.dire_crafting, 1), "CCC", "CXC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 1), 'X', new ItemStack(LudicrousBlocks.triple_craft));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 3), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 2));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 4), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 3));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 3), "C", 'C', new ItemStack(LudicrousItems.resource, 1, 4));
@@ -194,36 +199,36 @@ public class Grinder {
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 3), new ItemStack(Blocks.redstone_block, 1));
         ExtremeCraftingManager.getInstance().addSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 4), new ItemStack(Blocks.quartz_block, 1));
 
-        if(!OreDictionary.getOres("blockCopper").isEmpty()){
+        if(Config.copper && !OreDictionary.getOres("blockCopper").isEmpty()){
             ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 5), "blockCopper");
             catalyst.getInput().add(new ItemStack(LudicrousItems.singularity, 1, 5));
         }
-        if(!OreDictionary.getOres("blockTin").isEmpty()){
+        if(Config.tin && !OreDictionary.getOres("blockTin").isEmpty()){
             ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 6), "blockTin");
             catalyst.getInput().add(new ItemStack(LudicrousItems.singularity, 1, 6));
         }
-        if(!OreDictionary.getOres("blockLead").isEmpty()){
+        if(Config.lead && !OreDictionary.getOres("blockLead").isEmpty()){
             ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 7), "blockLead");
             catalyst.getInput().add(new ItemStack(LudicrousItems.singularity, 1, 7));
         }
-        if(!OreDictionary.getOres("blockSilver").isEmpty()){
+        if(Config.silver && !OreDictionary.getOres("blockSilver").isEmpty()){
             ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 8), "blockSilver");
             catalyst.getInput().add(new ItemStack(LudicrousItems.singularity, 1, 8));
         }
-        if(!OreDictionary.getOres("blockNickel").isEmpty()){
+        if(Config.nickel && !OreDictionary.getOres("blockNickel").isEmpty()){
             ExtremeCraftingManager.getInstance().addOreSingularityRecipe(new ItemStack(LudicrousItems.singularity, 1, 9), "blockNickel");
             catalyst.getInput().add(new ItemStack(LudicrousItems.singularity, 1, 9));
         }
-        if(!OreDictionary.getOres("blockEnderium").isEmpty()){
+        if(Config.te && !OreDictionary.getOres("blockEnderium").isEmpty()){
             catalyst.getInput().add(OreDictionary.getOres("blockEnderium"));
         }
-        if(!OreDictionary.getOres("blockSteel").isEmpty()){
+        if(Config.steel &&!OreDictionary.getOres("blockSteel").isEmpty()){
             catalyst.getInput().add(OreDictionary.getOres("blockSteel"));
         }
-        if(!OreDictionary.getOres("ingotTartarite").isEmpty()){
+        if(Config.metallurgy && !OreDictionary.getOres("ingotTartarite").isEmpty()){
             catalyst.getInput().add(OreDictionary.getOres("ingotTartarite"));
         }
-        if(!OreDictionary.getOres("blockIronCompressed").isEmpty()){
+        if(Config.numanuma && !OreDictionary.getOres("blockIronCompressed").isEmpty()){
             catalyst.getInput().add(OreDictionary.getOres("blockIronCompressed"));
         }
         

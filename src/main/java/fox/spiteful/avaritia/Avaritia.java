@@ -51,10 +51,12 @@ public class Avaritia {
     @EventHandler
     public void earlyGame(FMLPreInitializationEvent event){
         instance = this;
+        Config.configurate(event.getSuggestedConfigurationFile());
         LudicrousItems.grind();
         LudicrousBlocks.voxelize();
-        LudicrousEntities.letLooseTheDogsOfWar();
         Compat.census();
+        if(!Config.craftingOnly)
+            LudicrousEntities.letLooseTheDogsOfWar();
         proxy.prepareForPretty();
     }
 
@@ -62,6 +64,8 @@ public class Avaritia {
     public void midGame(FMLInitializationEvent event){
         Grinder.artsAndCrafts();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GooeyHandler());
+        if(Config.craftingOnly)
+            return;
         proxy.makeThingsPretty();
         MinecraftForge.EVENT_BUS.register(new LudicrousEvents());
         ItemFracturedOre.brushUpUncomfortablyAgainstTheOreDictionary();
@@ -70,6 +74,8 @@ public class Avaritia {
     @EventHandler
     public void endGame(FMLPostInitializationEvent event){
         Compat.compatify();
+        if(Config.craftingOnly)
+            return;
         Mincer.countThoseCalories();
         Grinder.lastMinuteChanges();
         Achievements.achieve();
