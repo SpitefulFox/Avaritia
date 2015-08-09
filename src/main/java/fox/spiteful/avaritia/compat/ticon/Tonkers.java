@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.compat.ticon;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
@@ -26,7 +27,7 @@ public class Tonkers {
 	public static void buildstruct() {
 		
 		neutronium = new ToolMaterial(neutroniumName, "material."+neutroniumName, 5, 2400, 900, 6, 2.5f, 0, 0.0f, EnumChatFormatting.DARK_GRAY.toString(), 0x303030);
-		infinityMetal = new ToolMaterial(infinityMetalName, "material."+infinityMetalName, 5, 10000, 6000, 50, 10.0f, 5, 0.0f, LudicrousItems.cosmic.rarityColor.toString(), 0xFFFFFF);
+		infinityMetal = new ToolMaterial(infinityMetalName, "material."+infinityMetalName, 5, 10000, 6000, 50, 10.0f, 10, 0.0f, LudicrousItems.cosmic.rarityColor.toString(), 0xFFFFFF);
 
 		TConstructRegistry.addtoolMaterial(neutroniumId, neutronium);
 		TConstructRegistry.addtoolMaterial(infinityMetalId, infinityMetal);
@@ -276,7 +277,17 @@ public class Tonkers {
             	" XXX",
             	'X', ingot);
         
-        // extra modifier from catalyst
-        ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(LudicrousItems.resource, 1, 5) }, "AvaritiaFree"));
+        // extra modifiers from catalyst
+        ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(LudicrousItems.resource, 1, 5) }, "AvaritiaFree"){
+            @Override
+            public void modify (ItemStack[] recipe, ItemStack input)
+            {
+                NBTTagCompound tags = this.getModifierTag(input);
+                tags.setBoolean(key, true);
+                int modifiers = tags.getInteger("Modifiers");
+                modifiers += 5;
+                tags.setInteger("Modifiers", modifiers);
+            }
+        });
 	}
 }

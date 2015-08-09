@@ -125,7 +125,7 @@ public class TonkersEvents {
 		}
 	}
 
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
 		ItemStack held = event.entityLiving.getHeldItem();
 		if (held != null && held.hasTagCompound() && held.getItem() instanceof ToolCore) {
@@ -151,7 +151,7 @@ public class TonkersEvents {
 				AbilityHelper.healTool(held, MathHelper.floor_float(tool.getDurabilityModifier()), event.entityLiving, true);
 			}
 		}
-	}
+	}*/
 	
 	// bedrock SMASH!
 	@SubscribeEvent
