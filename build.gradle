@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.2"
+version = "0.2b"
 group= "fox.spiteful.avaritia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Avaritia"
 

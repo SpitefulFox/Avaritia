@@ -41,7 +41,10 @@ public class Config {
 
 
     public static void configurate(File file){
-        Configuration conf = new Configuration(file);
+        craftingOnly = true;
+        return;
+
+        /*Configuration conf = new Configuration(file);
 
         try {
             conf.load();
@@ -85,7 +88,7 @@ public class Config {
         }
         finally {
             conf.save();
-        }
+        }*/
     }
 
 }
