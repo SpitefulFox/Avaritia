@@ -12,6 +12,12 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
     private ItemStack[] matrix = new ItemStack[81];
 
     @Override
+    public boolean canUpdate()
+    {
+        return false;
+    }
+
+    @Override
     public void readCustomNBT(NBTTagCompound tag)
     {
         this.result = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Result"));

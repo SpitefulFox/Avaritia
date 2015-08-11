@@ -47,6 +47,7 @@ tile.block_infinity.name=Infinity Block
 tile.block_gaia.name=Gaia Block
 tile.dire_crafting.name=Dire Crafting Table
 tile.neutron_collector.name=Neutron Collector
+tile.neutronium_compressor.name=Neutronium Compressor
 tile.infinitato.name=Infinitato
 #
 # Tooltips
@@ -68,6 +69,8 @@ achievement.avaritia:crystal_matrix=The First Seal
 achievement.avaritia:crystal_matrix.desc=Create your first Crystal Matrix Ingot
 achievement.avaritia:dire_crafting=HELLO, EVERYONE!
 achievement.avaritia:dire_crafting.desc=Use a regular Crafting Table to craft a Dire Crafting Table
+achievement.avaritia:dire_uncrafting=TAKE IT EASY!
+achievement.avaritia:dire_uncrafting.desc=End the episode
 achievement.avaritia:collector=Now We Play The Waiting Game
 achievement.avaritia:collector.desc=Create your first Neutron Collector and get ready to chunkload
 achievement.avaritia:neutronium=Waiting Game Sucks
@@ -86,13 +89,15 @@ achievement.avaritia:creative_kill.desc="By that sin fell the angels"
 # Misc
 itemGroup.avaritia=Avaritia
 container.neutron_collector=Neutron Collector
+container.neutronium_compressor=Neutronium Compressor
 tc.aspect.terminus=The End of Games, Apocalypse, Grindstones
 crafting.extreme=Xtreme Crafting
 crafting.extreme.shapeless=Xtreme Shapeless
+crafting.extreme_compression=Neutronium Compressor
 tip.infinity=Infinity
-death.attack.infinity=%1$s was sliced to ribbons by %2$s
-death.attack.infinity.item=%1$s was sliced to ribbons by %2$s
-death.attack.infinity.1=%1$s was obliterated by %2$s
+death.attack.infinity=%1$s was obliterated by %2$s
+death.attack.infinity.item=%1$s was obliterated by %2$s
+death.attack.infinity.1=%1$s was sliced to ribbons by %2$s
 death.attack.infinity.2=%1$s was excised from existence by %2$s
 death.attack.infinity.3=%1$s was overkilled by %2$s
 death.attack.infinity.4=%1$s was annihilated by %2$s

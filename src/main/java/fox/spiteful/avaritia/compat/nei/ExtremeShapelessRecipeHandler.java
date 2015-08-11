@@ -1,4 +1,4 @@
-package fox.spiteful.avaritia.compat;
+package fox.spiteful.avaritia.compat.nei;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.recipe.RecipeInfo;
@@ -7,7 +7,6 @@ import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.ExtremeShapelessRecipe;
 import fox.spiteful.avaritia.gui.GUIExtremeCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.inventory.*;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

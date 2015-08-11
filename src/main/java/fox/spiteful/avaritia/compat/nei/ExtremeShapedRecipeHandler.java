@@ -1,7 +1,5 @@
-package fox.spiteful.avaritia.compat;
+package fox.spiteful.avaritia.compat.nei;
 
-import codechicken.core.ReflectionManager;
-import codechicken.nei.NEIClientConfig;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.ExtremeShapedOreRecipe;
 import fox.spiteful.avaritia.crafting.ExtremeShapedRecipe;
@@ -11,7 +9,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import org.lwjgl.opengl.GL11;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;

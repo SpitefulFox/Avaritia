@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Config;
+import fox.spiteful.avaritia.tile.TileEntityCompressor;
 import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
 import fox.spiteful.avaritia.tile.TileEntityNeutron;
 import net.minecraft.block.Block;
@@ -14,6 +15,7 @@ public class LudicrousBlocks {
     public static Block resource_block;
     public static Block dire_crafting;
     public static Block neutron_collector;
+    public static Block compressor;
 
     public static Block infinitato;
 
@@ -30,5 +32,7 @@ public class LudicrousBlocks {
         resource_block = GameRegistry.registerBlock(new BlockResource(), ItemBlockResource.class, "Resource_Block");
         neutron_collector = GameRegistry.registerBlock(new BlockNeutronCollector(), "Neutron_Collector");
         GameRegistry.registerTileEntity(TileEntityNeutron.class, "Avaritia_Neutron");
+        compressor = GameRegistry.registerBlock(new BlockCompressor(), "Neutronium_Compressor");
+        GameRegistry.registerTileEntity(TileEntityCompressor.class, "Avaritia_Compressor");
     }
 }

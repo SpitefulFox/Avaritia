@@ -14,13 +14,14 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
 
     @Override
     public void updateEntity(){
-        if(++progress >= 10665){
+        if(++progress >= 7111){
         //if(++progress >= 300){
             if(neutrons == null)
                 neutrons = new ItemStack(LudicrousItems.resource, 1, 2);
             else if(neutrons.getItem() == LudicrousItems.resource && neutrons.getItemDamage() == 2 && neutrons.stackSize < 64)
                 neutrons.stackSize++;
             progress = 0;
+            markDirty();
         }
     }
 
@@ -112,11 +113,7 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
 
     @Override
     public ItemStack getStackInSlotOnClosing(int slot){
-        if(neutrons == null)
-            return null;
-        ItemStack take = neutrons;
-        neutrons = null;
-        return take;
+        return null;
     }
 
     /**

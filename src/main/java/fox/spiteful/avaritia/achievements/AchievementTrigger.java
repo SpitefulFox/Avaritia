@@ -7,6 +7,9 @@ import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.world.BlockEvent;
+
+import static net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class AchievementTrigger {
 
@@ -49,5 +52,11 @@ public class AchievementTrigger {
                 event.player.addStat(Achievements.armok, 1);
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onBorken(BreakEvent event){
+        if(event.block == LudicrousBlocks.dire_crafting && event.getPlayer() != null)
+            event.getPlayer().addStat(Achievements.dire_uncrafting, 1);
     }
 }

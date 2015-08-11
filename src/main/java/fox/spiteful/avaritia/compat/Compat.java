@@ -7,6 +7,7 @@ import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
 import fox.spiteful.avaritia.compat.modtweaker.Tweak;
+import fox.spiteful.avaritia.compat.nei.NotEnough;
 import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
 import fox.spiteful.avaritia.compat.ticon.Tonkers;
 import fox.spiteful.avaritia.crafting.Grinder;
@@ -32,6 +33,7 @@ public class Compat {
     public static boolean tweak = false;
     public static boolean mfr = false;
     public static boolean am2 = false;
+    public static boolean forestry = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
@@ -48,23 +50,18 @@ public class Compat {
         pe = Loader.isModLoaded("ProjectE") && Config.pe;
         mfr = Loader.isModLoaded("MineFactoryReloaded") && Config.mfr;
         am2 = Loader.isModLoaded("arsmagica2") && Config.am2;
+        forestry = Loader.isModLoaded("Forestry") && Config.forestry;
     }
 
     public static void compatify(){
         if(nei){
             try
             {
-                Class<?> handler = Class.forName("fox.spiteful.avaritia.compat.ExtremeShapedRecipeHandler");
-                Class<?> handler2 = Class.forName("fox.spiteful.avaritia.compat.ExtremeShapelessRecipeHandler");
-                Class<?> api = Class.forName("codechicken.nei.api.API");
-                api.getMethod("registerRecipeHandler", Class.forName("codechicken.nei.recipe.ICraftingHandler")).invoke(null, handler.newInstance());
-                api.getMethod("registerUsageHandler", Class.forName("codechicken.nei.recipe.IUsageHandler")).invoke(null, handler.newInstance());
-                api.getMethod("registerRecipeHandler", Class.forName("codechicken.nei.recipe.ICraftingHandler")).invoke(null, handler2.newInstance());
-                api.getMethod("registerUsageHandler", Class.forName("codechicken.nei.recipe.IUsageHandler")).invoke(null, handler2.newInstance());
+                NotEnough.items();
             }
             catch(Throwable e)
             {
-                e.printStackTrace();
+                Lumberjack.log(Level.INFO, e, "Avaritia had Too Many Items.");
             }
         }
 
@@ -74,8 +71,7 @@ public class Compat {
                 Tweak.registrate();
             }
             catch(Throwable e){
-                Lumberjack.log(Level.INFO, "Avaritia is too good for tweaking, apparently.");
-                e.printStackTrace();
+                Lumberjack.log(Level.INFO, e, "Avaritia is too good for tweaking, apparently.");
             }
         }
 
@@ -333,6 +329,18 @@ public class Compat {
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, e, "Avaritia got sick of the arcane guardian's healspam.");
                 am2 = false;
+            }
+        }
+
+        if(forestry){
+            try {
+                Item panel = getItem("Forestry", "craftingMaterial");
+
+                Grinder.catalyst.getInput().add(new ItemStack(panel, 1, 6));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, e, "Avaritia got stung by a bee.");
+                forestry = false;
             }
         }
 

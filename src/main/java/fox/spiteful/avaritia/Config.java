@@ -31,6 +31,8 @@ public class Config {
     public static boolean te = true;
     public static boolean numanuma = true;
     public static boolean metallurgy = true;
+    public static boolean enderio = true;
+    public static boolean forestry = true;
 
     public static boolean copper = true;
     public static boolean tin = true;
@@ -38,7 +40,6 @@ public class Config {
     public static boolean lead = true;
     public static boolean steel = true;
     public static boolean nickel = true;
-
 
     public static void configurate(File file){
         Configuration conf = new Configuration(file);
@@ -56,7 +57,7 @@ public class Config {
             sc2 = conf.get("compatibility", "Steve's Carts 2", true).getBoolean(true);
             ae2 = conf.get("compatibility", "Applied Energistics 2", true).getBoolean(true);
             exu = conf.get("compatibility", "Extra Utilities", true).getBoolean(true);
-            ic2 = conf.get("compatibility", "Industrialcraft 2 Exp", true).getBoolean(true);
+            ic2 = conf.get("compatibility", "Industrialcraft 2 Experimental", true).getBoolean(true);
             gt = conf.get("compatibility", "Gregtech 5", true).getBoolean(true);
             botan = conf.get("compatibility", "Botania", true).getBoolean(true);
             blood = conf.get("compatibility", "Blood Magic", true).getBoolean(true);
@@ -71,14 +72,16 @@ public class Config {
             te = conf.get("compatibility", "Thermal Expansion", true).getBoolean(true);
             numanuma = conf.get("compatibility", "Pneumaticraft", true).getBoolean(true);
             metallurgy = conf.get("compatibility", "Metallurgy", true).getBoolean(true);
+            enderio = conf.get("compatibility", "EnderIO", true).getBoolean(true);
+            forestry = conf.get("compatibility", "Forestry", true).getBoolean(true);
 
-            conf.addCustomCategoryComment("metal", "Disable to stop using that metal in recipes. Useful if a mod adds unobtainable placeholder metal.");
-            copper = conf.get("metal", "Copper", true).getBoolean(true);
-            tin = conf.get("metal", "Tin", true).getBoolean(true);
-            silver = conf.get("metal", "Silver", true).getBoolean(true);
-            lead = conf.get("metal", "Lead", true).getBoolean(true);
-            nickel = conf.get("metal", "Nickel/Ferrous", true).getBoolean(true);
-            steel = conf.get("metal", "Steel", true).getBoolean(true);
+            conf.addCustomCategoryComment("materials", "Disable to stop using that material in recipes. Useful if a mod adds unobtainable placeholder ores.");
+            copper = conf.get("materials", "Copper", true).getBoolean(true);
+            tin = conf.get("materials", "Tin", true).getBoolean(true);
+            silver = conf.get("materials", "Silver", true).getBoolean(true);
+            lead = conf.get("materials", "Lead", true).getBoolean(true);
+            nickel = conf.get("materials", "Nickel/Ferrous", true).getBoolean(true);
+            steel = conf.get("materials", "Steel", true).getBoolean(true);
         }
         catch(Exception e){
             Lumberjack.log(Level.ERROR, e, "Avaritia couldn't find its config!");
