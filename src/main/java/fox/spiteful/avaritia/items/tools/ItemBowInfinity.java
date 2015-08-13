@@ -3,7 +3,10 @@ package fox.spiteful.avaritia.items.tools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.entity.EntityHeavenArrow;
+import fox.spiteful.avaritia.render.CosmicBowRenderer;
+import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -19,9 +22,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
-public class ItemBowInfinity extends Item {
-    @SideOnly(Side.CLIENT)
+public class ItemBowInfinity extends Item implements ICosmicRenderItem {
     private IIcon[] iconArray;
+    private IIcon[] maskArray;
+    private IIcon idleMask;
 
     public ItemBowInfinity()
     {
@@ -174,11 +178,14 @@ public class ItemBowInfinity extends Item {
     {
     	int pullframes = 3;
         this.itemIcon = ir.registerIcon(this.getIconString() + "_standby");
+        this.idleMask = ir.registerIcon(this.getIconString() + "_standby_mask");
         this.iconArray = new IIcon[pullframes];
+        this.maskArray = new IIcon[pullframes];
 
         for (int i = 0; i < pullframes; ++i)
         {
             this.iconArray[i] = ir.registerIcon(this.getIconString() + "_pulling_"+i);
+            this.maskArray[i] = ir.registerIcon(this.getIconString() + "_pulling_mask_"+i);
         }
     }
 
@@ -207,4 +214,40 @@ public class ItemBowInfinity extends Item {
         }
         return getIcon(stack, renderPass);
     }
+    
+    @Override
+    @SideOnly(Side.CLIENT) 
+    public IIcon getIcon(ItemStack stack, int pass) {
+    	return super.getIcon(stack, pass);
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean isFull3D()
+    {
+        return true;
+    }
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getMaskTexture(ItemStack stack, EntityPlayer player) {
+		int frame = -1;
+		if (player != null) {
+
+			int bframe = CosmicBowRenderer.getBowFrame(player);
+			frame = bframe != 0 ? bframe : -1;
+		}
+		//Lumberjack.info(frame);
+		if (frame == -1) {
+			return this.idleMask;
+		}
+		
+		return maskArray[frame];
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public float getMaskMultiplier(ItemStack stack, EntityPlayer player) {
+		return 1.0f;
+	}
 }

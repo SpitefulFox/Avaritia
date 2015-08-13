@@ -104,13 +104,13 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getMaskTexture(ItemStack stack) {
+    public IIcon getMaskTexture(ItemStack stack, EntityPlayer player) {
         return cosmicMask;
     }
     
     @Override
 	@SideOnly(Side.CLIENT)
-	public float getMaskMultiplier(ItemStack stack) {
+	public float getMaskMultiplier(ItemStack stack, EntityPlayer player) {
 		return 1.0f;
 	}
 

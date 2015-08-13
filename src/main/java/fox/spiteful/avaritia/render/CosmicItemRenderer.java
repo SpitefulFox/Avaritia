@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -41,17 +42,17 @@ public class CosmicItemRenderer implements IItemRenderer {
 			GL11.glTranslatef(-0.5F, 0F, 0F);
 			if(item.isOnItemFrame())
 				GL11.glTranslatef(0F, -0.3F, 0.01F);
-			render(item);
+			render(item, null);
 			GL11.glPopMatrix();
 			
 			break;
 		}
 		case EQUIPPED : {
-			render(item);
+			render(item, data[1] instanceof EntityPlayer ? (EntityPlayer) data[1] : null);
 			break;
 		}
 		case EQUIPPED_FIRST_PERSON : {
-			render(item);
+			render(item, data[1] instanceof EntityPlayer ? (EntityPlayer) data[1] : null);
 			break;
 		}
 		case INVENTORY: {
@@ -76,11 +77,11 @@ public class CosmicItemRenderer implements IItemRenderer {
 				
 				ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
 				
-				CosmicRenderShenanigans.cosmicOpacity = icri.getMaskMultiplier(item);
+				CosmicRenderShenanigans.cosmicOpacity = icri.getMaskMultiplier(item, null);
 				CosmicRenderShenanigans.inventoryRender = true;
 				CosmicRenderShenanigans.useShader();
 				
-				IIcon cosmicicon = icri.getMaskTexture(item);
+				IIcon cosmicicon = icri.getMaskTexture(item, null);
 				
 				GL11.glColor4d(1, 1, 1, 1);
 				
@@ -118,8 +119,8 @@ public class CosmicItemRenderer implements IItemRenderer {
 		
 		//Lumberjack.log(Level.INFO, light+"");
 	}
-
-	public void render(ItemStack item) {
+	
+	public void render(ItemStack item, EntityPlayer player) {
 		int passes = 1;
 		if (item.getItem().requiresMultipleRenderPasses())
         {
@@ -141,7 +142,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 		
         for (int i = 0; i < passes; i++)
         {
-        	icon = item.getItem().getIcon(item, i);
+        	icon = this.getStackIcon(item, i, player);
         	
         	//Lumberjack.log(Level.INFO, "icon "+i+": "+icon);
 
@@ -160,11 +161,12 @@ public class CosmicItemRenderer implements IItemRenderer {
 		
 		if (item.getItem() instanceof ICosmicRenderItem) {
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
+			GL11.glDepthFunc(GL11.GL_EQUAL);
 			ICosmicRenderItem icri = (ICosmicRenderItem)(item.getItem());
-			CosmicRenderShenanigans.cosmicOpacity = icri.getMaskMultiplier(item);
+			CosmicRenderShenanigans.cosmicOpacity = icri.getMaskMultiplier(item, player);
 			CosmicRenderShenanigans.useShader();
 			
-			IIcon cosmicicon = icri.getMaskTexture(item);
+			IIcon cosmicicon = icri.getMaskTexture(item, player);
 			
 			float minu = cosmicicon.getMinU();
 			float maxu = cosmicicon.getMaxU();
@@ -172,6 +174,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 			float maxv = cosmicicon.getMaxV();
 			ItemRenderer.renderItemIn2D(Tessellator.instance, maxu, minv, minu, maxv, cosmicicon.getIconWidth(), cosmicicon.getIconHeight(), scale);
 			CosmicRenderShenanigans.releaseShader();
+			GL11.glDepthFunc(GL11.GL_LEQUAL);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 		}
 		
@@ -213,5 +216,9 @@ public class CosmicItemRenderer implements IItemRenderer {
 			return;
 		}
 		}
+	}
+	
+	public IIcon getStackIcon(ItemStack stack, int pass, EntityPlayer player) {
+		return stack.getItem().getIcon(stack, pass);
 	}
 }

@@ -256,7 +256,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getMaskTexture(ItemStack stack) {
+	public IIcon getMaskTexture(ItemStack stack, EntityPlayer player) {
 		int count = getClusterSize(stack);
 		if (count == capacity) {
 			return cosmicIconFull;
@@ -266,7 +266,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public float getMaskMultiplier(ItemStack stack) {
+	public float getMaskMultiplier(ItemStack stack, EntityPlayer player) {
 		int count = getClusterSize(stack);
 		return count / (float)capacity;
 	}
