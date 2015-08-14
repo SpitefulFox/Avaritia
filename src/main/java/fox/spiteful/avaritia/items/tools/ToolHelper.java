@@ -202,13 +202,15 @@ public class ToolHelper {
     public static Map<ItemStackWrapper, Integer> collateMatterCluster(List<ItemStack> input) {
     	Map<ItemStackWrapper, Integer> counts = new HashMap<ItemStackWrapper, Integer>();
     	
-    	for (ItemStack stack : input) {
-    		ItemStackWrapper wrap = new ItemStackWrapper(stack);
-    		if (!counts.containsKey(wrap)) {
-    			counts.put(wrap, 0);
-    		}
-    		
-    		counts.put(wrap, counts.get(wrap) + stack.stackSize);
+    	if (input != null) {
+	    	for (ItemStack stack : input) {
+	    		ItemStackWrapper wrap = new ItemStackWrapper(stack);
+	    		if (!counts.containsKey(wrap)) {
+	    			counts.put(wrap, 0);
+	    		}
+	    		
+	    		counts.put(wrap, counts.get(wrap) + stack.stackSize);
+	    	}
     	}
     	
     	return counts;
