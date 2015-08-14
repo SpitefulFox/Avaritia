@@ -13,6 +13,7 @@ import fox.spiteful.avaritia.render.CosmicItemRenderer;
 import fox.spiteful.avaritia.render.FancyHaloRenderer;
 import fox.spiteful.avaritia.render.FracturedOreRenderer;
 import fox.spiteful.avaritia.render.LudicrousRenderEvents;
+import fox.spiteful.avaritia.render.MorvInABoxRenderer;
 import fox.spiteful.avaritia.render.RenderGapingVoid;
 import fox.spiteful.avaritia.render.RenderHeavenArrow;
 import fox.spiteful.avaritia.render.ShaderHelper;
@@ -56,6 +57,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.infinity_bow, new CosmicBowRenderer());
 		
 		MinecraftForgeClient.registerItemRenderer(LudicrousItems.fractured_ore, new FracturedOreRenderer());
+		
+		MinecraftForgeClient.registerItemRenderer(LudicrousItems.morv_in_a_box, new MorvInABoxRenderer());
 		
 		CompatClient.comprettify();
 		

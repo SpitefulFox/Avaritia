@@ -37,6 +37,7 @@ item.avaritia_fracturedore.name=Unknown Fractured Ore
 item.avaritia_fracturedore.prefix=Fractured
 item.avaritia_mattercluster.name=Matter Cluster
 item.avaritia_mattercluster.full.name=Critical Matter Cluster
+item.morvinabox.name=Morv-In-A-Box
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
@@ -63,6 +64,8 @@ tooltip.skullfire_sword.desc=Beheads skeletons and scorches them black.
 tooltip.matter_cluster.desc=Use to deconstruct.
 tooltip.matter_cluster.desc2=Hold SHIFT for contents.
 tooltip.matter_cluster.counter=items
+tooltip.morvinabox.desc=Instant housing
+tooltip.morvinabox.subdesc=In Canada, Morvy comes in bags.
 #
 # Achievements
 achievement.avaritia:crystal_matrix=The First Seal
