@@ -107,6 +107,7 @@ death.attack.infinity.4=%1$s was annihilated by %2$s
 #
 # Botania
 avaritia.flower.asgardandelion.name=Asgardandelion
+tile.botania:flower.asgardandelion.name=Asgardandelion
 tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
 avaritia.lexicon.asgardandelion=Asgardandelion
 avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a never-ending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reckoning.<br>&oStill not a SAO reference.&r
