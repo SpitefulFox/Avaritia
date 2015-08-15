@@ -141,7 +141,8 @@ public class CompressionHandler extends TemplateRecipeHandler
     @SideOnly(Side.CLIENT)
     @Override
     public void drawForeground(int recipe){
-        fontRender.drawString(((CachedCompression)arecipes.get(recipe)).getCost() + "", 36, 38, 4210752);
+        super.drawForeground(recipe);
+        fontRender.drawString(((CachedCompression)arecipes.get(recipe)).getCost() + "", 50, 38, 4210752);
     }
 
     @Override

@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.achievements.Achievements;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.crafting.Gregorizer;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.crafting.Mincer;
 import fox.spiteful.avaritia.entity.LudicrousEntities;
@@ -74,6 +75,7 @@ public class Avaritia {
     @EventHandler
     public void endGame(FMLPostInitializationEvent event){
         Compat.compatify();
+        Gregorizer.balance();
         if(Config.craftingOnly)
             return;
         Mincer.countThoseCalories();

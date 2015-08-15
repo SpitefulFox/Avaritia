@@ -7,11 +7,17 @@ public class CompressorRecipe {
     private ItemStack product;
     private int cost;
     private ItemStack input;
+    private boolean specific;
 
-    public CompressorRecipe(ItemStack output, int amount, ItemStack ingredient){
+    public CompressorRecipe(ItemStack output, int amount, ItemStack ingredient, boolean exact){
         product = output;
         cost = amount;
         input = ingredient;
+        specific = exact;
+    }
+
+    public CompressorRecipe(ItemStack output, int amount, ItemStack ingredient){
+        this(output, amount, ingredient, false);
     }
 
     public ItemStack getOutput(){
@@ -19,7 +25,10 @@ public class CompressorRecipe {
     }
 
     public int getCost(){
-        return cost;
+        if(specific)
+            return cost;
+        else
+            return Gregorizer.balanceCost(cost);
     }
 
     public boolean validInput(ItemStack ingredient){
