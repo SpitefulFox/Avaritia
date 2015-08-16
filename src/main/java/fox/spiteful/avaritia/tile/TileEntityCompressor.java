@@ -16,8 +16,16 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
     private int target = 0;
     private String ingredient;
 
+    private int packetCount;
+    private boolean packet;
+
+    private static final int[] top = new int[]{0};
+    private static final int[] sides = new int[]{1};
+
     @Override
     public void updateEntity(){
+        if(packetCount > 0)
+            packetCount--;
         if(input != null){
             if(CompressorManager.getOutput(input) != null && (output == null || CompressorManager.getOutput(input).isItemEqual(output))) {
                 if (processing == null) {
@@ -30,7 +38,7 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
                     input = null;
                 }
                 markDirty();
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                packet = true;
             }
         }
         if (progress >= target && processing != null && (output == null || output.isItemEqual(processing))) {
@@ -42,11 +50,15 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
             progress -= target;
             if(progress == 0) {
                 processing = null;
-                progress = 0;
                 ingredient = null;
             }
             markDirty();
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            packet = true;
+        }
+        if(packet && packetCount <= 0) {
+            VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+            packetCount = 10;
+            packet = false;
         }
     }
 
@@ -76,22 +88,27 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
         this.input = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Input"));
         this.processing = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Processing"));
         this.output = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Output"));
-        this.progress = tag.getInteger("Progress");
-        this.target = tag.getInteger("Target");
-        if(tag.hasKey("Ingredient"))
-            this.ingredient = tag.getString("Ingredient");
+        if(processing != null) {
+            this.target = CompressorManager.getPrice(processing);
+            if(target != 0) {
+                this.progress = tag.getInteger("Progress");
+                if (tag.hasKey("Ingredient"))
+                    this.ingredient = tag.getString("Ingredient");
+            }
+            else
+                processing = null;
+        }
+        else {
+            progress = 0;
+            target = 0;
+            ingredient = null;
+        }
         this.facing = tag.getShort("Facing");
     }
 
     @Override
     public void writeCustomNBT(NBTTagCompound tag)
     {
-        tag.setInteger("Progress", this.progress);
-        tag.setInteger("Target", this.target);
-        if(ingredient != null)
-            tag.setString("Ingredient", this.ingredient);
-        else
-            tag.removeTag("Ingredient");
         tag.setShort("Facing", (short) this.facing);
         if(input != null) {
             NBTTagCompound produce = new NBTTagCompound();
@@ -104,9 +121,18 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
             NBTTagCompound produce = new NBTTagCompound();
             processing.writeToNBT(produce);
             tag.setTag("Processing", produce);
+            tag.setInteger("Progress", this.progress);
+            if(ingredient != null)
+                tag.setString("Ingredient", this.ingredient);
+            else
+                tag.removeTag("Ingredient");
         }
-        else
+        else {
             tag.removeTag("Processing");
+            tag.removeTag("Progress");
+            tag.removeTag("Target");
+            tag.removeTag("Ingredient");
+        }
         if(output != null) {
             NBTTagCompound produce = new NBTTagCompound();
             output.writeToNBT(produce);
@@ -119,15 +145,13 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
     @Override
     public int getSizeInventory()
     {
-        return 3;
+        return 2;
     }
 
     @Override
     public ItemStack getStackInSlot(int slot){
         if(slot == 0)
             return input;
-        else if(slot == 2)
-            return processing;
         else
             return output;
     }
@@ -202,8 +226,6 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
             input = stack;
         else if(slot == 1)
             output = stack;
-        else
-            processing = stack;
     }
 
     @Override
@@ -231,24 +253,18 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
 
     @Override
     public int[] getAccessibleSlotsFromSide(int side){
-        if(side == 0)
-            return new int[]{0};
+        if(side == 1)
+            return top;
         else
-            return new int[]{1};
+            return sides;
     }
 
     public boolean canInsertItem(int slot, ItemStack stack, int side){
-        if(slot == 0 && side == 0){
-            if(processing == null)
-                return true;
-            if(CompressorManager.getOutput(stack).isItemEqual(processing))
-                return true;
-        }
-        return false;
+        return isItemValidForSlot(slot, stack);
     }
 
     public boolean canExtractItem(int slot, ItemStack stack, int side){
-        if(slot == 1 && side != 0)
+        if(slot == 1 && side != 1)
             return true;
         return false;
     }

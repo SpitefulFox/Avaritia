@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.compat.thaumcraft;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
@@ -73,15 +74,16 @@ public class Lucrum {
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        boolean kami = false;
-        try {
-            kami = Class.forName("thaumic.tinkerer.common.core.handler.ConfigHandler").getField("enableKami").getBoolean(null);
-            if(kami){
-                Item kamiResource = Compat.getItem("ThaumicTinkerer", "kamiResource");
-                Grinder.catalyst.getInput().add(new ItemStack(kamiResource, 1, 2));
+        if(Loader.isModLoaded("ThaumicTinkerer")) {
+            try {
+                boolean kami = Class.forName("thaumic.tinkerer.common.core.handler.ConfigHandler").getField("enableKami").getBoolean(null);
+                if (kami) {
+                    Item kamiResource = Compat.getItem("ThaumicTinkerer", "kamiResource");
+                    Grinder.catalyst.getInput().add(new ItemStack(kamiResource, 1, 2));
+                }
+            } catch (Exception e) {
+                Lumberjack.log(Level.INFO, e, "Avaritia couldn't find the last research it needs to unlock Ichor.");
             }
-        } catch (Exception e) {
-            Lumberjack.log(Level.INFO, e, "LOLKAMI LOLOLOLOLOLOLOL");
         }
 
     }

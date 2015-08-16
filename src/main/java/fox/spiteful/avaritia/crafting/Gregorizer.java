@@ -1,6 +1,7 @@
 package fox.spiteful.avaritia.crafting;
 
 import cpw.mods.fml.common.Loader;
+import fox.spiteful.avaritia.Config;
 
 public class Gregorizer {
 
@@ -9,15 +10,13 @@ public class Gregorizer {
 
     public static void balance(){
         if(Loader.isModLoaded("magicalcrops"))
-            multiplier += 3;
+            multiplier += 2;
         if(Loader.isModLoaded("MineFactoryReloaded"))
             multiplier += 1;
         if(Loader.isModLoaded("BigReactors"))
             modifier += 100;
-        if(Loader.isModLoaded("ProjectE"))
-            multiplier += 9;
-        if(Loader.isModLoaded("EE3"))
-            multiplier += 9;
+        if(Loader.isModLoaded("EE3")||Loader.isModLoaded("ProjectE"))
+            multiplier += 4;
         if(Loader.isModLoaded("Botania"))
             modifier += 50;
         if(Loader.isModLoaded("IC2"))
@@ -27,15 +26,22 @@ public class Gregorizer {
         if(Loader.isModLoaded("technom"))
             modifier += 500;
         if(Loader.isModLoaded("ExtraUtilities"))
-            modifier += 100;
+            modifier += 150;
         if(Loader.isModLoaded("Thaumcraft"))
             modifier += 100;
         if(Loader.isModLoaded("appliedenergistics2"))
             modifier += 200;
-        if(Loader.isModLoaded("gregtech"))
-            multiplier += 3;
         if(Loader.isModLoaded("TSteelworks"))
             modifier += 300;
+        if(Loader.isModLoaded("ImmersiveEngineering"))
+            modifier += 400;
+        if(Loader.isModLoaded("Mekanism")) {
+            modifier += 300;
+            multiplier += 1;
+        }
+
+        modifier += Config.modifier;
+        multiplier += Config.multiplier;
     }
 
     public static int balanceCost(int cost){

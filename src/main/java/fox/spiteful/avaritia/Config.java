@@ -33,6 +33,7 @@ public class Config {
     public static boolean metallurgy = true;
     public static boolean enderio = true;
     public static boolean forestry = true;
+    public static boolean ee3 = true;
 
     public static boolean copper = true;
     public static boolean tin = true;
@@ -40,6 +41,9 @@ public class Config {
     public static boolean lead = true;
     public static boolean steel = true;
     public static boolean nickel = true;
+
+    public static int modifier = 0;
+    public static int multiplier = 0;
 
     public static void configurate(File file){
         Configuration conf = new Configuration(file);
@@ -74,6 +78,7 @@ public class Config {
             metallurgy = conf.get("compatibility", "Metallurgy", true).getBoolean(true);
             enderio = conf.get("compatibility", "EnderIO", true).getBoolean(true);
             forestry = conf.get("compatibility", "Forestry", true).getBoolean(true);
+            ee3 = conf.get("compatibility", "Equivalent Exchange 3", true).getBoolean(true);
 
             conf.addCustomCategoryComment("materials", "Disable to stop using that material in recipes. Useful if a mod adds unobtainable placeholder ores.");
             copper = conf.get("materials", "Copper", true).getBoolean(true);
@@ -82,6 +87,9 @@ public class Config {
             lead = conf.get("materials", "Lead", true).getBoolean(true);
             nickel = conf.get("materials", "Nickel/Ferrous", true).getBoolean(true);
             steel = conf.get("materials", "Steel", true).getBoolean(true);
+
+            modifier = conf.get("balance!", "Cost Modifier", "Added to the existing modifier to make prices more expensive or cheaper. Can be negative.").getInt(0);
+            multiplier = conf.get("balance!", "Cost Multiplier", "Added to the existing multiplier to make prices more expensive or cheaper. Can be negative.").getInt(0);
         }
         catch(Exception e){
             Lumberjack.log(Level.ERROR, e, "Avaritia couldn't find its config!");
