@@ -1,6 +1,7 @@
 package fox.spiteful.avaritia.compat.nei;
 
 import codechicken.nei.api.API;
+import net.minecraft.item.ItemStack;
 
 public class NotEnough {
 
@@ -14,5 +15,9 @@ public class NotEnough {
         API.registerUsageHandler(shaped);
         API.registerUsageHandler(shapeless);
         API.registerUsageHandler(compress);
+    }
+
+    public static void hide(ItemStack stack){
+        API.hideItem(stack);
     }
 }

@@ -1,13 +1,19 @@
 package fox.spiteful.avaritia.compat.thaumcraft;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
+import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
+import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.logging.log4j.Level;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -54,7 +60,7 @@ public class Lucrum {
         ((ItemWandCasting)ConfigItems.itemWandCasting).setRod(wand, WAND_ROD_NEUTRONIUM);
         ((ItemWandCasting)ConfigItems.itemWandCasting).setCap(wand, WAND_CAP_CRYSTAL);
 
-        ExtremeCraftingManager.getInstance().addRecipe(wand, new Object[]{
+        ExtremeCraftingManager.getInstance().addRecipe(wand,
                 "      C  ",
                 "     CIC ",
                 "     NIIC",
@@ -66,7 +72,19 @@ public class Lucrum {
                 "  C      ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4)});
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));
+
+        if(Loader.isModLoaded("ThaumicTinkerer")) {
+            try {
+                boolean kami = Class.forName("thaumic.tinkerer.common.core.handler.ConfigHandler").getField("enableKami").getBoolean(null);
+                if (kami) {
+                    Item kamiResource = Compat.getItem("ThaumicTinkerer", "kamiResource");
+                    Grinder.catalyst.getInput().add(new ItemStack(kamiResource, 1, 2));
+                }
+            } catch (Exception e) {
+                Lumberjack.log(Level.INFO, e, "Avaritia couldn't find the last research it needs to unlock Ichor.");
+            }
+        }
 
     }
 

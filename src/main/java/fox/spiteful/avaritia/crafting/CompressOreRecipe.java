@@ -9,9 +9,13 @@ public class CompressOreRecipe extends CompressorRecipe {
 
     private int oreID;
 
-    public CompressOreRecipe(ItemStack output, int amount, String lex){
-        super(output, amount, null);
+    public CompressOreRecipe(ItemStack output, int amount, String lex, boolean exact){
+        super(output, amount, null, exact);
         oreID = OreDictionary.getOreID(lex);
+    }
+
+    public CompressOreRecipe(ItemStack output, int amount, String lex){
+        this(output, amount, lex, false);
     }
 
     @Override

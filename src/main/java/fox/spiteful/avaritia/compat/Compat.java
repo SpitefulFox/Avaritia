@@ -250,12 +250,10 @@ public class Compat {
         if(Loader.isModLoaded("TwilightForest") && Config.twilight){
             try {
                 Item ironwood = getItem("TwilightForest", "item.ironwoodIngot");
-                ItemStack wood = new ItemStack(ironwood, 1);
-                Grinder.catalyst.getInput().add(wood);
+                Grinder.catalyst.getInput().add(new ItemStack(ironwood, 1));
             }
             catch (Throwable e){
-                Lumberjack.log(Level.INFO, "Avaritia was killed by a hydra.");
-                e.printStackTrace();
+                Lumberjack.log(Level.INFO, e, "Avaritia was killed by a hydra.");
             }
         }
 
@@ -341,6 +339,16 @@ public class Compat {
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, e, "Avaritia got stung by a bee.");
                 forestry = false;
+            }
+        }
+
+        if(Loader.isModLoaded("EE3") && Config.ee3){
+            try {
+                Block fuel = getBlock("EE3", "alchemicalFuelBlock");
+                Grinder.catalyst.getInput().add(new ItemStack(fuel, 1, 2));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, e, "Avaritia tried to do human transmutation.");
             }
         }
 

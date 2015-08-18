@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,37 +31,25 @@ public class BlockResource extends Block {
         setCreativeTab(Avaritia.tab);
     }
 
-    /**
-     * Gets the block's texture. Args: side, meta
-     */
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metadata)
     {
         return this.icons[metadata % types.length];
     }
 
-    /**
-     * Determines the damage on the item the block drops. Used in cloth and wood.
-     */
     public int damageDropped(int metadata)
     {
         return metadata;
     }
 
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
-
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs tab, List list)
-    {
+    public void getSubBlocks(Item item, CreativeTabs tab, List list){
         for(int x = 0;x < types.length;x++)
             list.add(new ItemStack(item, 1, x));
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister)
-    {
+    public void registerBlockIcons(IIconRegister iconRegister){
         this.icons = new IIcon[types.length];
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -69,8 +58,12 @@ public class BlockResource extends Block {
     }
 
     @Override
-    public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
-    {
+    public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ){
         return true;
+    }
+
+    @Override
+    public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity){
+        return false;
     }
 }

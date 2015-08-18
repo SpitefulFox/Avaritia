@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.compat.botania;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.compat.nei.NotEnough;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.ExtremeShapedRecipe;
 import fox.spiteful.avaritia.crafting.Grinder;
@@ -12,10 +13,13 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 
 public class Tsundere {
 	
+    public static Item costumes;
+
     public static void baka() throws Compat.ItemNotFoundException {
         Item resource = Compat.getItem("Botania", "manaResource");
         Block storage = Compat.getBlock("Botania", "storage");
@@ -53,6 +57,14 @@ public class Tsundere {
 
         LudicrousBlocks.infinitato = GameRegistry.registerBlock(new BlockInfinitato(), "infinitato");
         GameRegistry.registerTileEntity(TileInfinitato.class, "Avaritia_Infinitato");
+        costumes = new ItemInfinitatoCostume();
+        GameRegistry.registerItem(costumes, "costumes");
+        if(Compat.nei){
+            try{
+                NotEnough.hide(new ItemStack(costumes, 1, OreDictionary.WILDCARD_VALUE));
+            }
+            catch(Throwable e){}
+        }
 
         Block potato = Compat.getBlock("Botania", "tinyPotato");
 

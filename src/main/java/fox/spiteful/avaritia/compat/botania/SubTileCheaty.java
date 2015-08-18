@@ -9,10 +9,6 @@ public class SubTileCheaty extends SubTileGenerating {
     public static LexiconEntry lexicon;
 
     @Override
-    public boolean isPassiveFlower() {
-        return true;
-    }
-    @Override
     public int getMaxMana() {
         return 1000000;
     }

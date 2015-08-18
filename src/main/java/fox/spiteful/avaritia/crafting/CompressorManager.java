@@ -25,8 +25,22 @@ public class CompressorManager {
     }
 
     public static int getCost(ItemStack input){
+        if(input == null)
+            return 0;
+
         for(CompressorRecipe recipe : recipes){
             if(recipe.validInput(input))
+                return recipe.getCost();
+        }
+        return 0;
+    }
+
+    public static int getPrice(ItemStack output){
+        if(output == null)
+            return 0;
+
+        for(CompressorRecipe recipe : recipes){
+            if(recipe.getOutput().isItemEqual(output))
                 return recipe.getCost();
         }
         return 0;
