@@ -39,6 +39,8 @@ public class Grinder {
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 2), "C", 'C', new ItemStack(LudicrousItems.resource, 1, 3));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.resource_block, 1, 0), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 4));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 4), "C", 'C', new ItemStack(LudicrousBlocks.resource_block, 1, 0));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.resource_block, 1, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousItems.resource, 1, 6));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 9, 6), "C", 'C', new ItemStack(LudicrousBlocks.resource_block, 1, 1));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.neutron_collector, 1),
                 "IIQQQQQII",

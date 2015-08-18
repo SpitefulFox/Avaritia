@@ -18,8 +18,32 @@ import static net.minecraft.item.Item.ToolMaterial;
 
 public class LudicrousItems {
 
+	/**
+	 * 0 = Diamond Lattice,
+	 * 1 = Crystal Matrix Ingot,
+	 * 2 = Pile of Neutrons,
+	 * 3 = Neutronium Nugget,
+	 * 4 = Neutronium Ingot,
+	 * 5 = Infinity Catalyst,
+	 * 6 = Infinity Ingot,
+	 * 7 = Record Fragment
+	 */
     public static Item resource;
+    
+    /**
+     * 0 = Iron,
+     * 1 = Gold,
+     * 2 = Lapis,
+     * 3 = Redstone,
+     * 4 = Nether Quartz,
+     * 5 = Copper,
+     * 6 = Tin,
+     * 7 = Lead,
+     * 8 = Silver,
+     * 9 = Nickel
+     */
     public static Item singularity;
+    
     public static Item skull_sword;
     public static Item ultimate_stew;
     public static Item cosmic_meatballs;

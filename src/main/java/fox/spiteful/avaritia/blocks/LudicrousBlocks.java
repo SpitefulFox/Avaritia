@@ -12,6 +12,10 @@ public class LudicrousBlocks {
     public static Block double_craft;
     public static Block triple_craft;
     public static Block crystal_matrix;
+    /**
+     * 0 = Neutronium,
+     * 1 = Infinity
+     */
     public static Block resource_block;
     public static Block dire_crafting;
     public static Block neutron_collector;
