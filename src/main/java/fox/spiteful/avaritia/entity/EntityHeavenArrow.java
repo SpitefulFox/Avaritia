@@ -119,7 +119,7 @@ public class EntityHeavenArrow extends EntityArrow {
     		
     		EntityArrow arrow = new EntityHeavenSubArrow(this.worldObj, x,y,z);
     		arrow.shootingEntity = this.shootingEntity;
-    		arrow.setVelocity(dx, -(randy.nextDouble()*1.85 + 0.15), dz);
+    		arrow.addVelocity(dx, -(randy.nextDouble()*1.85 + 0.15), dz);
     		arrow.setDamage(this.getDamage());
     		arrow.setIsCritical(true);
     		
