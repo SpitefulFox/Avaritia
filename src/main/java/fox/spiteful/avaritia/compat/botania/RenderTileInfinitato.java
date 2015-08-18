@@ -1,5 +1,8 @@
 package fox.spiteful.avaritia.compat.botania;
 
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -108,6 +111,34 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
 		mc.renderEngine.bindTexture(texture);
 		model.render();
 
+        GL11.glPushMatrix();
+        String name = potato.name.toLowerCase();
+        mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+        float scale = 1F / 4F;
+        GL11.glTranslatef(0F, 1F, 0F);
+        GL11.glScalef(scale, scale, scale);
+        if(name.equals("armstrong")) {
+            GL11.glScalef(1.75F, 1.75F, 1.25F);
+            GL11.glRotatef(180F, 0F, 0F, 1F);
+            GL11.glTranslatef(-0.5F, -0.55F, -0.8F);
+            renderIcon(Tsundere.costumes.getIconFromDamage(0));
+        }
+        else if(name.startsWith("moo") && name.endsWith("oon")) {
+            GL11.glScalef(1.75F, 1.75F, 1.25F);
+            GL11.glRotatef(180F, 0F, 0F, 1F);
+            GL11.glTranslatef(-0.5F, -0.6F, -0.8F);
+            renderIcon(Tsundere.costumes.getIconFromDamage(1));
+        }
+        else if(name.equals("egbert")) {
+            GL11.glScalef(1.25F, 1.25F, 1.25F);
+            GL11.glRotatef(180F, 0F, 0F, 1F);
+            GL11.glTranslatef(-0.5F, -1.4F, -0.8F);
+            renderIcon(Tsundere.costumes.getIconFromDamage(2));
+        }
+
+        GL11.glPopMatrix();
+
+
 		GL11.glRotatef(-rotZ, 0F, 0F, 1F);
 		GL11.glRotatef(-rotY, 0F, 1F, 0F);
 		GL11.glColor3f(1F, 1F, 1F);
@@ -116,7 +147,7 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
         MovingObjectPosition pos = mc.objectMouseOver;
         if(!potato.name.isEmpty() && pos != null && pos.blockX == potato.xCoord && pos.blockY == potato.yCoord && pos.blockZ == potato.zCoord) {
 			GL11.glPushMatrix();
-			GL11.glTranslatef(0F, -0.6F, 0F);
+			GL11.glTranslatef(0F, -0.4F, 0F);
 			GL11.glRotatef(-RenderManager.instance.playerViewY, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(RenderManager.instance.playerViewX, 1.0F, 0.0F, 0.0F);
 			float f = 1.6F;
@@ -148,4 +179,12 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
 
 		GL11.glPopMatrix();
 	}
+
+    public void renderIcon(IIcon icon) {
+        float f = icon.getMinU();
+        float f1 = icon.getMaxU();
+        float f2 = icon.getMinV();
+        float f3 = icon.getMaxV();
+        ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+    }
 }
