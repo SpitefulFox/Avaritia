@@ -74,7 +74,7 @@ public class Avaritia {
         ItemFracturedOre.brushUpUncomfortablyAgainstTheOreDictionary();
         
         Lumberjack.info("register dim");
-        int dim = 13;
+        int dim = WorldProviderAlfheim.dimensionID;
         DimensionManager.registerProviderType(dim, WorldProviderAlfheim.class, false);
         DimensionManager.registerDimension(dim, dim);
         Lumberjack.info("register dim end");

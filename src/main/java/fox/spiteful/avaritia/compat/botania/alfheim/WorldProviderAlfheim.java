@@ -14,6 +14,8 @@ import net.minecraftforge.client.IRenderHandler;
 
 public class WorldProviderAlfheim extends WorldProvider {
 
+	public static int dimensionID = 13;
+	
 	@Override
 	public void registerWorldChunkManager()
     {
@@ -31,7 +33,7 @@ public class WorldProviderAlfheim extends WorldProvider {
     @SideOnly(Side.CLIENT)
     public Vec3 getFogColor(float p_76562_1_, float p_76562_2_)
     {
-        return Vec3.createVectorHelper(0.1, 0.03, 0.03);
+        return Vec3.createVectorHelper(0.1, 0.04, 0.00);
     }
 
     /**

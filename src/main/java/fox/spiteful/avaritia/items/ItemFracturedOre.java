@@ -71,7 +71,7 @@ public class ItemFracturedOre extends Item {
 			NBTTagCompound tag = stack.getTagCompound().getCompoundTag(OREKEY);
 			NameStack namestack = NameStack.loadFromNBT(tag);
 			
-			if (namestack != null && namestack.tag != null) {
+			if (namestack != null) {
 				ItemStack orestack = namestack.getStack();
 				Item oreitem = orestack.getItem();
 				return StatCollector.translateToLocal("item.avaritia_fracturedore.prefix") +" "+ oreitem.getItemStackDisplayName(orestack);
@@ -202,6 +202,11 @@ public class ItemFracturedOre extends Item {
 				stack.setTagCompound((NBTTagCompound) this.tag.copy());
 			}
 			return stack;
+		}
+		
+		@Override
+		public String toString() {
+			return "NameStack: "+this.size+"x "+this.name+"@"+this.damage+", "+this.tag;
 		}
 	}
 }
