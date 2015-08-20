@@ -19,6 +19,7 @@ public class ApocalypseSkyRenderer extends IRenderHandler {
 	private static IModelCustom model;
 	private static final ResourceLocation texture = new ResourceLocation("avaritia", "textures/models/sun.png");
 	private static final ResourceLocation halo = new ResourceLocation("avaritia", "textures/entity/voidhalo.png");
+	private static final ResourceLocation glow = new ResourceLocation("avaritia", "textures/items/halo128.png");
 
 	public ApocalypseSkyRenderer() {
 		if (model == null) {
@@ -46,10 +47,21 @@ public class ApocalypseSkyRenderer extends IRenderHandler {
 		GL11.glScaled(500, 500, 500);
 		
 		GL11.glRotated(90, -1, 0, 0);
-		Minecraft.getMinecraft().renderEngine.bindTexture(halo);
+		Minecraft.getMinecraft().renderEngine.bindTexture(glow);
+		GL11.glColor4d(242/255.0, 61/255.0, 1/255.0, 0.3);
+		double bound = 0.7;
+		double depth = -0.4;
+		t.startDrawingQuads();
+		t.addVertexWithUV(-bound, depth, -bound, 0.0D, 0.0D);
+        t.addVertexWithUV(bound, depth, -bound, 1.0D, 0.0D);
+        t.addVertexWithUV(bound, depth, bound, 1.0D, 1.0D);
+        t.addVertexWithUV(-bound, depth, bound, 0.0D, 1.0D);
+        t.draw();
+        
+        Minecraft.getMinecraft().renderEngine.bindTexture(halo);
 		GL11.glColor3d(242/255.0, 61/255.0, 1/255.0);
-		double bound = 0.562;
-		double depth = -0.2;
+		bound = 0.562;
+		depth = -0.2;
 		t.startDrawingQuads();
 		t.addVertexWithUV(-bound, depth, -bound, 0.0D, 0.0D);
         t.addVertexWithUV(bound, depth, -bound, 1.0D, 0.0D);
