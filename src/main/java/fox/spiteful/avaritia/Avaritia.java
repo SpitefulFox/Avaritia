@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.achievements.Achievements;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.compat.botania.alfheim.WorldProviderAlfheim;
 import fox.spiteful.avaritia.crafting.Gregorizer;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.crafting.Mincer;
@@ -24,6 +25,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = "Avaritia", name = "Avaritia", dependencies = "after:Thaumcraft;after:AWWayofTime;after:Botania")
@@ -70,6 +72,12 @@ public class Avaritia {
         proxy.makeThingsPretty();
         MinecraftForge.EVENT_BUS.register(new LudicrousEvents());
         ItemFracturedOre.brushUpUncomfortablyAgainstTheOreDictionary();
+        
+        Lumberjack.info("register dim");
+        int dim = 13;
+        DimensionManager.registerProviderType(dim, WorldProviderAlfheim.class, false);
+        DimensionManager.registerDimension(dim, dim);
+        Lumberjack.info("register dim end");
     }
 
     @EventHandler
