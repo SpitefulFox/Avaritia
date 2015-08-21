@@ -34,6 +34,7 @@ public class Config {
     public static boolean enderio = true;
     public static boolean forestry = true;
     public static boolean ee3 = true;
+    public static boolean extracells = true;
 
     public static boolean copper = true;
     public static boolean tin = true;
@@ -79,6 +80,7 @@ public class Config {
             enderio = conf.get("compatibility", "EnderIO", true).getBoolean(true);
             forestry = conf.get("compatibility", "Forestry", true).getBoolean(true);
             ee3 = conf.get("compatibility", "Equivalent Exchange 3", true).getBoolean(true);
+            extracells = conf.get("compatibility", "Extra Cells", true).getBoolean(true);
 
             conf.addCustomCategoryComment("materials", "Disable to stop using that material in recipes. Useful if a mod adds unobtainable placeholder ores.");
             copper = conf.get("materials", "Copper", true).getBoolean(true);

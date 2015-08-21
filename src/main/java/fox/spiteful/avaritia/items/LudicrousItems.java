@@ -18,18 +18,18 @@ import static net.minecraft.item.Item.ToolMaterial;
 
 public class LudicrousItems {
 
-	/**
-	 * 0 = Diamond Lattice,
-	 * 1 = Crystal Matrix Ingot,
-	 * 2 = Pile of Neutrons,
-	 * 3 = Neutronium Nugget,
-	 * 4 = Neutronium Ingot,
-	 * 5 = Infinity Catalyst,
-	 * 6 = Infinity Ingot,
-	 * 7 = Record Fragment
-	 */
+    /**
+     * 0 = Diamond Lattice,
+     * 1 = Crystal Matrix Ingot,
+     * 2 = Pile of Neutrons,
+     * 3 = Neutronium Nugget,
+     * 4 = Neutronium Ingot,
+     * 5 = Infinity Catalyst,
+     * 6 = Infinity Ingot,
+     * 7 = Record Fragment
+     */
     public static Item resource;
-    
+
     /**
      * 0 = Iron,
      * 1 = Gold,
@@ -43,7 +43,7 @@ public class LudicrousItems {
      * 9 = Nickel
      */
     public static Item singularity;
-    
+
     public static Item skull_sword;
     public static Item ultimate_stew;
     public static Item cosmic_meatballs;
@@ -65,6 +65,8 @@ public class LudicrousItems {
 
     public static Item akashic_record;
     public static Item armok_orb;
+    public static Item combs;
+    public static Item beesource;
     
     
 

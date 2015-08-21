@@ -38,6 +38,10 @@ item.avaritia_fracturedore.prefix=Fractured
 item.avaritia_mattercluster.name=Matter Cluster
 item.avaritia_mattercluster.full.name=Critical Matter Cluster
 item.morvinabox.name=Morv-In-A-Box
+item.avaritia.comb.nerfed.name=Nerfed Comb
+item.avaritia.comb.cosmic.name=Cosmic Comb
+item.avaritia_beesource.infinity_drop.name=Infinity Drop
+item.avaritia_beesource.dust.name=Dust
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
@@ -124,3 +128,27 @@ material.avaritia_neutronium=Neutronium
 material.avaritia_neutronium.ability=Supermassive
 material.avaritia_infinitymetal=Infinity
 material.avaritia_infinitymetal.ability=Cosmic
+#
+# Beeeeeeeeeeeees
+avaritia.bee.annoying=Annoying
+avaritia.bee.annoying.desc="How long can it take to build a single honeycomb?!"|Note found in an ancient time capsule
+avaritia.bee.tedious=Tedious
+avaritia.bee.tedious.desc=Their hives are actually built out of smaller hives, which are themselves built out of smaller hives...
+avaritia.bee.insufferable=Insufferable
+avaritia.bee.insufferable.desc=They often sabotage other bees they perceive as having any advantages or improper vocabulary.
+avaritia.bee.trippy=Trippy
+avaritia.bee.trippy.desc="Dude. Like... bees. Man. They're like... whoa."|SpitefulFox, Unlicensed Apiarist
+avaritia.bee.cosmic=Cosmic
+avaritia.bee.cosmic.desc=
+avaritia.bee.neutronium=Neutronium
+avaritia.bee.neutronium.desc=Small objects can often by found orbiting their hives.
+avaritia.bee.infinite=Infinite
+avaritia.bee.infinite.desc=
+
+classification.balanced=Balanced
+classification.balanced.desc=These bees get bored and drop dead the moment they complete whatever they're working on. They take the most long, convoluted routes and methods in order to keep themselves entertained.
+classification.infinite=Infinite
+classification.infinite.desc=They gather pranic energy from the hidden ley-lines and arcane geometries of the universe itself.
+
+avaritia.allele.speedNerfed=Nerfed
+avaritia.allele.lifespanArtificial=Artificial

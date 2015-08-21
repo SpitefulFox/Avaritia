@@ -6,6 +6,9 @@ import fox.spiteful.avaritia.compat.botania.RenderInfinitato;
 import fox.spiteful.avaritia.compat.botania.RenderTileInfinitato;
 import fox.spiteful.avaritia.compat.botania.TileInfinitato;
 import fox.spiteful.avaritia.compat.ticon.TonkersClient;
+import fox.spiteful.avaritia.items.LudicrousItems;
+import fox.spiteful.avaritia.render.FancyHaloRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 public class CompatClient {
 
@@ -25,6 +28,8 @@ public class CompatClient {
 	}
 	
 	public static void lateComprettify() {
-		
+		if(Compat.forestry){
+            MinecraftForgeClient.registerItemRenderer(LudicrousItems.beesource, new FancyHaloRenderer());
+        }
 	}
 }

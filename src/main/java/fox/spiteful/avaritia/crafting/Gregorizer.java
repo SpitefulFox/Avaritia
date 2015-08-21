@@ -10,13 +10,13 @@ public class Gregorizer {
 
     public static void balance(){
         if(Loader.isModLoaded("magicalcrops"))
-            multiplier += 2;
+            multiplier += 1;
         if(Loader.isModLoaded("MineFactoryReloaded"))
             multiplier += 1;
         if(Loader.isModLoaded("BigReactors"))
             modifier += 100;
         if(Loader.isModLoaded("EE3")||Loader.isModLoaded("ProjectE"))
-            multiplier += 4;
+            multiplier += 2;
         if(Loader.isModLoaded("Botania"))
             modifier += 50;
         if(Loader.isModLoaded("IC2"))

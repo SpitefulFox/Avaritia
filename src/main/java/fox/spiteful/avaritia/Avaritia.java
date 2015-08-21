@@ -72,7 +72,7 @@ public class Avaritia {
         proxy.makeThingsPretty();
         MinecraftForge.EVENT_BUS.register(new LudicrousEvents());
         ItemFracturedOre.brushUpUncomfortablyAgainstTheOreDictionary();
-        
+
         Lumberjack.info("register dim");
         int dim = WorldProviderAlfheim.dimensionID;
         DimensionManager.registerProviderType(dim, WorldProviderAlfheim.class, false);
@@ -90,6 +90,6 @@ public class Avaritia {
         Grinder.lastMinuteChanges();
         Achievements.achieve();
         PotionHelper.healthInspection();
-        
+        proxy.theAfterPretty();
     }
 }

@@ -6,6 +6,7 @@ import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
+import fox.spiteful.avaritia.compat.forestry.Ranger;
 import fox.spiteful.avaritia.compat.modtweaker.Tweak;
 import fox.spiteful.avaritia.compat.nei.NotEnough;
 import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
@@ -105,10 +106,17 @@ public class Compat {
         if(ae2){
             try {
                 Item resource = getItem("appliedenergistics2", "item.ItemMultiMaterial");
-                ItemStack cell = new ItemStack(resource, 1, 38);
-                ItemStack singularity = new ItemStack(resource, 1, 47);
-                Grinder.catalyst.getInput().add(cell);
-                Grinder.catalyst.getInput().add(singularity);
+                if(Loader.isModLoaded("extracells") && Config.extracells){
+                    Item extracell = getItem("extracells", "storage.component");
+                    //16mb cell
+                    Grinder.catalyst.getInput().add(new ItemStack(extracell, 1, 3));
+                }
+                else {
+                    //64k Cell
+                    Grinder.catalyst.getInput().add(new ItemStack(resource, 1, 38));
+                }
+                //Singularity
+                Grinder.catalyst.getInput().add(new ItemStack(resource, 1, 47));
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia couldn't figure out how channels work.");
@@ -332,9 +340,7 @@ public class Compat {
 
         if(forestry){
             try {
-                Item panel = getItem("Forestry", "craftingMaterial");
-
-                Grinder.catalyst.getInput().add(new ItemStack(panel, 1, 6));
+                Ranger.stopForestFires();
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, e, "Avaritia got stung by a bee.");
