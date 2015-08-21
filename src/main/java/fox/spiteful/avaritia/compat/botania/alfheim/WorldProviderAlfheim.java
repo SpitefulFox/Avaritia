@@ -2,15 +2,15 @@ package fox.spiteful.avaritia.compat.botania.alfheim;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import fox.spiteful.avaritia.FieldHelper;
 import fox.spiteful.avaritia.Lumberjack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.Timer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderGenerate;
-import net.minecraft.world.gen.ChunkProviderHell;
-import net.minecraftforge.client.IRenderHandler;
 
 public class WorldProviderAlfheim extends WorldProvider {
 
@@ -33,23 +33,24 @@ public class WorldProviderAlfheim extends WorldProvider {
     @SideOnly(Side.CLIENT)
     public Vec3 getFogColor(float p_76562_1_, float p_76562_2_)
     {
-        return Vec3.createVectorHelper(0.1, 0.04, 0.00);
+		/*double r = 0.1;
+		double g = 0.04;
+		double b = 0;
+		
+		double nr = 1.0;
+		double ng = 0.5;
+		double nb = 0.0;
+		
+		Minecraft mc = Minecraft.getMinecraft();
+		Timer t = FieldHelper.get(AlfheimEvents.mcTimerField, mc);
+		float partialTicks = t.renderPartialTicks;
+		
+		float n = FieldHelper.invoke(AlfheimEvents.getNightVisionBrightnessMethod, mc.entityRenderer, mc.thePlayer, partialTicks);
+		double notn = 1.0 - n;
+		
+        return Vec3.createVectorHelper(n*nr + notn*r, n*ng + notn*g, n*nb + notn*b);*/
+		return Vec3.createVectorHelper(0.1, 0.04, 0.0);
     }
-
-    /**
-     * Creates the light to brightness table
-     */
-	/*@Override
-    protected void generateLightBrightnessTable()
-    {
-        float f = 0.1F;
-
-        for (int i = 0; i <= 15; ++i)
-        {
-            float f1 = 1.0F - (float)i / 15.0F;
-            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
-        }
-    }*/
 
     /**
      * Returns a new chunk provider which generates chunks for this world
@@ -57,7 +58,7 @@ public class WorldProviderAlfheim extends WorldProvider {
 	@Override
     public IChunkProvider createChunkGenerator()
     {
-        return new ChunkProviderGenerate(this.worldObj, this.worldObj.getSeed(), false);
+        return new ChunkProviderAlfheim(this.worldObj, this.worldObj.getSeed());
     }
 
     /**
