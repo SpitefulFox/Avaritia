@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 import vazkii.botania.common.block.ModBlocks;
 
 import net.minecraft.block.Block;
@@ -18,6 +19,10 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 
 public class ChunkProviderAlfheim implements IChunkProvider {
+	public static final int CITYRADIUS = 400;
+	public static final int FLATRADIUS = CITYRADIUS + 20;
+	public static final int HILLRADIUS = FLATRADIUS + 250;
+	
 	public final long seed;
 	public Random rand;
 	public final World world;
@@ -66,16 +71,39 @@ public class ChunkProviderAlfheim implements IChunkProvider {
 		
 		for(int x = 0; x<=15; x++) {
 			for(int z = 0; z<=15; z++) {
-				double height = this.noise.getJordanDefault(chunkX * 16 + x, chunkZ * 16 + z);
-				int threshold = MathHelper.floor_double(64 + height * 64);
+				int blockX = chunkX * 16 + x;
+				int blockZ = chunkZ * 16 + z;
+				double dist = Math.sqrt(blockX*blockX + blockZ*blockZ);
+				
+				int threshold = 64;
+				
+				if (dist > FLATRADIUS) {
+					double mix = (dist - FLATRADIUS) / (double)(HILLRADIUS - FLATRADIUS);
+					mix = Math.max(0, Math.min(1, mix));
+					mix = mix * mix * (3 - (2 * mix));
+					
+					double height = this.noise.getJordanDefault(chunkX * 16 + x, chunkZ * 16 + z);
+					threshold = MathHelper.floor_double(64 + mix * height * 64);
+				}
+				
+				/*if (dist < CITYRADIUS) {
+					threshold += 4;
+				}*/
 				
 				for(int y = 0; y<254; y++) {
 					int pos = y | z << 8 | x << 12;
 					
 					if (y <= threshold) {
 						
-						blocks[pos] = ModBlocks.livingrock;
-						meta[pos] = 0;
+						if (y < threshold - (15 + this.rand.nextInt(3))) {
+							// INTERIOR
+							blocks[pos] = ModBlocks.livingrock;
+							meta[pos] = 0;
+						} else {
+							// CRUST
+							blocks[pos] = AlfheimBlocks.deadrock;
+							meta[pos] = 0;
+						}
 					}
 				}
 			}

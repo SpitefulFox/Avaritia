@@ -54,6 +54,11 @@ tile.dire_crafting.name=Dire Crafting Table
 tile.neutron_collector.name=Neutron Collector
 tile.neutronium_compressor.name=Neutronium Compressor
 tile.infinitato.name=Infinitato
+tile.alfheim_deadrock0.name=Deadrock
+tile.alfheim_deadrock1.name=Deadrock Brick
+tile.alfheim_deadrock2.name=Mossy Deadrock Brick
+tile.alfheim_deadrock3.name=Cracked Deadrock Brick
+tile.alfheim_deadrock4.name=Chiselled Deadrock
 #
 # Tooltips
 tooltip.armok.desc=Stores unlimited Life Essence while held

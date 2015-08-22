@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.compat.botania.alfheim.AlfheimBlocks;
 import fox.spiteful.avaritia.compat.botania.alfheim.AlfheimEvents;
 import fox.spiteful.avaritia.compat.nei.NotEnough;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
@@ -35,6 +36,8 @@ public class Tsundere {
         AlfheimEvents alfevents = new AlfheimEvents();
         FMLCommonHandler.instance().bus().register(alfevents);
     	MinecraftForge.EVENT_BUS.register(alfevents);
+    	
+    	AlfheimBlocks.alfheimify();
         
         BotaniaAPI.registerSubTile("asgardandelion", SubTileCheaty.class);
         BotaniaAPI.registerSubTileSignature(SubTileCheaty.class, new Signature("asgardandelion"));

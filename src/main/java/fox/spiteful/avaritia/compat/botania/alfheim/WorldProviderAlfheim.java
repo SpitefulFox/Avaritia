@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.FieldHelper;
 import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Timer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
@@ -117,5 +118,11 @@ public class WorldProviderAlfheim extends WorldProvider {
 	public float getSunBrightnessFactor(float par1)
     {
         return 0.6f;
+    }
+	
+	@Override
+	public ChunkCoordinates getEntrancePortalLocation()
+    {
+        return new ChunkCoordinates(0, 85, 0);
     }
 }

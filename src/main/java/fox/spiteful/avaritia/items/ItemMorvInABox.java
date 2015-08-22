@@ -9,6 +9,7 @@ import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.botania.alfheim.ApocalypseCloudRenderer;
 import fox.spiteful.avaritia.compat.botania.alfheim.ApocalypseSkyRenderer;
+import fox.spiteful.avaritia.compat.botania.alfheim.TeleportHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -55,11 +56,13 @@ public class ItemMorvInABox extends Item {
 			p.setCloudRenderer(new ApocalypseCloudRenderer());
 			Lumberjack.info(p.getCloudRenderer());
 		//}*/
-		if (DimensionManager.getWorld(0) == world) {
+		/*if (DimensionManager.getWorld(0) == world) {
 			player.travelToDimension(13);
 		} else {
 			player.travelToDimension(0);
-		}
+		}*/
+		
+		TeleportHelper.travelToOrFromAlfheim(player);
         return stack;
     }
 }
