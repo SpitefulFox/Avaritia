@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.compat.forestry;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import forestry.api.recipes.RecipeManagers;
 import fox.spiteful.avaritia.compat.Compat;
@@ -18,9 +19,15 @@ public class Ranger {
     public static Item honeydew;
     public static Item comb;
 
+    public static boolean magic = false;
+    public static boolean extra = false;
+
     public static EnumRarity trash = EnumHelper.addRarity("TRASH", EnumChatFormatting.DARK_GRAY, "Trash");
 
     public static void stopForestFires() throws Compat.ItemNotFoundException {
+        magic = Loader.isModLoaded("MagicBees");
+        extra = Loader.isModLoaded("ExtraBees");
+
         comb = Compat.getItem("Forestry", "beeCombs");
         honey = Compat.getItem("Forestry", "honeyDrop");
         honeydew = Compat.getItem("Forestry", "honeydew");

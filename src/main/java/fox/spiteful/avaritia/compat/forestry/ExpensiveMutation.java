@@ -24,9 +24,44 @@ public class ExpensiveMutation implements IBeeMutation {
     }
 
     public static void mutate(){
-        new ExpensiveMutation(Allele.getBaseSpecies("Hermitic"), Allele.getBaseSpecies("Edenic"), Genomes.getBalanced(), 0.8f);
-        new ExpensiveMutation(Allele.getBaseSpecies("Heroic"), GreedyBeeSpecies.ANNOYING, Genomes.getTedious(), 0.7f);
-        new ExpensiveMutation(Allele.getBaseSpecies("Phantasmal"), GreedyBeeSpecies.TEDIOUS, Genomes.getTedious(), 0.6f);
+        IAllele first;
+        IAllele second;
+        if(Ranger.extra)
+            first = Allele.getExtraSpecies("Relic");
+        else
+            first = Allele.getBaseSpecies("Austere");
+        second = Allele.getBaseSpecies("Hermitic");
+        new ExpensiveMutation(first, second, Genomes.getBalanced(), 0.8f);
+        if(Ranger.magic)
+            first = Allele.getMagicSpecies("Draconic");
+        else
+            first = Allele.getBaseSpecies("Heroic");
+        new ExpensiveMutation(first, GreedyBeeSpecies.ANNOYING, Genomes.getTedious(), 0.7f);
+        if(Ranger.extra)
+            first = Allele.getExtraSpecies("Virulent");
+        else if(Ranger.magic)
+            first = Allele.getMagicSpecies("Withering");
+        else
+            first = Allele.getBaseSpecies("Demonic");
+        new ExpensiveMutation(first, GreedyBeeSpecies.TEDIOUS, Genomes.getInsufferable(), 0.6f);
+
+        new ExpensiveMutation(Allele.getBaseSpecies("Edenic"), GreedyBeeSpecies.INSUFFERABLE, Genomes.getInfinite(), 0.4f);
+        if(Ranger.magic)
+            first = Allele.getMagicSpecies("Doctoral");
+        else if(Ranger.extra)
+            first = Allele.getExtraSpecies("Diamond");
+        else
+            first = Allele.getBaseSpecies("Phantasmal");
+
+        new ExpensiveMutation(first, GreedyBeeSpecies.TRIPPY, Genomes.getCosmic(), 0.8f);
+
+        if(Ranger.magic)
+            first = Allele.getMagicSpecies("Firey");
+        else if(Ranger.extra)
+            first = Allele.getExtraSpecies("Volcanic");
+        else
+            first = Allele.getBaseSpecies("Industrious");
+        //new ExpensiveMutation(first, GreedyBeeSpecies.COSMIC, Genomes.getNeutronium(), 0.6f);
     }
 
     @Override

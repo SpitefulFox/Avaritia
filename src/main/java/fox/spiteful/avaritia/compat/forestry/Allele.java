@@ -56,7 +56,7 @@ public class Allele implements IAllele {
     }
 
     public static IAlleleBeeSpecies getMagicSpecies(String name) {
-        return (IAlleleBeeSpecies) AlleleManager.alleleRegistry.getAllele((new StringBuilder()).append("magicbees.species.").append(name.toLowerCase())
+        return (IAlleleBeeSpecies) AlleleManager.alleleRegistry.getAllele((new StringBuilder()).append("magicbees.species").append(name)
                 .toString());
     }
 
