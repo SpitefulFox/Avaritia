@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.achievements.Achievements;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.compat.botania.alfheim.Alfheim;
 import fox.spiteful.avaritia.compat.botania.alfheim.WorldProviderAlfheim;
 import fox.spiteful.avaritia.crafting.Gregorizer;
 import fox.spiteful.avaritia.crafting.Grinder;
@@ -61,6 +62,8 @@ public class Avaritia {
         if(!Config.craftingOnly)
             LudicrousEntities.letLooseTheDogsOfWar();
         proxy.prepareForPretty();
+        
+        Alfheim.packYourBags();
     }
 
     @EventHandler
@@ -72,12 +75,6 @@ public class Avaritia {
         proxy.makeThingsPretty();
         MinecraftForge.EVENT_BUS.register(new LudicrousEvents());
         ItemFracturedOre.brushUpUncomfortablyAgainstTheOreDictionary();
-
-        Lumberjack.info("register dim");
-        int dim = WorldProviderAlfheim.dimensionID;
-        DimensionManager.registerProviderType(dim, WorldProviderAlfheim.class, false);
-        DimensionManager.registerDimension(dim, dim);
-        Lumberjack.info("register dim end");
     }
 
     @EventHandler

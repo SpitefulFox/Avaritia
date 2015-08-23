@@ -19,7 +19,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 
 public class ChunkProviderAlfheim implements IChunkProvider {
-	public static final int CITYRADIUS = 400;
+	public static final int CITYRADIUS = 600;
 	public static final int FLATRADIUS = CITYRADIUS + 20;
 	public static final int HILLRADIUS = FLATRADIUS + 250;
 	
@@ -29,6 +29,7 @@ public class ChunkProviderAlfheim implements IChunkProvider {
 	
 	protected AlfheimNoise noise;
 	protected MapGenAlfheimRavines cracks = new MapGenAlfheimRavines();
+	protected MapGenCity city = new MapGenCity();
 	
 	public ChunkProviderAlfheim(World world, long seed) {
 		this.seed = seed;
@@ -55,6 +56,11 @@ public class ChunkProviderAlfheim implements IChunkProvider {
 		
 		//this.cracks.func_151539_a(this, this.world, chunkX, chunkZ, blocks);
 		
+		int cityrad = (int)Math.ceil(CITYRADIUS / 16.0) + 1;
+		if (chunkX * chunkX + chunkZ * chunkZ <= cityrad) {
+			this.city.func_151539_a(this, this.world, chunkX, chunkZ, blocks);
+		}
+		
 		Chunk chunk = new Chunk(this.world, blocks, meta, chunkX, chunkZ);
 		byte[] biomes = chunk.getBiomeArray();
 		
@@ -77,18 +83,16 @@ public class ChunkProviderAlfheim implements IChunkProvider {
 				
 				int threshold = 64;
 				
-				if (dist > FLATRADIUS) {
-					double mix = (dist - FLATRADIUS) / (double)(HILLRADIUS - FLATRADIUS);
-					mix = Math.max(0, Math.min(1, mix));
-					mix = mix * mix * (3 - (2 * mix));
-					
-					double height = this.noise.getJordanDefault(chunkX * 16 + x, chunkZ * 16 + z);
-					threshold = MathHelper.floor_double(64 + mix * height * 64);
-				}
+				double mix = (dist - FLATRADIUS) / (double)(HILLRADIUS - FLATRADIUS);
+				mix = Math.max(0, Math.min(1, mix));
+				mix = mix * mix * (3 - (2 * mix));
 				
-				/*if (dist < CITYRADIUS) {
-					threshold += 4;
-				}*/
+				double height = this.noise.getJordanDefault(chunkX * 16 + x, chunkZ * 16 + z);
+				
+				double hill = mix * height * 64;
+				double lumps = Math.min(3, (1-mix) * height * 5);
+				
+				threshold = MathHelper.floor_double(64 + hill+lumps);
 				
 				for(int y = 0; y<254; y++) {
 					int pos = y | z << 8 | x << 12;
@@ -118,9 +122,15 @@ public class ChunkProviderAlfheim implements IChunkProvider {
 
 	@Override
 	public void populate(IChunkProvider provider, int chunkX, int chunkZ) {
-		// TODO Auto-generated method stub
-
+		this.rand.setSeed(this.world.getSeed());
+        long xseed = this.rand.nextLong() / 2L * 2L + 1L;
+        long zseed = this.rand.nextLong() / 2L * 2L + 1L;
+        this.rand.setSeed((long)chunkX * xseed + (long)chunkZ * zseed ^ this.world.getSeed());
 		
+		int cityrad = (int)Math.ceil(CITYRADIUS / 16.0) + 1;
+		if (Math.sqrt(chunkX * chunkX + chunkZ * chunkZ) <= cityrad) {
+			this.city.generateStructuresInChunk(this.world, this.rand, chunkX, chunkZ);
+		}
 	}
 
 	@Override
@@ -162,7 +172,10 @@ public class ChunkProviderAlfheim implements IChunkProvider {
 
 	@Override
 	public void recreateStructures(int chunkX, int chunkZ) {
-		// TODO Auto-generated method stub
+		int cityrad = (int)Math.ceil(CITYRADIUS / 16.0) + 1;
+		if (chunkX * chunkX + chunkZ * chunkZ <= cityrad) {
+			this.city.func_151539_a(this, this.world, chunkX, chunkZ, (Block[])null);
+		}
 	}
 
 	@Override

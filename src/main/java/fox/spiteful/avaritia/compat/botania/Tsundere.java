@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
+import fox.spiteful.avaritia.compat.botania.alfheim.Alfheim;
 import fox.spiteful.avaritia.compat.botania.alfheim.AlfheimBlocks;
 import fox.spiteful.avaritia.compat.botania.alfheim.AlfheimEvents;
 import fox.spiteful.avaritia.compat.nei.NotEnough;
@@ -33,11 +34,7 @@ public class Tsundere {
         Grinder.catalyst.getInput().add(terra);
         Grinder.catalyst.getInput().add(gaia);
 
-        AlfheimEvents alfevents = new AlfheimEvents();
-        FMLCommonHandler.instance().bus().register(alfevents);
-    	MinecraftForge.EVENT_BUS.register(alfevents);
-    	
-    	AlfheimBlocks.alfheimify();
+        Alfheim.vacationTime();
         
         BotaniaAPI.registerSubTile("asgardandelion", SubTileCheaty.class);
         BotaniaAPI.registerSubTileSignature(SubTileCheaty.class, new Signature("asgardandelion"));
