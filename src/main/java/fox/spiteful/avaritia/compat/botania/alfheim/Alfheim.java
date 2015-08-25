@@ -21,6 +21,6 @@ public class Alfheim {
         DimensionManager.registerDimension(dim, dim);
 		
 		MapGenStructureIO.registerStructure(MapGenCity.Start.class, "AlfCity");
-		//MapGenStructureIO.func_143031_a(ATGComponentRiverSection.class, "ATGRiverSection");
+		ComponentCityParts.registerParts();
 	}
 }
