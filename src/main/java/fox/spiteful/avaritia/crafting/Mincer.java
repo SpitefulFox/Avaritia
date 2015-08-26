@@ -20,9 +20,13 @@ public class Mincer {
     public static ShapelessOreRecipe meatballRecipe;
 
 	// here's where all the food magic goes on
-	private static String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown"};
-    private static String[] forbiddenCropNames = new String[] {"cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton"};
-	private static String[] knownMeatEntries = new String[]{"ingotMeatRaw", "dustMeat", "rawMutton", "rawCalamari"};
+	private static final String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown"};
+    private static final String[] forbiddenCropNames = new String[] {"cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton", "cropPoppy", "cropTulipRed", "cropTulipWhite", "cropDaisy",
+        "cropTulipPink", "cropAllium", "cropOrchid", "cropTulipOrange", "cropDandelion", "cropShroomRed", "cropShroomBrown",
+        "cropFerranium", "cropAurigold", "cropDiamahlia", "cropLapender", "cropEmeryllis", "cropRedstodendron", "cropCuprosia",
+        "cropPetinia", "cropPlombean", "cropSilverweed", "cropJaslumine", "cropNiccissus", "cropPlatiolus", "cropOsmonium",
+        "cropSandPear", "cropCitron"};
+	private static final String[] knownMeatEntries = new String[]{"ingotMeatRaw", "dustMeat", "rawMutton", "rawCalamari"};
 	private static List<ItemStack> knownMeats = new ArrayList<ItemStack>();
 
     static {
@@ -59,22 +63,9 @@ public class Mincer {
 		String orename;
 		for (int i=0; i<orenames.length; i++) {
 			orename = orenames[i];
-			if (orename.startsWith("crop") && !bannedCrop(orename)) {
+			if (orename.startsWith("crop") && !bannedCrop(orename) && !orename.startsWith("cropBotania")) {
 				rawCrops.add(orename);
 			}
-			/*if ((!orename.startsWith("food"))
-				&& (!(orename.contains("cooked") || orename.contains("Cooked")))
-				&& (orename.contains("raw") || orename.contains("Raw"))
-				&& (orename.contains("meat") 
-				|| orename.contains("fish")
-				|| orename.contains("lamb") 
-				|| orename.contains("chicken")
-				|| orename.contains("beef")
-				|| orename.contains("pork")
-				|| orename.contains("mutton")
-				|| orename.contains("venison"))) {
-				meatNames.add(orename);
-			}*/
 		}
 
 		//Lumberjack.info("End of ore crop names: "+rawCrops.size()+" names found.");
