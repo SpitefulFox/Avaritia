@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.compat.botania.alfheim;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.FieldHelper;
@@ -23,8 +24,10 @@ public class WorldProviderAlfheim extends WorldProvider {
         this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F);
         this.isHellWorld = true;
         this.hasNoSky = false;
-        this.setCloudRenderer(new ApocalypseCloudRenderer());
-        this.setSkyRenderer(new ApocalypseSkyRenderer());
+        if(FMLCommonHandler.instance().getSide().isClient()) {
+            this.setCloudRenderer(new ApocalypseCloudRenderer());
+            this.setSkyRenderer(new ApocalypseSkyRenderer());
+        }
     }
 
     /**

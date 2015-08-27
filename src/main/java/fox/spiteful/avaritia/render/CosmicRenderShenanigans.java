@@ -72,7 +72,12 @@ public class CosmicRenderShenanigans {
 	
 	private static Field mapfield = ReflectionHelper.findField(EntityRenderer.class, lightmapobf);
 	public static void setLightFromLocation(World world, int x, int y, int z) {
-		int coord = world.getLightBrightnessForSkyBlocks(x, y, z, 0);
+		if(world == null){
+            setLightLevel(1.0f);
+            return;
+        }
+
+        int coord = world.getLightBrightnessForSkyBlocks(x, y, z, 0);
 		
 		int[] map = null;
 		try {
