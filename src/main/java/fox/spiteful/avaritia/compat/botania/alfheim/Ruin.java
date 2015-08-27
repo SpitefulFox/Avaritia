@@ -17,25 +17,46 @@ public class Ruin {
 	public Random rand;
 	public BlockRuinPalette palette;
 	
+	public int xSize;
+	public int ySize;
+	public int zSize;
+	public int xOffset;
+	public int yOffset;
+	public int zOffset;
+	
 	public Ruin(BlockArray blocks, double ruinLevel, Random rand) {
 		this(blocks, ruinLevel, rand, new BlockRuinPalette());
 	}
 	public Ruin(BlockArray blocks, double ruinLevel, Random rand, BlockRuinPalette palette) {
+		this (blocks, ruinLevel, rand, blocks.xSize, blocks.ySize, blocks.zSize, 0,0,0, palette);
+	}
+	public Ruin(BlockArray blocks, double ruinLevel, Random rand, int xSize, int ySize, int zSize, int xOffset, int yOffset, int zOffset) {
+		this (blocks, ruinLevel, rand, xSize, ySize, zSize, xOffset,yOffset,zOffset, new BlockRuinPalette());
+	}
+	public Ruin(BlockArray blocks, double ruinLevel, Random rand, int xSize, int ySize, int zSize, int xOffset, int yOffset, int zOffset, BlockRuinPalette palette) {
 		this.blocks = blocks;
 		this.ruinLevel = ruinLevel;
 		this.rand = rand;
 		this.palette = palette;
 		
-		int volume = this.blocks.length;
+		this.xSize = xSize;
+		this.ySize = ySize;
+		this.zSize = zSize;
+		
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+		this.zOffset = zOffset;
+		
+		int volume = this.xSize * this.ySize * this.zSize;
 		int breaks = (int) Math.ceil((volume/16.0) * ruinLevel);
 		
 		for (int i=0; i<breaks; i++) {
-			int x = rand.nextInt(blocks.xSize);
-			int z = rand.nextInt(blocks.zSize);
+			int x = rand.nextInt(this.xSize) - this.xOffset;
+			int z = rand.nextInt(this.zSize) - this.zOffset;
 			
 			double ylevel = 1 - (rand.nextDouble() * rand.nextDouble());
 			
-			int y = (int) Math.round(ylevel * blocks.ySize);
+			int y = (int) Math.round(ylevel * this.ySize) - this.yOffset;
 			double rad = (6*rand.nextDouble() + 1)*ylevel*(0.1 + 0.9*ruinLevel) + 0.45 + (0.55*ruinLevel);
 			
 			this.ruinArea(x, y, z, rad);

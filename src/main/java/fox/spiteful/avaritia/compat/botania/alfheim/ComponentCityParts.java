@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.compat.botania.alfheim;
 
 import java.util.Random;
 
+import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.botania.alfheim.Ruin.BlockArray;
 import fox.spiteful.avaritia.compat.botania.alfheim.Ruin.BlockMeta;
 
@@ -34,22 +35,39 @@ public class ComponentCityParts {
 			}
 			this.genRand.setSeed(this.randSeed);
 			
+			int border = 16;
+			
+			int minx = Math.max(this.boundingBox.minX, bounds.minX - border);
+			int maxx = Math.min(this.boundingBox.maxX, bounds.maxX + border);
+			int minz = Math.max(this.boundingBox.minZ, bounds.minZ - border);
+			int maxz = Math.min(this.boundingBox.maxZ, bounds.maxZ + border);
+			
 			int xsize = this.boundingBox.getXSize();
 			int ysize = this.boundingBox.getYSize();
 			int zsize = this.boundingBox.getZSize();
 			
-			BlockArray blocks = new BlockArray(xsize, ysize, zsize);
+			int axsize = (maxx-minx)+1;
+			int aysize = ysize;
+			int azsize = (maxz-minz)+1;
 			
-			blocks.fillBlocks(outline, 0, outline, xsize-outline-1, ysize, zsize-outline-1, new BlockMeta(Blocks.cobblestone, 0));
+			int xoffset = minx - this.boundingBox.minX;
+			int zoffset = minz - this.boundingBox.minZ;
 			
-			new Ruin(blocks, 0.3 + this.genRand.nextDouble()*0.7, this.genRand);
+			Lumberjack.info("xyz: "+this.boundingBox+", chunk: "+bounds+", size: "+xsize+","+ysize+","+zsize+",  mxmy: "+minx+","+minz+"; "+maxx+","+maxz+", asize: "+axsize+","+aysize+","+azsize+",  offset: "+xoffset+","+zoffset);
 			
-			for (int x = 0; x<xsize; x++) {
-				for (int y = 0; y<ysize; y++) {
-					for (int z = 0; z<zsize; z++) {
+			BlockArray blocks = new BlockArray(axsize, aysize, azsize);
+			
+			blocks.fillBlocks(outline-xoffset, 0, outline-zoffset, (xsize-outline-1)-xoffset, ysize, (zsize-outline-1)-zoffset, new BlockMeta(Blocks.cobblestone, 0));
+			//blocks.fillBlocks(-xoffset, 0, -zoffset, (xsize-1)-xoffset, ysize, (zsize-1)-zoffset, new BlockMeta(Blocks.cobblestone, 0));
+			
+			new Ruin(blocks, 0.3 + this.genRand.nextDouble()*0.7, this.genRand, xsize,ysize,zsize, xoffset,0,zoffset);
+			
+			for (int x = 0; x<axsize; x++) {
+				for (int y = 0; y<aysize; y++) {
+					for (int z = 0; z<azsize; z++) {
 						BlockMeta block = blocks.getBlock(x, y, z);
 						if (block != null) {
-							this.placeBlockAtCurrentPosition(world, block.block, block.meta, x, y, z, bounds);
+							this.placeBlockAtCurrentPosition(world, block.block, block.meta, x + xoffset, y, z + zoffset, bounds);
 						}
 					}	
 				}
@@ -105,7 +123,7 @@ public class ComponentCityParts {
             this.partSizeZ = tag.getInteger("Depth");
             this.partPosY = tag.getInteger("HPos");
             this.randSeed = tag.getLong("RSeed");
-            this.genRand.setSeed(this.randSeed);
+            this.genRand = new Random(this.randSeed);
         }
 		
 		protected boolean processHeight(World world, StructureBoundingBox bounds, int offset)
