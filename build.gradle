@@ -21,70 +21,99 @@ repositories {
         url 'http://dvs1.progwml6.com/files/maven'
     }
     maven {
-        name 'CB Maven FS'
+        name 'codechicken'
         url "http://chickenbones.net/maven/"
     }
     ivy {
         name "MineTweaker3"
         artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-([classifier]-)[revision].[ext]"
     }
+    ivy {
+        name "CoFHCore"
+        artifactPattern "http://addons-origin.cursecdn.com/files/${cofhpath}/[module]-[revision]-[classifier].[ext]"
+    }
+    ivy {
+        name "Baubles"
+        artifactPattern "https://dl.dropboxusercontent.com/u/47135879/[module]-[classifier]-1.7.10-[revision].[ext]"
+    }
+    ivy {
+        name = 'Thaumcraft'
+        artifactPattern 'https://dl.dropboxusercontent.com/u/47135879/[module](-[classifier])-1.7.10-[revision](.[ext])'
+    }
+    ivy {
+        name = "Botania"
+        artifactPattern "http://botaniamod.net/files/deobf/[module] [revision]-[classifier].[ext]"
+    }
 }
 
 apply plugin: 'forge'
 
-ext.configFile = file "build.properties"
-configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
+group = package_group
+archivesBaseName = mod_name
+version = "${mc_version}-${mod_version}-${build_number}"
 
-version = config.mc_version + "-" + config.mod_version + "-" + config.build_number
-group= config.package_group
-archivesBaseName = config.mod_name
 
 minecraft {
-    version = config.mc_version + "-" + config.forge_version
+    version = "${mc_version}-${forge_version}"
     runDir = "eclipse"
+    replace '${version}', project.version
+
+    if (project.hasProperty('mappings_version'))
+        mappings = project.mappings_version
 }
 
 dependencies {
-    compile name: "NotEnoughItems"    , group: "codechicken", version: config.mc_version + "-" + config.nei_version, classifier: "dev"
-    runtime name: "CodeChickenLib"    , group: "codechicken", version: config.mc_version + "-" + config.ccl_version, classifier: "dev"
-    runtime name: "CodeChickenCore"   , group: "codechicken", version: config.mc_version + "-" + config.ccc_version, classifier: "dev"
-    compile name: "MineTweaker3"      , group: "minetweaker", version: config.mc_version + "-" + config.minetweaker_version, classifier: "Dev"
-    
-    compile "tconstruct:TConstruct:" + config.mc_version + "-" + config.tconstruct_version + ":deobf"
-    compile "mantle:Mantle:" + config.mc_version + "-" + config.mantle_version + ":deobf"
-
-    compile fileTree(dir: 'lib', include: '*.jar')
+    compile "Azanor:Baubles:${baubles_version}:deobf@jar"
+    compile "Vazkii:Botania:${botania_version_major}-${botania_version_minor}:deobf@jar"
+    compile name: "CodeChickenLib"    , group: "codechicken", version: "${mc_version}-${ccl_version}", classifier: "dev"
+    compile name: "CodeChickenCore"   , group: "codechicken", version: "${mc_version}-${ccc_version}", classifier: "dev"
+    compile name: 'CoFHCore', version: "[${mc_version}]${cofhcore_version}", classifier: 'dev'
+    compile "mantle:Mantle:${mc_version}-${mantle_version}:deobf"
+    compile name: "MineTweaker3"      , group: "minetweaker", version: "${mc_version}-${minetweaker_version}", classifier: "Dev"
+    compile name: "NotEnoughItems"    , group: "codechicken", version: "${mc_version}-${nei_version}", classifier: "dev"
+    compile "tconstruct:TConstruct:${mc_version}-${tconstruct_version}:deobf"
+    compile "Azanor:Thaumcraft:${thaumcraft_version}:deobf@jar"
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
+
+processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        include 'CoFH_at.cfg'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        include '**/*.info'
+        include '**/*.properties'
+
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
-    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude '**/*.info'
+        exclude '**/*.properties'
     }
 }
 
+
+
+// Source jar
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+// Javadoc jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
+
+// Deobfuscated jar
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
 }
 
-deobfJar.dependsOn classes
-assemble.dependsOn deobfJar
+tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+
+tasks.withType(JavaCompile) { task ->
+    task.options.encoding = 'UTF-8'
+}
