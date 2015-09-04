@@ -18,17 +18,21 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
@@ -82,6 +86,8 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         super.setDamage(stack, 0);
     }
 
+
+
     @SuppressWarnings("rawtypes")
 	@Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
@@ -89,6 +95,9 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         if(armorType == 0){
             player.setAir(300);
             player.getFoodStats().addStats(20, 20F);
+            PotionEffect effect = player.getActivePotionEffect(Potion.nightVision);
+    		if (effect == null || effect.getDuration() < 900000) player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 1000000, 1, true));
+
         }
         else if(armorType == 1){
             //player.capabilities.allowFlying = true;
@@ -131,6 +140,9 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         return model;
     }
 
+    // 100% knockback resistance with full set
+    public static final AttributeModifier knockbackModifier = (new AttributeModifier( "knockbackResistance", 0.25D, 0)).setSaved(false);
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
     public Multimap getAttributeModifiers(ItemStack stack)
@@ -138,6 +150,14 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         Multimap multimap = super.getAttributeModifiers(stack);
         //if(armorType == 3)
         //    multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 0.7, 1));
+		if (armorType == 0)
+        	multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), knockbackModifier);
+        if (armorType == 1)
+        	multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), knockbackModifier);
+        if (armorType == 2)
+        	multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), knockbackModifier);
+        if (armorType == 3)
+        	multimap.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), knockbackModifier);
         return multimap;
     }
 
@@ -394,14 +414,42 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 					if (hasFoot) {
 						boolean flying = player.capabilities.isFlying;
 						boolean swimming = player.isInsideOfMaterial(Material.water) || player.isInWater();
+						World world = player.worldObj;
+						boolean sneaking = player.isSneaking();
+						float speed = 0.15f 
+							* (flying ? 1.1f : 1.0f) 
+							//* (swimming ? 1.2f : 1.0f) 
+							* (sneaking ? 0.1f : 1.0f);
+    					int x = MathHelper.floor_double(player.posX);
+    					int y = MathHelper.floor_double(player.boundingBox.minY - 0.11f);
+    					int yPaddle = MathHelper.floor_double(player.boundingBox.minY);
+    					int z = MathHelper.floor_double(player.posZ);
+    					Material mWater = world.getBlock(x, y, z).getMaterial();
+    					Material mPaddle = world.getBlock(x, yPaddle, z).getMaterial();
+    					boolean waterBelow = (mWater == Material.water);
+    					boolean paddlingInWater = (mPaddle == Material.water);
+    					// Water walking effect
+    					if (waterBelow && player.motionY < 0.0D && !player.isSneaking()) {
+    						if (player instanceof EntityPlayerMP) {
+      							player.posY -= player.yOffset;
+    						} else {
+      							player.posY -= player.motionY;
+      						}
+   							player.motionY = 0.0D;
+    						player.fallDistance = 0.0F;
+    						if (player.moveForward > 0f) {
+								player.moveFlying(0f, 1f, speed);
+							} else if (player.moveForward < 0f) {
+								player.moveFlying(0f, 1f, -speed * 0.3f);
+							}
+							if (player.moveStrafing != 0f) {
+								player.moveFlying(1f, 0f, speed * 0.5f * Math.signum(player.moveStrafing));
+							}
+    					}
+    					if ((player.isInWater() || paddlingInWater) && !player.isSneaking()) {
+      						player.motionY = 0.1f;
+    					}
 						if (player.onGround || flying || swimming) {
-							boolean sneaking = player.isSneaking();
-							
-							float speed = 0.15f 
-								* (flying ? 1.1f : 1.0f) 
-								//* (swimming ? 1.2f : 1.0f) 
-								* (sneaking ? 0.1f : 1.0f); 
-							
 							if (player.moveForward > 0f) {
 								player.moveFlying(0f, 1f, speed);
 							} else if (player.moveForward < 0f) {

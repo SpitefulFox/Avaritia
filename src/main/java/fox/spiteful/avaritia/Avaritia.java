@@ -33,6 +33,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class Avaritia {
     @Instance
     public static Avaritia instance;
+    public static final String modVersion = "${version}";
 
     @SidedProxy(serverSide = "fox.spiteful.avaritia.CommonProxy", clientSide = "fox.spiteful.avaritia.ClientProxy")
     public static CommonProxy proxy;
