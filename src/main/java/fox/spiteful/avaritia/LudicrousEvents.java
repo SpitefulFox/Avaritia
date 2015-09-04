@@ -23,6 +23,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -145,6 +146,18 @@ public class LudicrousEvents {
                 }
             }
         }
+    }
+
+    // Added this to fix annoying sounds not sure if it fits
+    @SubscribeEvent 
+    public void onAttacked(LivingAttackEvent event) {
+        if(!(event.entityLiving instanceof EntityPlayer))
+            return;
+        EntityPlayer player = (EntityPlayer)event.entityLiving;
+        if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.infinity_sword && player.isUsingItem())
+            event.setCanceled(true);
+        if(LudicrousItems.isInfinite(player) && !event.source.damageType.equals("infinity"))
+            event.setCanceled(true);
     }
 
     @SubscribeEvent
