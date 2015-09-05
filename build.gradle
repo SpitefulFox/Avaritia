@@ -54,6 +54,7 @@ dependencies {
     runtime name: "CodeChickenCore"   , group: "codechicken", version: config.mc_version + "-" + config.ccc_version, classifier: "dev"
     compile name: "MineTweaker3"      , group: "minetweaker", version: config.mc_version + "-" + config.minetweaker_version, classifier: "Dev"
     
+
     compile "tconstruct:TConstruct:" + config.mc_version + "-" + config.tconstruct_version + ":deobf"
     compile "mantle:Mantle:" + config.mc_version + "-" + config.mantle_version + ":deobf"
 
@@ -69,7 +70,6 @@ processResources
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        include 'CoFH_at.cfg'
                 
         // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
