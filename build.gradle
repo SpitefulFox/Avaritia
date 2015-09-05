@@ -15,49 +15,18 @@ buildscript {
     }
 }
 
-repositories {
-    maven {
-        name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
-    }
-    maven {
-        name 'CB Maven FS'
-        url "http://chickenbones.net/maven/"
-    }
-    ivy {
-        name "MineTweaker3"
-        artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-([classifier]-)[revision].[ext]"
-    }
-}
-
 apply plugin: 'forge'
 
-ext.configFile = file "build.properties"
-configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
-
-version = config.mc_version + "-" + config.mod_version + "-" + config.build_number
-group= config.package_group
-archivesBaseName = config.mod_name
+version = "0.2"
+group= "fox.spiteful.avaritia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "Avaritia"
 
 minecraft {
-    version = config.mc_version + "-" + config.forge_version
+    version = "1.7.10-10.13.3.1408-1.7.10"
     runDir = "eclipse"
 }
 
 dependencies {
-    compile name: "NotEnoughItems"    , group: "codechicken", version: config.mc_version + "-" + config.nei_version, classifier: "dev"
-    runtime name: "CodeChickenLib"    , group: "codechicken", version: config.mc_version + "-" + config.ccl_version, classifier: "dev"
-    runtime name: "CodeChickenCore"   , group: "codechicken", version: config.mc_version + "-" + config.ccc_version, classifier: "dev"
-    compile name: "MineTweaker3"      , group: "minetweaker", version: config.mc_version + "-" + config.minetweaker_version, classifier: "Dev"
-    
-
-    compile "tconstruct:TConstruct:" + config.mc_version + "-" + config.tconstruct_version + ":deobf"
-    compile "mantle:Mantle:" + config.mc_version + "-" + config.mantle_version + ":deobf"
-
     compile fileTree(dir: 'lib', include: '*.jar')
 }
 

@@ -12,7 +12,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import fox.spiteful.avaritia.PotionHelper;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -41,8 +40,6 @@ import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.api.mana.IManaDiscountArmor;
-import vazkii.botania.api.item.IManaProficiencyArmor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,14 +49,11 @@ import java.util.List;
         @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"),
         @Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"),
         @Optional.Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"),
-        @Optional.Interface(iface = "vazkii.botania.api.item.IPhantomInkable", modid = "Botania"),
-        @Optional.Interface(iface = "vazkii.botania.api.mana.IManaDiscountArmor", modid = "Botania"),
-        @Optional.Interface(iface = "vazkii.botania.api.item.IManaProficiencyArmor", modid = "Botania")
+        @Optional.Interface(iface = "vazkii.botania.api.item.IPhantomInkable", modid = "Botania")
 })
-public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable, IManaDiscountArmor, IManaProficiencyArmor {
+public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
-   	static ItemStack[] armorset;
     public IIcon cosmicMask;
     public final int slot;
 
@@ -163,54 +157,13 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         return 20;
     }
 
-    @Optional.Method(modid = "Botania")
-	public String getArmorSetTitle(EntityPlayer player) {
-		return StatCollector.translateToLocal("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
-	}
-
-	@Optional.Method(modid = "Botania")
-	public String getArmorSetName() {
-		return StatCollector.translateToLocal("avaritia.armorset.infinity.name");
-	}
-
-	@Optional.Method(modid = "Botania")
-	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(StatCollector.translateToLocal("avaritia.armorset.infinity.desc0"), list);
-		addStringToTooltip(StatCollector.translateToLocal("avaritia.armorset.infinity.desc1"), list);
-	}
-
-	@Optional.Method(modid = "Botania")
-	public ItemStack[] getArmorSetStacks() {
-		if(armorset == null)
-			armorset = new ItemStack[] {
-				new ItemStack(LudicrousItems.infinity_armor),
-				new ItemStack(LudicrousItems.infinity_helm),
-				new ItemStack(LudicrousItems.infinity_pants),
-				new ItemStack(LudicrousItems.infinity_shoes)
-		};
-
-		return armorset;
-	}
-
-	@Optional.Method(modid = "Botania")
-	public void addStringToTooltip(String s, List<String> tooltip) {
-		tooltip.add(s.replaceAll("&", "\u00a7"));
-	}
-
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if(Compat.thaumic)
             list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + this.getVisDiscount(stack, player, (Aspect)null) + "%");
         if(Compat.botan) {
-            if(GuiScreen.isShiftKeyDown()) {
-				addStringToTooltip(getArmorSetTitle(player), list);
-				addArmorSetDescription(stack, list);
-				ItemStack[] stacks = getArmorSetStacks();
-				for(int i = 0; i < stacks.length; i++)
-					addStringToTooltip((hasArmorSetItem(player, i) ? EnumChatFormatting.GREEN : "") + " - " + stacks[i].getDisplayName(), list);
-				if(hasPhantomInk(stack))
-					addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), list);
-			} else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), list);
+            if (hasPhantomInk(stack))
+                list.add(StatCollector.translateToLocal("botaniamisc.hasPhantomInk").replaceAll("&", "\u00a7"));
         }
         if (this.slot == 3) {
         	list.add("");
@@ -273,44 +226,6 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
     {
         return false;
     }
-
-    public boolean hasArmorSet(EntityPlayer player) {
-		return hasArmorSetItem(player, 0) && hasArmorSetItem(player, 1) && hasArmorSetItem(player, 2) && hasArmorSetItem(player, 3);
-	}
-
-    public boolean hasArmorSetItem(EntityPlayer player, int i) {
-		ItemStack stack = player.inventory.armorInventory[3 - i];
-		if(stack == null)
-			return false;
-
-		switch(i) {
-			case 0: return stack.getItem() == LudicrousItems.infinity_helm;
-			case 1: return stack.getItem() == LudicrousItems.infinity_armor;
-			case 2: return stack.getItem() == LudicrousItems.infinity_pants;
-			case 3: return stack.getItem() == LudicrousItems.infinity_shoes;
-		}
-
-		return false;
-	}
-
-	public int getSetPiecesEquipped(EntityPlayer player) {
-		int pieces = 0;
-		for(int i = 0; i < 4; i++)
-			if(hasArmorSetItem(player, i))
-				pieces++;
-
-		return pieces;
-	}
-
-	@Override
-	public float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
-		return hasArmorSet(player) ? 0.40F : 0F;
-	}
-
-	@Override
-	public boolean shouldGiveProficiency(ItemStack stack, int slot, EntityPlayer player) {
-		return hasArmorSet(player);
-	}
 
 	public static class abilityHandler {
 		public static List<String> playersWithHat = new ArrayList<String>();
@@ -420,7 +335,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 				}
 			}
 		}
-
+		
 		@SubscribeEvent
 		public void jumpBoost(LivingJumpEvent event) {
 			if (event.entityLiving instanceof EntityPlayer) {
