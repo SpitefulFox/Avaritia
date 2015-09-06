@@ -20,7 +20,7 @@ public class Mincer {
     public static ShapelessOreRecipe meatballRecipe;
 
 	// here's where all the food magic goes on
-	private static final String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown"};
+	private static final String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown", "cropCherry"};
     private static final String[] forbiddenCropNames = new String[] {"cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton", "cropPoppy", "cropTulipRed", "cropTulipWhite", "cropDaisy",
         "cropTulipPink", "cropAllium", "cropOrchid", "cropTulipOrange", "cropDandelion", "cropShroomRed", "cropShroomBrown",
         "cropFerranium", "cropAurigold", "cropDiamahlia", "cropLapender", "cropEmeryllis", "cropRedstodendron", "cropCuprosia",

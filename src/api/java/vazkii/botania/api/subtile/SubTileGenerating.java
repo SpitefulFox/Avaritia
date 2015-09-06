@@ -16,11 +16,13 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
@@ -29,6 +31,8 @@ import vazkii.botania.api.mana.IManaCollector;
  * The basic class for a Generating Flower.
  */
 public class SubTileGenerating extends SubTileEntity {
+
+	public static final int RANGE = 6;
 
 	private static final String TAG_MANA = "mana";
 
@@ -72,14 +76,14 @@ public class SubTileGenerating extends SubTileEntity {
 
 			if(isPassiveFlower() && muhBalance > 0 && ticksExisted > muhBalance) {
 				supertile.getWorldObj().playAuxSFX(2001, supertile.xCoord, supertile.yCoord, supertile.zCoord, Block.getIdFromBlock(supertile.getBlockType()));
-				supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+				if(supertile.getWorldObj().getBlock(supertile.xCoord, supertile.yCoord - 1, supertile.zCoord).isSideSolid(supertile.getWorldObj(), supertile.xCoord, supertile.yCoord - 1, supertile.zCoord, ForgeDirection.UP))
+					supertile.getWorldObj().setBlock(supertile.xCoord, supertile.yCoord, supertile.zCoord, Blocks.deadbush);
+				else supertile.getWorldObj().setBlockToAir(supertile.xCoord, supertile.yCoord, supertile.zCoord);
 			}
 		}
 	}
 
 	public void linkCollector() {
-		final int range = 6;
-
 		boolean needsNew = false;
 		if(linkedCollector == null) {
 			needsNew = true;
@@ -96,30 +100,25 @@ public class SubTileGenerating extends SubTileEntity {
 					cachedCollectorCoordinates = null;
 				}
 			}
+		} else {
+			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
+			if(tileAt != null && tileAt instanceof IManaCollector)
+				linkedCollector = tileAt;
 		}
 
-		if(!needsNew && linkedCollector != null) {
-			if(supertile.getWorldObj().blockExists(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) && !linkedCollector.isInvalid()) {
-				TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-				if(!(tileAt instanceof IManaCollector) || tileAt.isInvalid()) {
-					linkedCollector = null;
-					needsNew = true;
-				} else linkedCollector = tileAt;
-			} else {
-				cachedCollectorCoordinates = new ChunkCoordinates(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-				linkedCollector = null;
-			}
-		}
-
-		if(needsNew) {
+		if(needsNew && ticksExisted == 1) { // New flowers only
 			IManaNetwork network = BotaniaAPI.internalHandler.getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(supertile.getWorldObj()).size();
 			if(BotaniaAPI.internalHandler.shouldForceCheck() || size != sizeLastCheck) {
 				ChunkCoordinates coords = new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
-				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj(), range);
+				linkedCollector = network.getClosestCollector(coords, supertile.getWorldObj(), RANGE);
 				sizeLastCheck = size;
 			}
 		}
+	}
+
+	public void linkToForcefully(TileEntity collector) {
+		linkedCollector = collector;
 	}
 
 	public void addMana(int mana) {
@@ -127,7 +126,7 @@ public class SubTileGenerating extends SubTileEntity {
 	}
 
 	public void emptyManaIntoCollector() {
-		if(linkedCollector != null) {
+		if(linkedCollector != null && isValidBinding()) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
 			if(!collector.isFull() && mana > 0) {
 				int manaval = Math.min(mana, collector.getMaxMana() - collector.getCurrentMana());
@@ -239,11 +238,16 @@ public class SubTileGenerating extends SubTileEntity {
 		return false;
 	}
 
+
+	public boolean isValidBinding() {
+		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord) == linkedCollector;
+	}
+
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = StatCollector.translateToLocal("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
+		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 }

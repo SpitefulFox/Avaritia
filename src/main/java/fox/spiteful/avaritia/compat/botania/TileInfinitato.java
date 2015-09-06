@@ -48,7 +48,8 @@ public class TileInfinitato extends TileLudicrous {
 	        	ent.addPotionEffect(new PotionEffect(Potion.fireResistance.id, time, 0));
 	        	ent.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, time, 0));
 	        	ent.addPotionEffect(new PotionEffect(Potion.nightVision.id, time, 0));
-	        	ent.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, time, 4)); // absorb	        	
+	        	ent.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, time, 4)); // absorb
+                ent.addPotionEffect(new PotionEffect(Potion.field_76443_y.id, time, 4)); // saturation
         	}
         }
     }

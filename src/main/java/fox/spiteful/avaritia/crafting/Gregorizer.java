@@ -11,17 +11,21 @@ public class Gregorizer {
     public static void balance(){
         if(Loader.isModLoaded("magicalcrops"))
             multiplier += 1;
+        if(Loader.isModLoaded("AgriCraft"))
+            multiplier += 1;
         if(Loader.isModLoaded("MineFactoryReloaded"))
             multiplier += 1;
         if(Loader.isModLoaded("BigReactors"))
             modifier += 100;
-        if(Loader.isModLoaded("EE3")||Loader.isModLoaded("ProjectE"))
-            multiplier += 2;
+        if(Loader.isModLoaded("EE3"))
+            multiplier += 1;
+        else if(Loader.isModLoaded("ProjectE"))
+            multiplier += 3;
         if(Loader.isModLoaded("Botania"))
             modifier += 50;
         if(Loader.isModLoaded("IC2"))
             modifier += 300;
-        if(Loader.isModLoaded("ThermalExpansion"))
+        if(Loader.isModLoaded("ThermalExpansion") || Loader.isModLoaded("TSteelworks"))
             modifier += 300;
         if(Loader.isModLoaded("technom"))
             modifier += 500;
@@ -31,8 +35,6 @@ public class Gregorizer {
             modifier += 100;
         if(Loader.isModLoaded("appliedenergistics2"))
             modifier += 200;
-        if(Loader.isModLoaded("TSteelworks"))
-            modifier += 300;
         if(Loader.isModLoaded("ImmersiveEngineering"))
             modifier += 400;
         if(Loader.isModLoaded("Mekanism")) {
@@ -40,8 +42,8 @@ public class Gregorizer {
             multiplier += 1;
         }
 
-        modifier += Config.modifier;
-        multiplier += Config.multiplier;
+        modifier = Math.max(modifier + Config.modifier, 0);
+        multiplier = Math.max(multiplier + Config.multiplier, 0);
     }
 
     public static int balanceCost(int cost){

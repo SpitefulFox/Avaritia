@@ -3,7 +3,6 @@ package fox.spiteful.avaritia.items;
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.LudicrousText;
-import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
@@ -14,8 +13,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import fox.spiteful.avaritia.PotionHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
@@ -39,7 +36,9 @@ import thaumcraft.api.IGoggles;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
+import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.api.mana.IManaDiscountArmor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,9 +48,12 @@ import java.util.List;
         @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"),
         @Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"),
         @Optional.Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"),
-        @Optional.Interface(iface = "vazkii.botania.api.item.IPhantomInkable", modid = "Botania")
+        @Optional.Interface(iface = "vazkii.botania.api.item.IPhantomInkable", modid = "Botania"),
+        @Optional.Interface(iface = "vazkii.botania.api.mana.IManaDiscountArmor", modid = "Botania"),
+        @Optional.Interface(iface = "vazkii.botania.api.item.IManaProficiencyArmor", modid = "Botania")
 })
-public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable {
+public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable,
+        IManaDiscountArmor, IManaProficiencyArmor {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
     public IIcon cosmicMask;
@@ -186,6 +188,18 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
             stack.setTagCompound(tag);
         }
         tag.setBoolean("phantomInk", ink);
+    }
+
+    @Optional.Method(modid = "Botania")
+    @Override
+    public float getDiscount(ItemStack stack, int slot, EntityPlayer player){
+        return 0.25F;
+    }
+
+    @Optional.Method(modid = "Botania")
+    @Override
+    public boolean shouldGiveProficiency(ItemStack itemStack, int i, EntityPlayer player){
+        return true;
     }
 
     @SideOnly(Side.CLIENT)

@@ -31,6 +31,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.subtile.SubTileEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -97,6 +98,12 @@ public interface IInternalMethodHandler {
 	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 
 	@SideOnly(Side.CLIENT)
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound);
+
+	@SideOnly(Side.CLIENT)
+	public ItemStack getBindDisplayForFlowerType(SubTileEntity e);
+
+	@SideOnly(Side.CLIENT)
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
 
 	@SideOnly(Side.CLIENT)
@@ -112,5 +119,7 @@ public interface IInternalMethodHandler {
 	public long getWorldElapsedTicks();
 
 	public boolean isBotaniaFlower(World world, int x, int y, int z);
+
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
 
 }

@@ -94,9 +94,15 @@ public final class BotaniaAPI {
 	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", 34, new int[] {3, 8, 6, 3}, 26);
 	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
+	public static ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", 5, new int[] { 1, 2, 2, 1 }, 18);
+
 	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
 
-	public static KnowledgeType basicKnowledge, elvenKnowledge;
+	public static KnowledgeType basicKnowledge;
+	public static KnowledgeType elvenKnowledge;
+
+	// This is here for completeness sake, but you shouldn't use it
+	public static KnowledgeType relicKnowledge;
 
 	// All of these categories are initialized during botania's PreInit stage.
 	public static LexiconCategory categoryBasics;
@@ -117,6 +123,7 @@ public final class BotaniaAPI {
 
 		basicKnowledge = registerKnowledgeType("minecraft", EnumChatFormatting.RESET, true);
 		elvenKnowledge = registerKnowledgeType("alfheim", EnumChatFormatting.DARK_GREEN, false);
+		relicKnowledge = registerKnowledgeType("relic", EnumChatFormatting.DARK_PURPLE, false);
 
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
@@ -128,7 +135,8 @@ public final class BotaniaAPI {
 		addOreWeight("oreCoal", 46525); // Vanilla
 		addOreWeight("oreCopper", 8325); // IC2, Thermal Expansion, Tinkers' Construct, etc.
 		addOreWeight("oreDark", 1350); // EvilCraft
-		addOreWeight("oreDarkIron", 1700); // Factorization
+		addOreWeight("oreDarkIron", 1700); // Factorization (older versions)
+		addOreWeight("oreFzDarkIron", 1700); // Factorization (newer versions)
 		addOreWeight("oreDiamond", 1265); // Vanilla
 		addOreWeight("oreEmerald", 780); // Vanilla
 		addOreWeight("oreGalena", 1000); // Factorization
@@ -143,8 +151,10 @@ public final class BotaniaAPI {
 		addOreWeight("oreLapis", 1285); // Vanilla
 		addOreWeight("oreLead", 7985); // IC2, Thermal Expansion, Factorization, etc.
 		addOreWeight("oreMCropsEssence", 3085); // Magical Crops
+		addOreWeight("oreMithril", 8); // Thermal Expansion
 		addOreWeight("oreNickel", 2275); // Thermal Expansion
 		addOreWeight("oreOlivine", 1100); // Project RED
+		addOreWeight("orePlatinum", 365); // Thermal Expansion
 		addOreWeight("oreRedstone", 6885); // Vanilla
 		addOreWeight("oreRuby", 1100); // Project RED
 		addOreWeight("oreSapphire", 1100); // Project RED

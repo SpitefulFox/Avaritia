@@ -4,6 +4,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.Lumberjack;
+import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
 import fox.spiteful.avaritia.compat.forestry.Ranger;
@@ -11,8 +12,11 @@ import fox.spiteful.avaritia.compat.modtweaker.Tweak;
 import fox.spiteful.avaritia.compat.nei.NotEnough;
 import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
 import fox.spiteful.avaritia.compat.ticon.Tonkers;
+import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.Grinder;
+import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -35,6 +39,7 @@ public class Compat {
     public static boolean mfr = false;
     public static boolean am2 = false;
     public static boolean forestry = false;
+    public static boolean te = false;
 
     public static void census(){
         nei = Loader.isModLoaded("NotEnoughItems");
@@ -52,6 +57,7 @@ public class Compat {
         mfr = Loader.isModLoaded("MineFactoryReloaded") && Config.mfr;
         am2 = Loader.isModLoaded("arsmagica2") && Config.am2;
         forestry = Loader.isModLoaded("Forestry") && Config.forestry;
+        te = Loader.isModLoaded("ThermalExpansion") && Config.te;
     }
 
     public static void compatify(){
@@ -355,6 +361,29 @@ public class Compat {
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, e, "Avaritia tried to do human transmutation.");
+            }
+        }
+
+        if(te){
+            try {
+                Block cell = getBlock("ThermalExpansion", "Cell");
+                ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(cell, 1, 0),
+                        "IIIIRIIII",
+                        "IEEEREEEI",
+                        "IERRRRREI",
+                        "IERRRRREI",
+                        "RRRRXRRRR",
+                        "IERRRRREI",
+                        "IERRRRREI",
+                        "IEEEREEEI",
+                        "IIIIRIIII",
+                        'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                        'E', "blockEnderium",
+                        'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                        'R', new ItemStack(LudicrousItems.singularity, 1, 3));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, e, "Avaritia forgot one of Thermal Expansion's 500 prerequisites.");
             }
         }
 
