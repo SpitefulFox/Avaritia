@@ -123,6 +123,12 @@ avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flowe
 avaritia.lexicon.infinitato=Infinitato
 avaritia.lexicon.infinitato.0=Imprinting the essence of everything onto objects can have interesting results, and the Infinitato is no exception.<br>Somewhat larger than its tiny sibling, and infused with the can-do attitude of a whole crowd of &1Tiny Potatoes&0 plus an &1Infinity Catalyst&0, the &1Infinitato&0 believes that you can do all the things, forever.
 avaritia.lexicon.infinitato.1=Trust me, &oit'll fit.&r
+avaritia.flower.soarleander.name=Soarleander
+tile.botania:flower.soarleander.name=Soarleander
+tile.avaritia.flower.soarleander.lore=Just hook it up to my &oveeeeins!&r
+avaritia.lexicon.soarleander=Soarleander
+avaritia.lexicon.soarleander.0=If you have a surfeit of chicken or chicken by-products, look no further!<br>The Soarleander will devour any and all things chicken in the vicinity (chickens themselves included) while remaining totally disinterested in everything else.
+avaritia.lexicon.soarleander.1=&oAny random chests are an unintended side-effect.&r
 #
 # Thaumcraft
 item.Wand.infinity.rod=Cosmic Neutronium

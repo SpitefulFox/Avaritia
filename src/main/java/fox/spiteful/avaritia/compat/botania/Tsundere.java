@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
 
 public class Tsundere {
 	
@@ -61,6 +62,20 @@ public class Tsundere {
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
                 'n', new ItemStack(LudicrousItems.resource, 1, 3),
         });
+        
+        BotaniaAPI.registerSubTile("soarleander", SubTileChicken.class);
+        BotaniaAPI.registerSubTileSignature(SubTileChicken.class, new Signature("soarleander"));
+        BotaniaAPI.addSubTileToCreativeMenu("soarleander");
+        
+        ItemStack chicken = getFlower("soarleander");
+        
+        ItemStack chickenitem = new ItemStack(Items.chicken);
+        
+        RecipeRuneAltar chickenrecipe = BotaniaAPI.registerRuneAltarRecipe(chicken, 8000, getFlower("gourmaryllis"), chickenitem, chickenitem, chickenitem, chickenitem, chickenitem, chickenitem, chickenitem, chickenitem );
+        
+        SubTileChicken.lexicon = new LudicrousLexicon("soarleander", BotaniaAPI.categoryGenerationFlowers);
+        SubTileChicken.lexicon.setLexiconPages(BotaniaAPI.internalHandler.textPage("avaritia.lexicon.soarleander.0"), BotaniaAPI.internalHandler.runeRecipePage("avaritia.lexicon.soarleander.1", chickenrecipe));
+        SubTileChicken.lexicon.setIcon(chicken);
 
         LudicrousBlocks.infinitato = GameRegistry.registerBlock(new BlockInfinitato(), "infinitato");
         GameRegistry.registerTileEntity(TileInfinitato.class, "Avaritia_Infinitato");
