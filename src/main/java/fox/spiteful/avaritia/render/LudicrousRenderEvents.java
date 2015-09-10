@@ -30,7 +30,7 @@ public class LudicrousRenderEvents {
 	
 	@SubscribeEvent
 	public void letsMakeAQuilt(TextureStitchEvent.Pre event) {
-		if (event.map.getTextureType() == 0) { return; }
+		if (event.map.getTextureType() != 1) { return; }
 				
 		for (int i=0; i<cosmicTextures.length; i++) {
 			IIcon icon = event.map.registerIcon(cosmicTextures[i]);
@@ -44,7 +44,7 @@ public class LudicrousRenderEvents {
 	
 	@SubscribeEvent
 	public void weMadeAQuilt(TextureStitchEvent.Post event) {
-		if (event.map.getTextureType() == 0) { return; }
+		if (event.map.getTextureType() != 1) { return; }
 		
 		CosmicRenderShenanigans.bindItemTexture();
 		ModelArmorInfinity.itempagewidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
