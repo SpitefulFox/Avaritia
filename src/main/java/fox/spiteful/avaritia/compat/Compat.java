@@ -123,6 +123,23 @@ public class Compat {
                 }
                 //Singularity
                 Grinder.catalyst.getInput().add(new ItemStack(resource, 1, 47));
+
+                Block creative = getBlock("appliedenergistics2", "tile.BlockCreativeEnergyCell");
+                Block dense = getBlock("appliedenergistics2", "tile.BlockDenseEnergyCell");
+
+                ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(creative, 1, 0),
+                        "IIIIDIIII",
+                        "IEEEDEEEI",
+                        "IEEEDEEEI",
+                        "IEEEDEEEI",
+                        "DDDDDDDDD",
+                        "IEEEDEEEI",
+                        "IEEEDEEEI",
+                        "IEEEDEEEI",
+                        "IIIIDIIII",
+                        'D', new ItemStack(resource, 1, 24),
+                        'E', new ItemStack(dense, 1, 0),
+                        'I', new ItemStack(LudicrousItems.resource, 1, 6));
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, "Avaritia couldn't figure out how channels work.");
@@ -384,6 +401,7 @@ public class Compat {
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, e, "Avaritia forgot one of Thermal Expansion's 500 prerequisites.");
+                te = false;
             }
         }
 
