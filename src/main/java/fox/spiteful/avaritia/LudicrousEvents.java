@@ -23,6 +23,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -35,6 +36,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -44,6 +46,7 @@ import static net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 public class LudicrousEvents {
 
     private static Random randy = new Random();
+    static final String[] trash = new String[]{"dirt", "sand", "gravel", "cobblestone", "netherrack"};
 
     @SubscribeEvent
     public void onPlayerMine(PlayerInteractEvent event) {
@@ -74,7 +77,7 @@ public class LudicrousEvents {
             }
         }
     }
-    
+
     @SubscribeEvent
     public void handleExtraLuck(HarvestDropsEvent event) {
     	if(event.harvester == null)
@@ -84,18 +87,37 @@ public class LudicrousEvents {
         ItemStack held = event.harvester.getHeldItem();
         if(held.getItem() == LudicrousItems.infinity_pickaxe) {
         	extraLuck(event, 4);
-        	
-        	if (held.getTagCompound().getBoolean("hammer") 
-            	&& ToolHelper.hammering.contains(event.harvester) 
+
+        	if (held.getTagCompound().getBoolean("hammer")
+            	&& ToolHelper.hammering.contains(event.harvester)
             	&& ToolHelper.hammerdrops.containsKey(event.harvester)
             	&& ToolHelper.hammerdrops.get(event.harvester) != null) {
-            	
+
             	ToolHelper.hammerdrops.get(event.harvester).addAll(event.drops);
             	event.drops.clear();
             }
         }
+        else if(held.getItem() == LudicrousItems.infinity_shovel) {
+
+            if (held.getTagCompound().getBoolean("destroyer")
+                    && ToolHelper.hammering.contains(event.harvester)
+                    && ToolHelper.hammerdrops.containsKey(event.harvester)
+                    && ToolHelper.hammerdrops.get(event.harvester) != null) {
+
+                ArrayList<ItemStack> garbage = new ArrayList<ItemStack>();
+                for(ItemStack drop : event.drops){
+                    if(isGarbage(drop))
+                        garbage.add(drop);
+                }
+                for(ItemStack junk : garbage){
+                    event.drops.remove(junk);
+                }
+                ToolHelper.hammerdrops.get(event.harvester).addAll(event.drops);
+                event.drops.clear();
+            }
+        }
     }
-    
+
     public static void extraLuck(HarvestDropsEvent event, int mult){
         if(event.block.getMaterial() == Material.rock){
         	List<ItemStack> adds = new ArrayList<ItemStack>();
@@ -122,6 +144,17 @@ public class LudicrousEvents {
         	event.drops.addAll(adds);
         	event.drops.removeAll(removals);
         }
+    }
+
+    private static boolean isGarbage(ItemStack drop) {
+        for(int id : OreDictionary.getOreIDs(drop)) {
+            for(String ore : trash) {
+                if(OreDictionary.getOreName(id).equals(ore))
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     public static void dropItem(ItemStack drop, World world, int x, int y, int z){
@@ -157,6 +190,18 @@ public class LudicrousEvents {
         if(LudicrousItems.isInfinite(player) && !event.source.damageType.equals("infinity"))
             event.setCanceled(true);
     }
+
+    @SubscribeEvent
+    public void onAttacked(LivingAttackEvent event) {
+        if(!(event.entityLiving instanceof EntityPlayer))
+            return;
+        EntityPlayer player = (EntityPlayer)event.entityLiving;
+        if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.infinity_sword && player.isUsingItem())
+            event.setCanceled(true);
+        if(LudicrousItems.isInfinite(player) && !event.source.damageType.equals("infinity"))
+            event.setCanceled(true);
+    }
+
 
     @SubscribeEvent
     public void onLivingDrops(LivingDropsEvent event) {
@@ -195,14 +240,24 @@ public class LudicrousEvents {
     public void diggity(BreakSpeed event){
         if(event.entityPlayer.getHeldItem() != null){
             ItemStack held = event.entityPlayer.getHeldItem();
-            if(held.getItem() == LudicrousItems.infinity_pickaxe){
+            if(held.getItem() == LudicrousItems.infinity_pickaxe || held.getItem() == LudicrousItems.infinity_shovel){
                 if(!event.entityPlayer.onGround)
                     event.newSpeed *= 5;
                 if(!event.entityPlayer.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(event.entityPlayer))
                     event.newSpeed *= 5;
-                if(held.getTagCompound().getBoolean("hammer")) {
-                	event.newSpeed *= 0.1;
+                if(held.getTagCompound().getBoolean("hammer") || held.getTagCompound().getBoolean("destroyer")) {
+                	event.newSpeed *= 0.5;
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void canHarvest(PlayerEvent.HarvestCheck event){
+        if(event.entityPlayer.getHeldItem() != null){
+            ItemStack held = event.entityPlayer.getHeldItem();
+            if(held.getItem() == LudicrousItems.infinity_shovel){
+                event.success = true;
             }
         }
     }

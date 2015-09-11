@@ -12,29 +12,19 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
-import java.util.WeakHashMap;
 
 import fox.spiteful.avaritia.Lumberjack;
-import fox.spiteful.avaritia.entity.EntityCollationItem;
 import fox.spiteful.avaritia.items.ItemMatterCluster;
 import fox.spiteful.avaritia.items.ItemStackWrapper;
-import fox.spiteful.avaritia.items.LudicrousItems;
+import org.apache.logging.log4j.Level;
 
 public class ToolHelper {
 
