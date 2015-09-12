@@ -1,5 +1,6 @@
 package fox.spiteful.avaritia.tile;
 
+import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.crafting.CompressorManager;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,6 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import org.apache.logging.log4j.Level;
 
 public class TileEntityCompressor extends TileLudicrous implements ISidedInventory {
 
@@ -41,7 +43,7 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
                 packet = true;
             }
         }
-        if (progress >= target && processing != null && (output == null || output.isItemEqual(processing))) {
+        if (progress >= target && processing != null && (output == null || (output.isItemEqual(processing) && output.stackSize < output.getMaxStackSize()))) {
             if(output == null)
                 output = processing.copy();
             else if(output.isItemEqual(processing))
@@ -206,9 +208,13 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack){
+        if(stack == null)
+            return false;
         if(slot == 0){
             if(processing == null)
                 return true;
+            if(CompressorManager.getOutput(stack) == null)
+                return false;
             if(CompressorManager.getOutput(stack).isItemEqual(processing))
                 return true;
         }

@@ -394,7 +394,7 @@ public class Compat {
                         "IERRRRREI",
                         "IEEEREEEI",
                         "IIIIRIIII",
-                        'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                        'X', new ItemStack(LudicrousBlocks.resource_block, 1, 1),
                         'E', "blockEnderium",
                         'I', new ItemStack(LudicrousItems.resource, 1, 6),
                         'R', new ItemStack(LudicrousItems.singularity, 1, 3));
@@ -402,6 +402,16 @@ public class Compat {
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, e, "Avaritia forgot one of Thermal Expansion's 500 prerequisites.");
                 te = false;
+            }
+        }
+
+        if(Loader.isModLoaded("witchery") && Config.witch){
+            try {
+                Item ingredient = getItem("witchery", "ingredient");
+                Grinder.catalyst.getInput().add(new ItemStack(ingredient, 1, 150));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, e, "Avaritia suffered from Curse of the Incompatibility.");
             }
         }
 

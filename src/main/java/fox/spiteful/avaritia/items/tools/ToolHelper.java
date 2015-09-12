@@ -7,11 +7,13 @@
 
 package fox.spiteful.avaritia.items.tools;
 
+import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -30,7 +32,7 @@ public class ToolHelper {
 
     public static Material[] materialsPick = new Material[]{ Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil };
     public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
-    public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood };
+    public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood, Material.vine };
 
     private static Random randy = new Random();
     
@@ -96,6 +98,8 @@ public class ToolHelper {
 
         Material mat = world.getBlock(x, y, z).getMaterial();
         if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z)/* && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0*/) {
+            if(blk == Blocks.grass && stack.getItem() == LudicrousItems.infinity_axe)
+                world.setBlock(x, y, z, Blocks.dirt);
             if(!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
                 return;
 

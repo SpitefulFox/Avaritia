@@ -65,14 +65,15 @@ public class Lucrum {
                 "     CIC ",
                 "     NIIC",
                 "    NINC ",
-                "   NIN   ",
+                "   NXN   ",
                 " CNIN    ",
                 "CIIN     ",
                 " CIC     ",
                 "  C      ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4));
+                'N', new ItemStack(LudicrousItems.resource, 1, 4),
+                'X', new ItemStack(LudicrousBlocks.resource_block, 1, 1));
 
         if(Loader.isModLoaded("ThaumicTinkerer")) {
             try {

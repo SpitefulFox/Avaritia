@@ -124,7 +124,7 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
             renderIcon(Tsundere.costumes.getIconFromDamage(0));
         }
         else if(name.startsWith("moo") && name.endsWith("oon")) {
-            GL11.glScalef(1.75F, 1.75F, 1.25F);
+            GL11.glScalef(2.5F, 2.5F, 1.25F);
             GL11.glRotatef(180F, 0F, 0F, 1F);
             GL11.glTranslatef(-0.5F, -0.6F, -0.8F);
             renderIcon(Tsundere.costumes.getIconFromDamage(1));

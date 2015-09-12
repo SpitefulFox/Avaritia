@@ -78,7 +78,7 @@ public class Grinder {
         result.addEnchantment(Enchantment.fortune, 10);
         ExtremeCraftingManager.getInstance().addRecipe(result,
                 " IIIIIII ",
-                "IIIIIIIII",
+                "IIIICIIII",
                 "II  N  II",
                 "    N    ",
                 "    N    ",
@@ -87,6 +87,7 @@ public class Grinder {
                 "    N    ",
                 "    N    ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
+                'C', new ItemStack(LudicrousBlocks.crystal_matrix, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_sword),
@@ -118,7 +119,7 @@ public class Grinder {
                 'X', new ItemStack(LudicrousBlocks.resource_block, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
-        ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_axe),
+        /*ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_axe),
                 " I   ",
                 "IIIII",
                 "IIII ",
@@ -129,7 +130,7 @@ public class Grinder {
                 "  N  ",
                 "  N  ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
-                'N', new ItemStack(LudicrousItems.resource, 1, 4));
+                'N', new ItemStack(LudicrousItems.resource, 1, 4));*/
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_armor),
                 " NN   NN ",
@@ -142,13 +143,13 @@ public class Grinder {
                 " NIIIIIN ",
                 "  NNNNN  ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
-                'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                'X', new ItemStack(LudicrousBlocks.crystal_matrix, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_helm),
                 "  NNNNN  ",
                 " NIIIIIN ",
-                " NXXIXXN ",
+                " N XIX N ",
                 " NIIIIIN ",
                 " NIIIIIN ",
                 " NI I IN ",
@@ -161,13 +162,14 @@ public class Grinder {
                 "NIIIXIIIN",
                 "NINNXNNIN",
                 "NIN   NIN",
-                "NIN   NIN",
+                "NCN   NCN",
                 "NIN   NIN",
                 "NIN   NIN",
                 "NIN   NIN",
                 "NNN   NNN",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'X', new ItemStack(LudicrousItems.resource, 1, 5),
+                'C', new ItemStack(LudicrousBlocks.crystal_matrix, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_shoes),

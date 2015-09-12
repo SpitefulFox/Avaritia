@@ -116,6 +116,16 @@ public class LudicrousEvents {
                 event.drops.clear();
             }
         }
+        else if(held.getItem() == LudicrousItems.infinity_axe) {
+
+            if (ToolHelper.hammering.contains(event.harvester)
+                    && ToolHelper.hammerdrops.containsKey(event.harvester)
+                    && ToolHelper.hammerdrops.get(event.harvester) != null) {
+
+                ToolHelper.hammerdrops.get(event.harvester).addAll(event.drops);
+                event.drops.clear();
+            }
+        }
     }
 
     public static void extraLuck(HarvestDropsEvent event, int mult){
