@@ -1,7 +1,6 @@
-- Finish the main tools
-  - Nature's Ruin (Infinity Axe)
-    - Treecapitating?
-    - 17x17 all trees ded on right click
+- Sprite the main tools
+  - Infinity Axe
+  - Infinity Shovel
 - Finish MineTweaker support
   - Add and remove catalyst, stew, and meatball ingredients
 - Cross-mod support
