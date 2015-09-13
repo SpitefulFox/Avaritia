@@ -28,7 +28,7 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
     public void updateEntity(){
         if(packetCount > 0)
             packetCount--;
-        if(input != null){
+        if(input != null && (processing == null || progress < target) ){
             if(CompressorManager.getOutput(input) != null && (output == null || CompressorManager.getOutput(input).isItemEqual(output))) {
                 if (processing == null) {
                     processing = CompressorManager.getOutput(input);
@@ -36,8 +36,15 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
                     ingredient = CompressorManager.getName(input);
                 }
                 if (CompressorManager.getOutput(input).isItemEqual(processing)) {
-                    progress += input.stackSize;
-                    input = null;
+                    int needed = target - progress;
+                    if(needed >= input.stackSize) {
+                        progress += input.stackSize;
+                        input = null;
+                    }
+                    else {
+                        progress = target;
+                        input.stackSize -= needed;
+                    }
                 }
                 markDirty();
                 packet = true;
