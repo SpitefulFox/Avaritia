@@ -205,6 +205,8 @@ public class LudicrousEvents {
     public void onAttacked(LivingAttackEvent event) {
         if(!(event.entityLiving instanceof EntityPlayer))
             return;
+        if(event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer)
+            return;
         EntityPlayer player = (EntityPlayer)event.entityLiving;
         if(player.getHeldItem() != null && player.getHeldItem().getItem() == LudicrousItems.infinity_sword && player.isUsingItem())
             event.setCanceled(true);
@@ -266,10 +268,21 @@ public class LudicrousEvents {
     public void canHarvest(PlayerEvent.HarvestCheck event){
         if(event.entityPlayer.getHeldItem() != null){
             ItemStack held = event.entityPlayer.getHeldItem();
-            if(held.getItem() == LudicrousItems.infinity_shovel){
-                event.success = true;
+            if(held.getItem() == LudicrousItems.infinity_shovel && event.block.getMaterial() == Material.rock){
+                if(held.getTagCompound().getBoolean("destroyer") && isGarbageBlock(event.block))
+                    event.success = true;
             }
         }
+    }
+
+    private static boolean isGarbageBlock(Block block) {
+        for(int id : OreDictionary.getOreIDs(new ItemStack(block, 1))) {
+            String ore = OreDictionary.getOreName(id);
+            if(ore.equals("cobblestone") || ore.equals("stone") || ore.equals("netherrack"))
+                return true;
+        }
+
+        return false;
     }
 
     @SubscribeEvent

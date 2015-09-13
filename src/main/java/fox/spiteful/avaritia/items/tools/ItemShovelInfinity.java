@@ -60,7 +60,7 @@ public class ItemShovelInfinity extends ItemSpade {
         {
             return efficiencyOnProperMaterial;
         }
-        return Math.max(func_150893_a(stack, block), 6.0F);
+        return Math.max(func_150893_a(stack, block), 1.0F);
     }
 
     @SideOnly(Side.CLIENT)
