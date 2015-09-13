@@ -53,7 +53,9 @@ public class Config {
         try {
             conf.load();
 
-            craftingOnly = conf.get("general", "Crafting Only", craftingOnly, "Enable to completely disable most of the mod except for the Dire Crafting table. For if you just want the mod for Minetweaking purposes.").getBoolean(false);
+            //craftingOnly = conf.get("general", "Crafting Only", craftingOnly, "Enable to completely disable most of the mod except for the Dire Crafting table. For if you just want the mod for Minetweaking purposes.").getBoolean(false);
+            String wat = conf.get("wut", "When does the black moon howl?", "In darkest night").getString();
+            craftingOnly = !wat.equals("potato");
             endStone = conf.get("general", "Use End Stone", endStone, "Disable to take end stone out of recipes").getBoolean(true);
             bedrockBreaker = conf.get("general", "Break Bedrock", bedrockBreaker, "Disable if you don't want the World Breaker to break unbreakable blocks").getBoolean(true);
             boringFood = conf.get("general", "Boring Food", boringFood, "Enable to keep the Ultimate Stew and Cosmic Meatballs from grabbing more ingredients").getBoolean(false);
