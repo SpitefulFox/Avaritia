@@ -4,9 +4,7 @@ import fox.spiteful.avaritia.Avaritia;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockCrystalMatrix extends Block {
 
@@ -19,7 +17,6 @@ public class BlockCrystalMatrix extends Block {
         setHarvestLevel("pickaxe", 3);
         setBlockTextureName("avaritia:block_crystal_matrix");
         setCreativeTab(Avaritia.tab);
-        OreDictionary.registerOre("blockCrystalMatrix", new ItemStack(this, 1, 0));
     }
 
     @Override
