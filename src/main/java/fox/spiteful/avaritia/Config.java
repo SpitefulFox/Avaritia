@@ -38,6 +38,8 @@ public class Config {
     public static boolean witch = true;
     public static boolean rotisserie = true;
 
+    public static boolean alfheim = false;
+
     public static boolean copper = true;
     public static boolean tin = true;
     public static boolean silver = true;
@@ -85,6 +87,8 @@ public class Config {
             extracells = conf.get("compatibility", "Extra Cells", true).getBoolean(true);
             witch = conf.get("compatibility", "Witchery", true).getBoolean(true);
             rotisserie = conf.get("compatibility", "Rotarycraft", true).getBoolean(true);
+
+            alfheim = conf.get("compatibility", "Alfheim", false).getBoolean(false);
 
             conf.addCustomCategoryComment("materials", "Disable to stop using that material in recipes. Useful if a mod adds unobtainable placeholder ores.");
             copper = conf.get("materials", "Copper", true).getBoolean(true);
