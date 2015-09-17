@@ -112,7 +112,7 @@ public class ItemFracturedOre extends Item {
 		Set<ItemStackWrapper> antiDupePool = new HashSet<ItemStackWrapper>();
 		
 		for (String name : names) {
-			if (name.startsWith("ore")) {
+			if (name.startsWith("ore") && !name.startsWith("oreberry")) {
 				//Lumberjack.info("ORE: "+name);
 				
 				List<ItemStack> ores = OreDictionary.getOres(name);
