@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.compat.botania;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.compat.botania.alfheim.Alfheim;
@@ -35,7 +36,8 @@ public class Tsundere {
         Grinder.catalyst.getInput().add(terra);
         Grinder.catalyst.getInput().add(gaia);
 
-        Alfheim.vacationTime();
+        if(Config.alfheim)
+            Alfheim.vacationTime();
         
         BotaniaAPI.registerSubTile("asgardandelion", SubTileCheaty.class);
         BotaniaAPI.registerSubTileSignature(SubTileCheaty.class, new Signature("asgardandelion"));

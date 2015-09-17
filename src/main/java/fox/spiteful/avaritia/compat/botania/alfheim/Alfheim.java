@@ -8,10 +8,12 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public class Alfheim {
 	public static void vacationTime() {
 		AlfheimBlocks.alfheimify();
-		
-		AlfheimEvents alfevents = new AlfheimEvents();
-        FMLCommonHandler.instance().bus().register(alfevents);
-    	MinecraftForge.EVENT_BUS.register(alfevents);
+
+        if(FMLCommonHandler.instance().getSide().isClient()) {
+            AlfheimEvents alfevents = new AlfheimEvents();
+            FMLCommonHandler.instance().bus().register(alfevents);
+            MinecraftForge.EVENT_BUS.register(alfevents);
+        }
 	}
 	
 	// this stuff needs to happen whether or not botania is active it seems D:

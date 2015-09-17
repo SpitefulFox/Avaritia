@@ -50,11 +50,11 @@ public class TileEntityCompressor extends TileLudicrous implements ISidedInvento
                 packet = true;
             }
         }
-        if (progress >= target && processing != null && (output == null || (output.isItemEqual(processing) && output.stackSize < output.getMaxStackSize()))) {
+        if (progress >= target && processing != null && (output == null || (output.isItemEqual(processing) && output.stackSize + processing.stackSize <= output.getMaxStackSize()))) {
             if(output == null)
                 output = processing.copy();
             else if(output.isItemEqual(processing))
-                output.stackSize++;
+                output.stackSize+= processing.stackSize;
 
             progress -= target;
             if(progress == 0) {

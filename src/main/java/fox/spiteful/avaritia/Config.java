@@ -36,6 +36,9 @@ public class Config {
     public static boolean ee3 = true;
     public static boolean extracells = true;
     public static boolean witch = true;
+    public static boolean rotisserie = true;
+
+    public static boolean alfheim = false;
 
     public static boolean copper = true;
     public static boolean tin = true;
@@ -85,6 +88,9 @@ public class Config {
             ee3 = conf.get("compatibility", "Equivalent Exchange 3", true).getBoolean(true);
             extracells = conf.get("compatibility", "Extra Cells", true).getBoolean(true);
             witch = conf.get("compatibility", "Witchery", true).getBoolean(true);
+            rotisserie = conf.get("compatibility", "Rotarycraft", true).getBoolean(true);
+
+            alfheim = conf.get("compatibility", "Alfheim", false).getBoolean(false);
 
             conf.addCustomCategoryComment("materials", "Disable to stop using that material in recipes. Useful if a mod adds unobtainable placeholder ores.");
             copper = conf.get("materials", "Copper", true).getBoolean(true);
@@ -94,8 +100,8 @@ public class Config {
             nickel = conf.get("materials", "Nickel/Ferrous", true).getBoolean(true);
             steel = conf.get("materials", "Steel", true).getBoolean(true);
 
-            modifier = conf.get("balance!", "Cost Modifier", "Added to the existing modifier to make prices more expensive or cheaper. Can be negative.").getInt(0);
-            multiplier = conf.get("balance!", "Cost Multiplier", "Added to the existing multiplier to make prices more expensive or cheaper. Can be negative.").getInt(0);
+            modifier = conf.get("balance!", "Cost Modifier", 0, "Added to the existing modifier to make prices more expensive or cheaper. Can be negative.").getInt(0);
+            multiplier = conf.get("balance!", "Cost Multiplier", 0, "Added to the existing multiplier to make prices more expensive or cheaper. Can be negative.").getInt(0);
         }
         catch(Exception e){
             Lumberjack.log(Level.ERROR, e, "Avaritia couldn't find its config!");

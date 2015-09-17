@@ -257,8 +257,10 @@ public class LudicrousEvents {
                     event.newSpeed *= 5;
                 if(!event.entityPlayer.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(event.entityPlayer))
                     event.newSpeed *= 5;
-                if(held.getTagCompound().getBoolean("hammer") || held.getTagCompound().getBoolean("destroyer")) {
-                	event.newSpeed *= 0.5;
+                if(held.getTagCompound() != null) {
+                    if (held.getTagCompound().getBoolean("hammer") || held.getTagCompound().getBoolean("destroyer")) {
+                        event.newSpeed *= 0.5;
+                    }
                 }
             }
         }
@@ -269,7 +271,7 @@ public class LudicrousEvents {
         if(event.entityPlayer.getHeldItem() != null){
             ItemStack held = event.entityPlayer.getHeldItem();
             if(held.getItem() == LudicrousItems.infinity_shovel && event.block.getMaterial() == Material.rock){
-                if(held.getTagCompound().getBoolean("destroyer") && isGarbageBlock(event.block))
+                if(held.getTagCompound() != null && held.getTagCompound().getBoolean("destroyer") && isGarbageBlock(event.block))
                     event.success = true;
             }
         }

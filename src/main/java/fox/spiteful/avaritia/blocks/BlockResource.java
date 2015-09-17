@@ -30,8 +30,6 @@ public class BlockResource extends Block {
         setBlockName("avaritia_resource");
         setHarvestLevel("pickaxe", 3);
         setCreativeTab(Avaritia.tab);
-        OreDictionary.registerOre("blockCosmicNeutronium", new ItemStack(this, 1, 0));
-        OreDictionary.registerOre("blockInfinity", new ItemStack(this, 1, 1));
     }
 
     @SideOnly(Side.CLIENT)

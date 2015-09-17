@@ -415,6 +415,16 @@ public class Compat {
             }
         }
 
+        if(Loader.isModLoaded("RotaryCraft") && Config.rotisserie){
+            try {
+                Item stuff = getItem("RotaryCraft", "rotarycraft_item_compacts");
+                Grinder.catalyst.getInput().add(new ItemStack(stuff, 1, 3));
+            }
+            catch (Throwable e){
+                Lumberjack.log(Level.INFO, e, "Avaritia couldn't figure out how torque works.");
+            }
+        }
+
     }
 
     public static Block getBlock(String mod, String block) throws ItemNotFoundException {
