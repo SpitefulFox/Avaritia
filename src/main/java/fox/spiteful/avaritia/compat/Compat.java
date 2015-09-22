@@ -54,7 +54,7 @@ public class Compat {
         botan = Loader.isModLoaded("Botania") && Config.botan;
         blood = Loader.isModLoaded("AWWayofTime") && Config.blood;
         bigReactors = Loader.isModLoaded("BigReactors") && Config.bigReactors;
-//        ticon = Loader.isModLoaded("TConstruct") && Config.ticon;
+        ticon = Loader.isModLoaded("TConstruct") && Config.ticon;
         pe = Loader.isModLoaded("ProjectE") && Config.pe;
         mfr = Loader.isModLoaded("MineFactoryReloaded") && Config.mfr;
         am2 = Loader.isModLoaded("arsmagica2") && Config.am2;
