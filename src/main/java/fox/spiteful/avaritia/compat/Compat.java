@@ -10,6 +10,7 @@ import fox.spiteful.avaritia.compat.botania.Tsundere;
 import fox.spiteful.avaritia.compat.forestry.Ranger;
 import fox.spiteful.avaritia.compat.modtweaker.Tweak;
 import fox.spiteful.avaritia.compat.nei.NotEnough;
+import fox.spiteful.avaritia.compat.tails.InfiniteFoxes;
 import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
 import fox.spiteful.avaritia.compat.ticon.Tonkers;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
@@ -20,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
 import org.apache.logging.log4j.Level;
 
 public class Compat {
@@ -52,7 +54,7 @@ public class Compat {
         botan = Loader.isModLoaded("Botania") && Config.botan;
         blood = Loader.isModLoaded("AWWayofTime") && Config.blood;
         bigReactors = Loader.isModLoaded("BigReactors") && Config.bigReactors;
-        ticon = Loader.isModLoaded("TConstruct") && Config.ticon;
+//        ticon = Loader.isModLoaded("TConstruct") && Config.ticon;
         pe = Loader.isModLoaded("ProjectE") && Config.pe;
         mfr = Loader.isModLoaded("MineFactoryReloaded") && Config.mfr;
         am2 = Loader.isModLoaded("arsmagica2") && Config.am2;
@@ -424,7 +426,17 @@ public class Compat {
                 Lumberjack.log(Level.INFO, e, "Avaritia couldn't figure out how torque works.");
             }
         }
-
+        
+        if(Loader.isModLoaded("Tails")){
+            try
+            {
+                InfiniteFoxes.floof();
+            }
+            catch(Throwable e){
+                Lumberjack.log(Level.INFO, "Avaritia was not fluffy enough!");
+                e.printStackTrace();
+            }
+        }
     }
 
     public static Block getBlock(String mod, String block) throws ItemNotFoundException {
