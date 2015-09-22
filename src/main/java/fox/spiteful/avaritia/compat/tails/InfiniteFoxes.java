@@ -62,7 +62,9 @@ public class InfiniteFoxes {
 			foxEarsRender = m_getRenderPart.invoke(null, Enum.valueOf(c_PartType, "EARS"),0);
 
 			m_RenderPart_render = c_RenderPart.getMethod("render", EntityLivingBase.class, c_PartInfo, double.class, double.class, double.class, float.class);
-		} catch(Exception e) {e.printStackTrace();}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -79,9 +81,7 @@ public class InfiniteFoxes {
 	            GL11.glTranslatef(0,.25f,-.75f);
 	            GL11.glScalef(2,2,2);
 				m_RenderPart_render.invoke(foxEarsRender, fakeEntity, earPartInfo, 0,0,0, partialTicks);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			} catch (Exception e) {}
 		}
 	}
 
