@@ -137,6 +137,12 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
             GL11.glTranslatef(-0.5F, -1.4F, -0.8F);
             renderIcon(Tsundere.costumes.getIconFromDamage(2));
         }
+        else if(name.equals("popetato")) {
+            GL11.glScalef(1.75F, 1.75F, 1.25F);
+            GL11.glRotatef(180F, 0F, 0F, 1F);
+            GL11.glTranslatef(-0.5F, -0, -0.8F);
+            renderIcon(Tsundere.costumes.getIconFromDamage(3));
+        }
         else if(name.startsWith("foxtato")) {
         	InfiniteFoxes.renderInfinitatoFluff(partialTicks);
         }
