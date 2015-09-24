@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ItemInfinitatoCostume extends Item {
 
-    private static final String[] types = new String[]{"armstrong", "moon", "egbert"};
+    private static final String[] types = new String[]{"armstrong", "moon", "egbert", "francis"};
 
     @SideOnly(Side.CLIENT)
     public IIcon[] icons;
