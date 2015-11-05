@@ -1,5 +1,15 @@
 *.class
 
+eclipse/
+
+*.iml
+*.ipr
+*.iws
+
+.gradle/
+
+out/
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

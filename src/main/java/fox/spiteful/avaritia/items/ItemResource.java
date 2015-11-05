@@ -36,9 +36,6 @@ public class ItemResource extends Item implements IHaloRenderItem {
         this.setMaxDamage(0);
         this.setUnlocalizedName("avaritia_resource");
         this.setCreativeTab(Avaritia.tab);
-        OreDictionary.registerOre("ingotCrystalMatrix", new ItemStack(this, 1, 1));
-        OreDictionary.registerOre("ingotCosmicNeutronium", new ItemStack(this, 1, 4));
-        OreDictionary.registerOre("ingotInfinity", new ItemStack(this, 1, 6));
     }
 
     @SideOnly(Side.CLIENT)

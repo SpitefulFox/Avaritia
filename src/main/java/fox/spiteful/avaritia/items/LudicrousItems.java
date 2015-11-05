@@ -8,11 +8,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
 
 import static net.minecraft.item.Item.ToolMaterial;
 
@@ -75,6 +77,9 @@ public class LudicrousItems {
     public static void grind(){
         resource = new ItemResource();
         GameRegistry.registerItem(resource, "Resource");
+        OreDictionary.registerOre("ingotCrystalMatrix", new ItemStack(resource, 1, 1));
+        OreDictionary.registerOre("ingotCosmicNeutronium", new ItemStack(resource, 1, 4));
+        OreDictionary.registerOre("ingotInfinity", new ItemStack(resource, 1, 6));
 
         if(Config.craftingOnly)
             return;
