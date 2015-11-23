@@ -20,6 +20,13 @@ public class Grinder {
 
     public static void artsAndCrafts(){
 
+        OreDictionary.registerOre("blockCrystalMatrix", new ItemStack(LudicrousBlocks.crystal_matrix, 1, 0));
+        OreDictionary.registerOre("blockCosmicNeutronium", new ItemStack(LudicrousBlocks.resource_block, 1, 0));
+        OreDictionary.registerOre("blockInfinity", new ItemStack(LudicrousBlocks.resource_block, 1, 1));
+        OreDictionary.registerOre("ingotCrystalMatrix", new ItemStack(LudicrousItems.resource, 1, 1));
+        OreDictionary.registerOre("ingotCosmicNeutronium", new ItemStack(LudicrousItems.resource, 1, 4));
+        OreDictionary.registerOre("ingotInfinity", new ItemStack(LudicrousItems.resource, 1, 6));
+
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 0), "X X", " X ", "X X", 'X', new ItemStack(Items.diamond));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousItems.resource, 1, 1), "DSD", "DSD", 'D', new ItemStack(LudicrousItems.resource, 1, 0), 'S', new ItemStack(Items.nether_star));
         GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(Blocks.crafting_table));

@@ -240,7 +240,12 @@ public class MorvInABoxRenderer implements IItemRenderer {
 	public void getMorvy() {
 		if (!morvy.isComplete() || !morvy.getProperties().containsKey("textures"))
         {
-            GameProfile gameprofile = MinecraftServer.getServer().func_152358_ax().func_152655_a(morvy.getName());
+            GameProfile gameprofile = null;
+
+            //Which one is returning null?  Who knooooooooows
+            if(MinecraftServer.getServer() != null && MinecraftServer.getServer().func_152358_ax() != null
+                    && morvy != null)
+                gameprofile = MinecraftServer.getServer().func_152358_ax().func_152655_a(morvy.getName());
 
             if (gameprofile != null)
             {

@@ -17,6 +17,7 @@ public class Alfheim {
 	}
 	
 	// this stuff needs to happen whether or not botania is active it seems D:
+    // DON'T LIE LIKE THAT, CUTS >:P
 	public static void packYourBags() {
 		int dim = WorldProviderAlfheim.dimensionID;
         DimensionManager.registerProviderType(dim, WorldProviderAlfheim.class, false);

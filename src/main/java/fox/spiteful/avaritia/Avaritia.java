@@ -59,11 +59,13 @@ public class Avaritia {
         LudicrousItems.grind();
         LudicrousBlocks.voxelize();
         Compat.census();
-        if(!Config.craftingOnly)
-            LudicrousEntities.letLooseTheDogsOfWar();
+        if(Config.craftingOnly)
+            return;
+
+        LudicrousEntities.letLooseTheDogsOfWar();
         proxy.prepareForPretty();
-        
-        Alfheim.packYourBags();
+        if(Compat.botan && Config.alfheim)
+            Alfheim.packYourBags();
     }
 
     @EventHandler
