@@ -60,23 +60,19 @@ public class ContainerNeutron extends Container {
 
                 slot.onSlotChange(itemstack1, itemstack);
             }
-            else if (slotNumber != 1 && slotNumber != 0)
+            else
             {
-                if (slotNumber >= 3 && slotNumber < 30)
+                if (slotNumber >= 1 && slotNumber < 28)
                 {
                     if (!this.mergeItemStack(itemstack1, 28, 37, false))
                     {
                         return null;
                     }
                 }
-                else if (slotNumber >= 28 && slotNumber < 37 && !this.mergeItemStack(itemstack1, 3, 30, false))
+                else if (slotNumber >= 28 && slotNumber < 37 && !this.mergeItemStack(itemstack1, 1, 28, false))
                 {
                     return null;
                 }
-            }
-            else if (!this.mergeItemStack(itemstack1, 1, 37, false))
-            {
-                return null;
             }
 
             if (itemstack1.stackSize == 0)

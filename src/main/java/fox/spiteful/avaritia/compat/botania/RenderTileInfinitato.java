@@ -4,9 +4,11 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import fox.spiteful.avaritia.compat.tails.InfiniteFoxes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -134,6 +136,15 @@ public class RenderTileInfinitato extends TileEntitySpecialRenderer {
             GL11.glRotatef(180F, 0F, 0F, 1F);
             GL11.glTranslatef(-0.5F, -1.4F, -0.8F);
             renderIcon(Tsundere.costumes.getIconFromDamage(2));
+        }
+        else if(name.equals("popetato")) {
+            GL11.glScalef(1.75F, 1.75F, 1.25F);
+            GL11.glRotatef(180F, 0F, 0F, 1F);
+            GL11.glTranslatef(-0.5F, -0, -0.8F);
+            renderIcon(Tsundere.costumes.getIconFromDamage(3));
+        }
+        else if(name.startsWith("foxtato")) {
+        	InfiniteFoxes.renderInfinitatoFluff(partialTicks);
         }
 
         GL11.glPopMatrix();

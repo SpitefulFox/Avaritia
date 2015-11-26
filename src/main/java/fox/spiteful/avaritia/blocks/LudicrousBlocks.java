@@ -36,10 +36,7 @@ public class LudicrousBlocks {
             return;
 
         crystal_matrix = GameRegistry.registerBlock(new BlockCrystalMatrix(), "Crystal_Matrix");
-        OreDictionary.registerOre("blockCrystalMatrix", new ItemStack(crystal_matrix, 1, 0));
         resource_block = GameRegistry.registerBlock(new BlockResource(), ItemBlockResource.class, "Resource_Block");
-        OreDictionary.registerOre("blockCosmicNeutronium", new ItemStack(resource_block, 1, 0));
-        OreDictionary.registerOre("blockInfinity", new ItemStack(resource_block, 1, 1));
         neutron_collector = GameRegistry.registerBlock(new BlockNeutronCollector(), "Neutron_Collector");
         GameRegistry.registerTileEntity(TileEntityNeutron.class, "Avaritia_Neutron");
         compressor = GameRegistry.registerBlock(new BlockCompressor(), "Neutronium_Compressor");

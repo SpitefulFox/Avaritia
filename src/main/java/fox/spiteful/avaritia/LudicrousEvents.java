@@ -88,7 +88,7 @@ public class LudicrousEvents {
         if(held.getItem() == LudicrousItems.infinity_pickaxe) {
         	extraLuck(event, 4);
 
-        	if (held.getTagCompound().getBoolean("hammer")
+        	if (held.getTagCompound() != null && held.getTagCompound().getBoolean("hammer")
             	&& ToolHelper.hammering.contains(event.harvester)
             	&& ToolHelper.hammerdrops.containsKey(event.harvester)
             	&& ToolHelper.hammerdrops.get(event.harvester) != null) {
@@ -99,7 +99,7 @@ public class LudicrousEvents {
         }
         else if(held.getItem() == LudicrousItems.infinity_shovel) {
 
-            if (held.getTagCompound().getBoolean("destroyer")
+            if (held.getTagCompound() != null && held.getTagCompound().getBoolean("destroyer")
                     && ToolHelper.hammering.contains(event.harvester)
                     && ToolHelper.hammerdrops.containsKey(event.harvester)
                     && ToolHelper.hammerdrops.get(event.harvester) != null) {
