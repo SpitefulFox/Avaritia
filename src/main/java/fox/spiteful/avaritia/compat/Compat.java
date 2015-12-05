@@ -170,9 +170,9 @@ public class Compat {
             try {
                 if(gt){
                     try {
-                        Block resource = getBlock("gregtech", "gt.meta.storage.ingot");
-                        ItemStack osmir = new ItemStack(resource, 1, 8682);
-                        Grinder.catalyst.getInput().add(osmir);
+                        Item resource = getItem("gregtech", "gt.metaitem.01");
+                        ItemStack lolneutronium = new ItemStack(resource, 1, 9129);
+                        Grinder.catalyst.getInput().add(lolneutronium);
                     }
                     catch(Throwable e){
                         Lumberjack.log(Level.INFO, "Avaritia got sick of only getting 2 planks per log.");
