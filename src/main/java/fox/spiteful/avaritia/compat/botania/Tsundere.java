@@ -36,8 +36,8 @@ public class Tsundere {
         Grinder.catalyst.getInput().add(terra);
         Grinder.catalyst.getInput().add(gaia);
 
-        if(Config.alfheim)
-            Alfheim.vacationTime();
+        //if(Config.alfheim)
+            //Alfheim.vacationTime();
         
         BotaniaAPI.registerSubTile("asgardandelion", SubTileCheaty.class);
         BotaniaAPI.registerSubTileSignature(SubTileCheaty.class, new Signature("asgardandelion"));

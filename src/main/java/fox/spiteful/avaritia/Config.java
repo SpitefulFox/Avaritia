@@ -33,12 +33,14 @@ public class Config {
     public static boolean metallurgy = true;
     public static boolean enderio = true;
     public static boolean forestry = true;
+    public static boolean bees = false;
     public static boolean ee3 = true;
     public static boolean extracells = true;
     public static boolean witch = true;
     public static boolean rotisserie = true;
 
     public static boolean alfheim = false;
+    //public static int alfheimID;
 
     public static boolean copper = true;
     public static boolean tin = true;
@@ -83,12 +85,14 @@ public class Config {
             metallurgy = conf.get("compatibility", "Metallurgy", true).getBoolean(true);
             enderio = conf.get("compatibility", "EnderIO", true).getBoolean(true);
             forestry = conf.get("compatibility", "Forestry", true).getBoolean(true);
+            bees = conf.get("compatibility", "Forestry Bees", false).getBoolean(false);
             ee3 = conf.get("compatibility", "Equivalent Exchange 3", true).getBoolean(true);
             extracells = conf.get("compatibility", "Extra Cells", true).getBoolean(true);
             witch = conf.get("compatibility", "Witchery", true).getBoolean(true);
             rotisserie = conf.get("compatibility", "Rotarycraft", true).getBoolean(true);
 
-            alfheim = conf.get("compatibility", "Alfheim", false).getBoolean(false);
+            //alfheim = conf.get("compatibility", "Alfheim", false).getBoolean(false);
+            alfheim = false;
 
             conf.addCustomCategoryComment("materials", "Disable to stop using that material in recipes. Useful if a mod adds unobtainable placeholder ores.");
             copper = conf.get("materials", "Copper", true).getBoolean(true);

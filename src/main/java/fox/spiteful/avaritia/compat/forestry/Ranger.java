@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.compat.forestry;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import forestry.api.recipes.RecipeManagers;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.items.LudicrousItems;
@@ -32,6 +33,9 @@ public class Ranger {
         honey = Compat.getItem("Forestry", "honeyDrop");
         honeydew = Compat.getItem("Forestry", "honeydew");
         Item panel = Compat.getItem("Forestry", "craftingMaterial");
+
+        if(!Config.bees)
+            return;
 
         LudicrousItems.combs = new ItemComb();
         GameRegistry.registerItem(LudicrousItems.combs, "Combs");

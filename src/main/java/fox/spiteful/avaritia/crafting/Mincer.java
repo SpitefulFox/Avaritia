@@ -26,7 +26,7 @@ public class Mincer {
         "cropFerranium", "cropAurigold", "cropDiamahlia", "cropLapender", "cropEmeryllis", "cropRedstodendron", "cropCuprosia",
         "cropPetinia", "cropPlombean", "cropSilverweed", "cropJaslumine", "cropNiccissus", "cropPlatiolus", "cropOsmonium",
         "cropSandPear", "cropCitron"};
-	private static final String[] knownMeatEntries = new String[]{"ingotMeatRaw", "dustMeat", "rawMutton", "rawCalamari"};
+	private static final String[] knownMeatEntries = new String[]{"ingotMeatRaw", "dustMeat", "rawMutton"};
 	private static List<ItemStack> knownMeats = new ArrayList<ItemStack>();
 
     static {

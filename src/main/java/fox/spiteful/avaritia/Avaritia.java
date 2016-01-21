@@ -64,8 +64,8 @@ public class Avaritia {
 
         LudicrousEntities.letLooseTheDogsOfWar();
         proxy.prepareForPretty();
-        if(Compat.botan && Config.alfheim)
-            Alfheim.packYourBags();
+        //if(Compat.botan && Config.alfheim)
+            //Alfheim.packYourBags();
     }
 
     @EventHandler

@@ -55,6 +55,16 @@ public class AchievementTrigger {
     }
 
     @SubscribeEvent
+    public void onItemSmelted(PlayerEvent.ItemSmeltedEvent event) {
+        if(event.smelting != null){
+
+            if(event.smelting.getItem() == LudicrousItems.singularity){
+                event.player.addStat(Achievements.singularity, 1);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onBorken(BreakEvent event){
         if(event.block == LudicrousBlocks.dire_crafting && event.getPlayer() != null)
             event.getPlayer().addStat(Achievements.dire_uncrafting, 1);

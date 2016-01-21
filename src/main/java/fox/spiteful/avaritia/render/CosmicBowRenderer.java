@@ -42,8 +42,16 @@ public class CosmicBowRenderer extends CosmicItemRenderer implements IItemRender
 	@Override
 	public IIcon getStackIcon(ItemStack stack, int pass, EntityPlayer player) {
 		Item item = stack.getItem();
-		ItemStack inuse = ReflectionHelper.getPrivateValue(EntityPlayer.class, player, iiuObf);
-		int time = ReflectionHelper.getPrivateValue(EntityPlayer.class, player, iiucObf);
+        ItemStack inuse;
+        if(player != null)
+		    inuse = ReflectionHelper.getPrivateValue(EntityPlayer.class, player, iiuObf);
+        else
+            inuse = stack;
+        int time;
+        if(player != null)
+		    time = ReflectionHelper.getPrivateValue(EntityPlayer.class, player, iiucObf);
+        else
+            time = 0;
 		
 		return item.getIcon(stack, pass, player, inuse, time);
 	}

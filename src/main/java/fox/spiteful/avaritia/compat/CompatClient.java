@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.compat;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.compat.botania.RenderInfinitato;
 import fox.spiteful.avaritia.compat.botania.RenderTileInfinitato;
 import fox.spiteful.avaritia.compat.botania.TileInfinitato;
@@ -28,7 +29,7 @@ public class CompatClient {
 	}
 	
 	public static void lateComprettify() {
-		if(Compat.forestry){
+		if(Compat.forestry && Config.bees){
             MinecraftForgeClient.registerItemRenderer(LudicrousItems.beesource, new FancyHaloRenderer());
         }
 	}
