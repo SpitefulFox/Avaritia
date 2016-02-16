@@ -50,7 +50,7 @@ public class LudicrousItems {
     public static Item endest_pearl;
     public static Item fractured_ore;
     public static Item matter_cluster;
-    public static Item morv_in_a_box;
+    //public static Item morv_in_a_box;
 
     public static Item infinity_pickaxe;
     public static Item infinity_sword;
@@ -95,7 +95,7 @@ public class LudicrousItems {
         infinity_bow = register(new ItemBowInfinity(), "Infinity_Bow");
         infinity_shovel = register(new ItemShovelInfinity(), "Infinity_Shovel");
         infinity_axe = register(new ItemAxeInfinity(), "Infinity_Axe");
-        morv_in_a_box = register(new ItemMorvInABox(), "MorvInABox");
+        //morv_in_a_box = register(new ItemMorvInABox(), "MorvInABox");
         
         MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
     }

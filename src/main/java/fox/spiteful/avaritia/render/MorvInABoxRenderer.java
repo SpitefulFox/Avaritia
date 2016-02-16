@@ -1,6 +1,6 @@
 package fox.spiteful.avaritia.render;
 
-import java.util.Map;
+/*import java.util.Map;
 import java.util.UUID;
 
 import org.lwjgl.opengl.GL11;
@@ -274,3 +274,4 @@ public class MorvInABoxRenderer implements IItemRenderer {
 		}
 	}
 }
+*/
