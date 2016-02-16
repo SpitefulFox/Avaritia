@@ -1,6 +1,8 @@
 package fox.spiteful.avaritia.compat.ticon;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import fox.spiteful.avaritia.compat.Compat;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
@@ -23,7 +25,7 @@ public class Tonkers {
 	public static final int infinityMetalId = 501;
 	public static final String neutroniumName = "avaritia_neutronium";
 	public static final String infinityMetalName = "avaritia_infinitymetal";
-	
+
 	public static void buildstruct() {
 		
 		neutronium = new ToolMaterial(neutroniumName, "material."+neutroniumName, 5, 2400, 900, 6, 2.5f, 0, 0.0f, EnumChatFormatting.DARK_GRAY.toString(), 0x303030);
@@ -276,7 +278,7 @@ public class Tonkers {
             	"XXX ",
             	" XXX",
             	'X', ingot);
-        
+
         // extra modifiers from catalyst
         ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(LudicrousItems.resource, 1, 5) }, "AvaritiaFree"){
             @Override
@@ -289,5 +291,25 @@ public class Tonkers {
                 tags.setInteger("Modifiers", modifiers);
             }
         });
+
+        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(getBolt(neutroniumId, neutroniumId),
+                "XX", "RX", 'X', new ItemStack(LudicrousItems.resource, 1, 4), 'R', new ItemStack(TinkerTools.toolRod, 1, neutroniumId));
+
+        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(getBolt(neutroniumId, infinityMetalId),
+                "XX", "RX", 'X', new ItemStack(LudicrousItems.resource, 1, 6), 'R', new ItemStack(TinkerTools.toolRod, 1, neutroniumId));
+
+        ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(getBolt(infinityMetalId, infinityMetalId),
+                "XX", "RX", 'X', new ItemStack(LudicrousItems.resource, 1, 6), 'R', new ItemStack(TinkerTools.toolRod, 1, infinityMetalId));
+
 	}
+
+    private static ItemStack getBolt(int main, int tip) {
+        ItemStack bolt = new ItemStack(TinkerWeaponry.partBolt, 1, main);
+        NBTTagCompound tag = new NBTTagCompound();
+        NBTTagCompound mat = new NBTTagCompound();
+        mat.setInteger("Material2", tip);
+        tag.setTag("DualMat", mat);
+        bolt.setTagCompound(tag);
+        return bolt;
+    }
 }
