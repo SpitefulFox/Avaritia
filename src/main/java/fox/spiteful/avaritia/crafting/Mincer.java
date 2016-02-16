@@ -47,7 +47,7 @@ public class Mincer {
 	public static void countThoseCalories() {
 		
         if(Config.boringFood){
-            stewRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.ultimate_stew, 1), "cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown");
+            stewRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.ultimate_stew, 1), new ItemStack(Items.wheat, 1), new ItemStack(Items.carrot), new ItemStack(Items.potato), new ItemStack(Items.apple), new ItemStack(Items.melon), new ItemStack(Blocks.pumpkin), new ItemStack(Blocks.cactus), new ItemStack(Blocks.red_mushroom), new ItemStack(Blocks.brown_mushroom));
             meatballRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.cosmic_meatballs, 1), new ItemStack(Items.beef), new ItemStack(Items.beef), new ItemStack(Items.chicken), new ItemStack(Items.chicken), new ItemStack(Items.porkchop), new ItemStack(Items.porkchop), new ItemStack(Items.fish), new ItemStack(Items.fish));
             return;
         }
