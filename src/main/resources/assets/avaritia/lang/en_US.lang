@@ -42,6 +42,7 @@ item.avaritia.comb.nerfed.name=Nerfed Comb
 item.avaritia.comb.cosmic.name=Cosmic Comb
 item.avaritia_beesource.infinity_drop.name=Infinity Drop
 item.avaritia_beesource.dust.name=Dust
+item.extremely_primordial_pearl.name=Extremely Primordial Pearl
 #
 # Blocks
 tile.compressed_workbench.name=Compressed Crafting Table
@@ -119,15 +120,15 @@ avaritia.flower.asgardandelion.name=Asgardandelion
 tile.botania:flower.asgardandelion.name=Asgardandelion
 tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
 avaritia.lexicon.asgardandelion=Asgardandelion
-avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a never-ending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reckoning.<br>&oStill not a SAO reference.&r
+avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a never-ending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reckoning.<BR>&oStill not a SAO reference.&r
 avaritia.lexicon.infinitato=Infinitato
-avaritia.lexicon.infinitato.0=Imprinting the essence of everything onto objects can have interesting results, and the Infinitato is no exception.<br>Somewhat larger than its tiny sibling, and infused with the can-do attitude of a whole crowd of &1Tiny Potatoes&0 plus an &1Infinity Catalyst&0, the &1Infinitato&0 believes that you can do all the things, forever.
+avaritia.lexicon.infinitato.0=Imprinting the essence of everything onto objects can have interesting results, and the Infinitato is no exception.<BR>Somewhat larger than its tiny sibling, and infused with the can-do attitude of a whole crowd of &1Tiny Potatoes&0 plus an &1Infinity Catalyst&0, the &1Infinitato&0 believes that you can do all the things, forever.
 avaritia.lexicon.infinitato.1=Trust me, &oit'll fit.&r
 avaritia.flower.soarleander.name=Soarleander
 tile.botania:flower.soarleander.name=Soarleander
 tile.avaritia.flower.soarleander.lore=Just hook it up to my &oveeeeins!&r
 avaritia.lexicon.soarleander=Soarleander
-avaritia.lexicon.soarleander.0=If you have a surfeit of chicken or chicken by-products, look no further!<br>The Soarleander will devour any and all things chicken in the vicinity (chickens themselves included) while remaining totally disinterested in everything else.
+avaritia.lexicon.soarleander.0=If you have a surfeit of chicken or chicken by-products, look no further!<BR>The Soarleander will devour any and all things chicken in the vicinity (chickens themselves included) while remaining totally disinterested in everything else.
 avaritia.lexicon.soarleander.1=&oAny random chests are an unintended side-effect.&r
 #
 # Thaumcraft
@@ -163,3 +164,11 @@ classification.infinite.desc=They gather pranic energy from the hidden ley-lines
 
 avaritia.allele.speedNerfed=Nerfed
 avaritia.allele.lifespanArtificial=Artificial
+#
+# Research
+avaritia.research_name.BIG_PEARL=Extremely Primordial Pearl
+avaritia.research_text.BIG_PEARL=Because you can always have more
+avaritia.research_page.BIG_PEARL.1=Sure, the Primordial Pearl is pretty potent, but you think it could be even MORE potent.<BR><BR>By smashing several primordial pearls together in an arcane infusion, you create an even more potent item: The Extremely Primordial Pearl.<BR><BR>It's guaranteed to be even more primordial than a regular primordial pearl!
+avaritia.research_name.AKASHIC=Akashic Records
+avaritia.research_text.AKASHIC=More knowledge than you'll need
+avaritia.research_page.AKASHIC.1=You've researched enough of the world to crack the fabric of reality and enter the Outer Realms, but surely there's always room for MORE research, right?<BR><BR>The Akashic Records will give you all the research points in the world and then a little more.

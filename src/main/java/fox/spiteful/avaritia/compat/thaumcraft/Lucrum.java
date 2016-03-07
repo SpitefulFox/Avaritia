@@ -17,6 +17,9 @@ import org.apache.logging.log4j.Level;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchPage;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 import thaumcraft.common.config.ConfigItems;
@@ -28,11 +31,15 @@ public class Lucrum {
     public static WandRod WAND_ROD_NEUTRONIUM;
     public static WandCap WAND_CAP_CRYSTAL;
 
-    public static void abracadabra(){
+    public static void abracadabra() throws Compat.ItemNotFoundException {
         ULTRA_DEATH = new Aspect("terminus", 0xb90000, new Aspect[] { Aspect.GREED, Aspect.ELDRITCH }, new ResourceLocation("avaritia", "textures/misc/terminus.png"), 771);
 
         LudicrousItems.akashic_record = new ItemAkashicRecord();
         GameRegistry.registerItem(LudicrousItems.akashic_record, "Akashic_Record");
+        LudicrousItems.bigPearl = new ItemBigPearl();
+        GameRegistry.registerItem(LudicrousItems.bigPearl, "big_pearl");
+
+        Grinder.catalyst.getInput().add(new ItemStack(LudicrousItems.bigPearl));
 
         ThaumcraftApi.registerObjectTag(new ItemStack(LudicrousItems.resource, 1, 1), new AspectList().add(ULTRA_DEATH, 1).add(Aspect.ENERGY, 8).add(Aspect.CRYSTAL, 32));
         ThaumcraftApi.registerObjectTag(new ItemStack(LudicrousItems.resource, 1, 4), new AspectList().add(ULTRA_DEATH, 2).add(Aspect.METAL, 12).add(Aspect.ENERGY, 12));
@@ -74,6 +81,17 @@ public class Lucrum {
                 'C', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
                 'X', new ItemStack(LudicrousBlocks.resource_block, 1, 1));
+
+        //ResearchCategories.registerCategory("ASCENSION", new ResourceLocation("avaritia", "textures/misc/ascension.png"), new ResourceLocation("thaumcraft", "textures/gui/gui_researchbackeldritch.png"));
+
+        Item eldritch = Compat.getItem("Thaumcraft", "ItemEldritchObject");
+        Item resource = Compat.getItem("Thaumcraft", "ItemResource");//9
+
+        InfusionRecipe pearl_recipe = ThaumcraftApi.addInfusionCraftingRecipe("BIG_PEARL", new ItemStack(LudicrousItems.bigPearl), 12, (new AspectList()).add(Aspect.ELDRITCH, 64).add(Aspect.MAGIC, 64).add(Aspect.WATER, 64).add(Aspect.FIRE, 64).add(Aspect.EARTH, 64).add(Aspect.AIR, 64).add(Aspect.ORDER, 64).add(Aspect.ENTROPY, 64).add(ULTRA_DEATH, 32), new ItemStack(eldritch, 1, 3), new ItemStack[]{new ItemStack(eldritch, 1, 3), new ItemStack(eldritch, 1, 3), new ItemStack(eldritch, 1, 3), new ItemStack(eldritch, 1, 3), new ItemStack(eldritch, 1, 3), new ItemStack(eldritch, 1, 3), new ItemStack(eldritch, 1, 3)});
+        (new LudicrousResearchItem("BIG_PEARL", "ELDRITCH", (new AspectList()).add(ULTRA_DEATH, 8).add(Aspect.MAGIC, 16), -1, 8, 5, new ItemStack(LudicrousItems.bigPearl))).setPages(new ResearchPage[]{new ResearchPage("avaritia.research_page.BIG_PEARL.1"), new ResearchPage(pearl_recipe)}).setParents(new String[]{"PRIMPEARL"}).setConcealed().setSecondary().registerResearchItem();
+
+        InfusionRecipe akashic_recipe = ThaumcraftApi.addInfusionCraftingRecipe("AKASHIC", new ItemStack(LudicrousItems.akashic_record), 12, (new AspectList()).add(Aspect.MIND, 64).add(Aspect.MAGIC, 64).add(ULTRA_DEATH, 32), new ItemStack(resource, 1, 9), new ItemStack[]{new ItemStack(LudicrousItems.resource, 1, 6), new ItemStack(LudicrousItems.resource, 1, 6), new ItemStack(LudicrousItems.resource, 1, 6), new ItemStack(LudicrousItems.resource, 1, 6)});
+        (new LudicrousResearchItem("AKASHIC", "ELDRITCH", (new AspectList()).add(ULTRA_DEATH, 8).add(Aspect.MIND, 16), -3, 8, 5, new ItemStack(LudicrousItems.akashic_record))).setPages(new ResearchPage[]{new ResearchPage("avaritia.research_page.AKASHIC.1"), new ResearchPage(akashic_recipe)}).setParents(new String[]{"BIG_PEARL"}).setConcealed().setSecondary().registerResearchItem();
 
         if(Loader.isModLoaded("ThaumicTinkerer")) {
             try {

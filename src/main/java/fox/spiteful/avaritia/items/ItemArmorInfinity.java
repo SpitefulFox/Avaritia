@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.items;
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.LudicrousText;
+import fox.spiteful.avaritia.compat.Belmont;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;

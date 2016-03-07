@@ -70,6 +70,7 @@ public class ItemOrbArmok extends Item implements IBloodOrb, IBindable {
     public EnumRarity getRarity(ItemStack itemstack) {
         return LudicrousItems.cosmic;
     }
+
     @Override
     public boolean hasContainerItem()
     {

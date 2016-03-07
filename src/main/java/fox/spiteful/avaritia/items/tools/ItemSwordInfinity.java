@@ -7,6 +7,7 @@ import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.DamageSourceInfinitySword;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.achievements.Achievements;
+import fox.spiteful.avaritia.compat.Belmont;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
@@ -57,7 +58,10 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
         if(victim instanceof EntityPlayer){
             EntityPlayer pvp = (EntityPlayer)victim;
             if(LudicrousItems.isInfinite(pvp)){
-                victim.attackEntityFrom(new DamageSourceInfinitySword(player).setDamageBypassesArmor(), 4.0F);
+                if(Belmont.isVampire(pvp))
+                    victim.attackEntityFrom(new DamageSourceInfinitySword(player).setFireDamage().setDamageBypassesArmor(), 4.0F);
+                else
+                    victim.attackEntityFrom(new DamageSourceInfinitySword(player).setDamageBypassesArmor(), 4.0F);
                 return true;
             }
             if(pvp.getHeldItem() != null && pvp.getHeldItem().getItem() == LudicrousItems.infinity_sword && pvp.isUsingItem())
@@ -72,7 +76,10 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
         }
         victim.func_110142_aN().func_94547_a(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
         victim.setHealth(0);
-        victim.onDeath(new EntityDamageSource("infinity", player));
+        if(Belmont.isVampire(victim))
+            victim.onDeath(new EntityDamageSource("infinity", player).setFireDamage());
+        else
+            victim.onDeath(new EntityDamageSource("infinity", player));
         return true;
     }
 

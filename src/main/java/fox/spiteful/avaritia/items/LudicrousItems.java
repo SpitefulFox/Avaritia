@@ -67,6 +67,7 @@ public class LudicrousItems {
     public static Item armok_orb;
     public static Item combs;
     public static Item beesource;
+    public static Item bigPearl;
     
     
 
@@ -90,7 +91,8 @@ public class LudicrousItems {
         infinity_armor = register(new ItemArmorInfinity(1), "Infinity_Chest");
         infinity_pants = register(new ItemArmorInfinity(2), "Infinity_Pants");
         infinity_shoes = register(new ItemArmorInfinity(3), "Infinity_Shoes");
-        fractured_ore = register(new ItemFracturedOre(), "Fractured_Ore");
+        if(Config.fractured)
+            fractured_ore = register(new ItemFracturedOre(), "Fractured_Ore");
         matter_cluster = register(new ItemMatterCluster(), "Matter_Cluster");
         infinity_bow = register(new ItemBowInfinity(), "Infinity_Bow");
         infinity_shovel = register(new ItemShovelInfinity(), "Infinity_Shovel");

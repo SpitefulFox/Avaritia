@@ -11,6 +11,7 @@ public class Config {
     public static boolean endStone = true;
     public static boolean bedrockBreaker = true;
     public static boolean boringFood = false;
+    public static boolean fractured = false;
 
     public static boolean thaumic = true;
     public static boolean sc2 = true;
@@ -39,9 +40,6 @@ public class Config {
     public static boolean witch = true;
     public static boolean rotisserie = true;
 
-    public static boolean alfheim = false;
-    //public static int alfheimID;
-
     public static boolean copper = true;
     public static boolean tin = true;
     public static boolean silver = true;
@@ -62,6 +60,7 @@ public class Config {
             endStone = conf.get("general", "Use End Stone", endStone, "Disable to take end stone out of recipes").getBoolean(true);
             bedrockBreaker = conf.get("general", "Break Bedrock", bedrockBreaker, "Disable if you don't want the World Breaker to break unbreakable blocks").getBoolean(true);
             boringFood = conf.get("general", "Boring Food", boringFood, "Enable to keep the Ultimate Stew and Cosmic Meatballs from grabbing more ingredients").getBoolean(false);
+            fractured = conf.get("general", "Fractured Ores", fractured, "Enable if you don't have Rotarycraft installed and want some buggy fractured ores").getBoolean(false);
 
             conf.addCustomCategoryComment("compatibility", "Disable to stop compatibility with that particular mod. Will not use the mod in recipes or add new items for that mod.");
             thaumic = conf.get("compatibility", "Thaumcraft", true).getBoolean(true);
@@ -90,9 +89,6 @@ public class Config {
             extracells = conf.get("compatibility", "Extra Cells", true).getBoolean(true);
             witch = conf.get("compatibility", "Witchery", true).getBoolean(true);
             rotisserie = conf.get("compatibility", "Rotarycraft", true).getBoolean(true);
-
-            //alfheim = conf.get("compatibility", "Alfheim", false).getBoolean(false);
-            alfheim = false;
 
             conf.addCustomCategoryComment("materials", "Disable to stop using that material in recipes. Useful if a mod adds unobtainable placeholder ores.");
             copper = conf.get("materials", "Copper", true).getBoolean(true);

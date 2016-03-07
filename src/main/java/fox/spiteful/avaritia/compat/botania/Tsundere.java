@@ -5,9 +5,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
-import fox.spiteful.avaritia.compat.botania.alfheim.Alfheim;
-import fox.spiteful.avaritia.compat.botania.alfheim.AlfheimBlocks;
-import fox.spiteful.avaritia.compat.botania.alfheim.AlfheimEvents;
 import fox.spiteful.avaritia.compat.nei.NotEnough;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.ExtremeShapedRecipe;
@@ -18,7 +15,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -36,9 +32,7 @@ public class Tsundere {
         Grinder.catalyst.getInput().add(terra);
         Grinder.catalyst.getInput().add(gaia);
 
-        //if(Config.alfheim)
-            //Alfheim.vacationTime();
-        
+
         BotaniaAPI.registerSubTile("asgardandelion", SubTileCheaty.class);
         BotaniaAPI.registerSubTileSignature(SubTileCheaty.class, new Signature("asgardandelion"));
         BotaniaAPI.addSubTileToCreativeMenu("asgardandelion");

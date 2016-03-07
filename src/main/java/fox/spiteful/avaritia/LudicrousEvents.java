@@ -136,7 +136,7 @@ public class LudicrousEvents {
                 if(drop.getItem() != Item.getItemFromBlock(event.block) && !(drop.getItem() instanceof ItemBlock)){
                     drop.stackSize = Math.min(drop.stackSize * mult, drop.getMaxStackSize());
                 }
-                else if(drop.getItem() == Item.getItemFromBlock(event.block))
+                else if(Config.fractured && drop.getItem() == Item.getItemFromBlock(event.block))
                 {
                 	ItemFracturedOre ifo = (ItemFracturedOre)LudicrousItems.fractured_ore;
                     int[] oreids = OreDictionary.getOreIDs(drop);
