@@ -1,7 +1,7 @@
 #
 # Items
 item.avaritia_resource.diamond_lattice.name=Diamond Lattice
-item.avaritia_resource.crystal_matrix_ingot.name=Crystal Matrix Ingot
+item.crystal_matrix_ingot.name=Crystal Matrix Ingot
 item.avaritia_resource.neutron_pile.name=Pile of Neutrons
 item.avaritia_resource.neutron_nugget.name=Neutronium Nugget
 item.avaritia_resource.neutronium_ingot.name=Neutronium Ingot

@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -268,5 +269,11 @@ public class ExtremeShapedOreRecipe implements IRecipe {
     public Object[] getInput()
     {
         return this.input;
+    }
+
+    @Override
+    public ItemStack[] getRemainingItems(InventoryCrafting inv) //getRecipeLeftovers
+    {
+        return ForgeHooks.defaultRecipeGetRemainingItems(inv);
     }
 }

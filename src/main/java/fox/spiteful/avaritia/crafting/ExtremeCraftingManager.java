@@ -1,10 +1,6 @@
 package fox.spiteful.avaritia.crafting;
 
-import fox.spiteful.avaritia.blocks.LudicrousBlocks;
-import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -109,37 +105,6 @@ public class ExtremeCraftingManager {
         return craft;
     }
 
-    public ExtremeShapedRecipe addSingularityRecipe(ItemStack result, ItemStack single){
-        return addRecipe(result,
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIINIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                'I', single,
-                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0));
-    }
-
-    public void addOreSingularityRecipe(ItemStack result, String ore){
-        IRecipe recipe = new ExtremeShapedOreRecipe(result,
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIINIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                "IIIIIIIII",
-                'I', ore,
-                'N', new ItemStack(LudicrousBlocks.resource_block, 1, 0));
-        recipes.add(recipe);
-    }
-
     public ExtremeShapelessRecipe addShapelessRecipe(ItemStack result, Object ... ingredients)
     {
         ArrayList arraylist = new ArrayList();
@@ -210,8 +175,8 @@ public class ExtremeCraftingManager {
         if (i == 2 && itemstack.getItem() == itemstack1.getItem() && itemstack.stackSize == 1 && itemstack1.stackSize == 1 && itemstack.getItem().isRepairable())
         {
             Item item = itemstack.getItem();
-            int j1 = item.getMaxDamage() - itemstack.getItemDamageForDisplay();
-            int k = item.getMaxDamage() - itemstack1.getItemDamageForDisplay();
+            int j1 = item.getMaxDamage() - itemstack.getItemDamage();
+            int k = item.getMaxDamage() - itemstack1.getItemDamage();
             int l = j1 + k + item.getMaxDamage() * 5 / 100;
             int i1 = item.getMaxDamage() - l;
 

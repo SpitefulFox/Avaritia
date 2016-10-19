@@ -4,6 +4,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -82,5 +83,11 @@ public class ExtremeShapelessRecipe implements IRecipe
     public int getRecipeSize()
     {
         return this.recipeItems.size();
+    }
+
+    @Override
+    public ItemStack[] getRemainingItems(InventoryCrafting inv) //getRecipeLeftovers
+    {
+        return ForgeHooks.defaultRecipeGetRemainingItems(inv);
     }
 }
