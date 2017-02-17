@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.blocks;
 
 import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class LudicrousBlocks {
@@ -21,6 +22,9 @@ public class LudicrousBlocks {
     private static Block register(Block block, String name){
         block.setRegistryName(name);
         GameRegistry.register(block);
+        ItemBlock itemBlock = new ItemBlock(block);
+        itemBlock.setRegistryName(name);
+        GameRegistry.register(itemBlock);
         return block;
     }
 }

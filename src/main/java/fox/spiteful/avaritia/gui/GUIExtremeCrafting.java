@@ -2,11 +2,11 @@ package fox.spiteful.avaritia.gui;
 
 import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.lwjgl.opengl.GL11;
 
 public class GUIExtremeCrafting extends GuiContainer {
 
@@ -29,7 +29,7 @@ public class GUIExtremeCrafting extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(tex);
         int foo = (this.width - this.xSize) / 2;
         int bar = (this.height - this.ySize) / 2;
