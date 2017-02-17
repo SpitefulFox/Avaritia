@@ -1,11 +1,26 @@
-*.class
+# Exclude Everything!!!
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+/*
 
-# Package Files #
-*.war
-*.ear
+# Except the stuff i want to keep
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Gradle Stuff
+!gradle/
+!gradlew
+!gradlew.bat
+!build.gradle
+!build.properties
+!settings.gradle
+
+# Git Stuff
+!.gitignore
+
+# Other Important Files
+!LICENSE
+!README.md
+!Change Log.txt
+!VERSION.txt
+!curse_upload.json
+
+# Other Important Folders
+!src/
