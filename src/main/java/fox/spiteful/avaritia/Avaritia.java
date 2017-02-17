@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -50,14 +49,13 @@ public class Avaritia {
         GameRegistry.register(matrixIngot);
 
         LudicrousBlocks.voxelize();
+        proxy.registerModels();
     }
 
     @Mod.EventHandler
     public void midGame(FMLInitializationEvent event){
         addRecipes();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GooeyHandler());
-
-        proxy.stupidJsonBullshit();
     }
 
     @Mod.EventHandler

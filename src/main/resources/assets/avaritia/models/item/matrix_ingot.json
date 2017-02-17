@@ -1,5 +1,5 @@
 {
-  "parent": "avaritia:item/base_item",
+  "parent": "item/handheld",
   "textures": {
     "layer0": "avaritia:items/crystal_matrix_ingot"
   }

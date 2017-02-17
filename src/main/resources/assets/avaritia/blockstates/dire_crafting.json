@@ -1,7 +1,16 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "avaritia:dire_table",
+    "model": "minecraft:cube",
+    "textures": {
+      "particle": "avaritia:blocks/dire_crafting_top",
+      "down": "avaritia:blocks/dire_crafting_top",
+      "up": "avaritia:blocks/dire_crafting_top",
+      "north": "avaritia:blocks/dire_crafting_side",
+      "south": "avaritia:blocks/dire_crafting_side",
+      "east": "avaritia:blocks/dire_crafting_side",
+      "west": "avaritia:blocks/dire_crafting_side"
+    },
     "transform": "forge:default-block"
   },
   "variants": {
