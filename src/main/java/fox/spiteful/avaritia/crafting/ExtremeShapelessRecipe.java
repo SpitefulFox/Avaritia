@@ -15,9 +15,9 @@ public class ExtremeShapelessRecipe implements IRecipe
     /** Is the ItemStack that you get when craft the recipe. */
     private final ItemStack recipeOutput;
     /** Is a List of ItemStack that composes the recipe. */
-    public final List recipeItems;
+    public final List<ItemStack> recipeItems;
 
-    public ExtremeShapelessRecipe(ItemStack result, List ingredients)
+    public ExtremeShapelessRecipe(ItemStack result, List<ItemStack> ingredients)
     {
         this.recipeOutput = result;
         this.recipeItems = ingredients;

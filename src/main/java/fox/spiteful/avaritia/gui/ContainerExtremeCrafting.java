@@ -2,15 +2,14 @@ package fox.spiteful.avaritia.gui;
 
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
+import fox.spiteful.avaritia.crafting.SlotExtremeCrafting;
 import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
 import fox.spiteful.avaritia.tile.inventory.InventoryDireCraftResult;
 import fox.spiteful.avaritia.tile.inventory.InventoryDireCrafting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -28,7 +27,7 @@ public class ContainerExtremeCrafting extends Container {
         this.pos = pos;
         craftMatrix = new InventoryDireCrafting(this, table);
         craftResult = new InventoryDireCraftResult(table);
-        this.addSlotToContainer(new SlotCrafting(player.player, this.craftMatrix, this.craftResult, 0, 210, 80));
+        this.addSlotToContainer(new SlotExtremeCrafting(player.player, this.craftMatrix, this.craftResult, 0, 210, 80));
         int wy;
         int ex;
 
@@ -87,60 +86,61 @@ public class ContainerExtremeCrafting extends Container {
      */
     public ItemStack transferStackInSlot(EntityPlayer player, int slotNumber)
     {
-        ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(slotNumber);
-
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-
-            if (slotNumber == 0)
-            {
-                if (!this.mergeItemStack(itemstack1, 82, 118, true))
-                {
-                    return null;
-                }
-
-                slot.onSlotChange(itemstack1, itemstack);
-            }
-            else if (slotNumber >= 82 && slotNumber < 109)
-            {
-                if (!this.mergeItemStack(itemstack1, 109, 118, false))
-                {
-                    return null;
-                }
-            }
-            else if (slotNumber >= 109 && slotNumber < 118)
-            {
-                if (!this.mergeItemStack(itemstack1, 82, 109, false))
-                {
-                    return null;
-                }
-            }
-            else if (!this.mergeItemStack(itemstack1, 82, 118, false))
-            {
-                return null;
-            }
-
-            if (itemstack1.stackSize == 0)
-            {
-                slot.putStack((ItemStack)null);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
-
-            if (itemstack1.stackSize == itemstack.stackSize)
-            {
-                return null;
-            }
-
-            slot.onPickupFromSlot(player, itemstack1);
-        }
-
-        return itemstack;
+        return null; //TODO
+//        ItemStack itemstack = null;
+//        Slot slot = (Slot)this.inventorySlots.get(slotNumber);
+//
+//        if (slot != null && slot.getHasStack())
+//        {
+//            ItemStack itemstack1 = slot.getStack();
+//            itemstack = itemstack1.copy();
+//
+//            if (slotNumber == 0)
+//            {
+//                if (!this.mergeItemStack(itemstack1, 82, 118, true))
+//                {
+//                    return null;
+//                }
+//
+//                slot.onSlotChange(itemstack1, itemstack);
+//            }
+//            else if (slotNumber >= 82 && slotNumber < 109)
+//            {
+//                if (!this.mergeItemStack(itemstack1, 109, 118, false))
+//                {
+//                    return null;
+//                }
+//            }
+//            else if (slotNumber >= 109 && slotNumber < 118)
+//            {
+//                if (!this.mergeItemStack(itemstack1, 82, 109, false))
+//                {
+//                    return null;
+//                }
+//            }
+//            else if (!this.mergeItemStack(itemstack1, 82, 118, false))
+//            {
+//                return null;
+//            }
+//
+//            if (itemstack1.stackSize == 0)
+//            {
+//                slot.putStack((ItemStack)null);
+//            }
+//            else
+//            {
+//                slot.onSlotChanged();
+//            }
+//
+//            if (itemstack1.stackSize == itemstack.stackSize)
+//            {
+//                return null;
+//            }
+//
+//            slot.onPickupFromSlot(player, itemstack1);
+//        }
+//
+//        return itemstack;
     }
 
 }

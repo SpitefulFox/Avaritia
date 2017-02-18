@@ -82,8 +82,9 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
                     return craft;
                 }
                 ItemStack split = result.splitStack(decrement);
-                if(result.stackSize <= 0)
+                if(result.stackSize <= 0){
                     result = null;
+                }
                 return split;
             }
             else
@@ -97,8 +98,9 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
                     return ingredient;
                 }
                 ItemStack split = matrix[slot - 1].splitStack(decrement);
-                if(matrix[slot - 1].stackSize <= 0)
+                if(matrix[slot - 1].stackSize <= 0){
                     matrix[slot - 1] = null;
+                }
                 return split;
             }
         }

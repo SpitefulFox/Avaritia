@@ -23,7 +23,7 @@ public class InventoryDireCrafting extends InventoryCrafting {
     }
 
     @Override
-    public ItemStack getStackInRowAndColumn (int row, int column)
+    public ItemStack getStackInRowAndColumn(int row, int column)
     {
         if (row >= 0 && row < 9)
         {
@@ -43,7 +43,7 @@ public class InventoryDireCrafting extends InventoryCrafting {
     }*/
 
     @Override
-    public ItemStack decrStackSize (int slot, int decrement)
+    public ItemStack decrStackSize(int slot, int decrement)
     {
         ItemStack stack = craft.getStackInSlot(slot + 1);
         if (stack != null)
@@ -52,7 +52,6 @@ public class InventoryDireCrafting extends InventoryCrafting {
             if (stack.stackSize <= decrement)
             {
                 itemstack = stack.copy();
-                stack = null;
                 craft.setInventorySlotContents(slot + 1, null);
                 this.container.onCraftMatrixChanged(this);
                 return itemstack;
@@ -62,7 +61,7 @@ public class InventoryDireCrafting extends InventoryCrafting {
                 itemstack = stack.splitStack(decrement);
                 if (stack.stackSize == 0)
                 {
-                    stack = null;
+                    craft.setInventorySlotContents(slot + 1, null);
                 }
                 this.container.onCraftMatrixChanged(this);
                 return itemstack;
@@ -75,8 +74,7 @@ public class InventoryDireCrafting extends InventoryCrafting {
     }
 
     @Override
-    public void setInventorySlotContents (int slot, ItemStack itemstack)
-    {
+    public void setInventorySlotContents(int slot, ItemStack itemstack) {
         craft.setInventorySlotContents(slot + 1, itemstack);
         this.container.onCraftMatrixChanged(this);
     }

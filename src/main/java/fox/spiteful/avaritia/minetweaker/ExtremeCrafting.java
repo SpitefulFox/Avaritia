@@ -56,8 +56,8 @@ public class ExtremeCrafting {
 
         @Override
         public void apply(){
-
             ExtremeCraftingManager.getInstance().getRecipeList().add(recipe);
+            MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
         }
 
         @Override
@@ -68,6 +68,7 @@ public class ExtremeCrafting {
         @Override
         public void undo(){
             ExtremeCraftingManager.getInstance().getRecipeList().remove(recipe);
+            MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
         }
 
         @Override
@@ -104,6 +105,7 @@ public class ExtremeCrafting {
                     if(craft.getRecipeOutput().isItemEqual(remove)) {
                         recipe = craft;
                         ExtremeCraftingManager.getInstance().getRecipeList().remove(obj);
+                        MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
                         break;
                     }
                 }
@@ -118,6 +120,7 @@ public class ExtremeCrafting {
         @Override
         public void undo(){
             ExtremeCraftingManager.getInstance().getRecipeList().add(recipe);
+            MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
         }
 
         @Override
