@@ -58,7 +58,7 @@ public class ExtremeShapedOreRecipeHandler implements IRecipeHandler<ExtremeShap
                 inputCount++;
             }
         }
-        if (inputCount > 9) {
+        if (inputCount > 81) {
             String recipeInfo = ErrorUtil.getInfoFromRecipe(recipe, this);
             Log.error("Recipe has too many inputs. {}", recipeInfo);
             return false;

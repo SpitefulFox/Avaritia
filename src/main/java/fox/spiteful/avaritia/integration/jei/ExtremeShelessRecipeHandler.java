@@ -1,6 +1,5 @@
 package fox.spiteful.avaritia.integration.jei;
 
-import fox.spiteful.avaritia.crafting.ExtremeShapedRecipe;
 import fox.spiteful.avaritia.crafting.ExtremeShapelessRecipe;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -45,7 +44,7 @@ public class ExtremeShelessRecipeHandler implements IRecipeHandler<ExtremeShapel
                 inputCount++;
             }
         }
-        if (inputCount > 9) {
+        if (inputCount > 81) {
             String recipeInfo = ErrorUtil.getInfoFromRecipe(recipe, this);
             Log.error("Recipe has too many inputs. {}", recipeInfo);
             return false;
