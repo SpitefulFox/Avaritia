@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.minetweaker;
 
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.ExtremeShapedOreRecipe;
+import fox.spiteful.avaritia.crafting.ExtremeShapelessOreRecipe;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
@@ -10,7 +11,6 @@ import minetweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -19,8 +19,7 @@ public class ExtremeCrafting {
 
     @ZenMethod
     public static void addShapeless(IItemStack output, IIngredient[] ingredients){
-
-        MineTweakerAPI.apply(new Add(new ShapelessOreRecipe(toStack(output), toObjects(ingredients))));
+        MineTweakerAPI.apply(new Add(new ExtremeShapelessOreRecipe(toStack(output), toObjects(ingredients))));
     }
 
     @ZenMethod

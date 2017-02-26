@@ -26,7 +26,7 @@ repositories {
     }
 }
 
-version = "1.10.2-2.0.2"
+version = "1.10.2-2.0.3"
 group= "fox.spiteful.avaritia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Avaritia"
 

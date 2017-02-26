@@ -6,9 +6,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ExtremeCraftingManager {
     /** The static instance of this class */
@@ -139,8 +140,8 @@ public class ExtremeCraftingManager {
         return recipe;
     }
 
-    public ShapelessOreRecipe addShapelessOreRecipe(ItemStack result, Object ... ingredients){
-        ShapelessOreRecipe recipe = new ShapelessOreRecipe(result, ingredients);
+    public ExtremeShapelessOreRecipe addShapelessOreRecipe(ItemStack result, Object ... ingredients){
+        ExtremeShapelessOreRecipe recipe = new ExtremeShapelessOreRecipe(result, ingredients);
         recipes.add(recipe);
         return recipe;
     }

@@ -32,7 +32,8 @@ public class AvaritiaJEIPlugin implements IModPlugin {
         registry.addRecipeHandlers(
                 new ExtremeShapedRecipeHandler(),
                 new ExtremeShapedOreRecipeHandler(helpers),
-                new ExtremeShelessRecipeHandler()
+                new ExtremeShelessRecipeHandler(),
+                new ExtremeShapelessOreRecipeHandler(helpers)
         );
 
         registry.addRecipeClickArea(GUIExtremeCrafting.class, 175, 79, 28, 26, RecipeCategoryUids.EXTREME_CRAFTING);
