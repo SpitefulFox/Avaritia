@@ -21,18 +21,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
@@ -40,10 +42,11 @@ import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaDiscountArmor;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.Optional;
 
 @Optional.InterfaceList({
         @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"),
@@ -163,14 +166,14 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if(Compat.thaumic)
-            list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + this.getVisDiscount(stack, player, (Aspect)null) + "%");
+            list.add(TextFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + this.getVisDiscount(stack, player, (Aspect)null) + "%");
         if(Compat.botan) {
             if (hasPhantomInk(stack))
                 list.add(StatCollector.translateToLocal("botaniamisc.hasPhantomInk").replaceAll("&", "\u00a7"));
         }
         if (this.slot == 3) {
         	list.add("");
-        	list.add(EnumChatFormatting.BLUE+"+"+EnumChatFormatting.ITALIC+LudicrousText.makeSANIC("SANIC")+EnumChatFormatting.RESET+""+EnumChatFormatting.BLUE+"% Speed");
+        	list.add(TextFormatting.BLUE+"+"+TextFormatting.ITALIC+LudicrousText.makeSANIC("SANIC")+TextFormatting.RESET+""+TextFormatting.BLUE+"% Speed");
         }
         super.addInformation(stack, player, list, par4);
     }
@@ -274,8 +277,8 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 		
 		@SubscribeEvent
 		public void updatePlayerAbilityStatus(LivingUpdateEvent event) {
-			if (event.entityLiving instanceof EntityPlayer) {
-				EntityPlayer player = (EntityPlayer)event.entityLiving;
+			if (event.getEntityLiving() instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer)event.getEntityLiving();
 				String key = playerKey(player);
 				
 				// hat

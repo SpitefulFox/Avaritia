@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 
+import static net.minecraft.creativetab.CreativeTabs.INVENTORY;
+
 public class FancyHaloRenderer implements IItemRenderer {
 	
 	public Random rand = new Random();

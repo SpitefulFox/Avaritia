@@ -16,7 +16,10 @@ import net.minecraft.util.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -57,7 +60,7 @@ public class ItemResource extends Item implements IHaloRenderItem {
 
     	int meta = item.getItemDamage();
     	if (meta != 0) {
-    		tooltip.add(EnumChatFormatting.DARK_GRAY +""+ EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip."+types[meta]+".desc"));
+    		tooltip.add(TextFormatting.DARK_GRAY +""+ TextFormatting.ITALIC + StatCollector.translateToLocal("tooltip."+types[meta]+".desc"));
     	}
     }
 
@@ -88,22 +91,22 @@ public class ItemResource extends Item implements IHaloRenderItem {
             case 0:
             case 2:
             case 3:
-                return EnumRarity.uncommon;
+                return EnumRarity.UNCOMMON;
             case 1:
             case 4:
-                return EnumRarity.rare;
+                return EnumRarity.RARE;
             case 5:
-                return EnumRarity.epic;
+                return EnumRarity.EPIC;
             case 6:
                 return LudicrousItems.cosmic;
             default:
-                return EnumRarity.common;
+                return EnumRarity.COMMON;
         }
     }
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean drawHalo(ItemStack stack) {
+    	public boolean drawHalo(ItemStack stack) {
 		int meta = stack.getItemDamage();
 		return (meta >= 2 && meta <= 6);
 	}

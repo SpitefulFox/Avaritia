@@ -13,9 +13,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMorvInABox extends Item {
 
@@ -31,7 +34,7 @@ public class ItemMorvInABox extends Item {
 	@Override
     public void addInformation(ItemStack item, EntityPlayer player, List tooltip, boolean wut) {
 		tooltip.add(StatCollector.translateToLocal("tooltip.morvinabox.desc"));
-    	tooltip.add(EnumChatFormatting.DARK_GRAY +""+ EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip.morvinabox.subdesc"));
+    	tooltip.add(TextFormatting.DARK_GRAY +""+ TextFormatting.ITALIC + StatCollector.translateToLocal("tooltip.morvinabox.subdesc"));
     }
 	
 	@Override

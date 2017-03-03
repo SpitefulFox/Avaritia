@@ -1,7 +1,6 @@
 package fox.spiteful.avaritia.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlockWithMetadataUnderp extends ItemBlockWithMetadata {

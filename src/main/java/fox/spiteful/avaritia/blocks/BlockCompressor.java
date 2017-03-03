@@ -1,7 +1,5 @@
 package fox.spiteful.avaritia.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.tile.TileEntityCompressor;
 import net.minecraft.block.Block;
@@ -18,6 +16,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ public class BlockCompressor extends BlockContainer {
     private Random randy = new Random();
 
     public BlockCompressor(){
-        super(Material.iron);
+        super(Material.IRON);
         setStepSound(Block.soundTypeMetal);
         setHardness(20.0F);
         setBlockName("neutronium_compressor");

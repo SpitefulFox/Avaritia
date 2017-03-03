@@ -7,10 +7,10 @@ import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.ARBShaderObjects;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import fox.spiteful.avaritia.Lumberjack;
 
 public class CosmicRenderShenanigans {

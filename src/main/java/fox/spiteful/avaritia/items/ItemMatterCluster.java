@@ -25,7 +25,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 
@@ -87,8 +90,8 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 				tooltip.add(countstack.getItem().getRarity(countstack).rarityColor + countstack.getDisplayName() +EnumChatFormatting.GRAY+" x " + count);
 			}
 		} else {
-			tooltip.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("tooltip.matter_cluster.desc"));
-			tooltip.add(EnumChatFormatting.DARK_GRAY.toString() + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip.matter_cluster.desc2"));
+			tooltip.add(TextFormatting.DARK_GRAY + StatCollector.translateToLocal("tooltip.matter_cluster.desc"));
+			tooltip.add(TextFormatting.DARK_GRAY.toString() + TextFormatting.ITALIC + StatCollector.translateToLocal("tooltip.matter_cluster.desc2"));
 		}
 	}
 	
