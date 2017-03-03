@@ -7,14 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,6 +19,10 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.model.Models;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemFracturedOre extends Item {
@@ -32,7 +30,7 @@ public class ItemFracturedOre extends Item {
 	public static final String OREKEY = "ore";
 	protected static List<ItemStack> emulatedOres = new ArrayList<ItemStack>();
 	protected static Map<String, ItemStack> nameMapping = new HashMap<String, ItemStack>();
-	public static IIcon unknownIcon;
+	public static Models unknownIcon;
 		
 	public ItemFracturedOre() {
 		this.setCreativeTab(Avaritia.tab);

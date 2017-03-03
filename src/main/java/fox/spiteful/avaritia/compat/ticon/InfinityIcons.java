@@ -5,12 +5,10 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.imageio.ImageIO;
 
+import net.minecraft.util.math.MathHelper;
 import org.apache.logging.log4j.Level;
-
-import codechicken.lib.math.MathHelper;
 import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;

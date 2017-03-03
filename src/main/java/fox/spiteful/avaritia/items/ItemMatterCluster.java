@@ -6,27 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
-
-import codechicken.lib.math.MathHelper;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.items.tools.ToolHelper;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -42,9 +35,9 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 	
 	public static int capacity = 64*64;
 	
-	public IIcon iconFull;
-	public IIcon cosmicIcon;
-	public IIcon cosmicIconFull;
+	public Models iconFull;
+	public Models cosmicIcon;
+	public Models cosmicIconFull;
 	
 	public ItemMatterCluster() {
 		this.setMaxStackSize(1);
@@ -87,7 +80,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 				ItemStack countstack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(ITEMTAG));
 				int count = tag.getInteger(COUNTTAG);
 				
-				tooltip.add(countstack.getItem().getRarity(countstack).rarityColor + countstack.getDisplayName() +EnumChatFormatting.GRAY+" x " + count);
+				tooltip.add(countstack.getItem().getRarity(countstack).rarityColor + countstack.getDisplayName() +TextFormatting.GRAY+" x " + count);
 			}
 		} else {
 			tooltip.add(TextFormatting.DARK_GRAY + StatCollector.translateToLocal("tooltip.matter_cluster.desc"));
@@ -259,7 +252,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getMaskTexture(ItemStack stack, EntityPlayer player) {
+	public Models getMaskTexture(ItemStack stack, EntityPlayer player) {
 		int count = getClusterSize(stack);
 		if (count == capacity) {
 			return cosmicIconFull;
@@ -275,7 +268,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 	}
 	
 	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
+	public Models getIcon(ItemStack stack, int pass) {
 		int count = getClusterSize(stack);
 		if (count == capacity) {
 			return iconFull;
@@ -285,7 +278,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-    public IIcon getIconIndex(ItemStack stack)
+    public Models getIconIndex(ItemStack stack)
     {
         return this.getIcon(stack, 0);
     }

@@ -26,7 +26,7 @@ import java.util.Map.Entry;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.items.ItemMatterCluster;
 import fox.spiteful.avaritia.items.ItemStackWrapper;
-import org.apache.logging.log4j.Level;
+
 
 public class ToolHelper {
 

@@ -10,7 +10,6 @@ import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import fox.spiteful.avaritia.render.ModelArmorInfinity;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import fox.spiteful.avaritia.PotionHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,17 +20,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -60,7 +54,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         IManaDiscountArmor, IManaProficiencyArmor {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
-    public IIcon cosmicMask;
+    public Models cosmicMask;
     public final int slot;
 
     public ItemArmorInfinity(int slot){
@@ -216,7 +210,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
     
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getMaskTexture(ItemStack stack, EntityPlayer player) {
+	public Models getMaskTexture(ItemStack stack, EntityPlayer player) {
 		return this.cosmicMask;
 	}
 	
@@ -252,22 +246,22 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 		public static List<String> playersWithFoot = new ArrayList<String>();
 		
 		public static boolean playerHasHat(EntityPlayer player) {
-			ItemStack armour = player.getCurrentArmor(3);
+			ItemStack armour = player.inventory.armorItemInSlot(3);
 			return armour != null && armour.getItem() == LudicrousItems.infinity_helm;
 		}
 		
 		public static boolean playerHasChest(EntityPlayer player) {
-			ItemStack armour = player.getCurrentArmor(2);
+			ItemStack armour = player.inventory.armorItemInSlot(2);
 			return armour != null && armour.getItem() == LudicrousItems.infinity_armor;
 		}
 		
 		public static boolean playerHasLeg(EntityPlayer player) {
-			ItemStack armour = player.getCurrentArmor(1);
+			ItemStack armour = player.inventory.armorItemInSlot(1);
 			return armour != null && armour.getItem() == LudicrousItems.infinity_pants;
 		}
 		
 		public static boolean playerHasFoot(EntityPlayer player) {
-			ItemStack armour = player.getCurrentArmor(0);
+			ItemStack armour = player.inventory.armorItemInSlot(0);
 			return armour != null && armour.getItem() == LudicrousItems.infinity_shoes;
 		}
 		
@@ -326,7 +320,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 				if (playersWithFoot.contains(key)) {
 					if (hasFoot) {
 						boolean flying = player.capabilities.isFlying;
-						boolean swimming = player.isInsideOfMaterial(Material.water) || player.isInWater();
+						boolean swimming = player.isInsideOfMaterial(Material.WATER) || player.isInWater();
 						if (player.onGround || flying || swimming) {
 							boolean sneaking = player.isSneaking();
 							
@@ -356,8 +350,8 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 		
 		@SubscribeEvent
 		public void jumpBoost(LivingJumpEvent event) {
-			if (event.entityLiving instanceof EntityPlayer) {
-				EntityPlayer player = (EntityPlayer)event.entityLiving;
+			if (event.getEntityLiving() instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer)event.getEntityLiving();
 				String key = playerKey(player);
 				
 				if (playersWithFoot.contains(key)) {

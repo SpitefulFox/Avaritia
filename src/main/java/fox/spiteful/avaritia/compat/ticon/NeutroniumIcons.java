@@ -1,9 +1,10 @@
 package fox.spiteful.avaritia.compat.ticon;
 
+import net.minecraft.util.math.MathHelper;
+
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import codechicken.lib.math.MathHelper;
 
 public class NeutroniumIcons extends TConTextureResourcePackBase {
 

@@ -7,20 +7,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
+
 
 import java.util.List;
 
@@ -30,9 +25,9 @@ public class ItemResource extends Item implements IHaloRenderItem {
             "neutron_nugget", "neutronium_ingot", "infinity_catalyst", "infinity_ingot", "record_fragment"};
 
     @SideOnly(Side.CLIENT)
-    public IIcon[] icons;
+    public Models[] icons;
     @SideOnly(Side.CLIENT)
-    public IIcon[] halo;
+    public Models[] halo;
 
     public ItemResource(){
         this.setHasSubtypes(true);
@@ -43,13 +38,13 @@ public class ItemResource extends Item implements IHaloRenderItem {
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        icons = new IIcon[types.length];
+        icons = new Models[types.length];
 
         for (int x = 0; x < types.length; x++) {
             icons[x] = ir.registerIcon("avaritia:" + "resource_" + types[x]);
         }
 
-        halo = new IIcon[2];
+        halo = new Models[2];
         halo[0] = ir.registerIcon("avaritia:halo");
         halo[1] = ir.registerIcon("avaritia:halonoise");
     }
@@ -65,7 +60,7 @@ public class ItemResource extends Item implements IHaloRenderItem {
     }
 
     @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int dam) {
+    public Models getIconFromDamage(int dam) {
         return this.icons[dam % icons.length];
     }
 
@@ -113,7 +108,7 @@ public class ItemResource extends Item implements IHaloRenderItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getHaloTexture(ItemStack stack) {
+	public Models getHaloTexture(ItemStack stack) {
 		int meta = stack.getItemDamage();
 		if (meta == 2 || meta == 3 || meta == 4) {
 			return halo[1];

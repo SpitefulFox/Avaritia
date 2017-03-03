@@ -1,7 +1,8 @@
 package fox.spiteful.avaritia.entity;
 
-import cpw.mods.fml.common.registry.EntityRegistry;
+
 import fox.spiteful.avaritia.Avaritia;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class LudicrousEntities {
 

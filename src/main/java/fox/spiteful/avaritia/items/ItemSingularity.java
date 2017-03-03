@@ -7,6 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,7 +23,7 @@ public class ItemSingularity extends Item implements IHaloRenderItem {
     public static final int[] colors2 = new int[]{0x7F7F7F, 0xdba213, 0x224baf, 0x900000, 0x94867d, 0x89511A,
         0x9BA9B2, 0x3E3D4E, 0xD5D5D5, 0xC4C698};
     public static Models background;
-    public static IIcon foreground;
+    public static Models foreground;
 
     public ItemSingularity(){
         this.setHasSubtypes(true);
@@ -58,8 +59,8 @@ public class ItemSingularity extends Item implements IHaloRenderItem {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerIcons(IIconRegister ir) {
-    	foreground = ir.registerIcon("avaritia:singularity");
-    	background = ir.registerIcon("avaritia:singularity2");
+    	foreground = ir.registerIcons("avaritia:singularity");
+    	background = ir.registerIcons("avaritia:singularity2");
     }
     
     @Override

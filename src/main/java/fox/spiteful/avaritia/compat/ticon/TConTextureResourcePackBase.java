@@ -14,11 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
-
 import com.google.common.base.Throwables;
-
 import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IReloadableResourceManager;

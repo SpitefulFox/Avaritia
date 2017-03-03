@@ -9,7 +9,6 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

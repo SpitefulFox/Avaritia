@@ -172,7 +172,7 @@ public class TonkersEvents {
 			NBTTagCompound toolTag = held.getTagCompound().getCompoundTag("InfiTool");
 			ToolCore tool = (ToolCore) held.getItem();
 
-			if (toolTag != null && toolTag.getInteger("Head") == Tonkers.infinityMetalId && tool.canHarvestBlock(Blocks.STONE.getDefaultState(), held)) {
+			if (toolTag != null && toolTag.getInteger("Head") == Tonkers.infinityMetalId && tool.HarvestBlock(Blocks.STONE.getDefaultState(), held)) {
 				if (block.quantityDropped(randy) == 0) {
 					ItemStack drop = block.getPickBlock(state, ToolHelper.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 10), event.getWorld(), event.getPos(), event.getEntityPlayer());
 					if (drop == null) {

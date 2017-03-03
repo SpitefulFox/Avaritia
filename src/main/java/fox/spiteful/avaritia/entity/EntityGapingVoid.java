@@ -2,22 +2,19 @@ package fox.spiteful.avaritia.entity;
 
 import java.util.List;
 import java.util.Random;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.block.Block;
-import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGapingVoid extends Entity {
 	
@@ -99,11 +96,11 @@ public class EntityGapingVoid extends Entity {
 		
 		double size = getVoidScale(age)*0.5 - 0.2;
 		for(int i=0; i<50; i++) {
-			Vec3 pootdir = Vec3.createVectorHelper(0, 0, size);
+			Vec3d pootdir = Vec3d.createVectorHelper(0, 0, size);
 			pootdir.rotateAroundY(randy.nextFloat()*180f);
 			pootdir.rotateAroundX(randy.nextFloat()*360f);
 			
-			Vec3 pootspeed = pootdir.normalize();
+			Vec3d pootspeed = pootdir.normalize();
 			pootspeed.xCoord *= particlespeed;
 			pootspeed.yCoord *= particlespeed;
 			pootspeed.zCoord *= particlespeed;

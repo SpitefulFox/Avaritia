@@ -2,10 +2,8 @@ package fox.spiteful.avaritia.entity;
 
 import java.lang.reflect.Field;
 import java.util.Random;
-
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import fox.spiteful.avaritia.Lumberjack;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
