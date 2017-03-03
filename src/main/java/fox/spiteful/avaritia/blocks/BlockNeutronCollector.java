@@ -18,6 +18,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -25,7 +26,7 @@ import java.util.Random;
 
 public class BlockNeutronCollector extends BlockContainer {
 
-    private IIcon top, sides, front;
+    private Models top, sides, front;
     private Random randy = new Random();
     
     public BlockNeutronCollector(){
@@ -48,7 +49,7 @@ public class BlockNeutronCollector extends BlockContainer {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side){
+    public Models getIcon(IBlockAccess world, int x, int y, int z, int side){
         if(side == 1)
             return top;
         int facing = 2;
@@ -63,7 +64,7 @@ public class BlockNeutronCollector extends BlockContainer {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int metadata)
+    public Models getIcon (int side, int metadata)
     {
         if(side == 1)
             return top;

@@ -61,9 +61,9 @@ public class Grinder {
                 "I       I",
                 "IIIXIXIII",
                 'X', new ItemStack(LudicrousItems.resource, 1, 1),
-                'I', new ItemStack(Blocks.iron_block, 1),
-                'Q', new ItemStack(Blocks.quartz_block, 1),
-                'R', new ItemStack(Blocks.redstone_block, 1));
+                'I', new ItemStack(Blocks.IRON_BLOCK, 1),
+                'Q', new ItemStack(Blocks.QUARTZ_BLOCK, 1),
+                'R', new ItemStack(Blocks.REDSTONE_BLOCK, 1));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.resource, 1, 6),
                 "NNNNNNNNN",
@@ -76,7 +76,7 @@ public class Grinder {
                 'X', new ItemStack(LudicrousItems.resource, 1, 5));
 
         catalyst = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(LudicrousItems.resource, 1, 5),
-                new ItemStack(Blocks.emerald_block, 1),
+                new ItemStack(Blocks.EMERALD_BLOCK, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 0), new ItemStack(LudicrousItems.singularity, 1, 1),
                 new ItemStack(LudicrousItems.singularity, 1, 2), new ItemStack(LudicrousItems.singularity, 1, 3),
                 new ItemStack(LudicrousItems.singularity, 1, 4), new ItemStack(LudicrousItems.ultimate_stew),
@@ -152,7 +152,7 @@ public class Grinder {
                 "   II",
                 'I', new ItemStack(LudicrousItems.resource, 1, 6),
                 'X', new ItemStack(LudicrousBlocks.crystal_matrix, 1),
-                'W', new ItemStack(Blocks.wool, 1, 0));
+                'W', new ItemStack(Blocks.WOOL, 1, 0));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousItems.infinity_armor),
                 " NN   NN ",
@@ -215,16 +215,16 @@ public class Grinder {
                 " W  B    ",
                 "D        ",
                 'I', new ItemStack(LudicrousItems.resource, 1, 1),
-                'X', new ItemStack(Items.blaze_powder),
-                'B', new ItemStack(Items.bone),
-                'D', new ItemStack(Items.nether_star),
+                'X', new ItemStack(Items.BLAZE_POWDER),
+                'B', new ItemStack(Items.BONE),
+                'D', new ItemStack(Items.NETHER_STAR),
                 'W', "logWood");
 
-        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), 400, new ItemStack(Blocks.iron_block));
-        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), 200, new ItemStack(Blocks.gold_block, 1));
-        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), 400, new ItemStack(Blocks.lapis_block, 1));
-        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 3), 500, new ItemStack(Blocks.redstone_block, 1));
-        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 4), 300, new ItemStack(Blocks.quartz_block, 1));
+        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 0), 400, new ItemStack(Blocks.IRON_BLOCK));
+        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 1), 200, new ItemStack(Blocks.GOLD_BLOCK, 1));
+        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 2), 400, new ItemStack(Blocks.LAPIS_BLOCK, 1));
+        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 3), 500, new ItemStack(Blocks.REDSTONE_BLOCK, 1));
+        CompressorManager.addRecipe(new ItemStack(LudicrousItems.singularity, 1, 4), 300, new ItemStack(Blocks.QUARTZ_BLOCK, 1));
 
         if(Config.endStone)
             ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.endest_pearl),
@@ -237,9 +237,9 @@ public class Grinder {
                 " EPPPPPE ",
                 " EEPPPEE ",
                 "   EEE   ",
-                'E', new ItemStack(Blocks.end_stone),
-                'P', new ItemStack(Items.ender_pearl),
-                'S', new ItemStack(Items.nether_star),
+                'E', new ItemStack(Blocks.END_STONE),
+                'P', new ItemStack(Items.ENDER_PEARL),
+                'S', new ItemStack(Items.NETHER_STAR),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
         else
             ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(LudicrousItems.endest_pearl),
@@ -252,8 +252,8 @@ public class Grinder {
                 " EPPPPPE ",
                 " EEPPPEE ",
                 "   EEE   ",
-                'P', new ItemStack(Items.ender_pearl),
-                'S', new ItemStack(Items.nether_star),
+                'P', new ItemStack(Items.ENDER_PEARL),
+                'S', new ItemStack(Items.NETHER_STAR),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4));
 
         ExtremeCraftingManager.getInstance().addRecipe(new ItemStack(LudicrousBlocks.compressor),
@@ -268,9 +268,9 @@ public class Grinder {
                 "IIIXIXIII",
                 'X', new ItemStack(LudicrousItems.resource, 1, 1),
                 'N', new ItemStack(LudicrousItems.resource, 1, 4),
-                'I', new ItemStack(Blocks.iron_block, 1),
-                'H', new ItemStack(Blocks.hopper, 1),
-                'R', new ItemStack(Blocks.redstone_block, 1),
+                'I', new ItemStack(Blocks.IRON_BLOCK, 1),
+                'H', new ItemStack(Blocks.HOPPER, 1),
+                'R', new ItemStack(Blocks.REDSTONE_BLOCK, 1),
                 'O', new ItemStack(LudicrousBlocks.resource_block, 1, 0));
     }
     

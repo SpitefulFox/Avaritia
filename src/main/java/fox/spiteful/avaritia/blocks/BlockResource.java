@@ -1,7 +1,6 @@
 package fox.spiteful.avaritia.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
 import fox.spiteful.avaritia.Avaritia;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,6 +12,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.model.Models;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class BlockResource extends Block {
     }
 
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int metadata)
+    public Models getIcon(int side, int metadata)
     {
         return this.icons[metadata % types.length];
     }
@@ -51,7 +53,7 @@ public class BlockResource extends Block {
 
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister){
-        this.icons = new IIcon[types.length];
+        this.icons = new Models[types.length];
         for (int i = 0; i < this.icons.length; ++i)
         {
             this.icons[i] = iconRegister.registerIcon("avaritia:block_" + types[i]);

@@ -9,7 +9,7 @@ import net.minecraft.world.IBlockAccess;
 public class BlockCrystalMatrix extends Block {
 
     public BlockCrystalMatrix(){
-        super(Material.iron);
+        super(Material.IRON);
         setStepSound(Block.soundTypeGlass);
         setHardness(50.0F);
         setResistance(2000.0F);
