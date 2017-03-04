@@ -5,6 +5,7 @@ import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -222,7 +223,7 @@ public class ModelArmorInfinity extends ModelBiped {
 		
 	}
 	
-	public void update(EntityLivingBase entityLiving, ItemStack itemstack, int armorSlot) {
+	public void update(EntityLivingBase entityLiving, ItemStack itemstack, EntityEquipmentSlot) {
 		this.currentSlot = armorSlot;
 		
 		this.invulnRender = false;
