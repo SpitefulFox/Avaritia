@@ -223,7 +223,7 @@ public class ModelArmorInfinity extends ModelBiped {
 		
 	}
 	
-	public void update(EntityLivingBase entityLiving, ItemStack itemstack, EntityEquipmentSlot) {
+	public void update(EntityLivingBase entityLiving, ItemStack itemstack, EntityEquipmentSlot entityequipmentslot) {
 		this.currentSlot = armorSlot;
 		
 		this.invulnRender = false;
