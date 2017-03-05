@@ -367,7 +367,7 @@ public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(short texUID) {
+    public Models getIcon(short texUID) {
         return icons[0][0];
     }
 }
