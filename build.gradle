@@ -20,13 +20,13 @@ version = "1.10.2-2.1.0"
 group= "fox.spiteful.avaritia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Avaritia"
 
-sourceCompatibility = targetCompatibility = "1.6" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.6"
+    sourceCompatibility = targetCompatibility = "1.8"
 }
 
 minecraft {
-    version = "1.10.2-12.18.3.2221"
+    version = "1.10.2-12.18.3.2239"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
