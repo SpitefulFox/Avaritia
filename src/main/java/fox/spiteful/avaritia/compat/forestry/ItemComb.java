@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.util.math.MathHelper;
@@ -21,7 +22,7 @@ public class ItemComb extends Item {
     private static final int[] otherColors = new int[]{0x757575, 0x06005C};
 
     @SideOnly(Side.CLIENT)
-    private IIcon secondIcon;
+    private Models secondIcon;
 
     public ItemComb(){
         setCreativeTab(Avaritia.tab);

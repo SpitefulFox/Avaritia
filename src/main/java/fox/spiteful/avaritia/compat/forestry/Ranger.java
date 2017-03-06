@@ -1,7 +1,6 @@
 package fox.spiteful.avaritia.compat.forestry;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
+
 import forestry.api.recipes.RecipeManagers;
 import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.compat.Compat;
@@ -11,8 +10,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Ranger {
 
@@ -23,7 +24,7 @@ public class Ranger {
     public static boolean magic = false;
     public static boolean extra = false;
 
-    public static EnumRarity trash = EnumHelper.addRarity("TRASH", EnumChatFormatting.DARK_GRAY, "Trash");
+    public static EnumRarity trash = EnumHelper.addRarity("TRASH", TextFormatting.DARK_GRAY, "Trash");
 
     public static void stopForestFires() throws Compat.ItemNotFoundException {
         magic = Loader.isModLoaded("MagicBees");

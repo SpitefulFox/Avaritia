@@ -2,7 +2,7 @@ package fox.spiteful.avaritia.compat.botania;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraftforge.common.model.Models;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
 
 public class Signature extends SubTileSignature {
@@ -16,7 +16,7 @@ public class Signature extends SubTileSignature {
         icon = reg.registerIcon("avaritia:" + name);
     }
     @Override
-    public IIcon getIconForStack(ItemStack item){
+    public Models getIconForStack(ItemStack item){
         return icon;
     }
     @Override

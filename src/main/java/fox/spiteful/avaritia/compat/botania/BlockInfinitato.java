@@ -2,21 +2,18 @@ package fox.spiteful.avaritia.compat.botania;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
+import net.minecraftforge.common.model.Models;
 import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api;
 
 public class BlockInfinitato extends BlockContainer implements ILexiconable {
 	public static LexiconEntry lexiconEntry;
@@ -35,8 +32,8 @@ public class BlockInfinitato extends BlockContainer implements ILexiconable {
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return Blocks.hardened_clay.getIcon(0, 11);
+	public Models getIcon(int side, int meta) {
+		return Blocks.HARDENED_CLAY.getIcon(0, 11);
 	}
 
 	@Override

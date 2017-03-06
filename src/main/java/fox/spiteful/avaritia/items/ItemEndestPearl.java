@@ -1,7 +1,5 @@
 package fox.spiteful.avaritia.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.entity.EntityEndestPearl;
 import fox.spiteful.avaritia.render.IHaloRenderItem;
@@ -9,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,7 +16,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem {
 
 	public ItemEndestPearl() {
 		this.setUnlocalizedName("avaritia_endest_pearl");
-		this.setTextureName("avaritia:endestpearl");
+		this.setRegistryName("avaritia:endestpearl");
 		this.maxStackSize = 16;
 		this.setCreativeTab(Avaritia.tab);
 	}
@@ -45,7 +42,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem {
 	@Override
     public EnumRarity getRarity(ItemStack stack)
     {
-        return EnumRarity.rare;
+        return EnumRarity.RARE;
     }
 	
 	@Override

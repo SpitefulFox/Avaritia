@@ -1,7 +1,5 @@
 package fox.spiteful.avaritia.compat.botania;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
@@ -15,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -65,7 +64,7 @@ public class Tsundere {
         
         ItemStack chicken = getFlower("soarleander");
         
-        ItemStack chickenitem = new ItemStack(Items.chicken);
+        ItemStack chickenitem = new ItemStack(Items.CHICKEN);
         
         RecipeRuneAltar chickenrecipe = BotaniaAPI.registerRuneAltarRecipe(chicken, 8000, getFlower("gourmaryllis"), chickenitem, chickenitem, chickenitem, chickenitem, chickenitem, chickenitem, chickenitem, chickenitem );
         

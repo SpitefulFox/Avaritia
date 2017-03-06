@@ -1,6 +1,6 @@
 package fox.spiteful.avaritia.compat.botania;
 
-import net.minecraft.util.IIcon;
+import net.minecraftforge.common.model.Models;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -33,7 +33,7 @@ public class SubTileCheaty extends SubTileGenerating {
         return 1000000;
     }
     @Override
-    public IIcon getIcon(){
+    public Models getIcon(){
         return BotaniaAPI.getSignatureForName("asgardandelion").getIconForStack(null);
     }
 }

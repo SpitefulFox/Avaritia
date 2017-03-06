@@ -14,7 +14,7 @@ public class PotionHelper {
     public static void healthInspection(){
         badPotions = new ArrayList<Potion>();
         try {
-            Field stupidMojangPrivateVariable = ReflectionHelper.findField(Potion.class, "isBadEffect", "field_76418_K");
+            Field stupidMojangPrivateVariable = ReflectionHelper.findField(Potion.class, "isBadEffect", "Potion.isBadEffect");
 
             for(Potion potion : Potion.REGISTRY){
                 if(potion != null && stupidMojangPrivateVariable.getBoolean(potion))

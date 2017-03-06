@@ -68,7 +68,7 @@ public class EntityImmortalItem extends EntityItem {
         {
             super.onUpdate();
 
-            if (this.delayBeforeCanPickup > 0)
+            if (this.getdelayBeforeCanPickup > 0)
             {
                 --this.delayBeforeCanPickup;
             }
