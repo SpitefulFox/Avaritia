@@ -1,8 +1,5 @@
 package fox.spiteful.avaritia.items.tools;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.DamageSourceInfinitySword;
 import fox.spiteful.avaritia.Lumberjack;
@@ -11,18 +8,20 @@ import fox.spiteful.avaritia.compat.Belmont;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 
 import java.lang.reflect.Field;
@@ -30,8 +29,8 @@ import java.lang.reflect.Field;
 public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
 
     private static final ToolMaterial opSword = EnumHelper.addToolMaterial("INFINITY_SWORD", 32, 9999, 9999F, -3.0F, 200);
-    private IIcon cosmicMask;
-    private IIcon pommel;
+    private Models cosmicMask;
+    private Models pommel;
 
     public static Field stupidMojangProtectedVariable;
 
@@ -64,7 +63,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
                     victim.attackEntityFrom(new DamageSourceInfinitySword(player).setDamageBypassesArmor(), 4.0F);
                 return true;
             }
-            if(pvp.getHeldItem() != null && pvp.getHeldItem().getItem() == LudicrousItems.infinity_sword && pvp.isUsingItem())
+            if(pvp.getHeldItem(EnumHand.MAIN_HAND) != null && pvp.getHeldItem(EnumHand.MAIN_HAND).getItem() == LudicrousItems.infinity_sword && pvp.isHandActive())
                 return true;
         }
 
@@ -111,7 +110,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getMaskTexture(ItemStack stack, EntityPlayer player) {
+    public Models getMaskTexture(ItemStack stack, EntityPlayer player) {
         return cosmicMask;
     }
     
@@ -131,7 +130,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     }
 
     @Override
-    public IIcon getIcon(ItemStack stack, int pass){
+    public Models getIcon(ItemStack stack, int pass){
     	if (pass == 1) { return this.pommel; }
 
     	return super.getIcon(stack, pass);

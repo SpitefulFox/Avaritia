@@ -1,13 +1,12 @@
 package fox.spiteful.avaritia.compat.botania;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.model.Models;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
 
 public class Signature extends SubTileSignature {
     String name;
-    IIcon icon;
+    Models icon;
     public Signature(String nombre){
         name = nombre;
     }

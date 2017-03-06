@@ -2,15 +2,13 @@ package fox.spiteful.avaritia.render;
 
 import java.nio.FloatBuffer;
 
+import net.minecraftforge.common.model.Models;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.items.ItemArmorInfinity;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 
@@ -26,14 +24,14 @@ public class LudicrousRenderEvents {
 	}
 	
 	public static FloatBuffer cosmicUVs = BufferUtils.createFloatBuffer(4 * cosmicTextures.length);
-	public static IIcon[] cosmicIcons = new IIcon[cosmicTextures.length];
+	public static Models[] cosmicIcons = new Models[cosmicTextures.length];
 	
 	@SubscribeEvent
 	public void letsMakeAQuilt(TextureStitchEvent.Pre event) {
 		if (event.map.getTextureType() != 1) { return; }
 				
 		for (int i=0; i<cosmicTextures.length; i++) {
-			IIcon icon = event.map.registerIcon(cosmicTextures[i]);
+			Models icon = event.map.registerIcon(cosmicTextures[i]);
 			cosmicIcons[i] = icon;
 		}
 		
@@ -55,10 +53,10 @@ public class LudicrousRenderEvents {
 	}
 	
 	@SubscribeEvent
-	public void pushTheCosmicFancinessToTheLimit(RenderTickEvent event) {
-		if (event.phase == Phase.START) {
+	public void pushTheCosmicFancinessToTheLimit(TickEvent.RenderTickEvent event) {
+		if (event.phase == TickEvent.Phase.START) {
 			cosmicUVs = BufferUtils.createFloatBuffer(4 * cosmicIcons.length);
-			IIcon icon;
+			Models icon;
 			for (int i=0; i<cosmicIcons.length; i++) {
 				icon = cosmicIcons[i];
 

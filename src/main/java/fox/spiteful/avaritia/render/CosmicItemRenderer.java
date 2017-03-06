@@ -1,22 +1,21 @@
 package fox.spiteful.avaritia.render;
 
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.model.Models;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
 import fox.spiteful.avaritia.Lumberjack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraftforge.client.IItemRenderer;
+
+import static net.minecraft.creativetab.CreativeTabs.INVENTORY;
 
 public class CosmicItemRenderer implements IItemRenderer {
 	
@@ -81,7 +80,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 				CosmicRenderShenanigans.inventoryRender = true;
 				CosmicRenderShenanigans.useShader();
 				
-				IIcon cosmicicon = icri.getMaskTexture(item, null);
+				Models cosmicicon = icri.getMaskTexture(item, null);
 				
 				GL11.glColor4d(1, 1, 1, 1);
 				
@@ -134,7 +133,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 		//ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
 		float r,g,b;
-		IIcon icon;
+		Models icon;
 		float f,f1,f2,f3;
 		float scale = 1F / 16F;
 
@@ -166,7 +165,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 			CosmicRenderShenanigans.cosmicOpacity = icri.getMaskMultiplier(item, player);
 			CosmicRenderShenanigans.useShader();
 			
-			IIcon cosmicicon = icri.getMaskTexture(item, player);
+			Models cosmicicon = icri.getMaskTexture(item, player);
 			
 			float minu = cosmicicon.getMinU();
 			float maxu = cosmicicon.getMaxU();
@@ -218,7 +217,7 @@ public class CosmicItemRenderer implements IItemRenderer {
 		}
 	}
 	
-	public IIcon getStackIcon(ItemStack stack, int pass, EntityPlayer player) {
+	public Models getStackIcon(ItemStack stack, int pass, EntityPlayer player) {
 		return stack.getItem().getIcon(stack, pass);
 	}
 }

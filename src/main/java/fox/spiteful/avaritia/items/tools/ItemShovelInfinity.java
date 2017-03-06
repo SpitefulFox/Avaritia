@@ -1,38 +1,30 @@
 package fox.spiteful.avaritia.items.tools;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
+
 
 public class ItemShovelInfinity extends ItemSpade {
 
     public static final ToolMaterial opShovel = EnumHelper.addToolMaterial("INFINITY_SHOVEL", 32, 9999, 9999F, 7.0F, 200);
-    private IIcon destroyer;
+    private Models destroyer;
 
     public ItemShovelInfinity(){
         super(opShovel);
@@ -71,7 +63,7 @@ public class ItemShovelInfinity extends ItemSpade {
     }
 
     @Override
-    public IIcon getIcon(ItemStack stack, int pass){
+    public Models getIcon(ItemStack stack, int pass){
 
         NBTTagCompound tags = stack.getTagCompound();
         if(tags != null){
@@ -83,7 +75,7 @@ public class ItemShovelInfinity extends ItemSpade {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public IIcon getIconIndex(ItemStack stack){
+    public Models getIconIndex(ItemStack stack){
         return getIcon(stack, 0);
     }
 

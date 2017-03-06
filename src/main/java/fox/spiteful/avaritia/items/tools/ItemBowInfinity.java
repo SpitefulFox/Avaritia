@@ -1,13 +1,10 @@
 package fox.spiteful.avaritia.items.tools;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.entity.EntityHeavenArrow;
 import fox.spiteful.avaritia.render.CosmicBowRenderer;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,16 +13,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
 public class ItemBowInfinity extends Item implements ICosmicRenderItem {
-    private IIcon[] iconArray;
-    private IIcon[] maskArray;
-    private IIcon idleMask;
+    private Models[] iconArray;
+    private Models[] maskArray;
+    private Models idleMask;
 
     public ItemBowInfinity()
     {
@@ -71,7 +67,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
 
         boolean flag = true;//player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
 
-        if (flag || player.inventory.hasItem(Items.arrow))
+        if (flag || player.inventory.hasItem(Items.ARROW))
         {
             float f = j / maxf;
             f = (f * f + f * 2.0F) / 3.0F;
@@ -123,7 +119,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
             }
             else
             {
-                player.inventory.consumeInventoryItem(Items.arrow);
+                player.inventory.consumeInventoryItem(Items.ARROW);
             }
 
             if (!world.isRemote)
