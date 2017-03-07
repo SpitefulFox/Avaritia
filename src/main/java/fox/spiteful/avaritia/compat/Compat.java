@@ -9,9 +9,6 @@ import fox.spiteful.avaritia.compat.bloodmagic.Bloody;
 import fox.spiteful.avaritia.compat.botania.Tsundere;
 import fox.spiteful.avaritia.compat.forestry.Ranger;
 import fox.spiteful.avaritia.compat.minetweaker.Tweak;
-import fox.spiteful.avaritia.compat.nei.NotEnough;
-import fox.spiteful.avaritia.compat.tails.InfiniteFoxes;
-import fox.spiteful.avaritia.compat.thaumcraft.Lucrum;
 import fox.spiteful.avaritia.compat.ticon.Tonkers;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.Grinder;
@@ -42,36 +39,28 @@ public class Compat {
 
 	public static void census() {
 		tweak = Loader.isModLoaded("MineTweaker3");
-		ae2 = Loader.isModLoaded("appliedenergistics2") && Config.ae2;
-		exu = Loader.isModLoaded("ExtraUtilities") && Config.exu;
-		ic2 = Loader.isModLoaded("IC2") && Config.ic2;
+		//ae2 = Loader.isModLoaded("appliedenergistics2") && Config.ae2;
+		//exu = Loader.isModLoaded("ExtraUtilities") && Config.exu;
+		//ic2 = Loader.isModLoaded("IC2") && Config.ic2;
 		botan = Loader.isModLoaded("Botania") && Config.botan;
 		blood = Loader.isModLoaded("AWWayofTime") && Config.blood;
-		bigReactors = Loader.isModLoaded("BigReactors") && Config.bigReactors;
+		//bigReactors = Loader.isModLoaded("BigReactors") && Config.bigReactors;
 		ticon = Loader.isModLoaded("TConstruct") && Config.ticon;
-		pe = Loader.isModLoaded("ProjectE") && Config.pe;
-		mfr = Loader.isModLoaded("MineFactoryReloaded") && Config.mfr;
-		am2 = Loader.isModLoaded("arsmagica2") && Config.am2;
+		//pe = Loader.isModLoaded("ProjectE") && Config.pe;
+		//mfr = Loader.isModLoaded("MineFactoryReloaded") && Config.mfr;
+		//am2 = Loader.isModLoaded("arsmagica2") && Config.am2;
 		forestry = Loader.isModLoaded("Forestry") && Config.forestry;
-		te = Loader.isModLoaded("ThermalExpansion") && Config.te;
+		//te = Loader.isModLoaded("ThermalExpansion") && Config.te;
 		jei = Loader.isModLoaded("JEI") && Config.jei;
 	}
 
 	public static void compatify() {
-		if (nei) {
-			try {
-				NotEnough.items();
-			}
-			catch (Throwable e) {
-				Lumberjack.log(Level.INFO, e, "Avaritia had Too Many Items.");
-			}
-		}
+
 
 		if (tweak) {
 			try {
 				Tweak.registrate();
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia is too good for tweaking, apparently.");
 			}
 		}
@@ -80,29 +69,17 @@ public class Compat {
 			return;
 		}
 
-		if (thaumic) {
-			try {
-				Lucrum.abracadabra();
-			}
-			catch (Throwable e) {
-				Lumberjack.log(Level.INFO, "Avaritia accumulated too much Warp!");
-				e.printStackTrace();
-				thaumic = false;
-			}
-		}
-
 		if (Loader.isModLoaded("StevesCarts") && Config.sc2) {
 			try {
 				Block resource = getBlock("StevesCarts", "BlockMetalStorage");
 				ItemStack galg = new ItemStack(resource, 1, 2);
 				Grinder.catalyst.getInput().add(galg);
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, "Avaritia died of old age while trying to craft the Galgadorian Drill.");
 				e.printStackTrace();
 			}
 		}
-
+/*
 		if (ae2) {
 			try {
 				Item resource = getItem("appliedenergistics2", "item.ItemMultiMaterial");
@@ -173,12 +150,11 @@ public class Compat {
 				ic2 = false;
 			}
 		}
-
+*/
 		if (botan) {
 			try {
 				Tsundere.baka();
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, "Avaritia is wondering where all the dayblooms went.");
 				e.printStackTrace();
 				botan = false;
@@ -188,8 +164,7 @@ public class Compat {
 		if (blood) {
 			try {
 				Bloody.bloodlett();
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, "Avaritia decided to use a Fallen Kanade instead.");
 				e.printStackTrace();
 				blood = false;
@@ -201,12 +176,11 @@ public class Compat {
 				Block dargon = getBlock("DraconicEvolution", "draconicBlock");
 				ItemStack lol = new ItemStack(dargon, 1, 0);
 				Grinder.catalyst.getInput().add(lol);
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia was distracted by a giant glowing sphere.");
 			}
 		}
-
+/*
 		if (bigReactors) {
 			try {
 				Item ingot = getItem("BigReactors", "BRIngot");
@@ -219,15 +193,14 @@ public class Compat {
 				bigReactors = false;
 			}
 		}
-
+*/
 		if (ticon) {
 			try {
 				Block metal = getBlock("TConstruct", "MetalBlock");
 				ItemStack menomena = new ItemStack(metal, 1, 2);
 				Grinder.catalyst.getInput().add(menomena);
 				Tonkers.buildstruct();
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, "Avaritia fell in the smeltery.");
 				e.printStackTrace();
 				ticon = false;
@@ -239,8 +212,7 @@ public class Compat {
 				Item matter = getItem("ProjectE", "item.pe_matter");
 				ItemStack red = new ItemStack(matter, 1, 1);
 				Grinder.catalyst.getInput().add(red);
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, "Avaritia got tired of abusing the blaze rod exploit.");
 				e.printStackTrace();
 				pe = false;
@@ -252,45 +224,10 @@ public class Compat {
 				Item ponk = getItem("MineFactoryReloaded", "pinkslime");
 				ItemStack pank = new ItemStack(ponk, 1, 1);
 				Grinder.catalyst.getInput().add(pank);
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, "Avaritia walked into the laser drill.");
 				e.printStackTrace();
 				mfr = false;
-			}
-		}
-
-		if (Loader.isModLoaded("TwilightForest") && Config.twilight) {
-			try {
-				Item ironwood = getItem("TwilightForest", "item.ironwoodIngot");
-				Grinder.catalyst.getInput().add(new ItemStack(ironwood, 1));
-			}
-			catch (Throwable e) {
-				Lumberjack.log(Level.INFO, e, "Avaritia was killed by a hydra.");
-			}
-		}
-
-		if (Loader.isModLoaded("magicalcrops") && Config.magicrops) {
-			try {
-				Item essence = getItem("magicalcrops", "magicalcrops_MagicEssence");
-				Item meat = getItem("magicalcrops", "magicalcrops_RawMeat");
-				Item crop = getItem("magicalcrops", "magicalcrops_CropProduce");
-				ItemStack extreme = new ItemStack(essence, 1, 4);
-				Grinder.catalyst.getInput().add(extreme);
-				OreDictionary.registerOre("cropBlackberry", new ItemStack(crop, 1, 0));
-				OreDictionary.registerOre("cropBlueberry", new ItemStack(crop, 1, 1));
-				OreDictionary.registerOre("cropChilipepper", new ItemStack(crop, 1, 2));
-				OreDictionary.registerOre("cropCucumber", new ItemStack(crop, 1, 3));
-				OreDictionary.registerOre("cropGrape", new ItemStack(crop, 1, 4));
-				OreDictionary.registerOre("cropRaspberry", new ItemStack(crop, 1, 5));
-				OreDictionary.registerOre("cropStrawberry", new ItemStack(crop, 1, 6));
-				OreDictionary.registerOre("cropCorn", new ItemStack(crop, 1, 7));
-				OreDictionary.registerOre("cropTomato", new ItemStack(crop, 1, 8));
-				OreDictionary.registerOre("rawMutton", new ItemStack(meat, 1, 0));
-				OreDictionary.registerOre("rawCalamari", new ItemStack(meat, 1, 1));
-			}
-			catch (Throwable e) {
-				Lumberjack.log(Level.INFO, e, "Avaritia got bored of waiting for magical crops to grow.");
 			}
 		}
 
@@ -298,8 +235,7 @@ public class Compat {
 			try {
 				Item mutton = getItem("ganyssurface", "mutton_raw");
 				OreDictionary.registerOre("rawMutton", new ItemStack(mutton, 1, 0));
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia forgot which Gany's mod it was dealing with.");
 			}
 		}
@@ -312,8 +248,7 @@ public class Compat {
 				OreDictionary.registerOre("rawMutton", new ItemStack(mutton, 1, 0));
 				OreDictionary.registerOre("rawCalamari", new ItemStack(calamari, 1, 0));
 				OreDictionary.registerOre("cropBeetroot", new ItemStack(beet, 1, 0));
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, "Avaritia got overwhelmed by all the food choices. D:");
 				e.printStackTrace();
 			}
@@ -323,8 +258,7 @@ public class Compat {
 			try {
 				Item barley = getItem("Natura", "barleyFood");
 				OreDictionary.registerOre("cropBarley", new ItemStack(barley, 1, 0));
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia got overwhelmed by all the food choices. D:");
 			}
 		}
@@ -336,8 +270,7 @@ public class Compat {
 
 				Grinder.catalyst.getInput().add(new ItemStack(essence, 1, 10));
 				Grinder.catalyst.getInput().add(new ItemStack(gem, 1, 6));
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia got sick of the arcane guardian's healspam.");
 				am2 = false;
 			}
@@ -346,8 +279,7 @@ public class Compat {
 		if (forestry) {
 			try {
 				Ranger.stopForestFires();
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia got stung by a bee.");
 				forestry = false;
 			}
@@ -357,8 +289,7 @@ public class Compat {
 			try {
 				Block fuel = getBlock("EE3", "alchemicalFuelBlock");
 				Grinder.catalyst.getInput().add(new ItemStack(fuel, 1, 2));
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia tried to do human transmutation.");
 			}
 		}
@@ -367,43 +298,13 @@ public class Compat {
 			try {
 				Block cell = getBlock("ThermalExpansion", "Cell");
 				ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(cell, 1, 0), "IIIIRIIII", "IEEEREEEI", "IERRRRREI", "IERRRRREI", "RRRRXRRRR", "IERRRRREI", "IERRRRREI", "IEEEREEEI", "IIIIRIIII", 'X', new ItemStack(LudicrousBlocks.resource_block, 1, 1), 'E', "blockEnderium", 'I', new ItemStack(LudicrousItems.resource, 1, 6), 'R', new ItemStack(LudicrousItems.singularity, 1, 3));
-			}
-			catch (Throwable e) {
+			} catch (Throwable e) {
 				Lumberjack.log(Level.INFO, e, "Avaritia forgot one of Thermal Expansion's 500 prerequisites.");
 				te = false;
 			}
 		}
-
-		if (Loader.isModLoaded("witchery") && Config.witch) {
-			try {
-				Item ingredient = getItem("witchery", "ingredient");
-				Grinder.catalyst.getInput().add(new ItemStack(ingredient, 1, 150));
-			}
-			catch (Throwable e) {
-				Lumberjack.log(Level.INFO, e, "Avaritia suffered from Curse of the Incompatibility.");
-			}
-		}
-
-		if (Loader.isModLoaded("RotaryCraft") && Config.rotisserie) {
-			try {
-				Item stuff = getItem("RotaryCraft", "rotarycraft_item_compacts");
-				Grinder.catalyst.getInput().add(new ItemStack(stuff, 1, 3));
-			}
-			catch (Throwable e) {
-				Lumberjack.log(Level.INFO, e, "Avaritia couldn't figure out how torque works.");
-			}
-		}
-
-		if (Loader.isModLoaded("Tails")) {
-			try {
-				InfiniteFoxes.floof();
-			}
-			catch (Throwable e) {
-				Lumberjack.log(Level.INFO, "Avaritia was not fluffy enough!");
-				e.printStackTrace();
-			}
-		}
 	}
+
 
 	public static Block getBlock(String mod, String block) throws ItemNotFoundException {
 		Block target = GameRegistry.findBlock(mod, block);

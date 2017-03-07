@@ -3,7 +3,8 @@ package fox.spiteful.avaritia.compat.forestry;
 import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAlleleSpecies;
 import forestry.api.genetics.IClassification;
-import net.minecraft.util.StatCollector;
+import net.minecraft.client.resources.I18n;
+
 
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public enum BeeBranch implements IClassification {
 
     @Override
     public String getName(){
-        return StatCollector.translateToLocal("classification." + name);
+        return I18n.format("classification." + name);
     }
 
     @Override
@@ -47,7 +48,7 @@ public enum BeeBranch implements IClassification {
 
     @Override
     public String getDescription(){
-        return StatCollector.translateToLocal("classification." + name + ".desc");
+        return I18n.format("classification." + name + ".desc");
     }
 
     @Override

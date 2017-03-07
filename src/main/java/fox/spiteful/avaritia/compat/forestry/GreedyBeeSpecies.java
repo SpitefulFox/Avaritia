@@ -1,25 +1,26 @@
 package fox.spiteful.avaritia.compat.forestry;
 
 import com.mojang.authlib.GameProfile;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import forestry.api.apiculture.*;
 import forestry.api.core.EnumHumidity;
 import forestry.api.core.EnumTemperature;
-import forestry.api.core.IIconProvider;
+import forestry.api.core.IModelManager;
 import forestry.api.genetics.*;
 import fox.spiteful.avaritia.items.LudicrousItems;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.model.Models;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.awt.*;
 import java.util.*;
 
-public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
+public enum GreedyBeeSpecies implements IAlleleBeeSpecies {
 
 
     ANNOYING("annoying", "incommodus", BeeBranch.BALANCED, "SpitefulFox", 0x662D01, 0x777777, false),
@@ -89,7 +90,7 @@ public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
     }
 
     @SideOnly(Side.CLIENT)
-    private IIcon[][] icons;
+    private Models[][] icons;
 
     @Override
     public String getUID(){
@@ -98,7 +99,7 @@ public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
 
     @Override
     public String getName(){
-        return StatCollector.translateToLocal("avaritia.bee." + name);
+        return I18n.format("avaritia.bee." + name);
     }
 
     @Override
@@ -118,7 +119,7 @@ public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
 
     @Override
     public String getDescription(){
-        return StatCollector.translateToLocal("avaritia.bee." + name + ".desc");
+        return I18n.format("avaritia.bee." + name + ".desc");
     }
 
     @Override
@@ -183,16 +184,6 @@ public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
     @Override
     public HashMap<ItemStack, Float> getSpecialtyChances() {
         return specialties;
-    }
-
-    @Override
-    public HashMap<ItemStack, Integer> getProducts() {
-        return legacyProducts;
-    }
-
-    @Override
-    public HashMap<ItemStack, Integer> getSpecialty() {
-        return legacySpecialties;
     }
 
     @Override
@@ -309,12 +300,7 @@ public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
     }
 
     @Override
-    public String getEntityTexture() {
-        return "/gfx/forestry/entities/bees/honeyBee.png";
-    }
-
-    @Override
-    public int getIconColour(int renderPass) {
+    public int getSpriteColour(int renderPass) {
         int value = 0xffffff;
         if (renderPass == 0) {
             if (this.primaryColor == -1) {
@@ -337,37 +323,11 @@ public enum GreedyBeeSpecies implements IAlleleBeeSpecies, IIconProvider {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public IIconProvider getIconProvider() {
-        return this;
+    public ModelResourceLocation getModel(EnumBeeType type) {
+        return null;
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(EnumBeeType type, int renderPass) {
-        return icons[type.ordinal()][Math.min(renderPass, 2)];
-    }
-
-    @Override
-    public void registerIcons(IIconRegister itemMap) {
-        this.icons = new IIcon[EnumBeeType.values().length][3];
-
-        IIcon body1 = itemMap.registerIcon("forestry:bees/default/body1");
-
-        for (int i = 0; i < EnumBeeType.values().length; i++) {
-            if (EnumBeeType.values()[i] == EnumBeeType.NONE)
-                continue;
-
-            icons[i][0] = itemMap.registerIcon("forestry:bees/default/" + EnumBeeType.values()[i].toString().toLowerCase(Locale.ENGLISH) + ".outline");
-            icons[i][1] = (EnumBeeType.values()[i] != EnumBeeType.LARVAE) ? body1 : itemMap.registerIcon("forestry:bees/default/"
-                    + EnumBeeType.values()[i].toString().toLowerCase(Locale.ENGLISH) + ".body");
-            icons[i][2] = itemMap.registerIcon("forestry:bees/default/" + EnumBeeType.values()[i].toString().toLowerCase(Locale.ENGLISH) + ".body2");
-        }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public Models getIcon(short texUID) {
-        return icons[0][0];
+    public void registerModels(Item item, IModelManager manager) {
     }
 }

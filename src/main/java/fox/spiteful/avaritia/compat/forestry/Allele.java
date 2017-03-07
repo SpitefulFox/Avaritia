@@ -3,7 +3,8 @@ package fox.spiteful.avaritia.compat.forestry;
 import forestry.api.apiculture.IAlleleBeeSpecies;
 import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAllele;
-import net.minecraft.util.StatCollector;
+import net.minecraft.client.resources.I18n;
+
 
 public class Allele implements IAllele {
 
@@ -33,7 +34,7 @@ public class Allele implements IAllele {
 
     @Override
     public String getName(){
-        return StatCollector.translateToLocal(name);
+        return I18n.format(name);
     }
 
     @Override

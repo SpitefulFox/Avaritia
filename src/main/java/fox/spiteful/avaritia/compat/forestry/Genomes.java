@@ -13,9 +13,9 @@ public class Genomes {
         genome[EnumBeeChromosome.LIFESPAN.ordinal()] = Allele.getBaseAllele("lifespanShorter");
         genome[EnumBeeChromosome.FERTILITY.ordinal()] = Allele.getBaseAllele("fertilityNormal");
         genome[EnumBeeChromosome.TEMPERATURE_TOLERANCE.ordinal()] = Allele.getBaseAllele("toleranceNone");
-        genome[EnumBeeChromosome.NOCTURNAL.ordinal()] = Allele.getBaseAllele("boolFalse");
+        genome[EnumBeeChromosome.NEVER_SLEEPS.ordinal()] = Allele.getBaseAllele("boolFalse");
         genome[EnumBeeChromosome.HUMIDITY_TOLERANCE.ordinal()] = Allele.getBaseAllele("toleranceNone");
-        genome[EnumBeeChromosome.TOLERANT_FLYER.ordinal()] = Allele.getBaseAllele("boolFalse");
+        genome[EnumBeeChromosome.TOLERATES_RAIN.ordinal()] = Allele.getBaseAllele("boolFalse");
         genome[EnumBeeChromosome.CAVE_DWELLING.ordinal()] = Allele.getBaseAllele("boolFalse");
         genome[EnumBeeChromosome.FLOWER_PROVIDER.ordinal()] = Allele.getBaseAllele("flowersVanilla");
         genome[EnumBeeChromosome.FLOWERING.ordinal()] = Allele.getBaseAllele("floweringSlowest");
@@ -30,8 +30,8 @@ public class Genomes {
 
         genome[EnumBeeChromosome.SPEED.ordinal()] = Allele.grindySpeed;
         genome[EnumBeeChromosome.LIFESPAN.ordinal()] = Allele.grindyLife;
-        genome[EnumBeeChromosome.NOCTURNAL.ordinal()] = Allele.getBaseAllele("boolTrue");
-        genome[EnumBeeChromosome.TOLERANT_FLYER.ordinal()] = Allele.getBaseAllele("boolTrue");
+        genome[EnumBeeChromosome.NEVER_SLEEPS.ordinal()] = Allele.getBaseAllele("boolTrue");
+        genome[EnumBeeChromosome.TOLERATES_RAIN.ordinal()] = Allele.getBaseAllele("boolTrue");
         //genome[EnumBeeChromosome.FLOWER_PROVIDER.ordinal()] = Allele.getBaseAllele("flowersVanilla");
 
         return genome;
@@ -57,7 +57,7 @@ public class Genomes {
         IAllele[] genome = getBase();
 
         genome[EnumBeeChromosome.SPECIES.ordinal()] = GreedyBeeSpecies.TRIPPY;
-        genome[EnumBeeChromosome.NOCTURNAL.ordinal()] = Allele.getBaseAllele("boolTrue");
+        genome[EnumBeeChromosome.NEVER_SLEEPS.ordinal()] = Allele.getBaseAllele("boolTrue");
         genome[EnumBeeChromosome.CAVE_DWELLING.ordinal()] = Allele.getBaseAllele("boolTrue");
         //genome[EnumBeeChromosome.FLOWER_PROVIDER.ordinal()] = Allele.getBaseAllele("flowersVanilla");
 

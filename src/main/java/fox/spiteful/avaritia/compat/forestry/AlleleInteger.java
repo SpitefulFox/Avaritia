@@ -1,6 +1,5 @@
 package fox.spiteful.avaritia.compat.forestry;
 
-import forestry.api.genetics.IAlleleFloat;
 import forestry.api.genetics.IAlleleInteger;
 
 public class AlleleInteger extends Allele implements IAlleleInteger {

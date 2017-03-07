@@ -75,7 +75,7 @@ dependencies {
 	compile "slimeknights:TConstruct:1.10.2-2.6.1.468"
 	compile "slimeknights.mantle:Mantle:1.10.2-1.1.3.199"
 	compile "mcjty.theoneprobe:TheOneProbe:1.1x-1.4.4-55:deobf"
-	compile "net.sengir.forestry:forestry_1.10.2:5.2.17.+:deobf"
+	deobfCompile "net.sengir.forestry:forestry_1.10.2:5.2.17.+"
 	deobfCompile "MineTweaker3:MineTweaker3-API:3.0.22.+"
 }
 

@@ -1,17 +1,16 @@
 package fox.spiteful.avaritia.compat.forestry;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import fox.spiteful.avaritia.render.IHaloRenderItem;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 import java.util.List;
 
@@ -72,7 +71,7 @@ public class ItemBeesource extends Item implements IHaloRenderItem {
             case 1:
                 return Ranger.trash;
             default:
-                return EnumRarity.common;
+                return EnumRarity.COMMON;
         }
     }
 
