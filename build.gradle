@@ -39,7 +39,7 @@ minecraft {
 }
 repositories {
     maven {
-        name "JEI Maven."
+        name "JEI & Natura Maven."
         url "http://dvs1.progwml6.com/files/maven"
     }
 	maven {
@@ -86,7 +86,7 @@ dependencies {
 	deobfCompile "net.sengir.forestry:forestry_1.10.2:5.2.17.+"
 	deobfCompile "MineTweaker3:MineTweaker3-API:3.0.22.+"
 	compile "com.brandon3055.draconicevolution:Draconic-Evolution:1.10.2-2.0.8.+:deobf"
-
+	compile "com.progwml6.natura:natura:1.10.2-4.1.0.+:deobf"
 }
 
 processResources

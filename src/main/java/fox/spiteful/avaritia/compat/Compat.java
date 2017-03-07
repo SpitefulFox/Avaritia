@@ -37,6 +37,7 @@ public class Compat {
 	public static boolean te = false;
 	public static boolean jei = false;
 	public static boolean de = false;
+	public static boolean natura = false;
 
 	public static void census() {
 		tweak = Loader.isModLoaded("MineTweaker3");
@@ -54,6 +55,7 @@ public class Compat {
 		//te = Loader.isModLoaded("ThermalExpansion") && Config.te;
 		jei = Loader.isModLoaded("JEI") && Config.jei;
 		de = Loader.isModLoaded("DraconicEvolution");
+		natura = Loader.isModLoaded("Natura");
 	}
 
 	public static void compatify() {
@@ -70,7 +72,7 @@ public class Compat {
 		if (Config.craftingOnly) {
 			return;
 		}
-
+/*
 		if (Loader.isModLoaded("StevesCarts") && Config.sc2) {
 			try {
 				Block resource = getBlock("StevesCarts", "BlockMetalStorage");
@@ -81,7 +83,7 @@ public class Compat {
 				e.printStackTrace();
 			}
 		}
-/*
+
 		if (ae2) {
 			try {
 				Item resource = getItem("appliedenergistics2", "item.ItemMultiMaterial");
@@ -203,7 +205,7 @@ public class Compat {
 				Grinder.catalyst.getInput().add(menomena);
 				Tonkers.buildstruct();
 			} catch (Throwable e) {
-				Lumberjack.log(Level.INFO, "Avaritia fell in the smeltery.");
+				Lumberjack.log(Level.INFO, "Avaritia fell into the smeltery.");
 				e.printStackTrace();
 				ticon = false;
 			}
@@ -233,15 +235,6 @@ public class Compat {
 			}
 		}
 
-		if (Loader.isModLoaded("ganyssurface")) {
-			try {
-				Item mutton = getItem("ganyssurface", "mutton_raw");
-				OreDictionary.registerOre("rawMutton", new ItemStack(mutton, 1, 0));
-			} catch (Throwable e) {
-				Lumberjack.log(Level.INFO, e, "Avaritia forgot which Gany's mod it was dealing with.");
-			}
-		}
-
 		if (Loader.isModLoaded("harvestcraft")) {
 			try {
 				Item mutton = getItem("harvestcraft", "muttonrawItem");
@@ -255,7 +248,7 @@ public class Compat {
 				e.printStackTrace();
 			}
 		}
-
+*/
 		if (Loader.isModLoaded("Natura")) {
 			try {
 				Item barley = getItem("Natura", "barleyFood");
@@ -264,7 +257,7 @@ public class Compat {
 				Lumberjack.log(Level.INFO, e, "Avaritia got overwhelmed by all the food choices. D:");
 			}
 		}
-
+/*
 		if (am2) {
 			try {
 				Item gem = getItem("arsmagica2", "itemOre");
@@ -292,10 +285,11 @@ public class Compat {
 				Block fuel = getBlock("EE3", "alchemicalFuelBlock");
 				Grinder.catalyst.getInput().add(new ItemStack(fuel, 1, 2));
 			} catch (Throwable e) {
-				Lumberjack.log(Level.INFO, e, "Avaritia tried to do human transmutation.");
+				Lumberjack.log(Level.INFO, e, "Avaritia attempted to do human transmutation.");
 			}
 		}
-
+	}
+/*
 		if (te) {
 			try {
 				Block cell = getBlock("ThermalExpansion", "Cell");
@@ -306,7 +300,7 @@ public class Compat {
 			}
 		}
 	}
-
+*/
 
 	public static Block getBlock(String mod, String block) throws ItemNotFoundException {
 		Block target = GameRegistry.findBlock(mod, block);
