@@ -66,6 +66,14 @@ repositories {
         name 'Jared'
         url 'http://blamejared.com/maven'
     }
+	maven {
+		name = "covers1624"
+		url = "http://maven.covers1624.net/"
+	}
+	maven {
+		name = "covers1624"
+		url = "http://mavenmirror.covers1624.net/"
+	}
 }
 
 dependencies {
@@ -77,6 +85,8 @@ dependencies {
 	compile "mcjty.theoneprobe:TheOneProbe:1.1x-1.4.4-55:deobf"
 	deobfCompile "net.sengir.forestry:forestry_1.10.2:5.2.17.+"
 	deobfCompile "MineTweaker3:MineTweaker3-API:3.0.22.+"
+	compile "com.brandon3055.draconicevolution:Draconic-Evolution:1.10.2-2.0.8.+:deobf"
+
 }
 
 processResources

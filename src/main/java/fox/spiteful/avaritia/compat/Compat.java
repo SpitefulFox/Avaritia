@@ -36,6 +36,7 @@ public class Compat {
 	public static boolean forestry = false;
 	public static boolean te = false;
 	public static boolean jei = false;
+	public static boolean de = false;
 
 	public static void census() {
 		tweak = Loader.isModLoaded("MineTweaker3");
@@ -52,6 +53,7 @@ public class Compat {
 		forestry = Loader.isModLoaded("Forestry") && Config.forestry;
 		//te = Loader.isModLoaded("ThermalExpansion") && Config.te;
 		jei = Loader.isModLoaded("JEI") && Config.jei;
+		de = Loader.isModLoaded("DraconicEvolution");
 	}
 
 	public static void compatify() {
@@ -206,7 +208,7 @@ public class Compat {
 				ticon = false;
 			}
 		}
-
+/*
 		if (pe) {
 			try {
 				Item matter = getItem("ProjectE", "item.pe_matter");
@@ -275,7 +277,7 @@ public class Compat {
 				am2 = false;
 			}
 		}
-
+*/
 		if (forestry) {
 			try {
 				Ranger.stopForestFires();
