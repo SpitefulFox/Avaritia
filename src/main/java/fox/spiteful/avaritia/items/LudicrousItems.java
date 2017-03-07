@@ -1,6 +1,5 @@
 package fox.spiteful.avaritia.items;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.items.tools.*;
@@ -9,13 +8,11 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import static net.minecraft.item.Item.ToolMaterial;
 
 public class LudicrousItems {
 
@@ -43,6 +40,21 @@ public class LudicrousItems {
      * 8 = Silver,
      * 9 = Nickel
      */
+
+    /*/**
+     * 0 = Iron,
+     * 1 = Gold,
+     * 2 = Lapis,
+     * 3 = Redstone,
+     * 4 = Nether Quartz,
+     * 5 = Copper,
+     * 6 = Tin,
+     * 7 = Lead,
+     * 8 = Silver,
+     * 9 = Nickel,
+     * 10 = Diamond,
+     * 11 = Emerald
+     */
     public static Item singularity;
 
     public static Item skull_sword;
@@ -51,19 +63,16 @@ public class LudicrousItems {
     public static Item endest_pearl;
     public static Item fractured_ore;
     public static Item matter_cluster;
-    //public static Item morv_in_a_box;
-
+    public static Item morv_in_a_box;
     public static Item infinity_pickaxe;
     public static Item infinity_sword;
     public static Item infinity_shovel;
     public static Item infinity_axe;
     public static Item infinity_bow;
-
     public static Item infinity_helm;
     public static Item infinity_armor;
     public static Item infinity_pants;
     public static Item infinity_shoes;
-
     public static Item akashic_record;
     public static Item armok_orb;
     public static Item combs;
@@ -98,13 +107,13 @@ public class LudicrousItems {
         infinity_bow = register(new ItemBowInfinity(), "Infinity_Bow");
         infinity_shovel = register(new ItemShovelInfinity(), "Infinity_Shovel");
         infinity_axe = register(new ItemAxeInfinity(), "Infinity_Axe");
-        //morv_in_a_box = register(new ItemMorvInABox(), "MorvInABox");
+        morv_in_a_box = register(new ItemMorvInABox(), "MorvInABox");
         
         MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
     }
 
     public static boolean isInfinite(EntityPlayer player){
-        if(player.getEquipmentInSlot(1) == null || player.getEquipmentInSlot(2) == null
+        if(EntityPlayer.EquipmentInSlot(1) == null || player.getEquipmentInSlot(2) == null
                 || player.getEquipmentInSlot(3) == null || player.getEquipmentInSlot(4) == null)
             return false;
         if(player.getEquipmentInSlot(1).getItem() == infinity_shoes && player.getEquipmentInSlot(2).getItem() == infinity_pants
