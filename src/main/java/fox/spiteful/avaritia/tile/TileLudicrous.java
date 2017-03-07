@@ -1,39 +1,53 @@
 package fox.spiteful.avaritia.tile;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class TileLudicrous extends TileEntity {
+public class TileLudicrous extends TileEntity implements ITickable {
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-
-		writeCustomNBT(tag);
-		return super.writeToNBT(tag);
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+		return oldState.getBlock() != newSate.getBlock();
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tag) {
-		super.readFromNBT(tag);
-		readCustomNBT(tag);
+	public NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
 	}
 
-	public void writeCustomNBT(NBTTagCompound tag) {}
-	public void readCustomNBT(NBTTagCompound tag) {}
+	@Override
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(getPos(), 255, getUpdateTag());
+	}
 
-	/*@Override
-	public Packet getDescriptionPacket() {
-		NBTTagCompound tag = new NBTTagCompound();
-		writeCustomNBT(tag);
-		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, tag);
-	}*/
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.getNbtCompound());
+	}
 
-	/*@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
-		super.onDataPacket(net, packet);
-		readCustomNBT(packet.func_148857_g());
-	}*/
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		if (getWorld() != null) {
+			IBlockState state = getWorld().getBlockState(pos);
+			if (state != null) {
+				state.getBlock().updateTick(getWorld(), getPos(), state, getWorld().rand);
+				getWorld().notifyBlockUpdate(pos, state, state, 3);
+			}
+		}
+	}
+
+	@Override
+	public void update() {
+	}
 
 }
