@@ -17,13 +17,11 @@ import java.util.List;
 public class ItemSingularity extends Item implements IHaloRenderItem {
 
     public static final String[] types = new String[]{"iron", "gold", "lapis", "redstone", "quartz", "copper",
-        "tin", "lead", "silver", "nickel"};
-    //public static final String[] types = new String[]{"iron", "gold", "lapis", "redstone", "quartz", "copper",
-     //   "tin", "lead", "silver", "nickel", "diamond", "emerald"};
+        "tin", "lead", "silver", "nickel", "diamond", "emerald"};
     public static final int[] colors = new int[]{0xBFBFBF, 0xE8EF23, 0x5a82e2, 0xDF0000, 0xeeebe6, 0xE47200,
-        0xA5C7DE, 0x444072, 0xF9F9F9, 0xDEE187};
+        0xA5C7DE, 0x444072, 0xF9F9F9, 0xDEE187, 0x45ACA5, 0x5CBE34};
     public static final int[] colors2 = new int[]{0x7F7F7F, 0xdba213, 0x224baf, 0x900000, 0x94867d, 0x89511A,
-        0x9BA9B2, 0x3E3D4E, 0xD5D5D5, 0xC4C698};
+        0x9BA9B2, 0x3E3D4E, 0xD5D5D5, 0xC4C698, 0x8fcdc9, 0x8cd170};
     public static Models background;
     public static Models foreground;
 
