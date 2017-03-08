@@ -1,39 +1,30 @@
 package fox.spiteful.avaritia.render;
 
-/*import java.util.Map;
-import java.util.UUID;
+import java.util.Map;
 
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraftforge.common.model.Models;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
 import com.google.common.collect.Iterables;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 import com.mojang.authlib.properties.Property;
-
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.items.ItemMorvInABox;
 import fox.spiteful.avaritia.items.LudicrousItems;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.SkinManager;
-import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
+
 
 public class MorvInABoxRenderer implements IItemRenderer {
 	private static GameProfile morvy;// = new GameProfile(UUID.fromString(), "Morvelaira");
@@ -135,7 +126,7 @@ public class MorvInABoxRenderer implements IItemRenderer {
 	        	GL11.glPopMatrix();
 	        }
 			
-			IIcon icon = ((ItemMorvInABox)(LudicrousItems.morv_in_a_box)).nameoverlay;
+			Models icon = ((ItemMorvInABox)(LudicrousItems.morv_in_a_box)).nameoverlay;
 			
 			GL11.glColor4d(1, 1, 1, 1);
 			
@@ -166,9 +157,9 @@ public class MorvInABoxRenderer implements IItemRenderer {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		//ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
+		ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), scale);
 
-		IIcon icon = item.getItem().getIcon(item, 0);
+		Models icon = item.getItem().getIcon(item, 0);
 
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
@@ -184,8 +175,8 @@ public class MorvInABoxRenderer implements IItemRenderer {
         	GL11.glTranslated(15.0/16.0, 10.0/16.0, 0.0001);
         	GL11.glRotated(20, 0, 0, 1);
         	
-        	//GL11.glDisable(GL11.GL_DEPTH_TEST);
-        	//GL11.glDepthFunc(GL11.GL_EQUAL);
+        	GL11.glDisable(GL11.GL_DEPTH_TEST);
+        	GL11.glDepthFunc(GL11.GL_EQUAL);
         	
         	mc.getTextureManager().bindTexture(skin);
         	
@@ -209,8 +200,8 @@ public class MorvInABoxRenderer implements IItemRenderer {
         	
         	mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
         	
-        	//GL11.glDepthFunc(GL11.GL_LEQUAL);
-        	//GL11.glEnable(GL11.GL_DEPTH_TEST);
+        	GL11.glDepthFunc(GL11.GL_LEQUAL);
+        	GL11.glEnable(GL11.GL_DEPTH_TEST);
         	
         	GL11.glPopMatrix();
         }
@@ -260,11 +251,11 @@ public class MorvInABoxRenderer implements IItemRenderer {
         }
 		
 		if (skin == null) {
-			//Lumberjack.info("2");
+			Lumberjack.info("2");
 			Minecraft minecraft = Minecraft.getMinecraft();
             Map map = minecraft.func_152342_ad().func_152788_a(morvy);
-			//Map map = minecraft.func_152342_ad().func_152788_a(Minecraft.getMinecraft().thePlayer.getGameProfile());
-            //Lumberjack.info(map);
+			Map map = minecraft.func_152342_ad().func_152788_a(Minecraft.getMinecraft().thePlayer.getGameProfile());
+            Lumberjack.info(map);
             
             if (map.containsKey(Type.SKIN))
             {
@@ -274,4 +265,3 @@ public class MorvInABoxRenderer implements IItemRenderer {
 		}
 	}
 }
-*/

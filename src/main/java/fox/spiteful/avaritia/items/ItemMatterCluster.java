@@ -46,7 +46,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 	}
 	
 	@SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ir) {
+    public void registerIcons(TextureUtils.IIconRegister ir) {
 		super.registerIcons(ir);
 		
 		this.cosmicIcon = ir.registerIcon("avaritia:mattercluster_mask");
