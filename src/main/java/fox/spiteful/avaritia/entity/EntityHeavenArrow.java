@@ -2,6 +2,9 @@ package fox.spiteful.avaritia.entity;
 
 import java.lang.reflect.Field;
 import java.util.Random;
+
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.logging.log4j.Level;
 import fox.spiteful.avaritia.Lumberjack;
@@ -24,18 +27,14 @@ public class EntityHeavenArrow extends EntityArrow {
     }
 	
 	public boolean impacted = false;
-	public Random randy = new Random();
+
 	
 	public EntityHeavenArrow(World world, double x,	double y, double z) {
 		super(world, x, y, z);
 	}
 
-	public EntityHeavenArrow(World world, EntityLivingBase entity, EntityLivingBase entity2, float something, float otherthing) {
-		super(world, entity, entity2, something, otherthing);
-	}
-
-	public EntityHeavenArrow(World world, EntityLivingBase entity, float something) {
-		super(world, entity, something);
+	public EntityHeavenArrow(World world, EntityLivingBase entity) {
+		super(world, entity);
 		
 	}
 
@@ -102,6 +101,7 @@ public class EntityHeavenArrow extends EntityArrow {
     }
     
     public void barrage() {
+    	Random randy = getEntityWorld().rand;
     	for (int i=0; i<10; i++) {
     		double angle = randy.nextDouble() * 2 * Math.PI;
     		double dist = randy.nextGaussian()*0.5;
@@ -124,4 +124,8 @@ public class EntityHeavenArrow extends EntityArrow {
     		this.worldObj.spawnEntityInWorld(arrow);
     	}
     }
+	@Override
+	protected ItemStack getArrowStack() {
+		return new ItemStack(Items.ARROW);//TODO Replace with Item
+	}
 }

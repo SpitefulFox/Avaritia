@@ -1,7 +1,6 @@
 package fox.spiteful.avaritia.render;
 
 import java.util.Map;
-
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraftforge.common.model.Models;
 import org.lwjgl.opengl.GL11;
@@ -27,7 +26,7 @@ import net.minecraft.util.ResourceLocation;
 
 
 public class MorvInABoxRenderer implements IItemRenderer {
-	private static GameProfile morvy;// = new GameProfile(UUID.fromString(), "Morvelaira");
+	private static GameProfile morvy; = new GameProfile(UUID.fromString(), "Morvelaira")
 	private static ResourceLocation skin = null;
 
 	public MorvInABoxRenderer() {
@@ -42,7 +41,7 @@ public class MorvInABoxRenderer implements IItemRenderer {
 	}
 
 	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
+	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack stacks, ItemRendererHelper helper) {
 		return helper == ItemRendererHelper.ENTITY_ROTATION || helper == ItemRendererHelper.ENTITY_BOBBING;
 	}
 

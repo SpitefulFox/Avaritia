@@ -1,7 +1,7 @@
 package fox.spiteful.avaritia.api;
 
 /**
- * @author p455w0rd
+ * @author Morpheus1101
  *
  */
 public interface IModelHolder {

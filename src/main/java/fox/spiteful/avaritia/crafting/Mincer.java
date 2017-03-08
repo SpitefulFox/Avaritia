@@ -13,12 +13,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.apache.logging.log4j.Level;
 
 public class Mincer {
-    public static ShapelessOreRecipe stewRecipe;
-    public static ShapelessOreRecipe meatballRecipe;
+    public static ExtremeShapelessOreRecipe stewRecipe;
+    public static ExtremeShapelessOreRecipe meatballRecipe;
 
 	// here's where all the food magic goes on
 	private static final String[] sacredCropNames = new String[]{"cropWheat", "cropCarrot", "cropPotato", "cropApple", "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed", "cropMushroomBrown", "cropCherry"};
@@ -187,7 +186,7 @@ public class Mincer {
 			}
 		}*/
 
-        if(Loader.isModLoaded("TwilightForest") && Config.twilight){
+        /*if(Loader.isModLoaded("TwilightForest") && Config.twilight){
             try {
                 Item venison = Compat.getItem("TwilightForest", "item.venisonRaw");
                 Item meef = Compat.getItem("TwilightForest", "item.meefRaw");
@@ -215,12 +214,11 @@ public class Mincer {
                 Compat.am2 = false;
             }
         }
-		
+		*/
 		Lumberjack.info("rawMeats: "+rawMeats);
 		Lumberjack.info("knownMeats: "+knownMeats);
 		
-		//Lumberjack.info("pre-sort: "+meatSortingList);
-		
+
 		// sort into size/alphabetic order first to standardise them
 		Collections.sort(meatSortingList, new Comparator<FoodInfo>(){
 			@Override

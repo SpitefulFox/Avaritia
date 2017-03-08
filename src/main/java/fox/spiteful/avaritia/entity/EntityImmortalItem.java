@@ -1,20 +1,24 @@
 package fox.spiteful.avaritia.entity;
 
 import java.util.Iterator;
-
+import java.util.Optional;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 
 public class EntityImmortalItem extends EntityItem {
 
 	public EntityImmortalItem(World world, Entity original, ItemStack stack) {
 		this(world, original.posX, original.posY, original.posZ, stack);
-		this.delayBeforeCanPickup = 20;
+		this.setPickupDelay(20);
         this.motionX = original.motionX;
         this.motionY = original.motionY;
         this.motionZ = original.motionZ;
@@ -51,7 +55,8 @@ public class EntityImmortalItem extends EntityItem {
 	@Override
 	public void onUpdate()
     {
-        ItemStack stack = this.getDataWatcher().getWatchableObjectItemStack(10);
+        DataParameter<Optional<ItemStack>> arrowItem = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, this, "ITEM", "field_184533_c");
+        ItemStack stack = this.getDataManager().get(arrowItem).orNull();
         if (stack != null && stack.getItem() != null)
         {
             if (stack.getItem().onEntityItemUpdate(this))
@@ -68,27 +73,28 @@ public class EntityImmortalItem extends EntityItem {
         {
             super.onUpdate();
 
-            if (this.getdelayBeforeCanPickup > 0)
+            if (cannotPickup())
             {
-                --this.delayBeforeCanPickup;
+                int delay = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, this, "delayBeforeCanPickup", "field_145804_b");
+                setPickupDelay(delay-1);
             }
 
             this.prevPosX = this.posX;
             this.prevPosY = this.posY;
             this.prevPosZ = this.posZ;
             this.motionY -= 0.03999999910593033D;
-            this.noClip = this.pushOutOfBlocks(this.posX, (this.boundingBox.minY + this.boundingBox.maxY) / 2.0D, this.posZ);
+            this.noClip = this.pushOutOfBlocks(this.posX, (this.getEntityBoundingBox().minY + this.getEntityBoundingBox().maxY) / 2.0D, this.posZ);
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
             boolean flag = (int)this.prevPosX != (int)this.posX || (int)this.prevPosY != (int)this.posY || (int)this.prevPosZ != (int)this.posZ;
 
             if (flag || this.ticksExisted % 25 == 0)
             {
-                if (this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)).getMaterial() == Material.lava)
+                if (this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ))).getMaterial() == Material.LAVA)
                 {
                     this.motionY = 0.20000000298023224D;
                     this.motionX = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
                     this.motionZ = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-                    this.playSound("random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
+                    //this.playSound("random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
                 }
 
                 if (!this.worldObj.isRemote)
@@ -101,7 +107,7 @@ public class EntityImmortalItem extends EntityItem {
 
             if (this.onGround)
             {
-                f = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.98F;
+                f = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.98F;
             }
 
             this.motionX *= (double)f;
@@ -113,9 +119,10 @@ public class EntityImmortalItem extends EntityItem {
                 this.motionY *= -0.5D;
             }
 
-            ++this.age;
+            ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, this, getAge()+1, "age", "field_70292_b");
 
-            ItemStack item = getDataWatcher().getWatchableObjectItemStack(10);
+            DataParameter<Optional<ItemStack>> arrowItem2 = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, this, "ITEM", "field_184533_c");
+            ItemStack item = this.getDataManager().get(arrowItem2).orNull();
     
             if (!this.worldObj.isRemote && this.age >= lifespan)
             {

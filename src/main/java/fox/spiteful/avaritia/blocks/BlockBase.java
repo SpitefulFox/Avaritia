@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * @author p455w0rd
+ * @author Morpheus1101
  *
  */
 public class BlockBase extends Block implements IModelHolder {

@@ -2,6 +2,8 @@ package fox.spiteful.avaritia.entity;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class EntityHeavenSubArrow extends EntityArrow {
@@ -9,12 +11,8 @@ public class EntityHeavenSubArrow extends EntityArrow {
 		super(world, x, y, z);
 	}
 
-	public EntityHeavenSubArrow(World world, EntityLivingBase entity, EntityLivingBase entity2, float something, float otherthing) {
-		super(world, entity, entity2, something, otherthing);
-	}
-
-	public EntityHeavenSubArrow(World world, EntityLivingBase entity, float something) {
-		super(world, entity, something);
+	public EntityHeavenSubArrow(World world, EntityLivingBase entity) {
+		super(world, entity);
 		
 	}
 
@@ -31,5 +29,9 @@ public class EntityHeavenSubArrow extends EntityArrow {
 		if (EntityHeavenArrow.getInGround(this) && EntityHeavenArrow.getTicksInGround(this) >= 20) {
 			this.setDead();
 		}
+	}
+	@Override
+	protected ItemStack getArrowStack() {
+		return new ItemStack(Items.ARROW);//TODO Add Shit
 	}
 }

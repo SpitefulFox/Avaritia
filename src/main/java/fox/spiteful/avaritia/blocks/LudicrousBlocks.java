@@ -23,11 +23,12 @@ public class LudicrousBlocks {
 	public static final Block CRYSTAL_MATRIX = new BlockCrystalMatrix();
 	public static final Block RESOURCE_NEUTRONIUM = new BlockResource(0);
 	public static final Block RESOURCE_INFINITY = new BlockResource(1);
+	public static final Block NEUTRONIUM_COMPRESSOR = new BlockCompressor();
 
 	public static void init() {
 		GameRegistry.registerTileEntity(TileEntityDireCrafting.class, "avaritia_dire_craft");
 		GameRegistry.registerTileEntity(TileEntityNeutron.class, "neutron_collector");
-		BLOCK_LIST.addAll(Arrays.asList(DOUBLE_CRAFT, TRIPLE_CRAFT, DIRE_CRAFTING, NEUTRON_COLLECTOR, CRYSTAL_MATRIX, RESOURCE_NEUTRONIUM, RESOURCE_INFINITY));
+		BLOCK_LIST.addAll(Arrays.asList(DOUBLE_CRAFT, TRIPLE_CRAFT, DIRE_CRAFTING, NEUTRON_COLLECTOR, CRYSTAL_MATRIX, RESOURCE_NEUTRONIUM, RESOURCE_INFINITY, NEUTRONIUM_COMPRESSOR));
 	}
 
 	@SideOnly(Side.CLIENT)

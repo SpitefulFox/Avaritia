@@ -69,11 +69,11 @@ public class EntityCollationItem extends EntityItem {
 		}
     }
 	
-	@Override
+	/*@Override
 	public boolean combineItems(EntityItem other) {
 		return false;
 	}
-	
+	*/
 	// and the big one!
 	@Override
 	public void onCollideWithPlayer(EntityPlayer player)

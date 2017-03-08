@@ -48,7 +48,7 @@ public class Avaritia {
         matrixIngot.setRegistryName("matrix_ingot");
         GameRegistry.register(matrixIngot);
 
-        LudicrousBlocks.voxelize();
+        LudicrousBlocks.init();
         proxy.registerModels();
     }
 
@@ -73,10 +73,10 @@ public class Avaritia {
         OreDictionary.registerOre("ingotCrystalMatrix", new ItemStack(matrixIngot));
 
         GameRegistry.addShapedRecipe(new ItemStack(matrixIngot, 8), "DSD", 'D', new ItemStack(Blocks.DIAMOND_BLOCK), 'S', new ItemStack(Items.NETHER_STAR));
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(Blocks.CRAFTING_TABLE));
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.triple_craft, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousBlocks.double_craft));
-        GameRegistry.addShapedRecipe(new ItemStack(Blocks.CRAFTING_TABLE, 9), "C", 'C', new ItemStack(LudicrousBlocks.double_craft));
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.double_craft, 9), "C", 'C', new ItemStack(LudicrousBlocks.triple_craft));
-        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.dire_crafting, 1), "CCC", "CXC", "CCC", 'C', new ItemStack(matrixIngot), 'X', new ItemStack(LudicrousBlocks.triple_craft));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.DOUBLE_CRAFT, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(Blocks.CRAFTING_TABLE));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.TRIPLE_CRAFT, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(LudicrousBlocks.DOUBLE_CRAFT));
+        GameRegistry.addShapedRecipe(new ItemStack(Blocks.CRAFTING_TABLE, 9), "C", 'C', new ItemStack(LudicrousBlocks.DOUBLE_CRAFT));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.DOUBLE_CRAFT, 9), "C", 'C', new ItemStack(LudicrousBlocks.TRIPLE_CRAFT));
+        GameRegistry.addShapedRecipe(new ItemStack(LudicrousBlocks.DIRE_CRAFTING, 1), "CCC", "CXC", "CCC", 'C', new ItemStack(matrixIngot), 'X', new ItemStack(LudicrousBlocks.TRIPLE_CRAFT));
     }
 }

@@ -5,8 +5,6 @@ import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
@@ -40,10 +38,10 @@ public class AchievementTrigger {
                         return;
                 }
             }
-            else if(event.crafting.getItem() == Item.getItemFromBlock(LudicrousBlocks.dire_crafting)){
+            else if(event.crafting.getItem() == Item.getItemFromBlock(LudicrousBlocks.DIRE_CRAFTING)){
                 event.player.addStat(Achievements.dire_crafting, 1);
             }
-            else if(event.crafting.getItem() == Item.getItemFromBlock(LudicrousBlocks.neutron_collector)){
+            else if(event.crafting.getItem() == Item.getItemFromBlock(LudicrousBlocks.NEUTRON_COLLECTOR)){
                 event.player.addStat(Achievements.collector, 1);
             }
             else if(event.crafting.getItem() == LudicrousItems.singularity){
@@ -67,7 +65,7 @@ public class AchievementTrigger {
 
     @SubscribeEvent
     public void onBorken(BreakEvent event){
-        if(event.getState().getBlock() == LudicrousBlocks.dire_crafting && event.getPlayer() != null)
+        if(event.getState().getBlock() == LudicrousBlocks.DIRE_CRAFTING && event.getPlayer() != null)
             event.getPlayer().addStat(Achievements.dire_uncrafting, 1);
     }
 }

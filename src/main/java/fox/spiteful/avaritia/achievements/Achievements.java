@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class Achievements {
 
@@ -29,8 +28,8 @@ public class Achievements {
 
     public static void achieve(){
         crystal_matrix = new LudicrousAchievement("crystal_matrix", 0, 0, new ItemStack(LudicrousItems.resource, 1, 1), null);
-        dire_crafting = new LudicrousAchievement("dire_crafting", 1, 1, new ItemStack(LudicrousBlocks.dire_crafting), crystal_matrix);
-        collector = new LudicrousAchievement("collector", 2, 2, new ItemStack(LudicrousBlocks.neutron_collector), dire_crafting);
+        dire_crafting = new LudicrousAchievement("dire_crafting", 1, 1, new ItemStack(LudicrousBlocks.DIRE_CRAFTING), crystal_matrix);
+        collector = new LudicrousAchievement("collector", 2, 2, new ItemStack(LudicrousBlocks.NEUTRON_COLLECTOR), dire_crafting);
         neutronium = new LudicrousAchievement("neutronium", 4, 1, new ItemStack(LudicrousItems.resource, 1, 4), collector);
         singularity = new LudicrousAchievement("singularity", 6, 3, new ItemStack(LudicrousItems.singularity, 1, 0), neutronium);
         catalyst = new LudicrousAchievement("catalyst", 6, -3, new ItemStack(LudicrousItems.resource, 1, 5), singularity).setSpecial();
