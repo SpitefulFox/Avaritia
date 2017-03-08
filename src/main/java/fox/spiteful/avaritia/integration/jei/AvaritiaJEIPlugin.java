@@ -37,7 +37,7 @@ public class AvaritiaJEIPlugin implements IModPlugin {
         );
 
         registry.addRecipeClickArea(GUIExtremeCrafting.class, 175, 79, 28, 26, RecipeCategoryUids.EXTREME_CRAFTING);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(LudicrousBlocks.dire_crafting), RecipeCategoryUids.EXTREME_CRAFTING);
+        registry.addRecipeCategoryCraftingItem(new ItemStack(LudicrousBlocks.DIRE_CRAFTING), RecipeCategoryUids.EXTREME_CRAFTING);
 
         registry.addRecipes(ExtremeCraftingManager.getInstance().getRecipeList());
     }

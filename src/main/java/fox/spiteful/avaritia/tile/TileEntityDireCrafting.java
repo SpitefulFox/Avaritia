@@ -21,9 +21,10 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
         return false;
     }*/
 
+
     @Override
-    public void readCustomNBT(NBTTagCompound tag)
-    {
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
         this.result = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Result"));
         for(int x = 0;x < matrix.length;x++){
             matrix[x] = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Craft" + x));
@@ -31,7 +32,7 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound tag)
+    public NBTTagCompound writeToNBT(NBTTagCompound tag)
     {
         if(result != null) {
             NBTTagCompound produce = new NBTTagCompound();
@@ -50,6 +51,7 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
             else
                 tag.removeTag("Craft" + x);
         }
+        return super.writeToNBT(tag);
     }
 
     @Override

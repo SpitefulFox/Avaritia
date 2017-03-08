@@ -5,15 +5,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 
-public class TileEntityNeutron extends TileLudicrous implements IInventory {
+public class TileEntityNeutron extends TileLudicrous implements IInventory, ITickable {
 
     private ItemStack neutrons;
     private int facing = 2;
     private int progress;
 
     @Override
-    public void updateEntity(){
+    public void update(){
         if(++progress >= 7111){
         //if(++progress >= 300){
             if(neutrons == null)
@@ -34,15 +36,16 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound tag)
-    {
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
+
         this.neutrons = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Neutrons"));
         this.progress = tag.getInteger("Progress");
         this.facing = tag.getShort("Facing");
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound tag)
+        public NBTTagCompound writeToNBT(NBTTagCompound tag)
     {
         tag.setInteger("Progress", this.progress);
         tag.setShort("Facing", (short) this.facing);
@@ -51,8 +54,10 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
             neutrons.writeToNBT(produce);
             tag.setTag("Neutrons", produce);
         }
-        else
+        else {
             tag.removeTag("Neutrons");
+        }
+        return super.writeToNBT(tag);
     }
 
     @Override
@@ -86,14 +91,14 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
     }
 
     @Override
-    public void openInventory() {}
+    public void openInventory(EntityPlayer player) {}
     @Override
-    public void closeInventory() {}
+    public void closeInventory(EntityPlayer player) {}
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player)
     {
-        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && player.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(new BlockPos(getPos().getX(), getPos().getY(),getPos().getZ())) == this && player.getDistanceSq((double)getPos().getX() + 0.5D, (double)getPos().getY() + 0.5D, (double)getPos().getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -111,16 +116,11 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
         neutrons = stack;
     }
 
-    @Override
-    public ItemStack getStackInSlotOnClosing(int slot){
-        return null;
-    }
-
     /**
      * Returns the name of the inventory
      */
     @Override
-    public String getInventoryName()
+    public String getName()
     {
         return  "container.neutron";
     }
@@ -129,9 +129,31 @@ public class TileEntityNeutron extends TileLudicrous implements IInventory {
      * Returns if the inventory is named
      */
     @Override
-    public boolean hasCustomInventoryName()
+    public boolean hasCustomName()
     {
         return false;
+    }
+    @Override
+    public ItemStack removeStackFromSlot(int slot) {
+        return null;
+    }
+
+    @Override
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
     }
 
 }

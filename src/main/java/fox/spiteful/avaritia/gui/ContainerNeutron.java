@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 
@@ -14,7 +15,7 @@ public class ContainerNeutron extends Container {
     public ContainerNeutron(InventoryPlayer player, TileEntityNeutron machine)
     {
         this.tileNeutron = machine;
-        this.addSlotToContainer(new SlotFurnace(player.player, machine, 2, 80, 35));
+        this.addSlotToContainer(new SlotFurnaceFuel(machine, 2, 80, 35));
         int i;
 
         for (i = 0; i < 3; ++i)

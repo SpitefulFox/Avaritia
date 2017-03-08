@@ -77,7 +77,7 @@ public class ContainerExtremeCrafting extends Container {
     @Override
     public boolean canInteractWith(EntityPlayer player)
     {
-        return this.worldObj.getBlockState(pos) == LudicrousBlocks.dire_crafting.getDefaultState() && player.getDistanceSq(pos) <= 64.0D;
+        return this.worldObj.getBlockState(pos) == LudicrousBlocks.DIRE_CRAFTING.getDefaultState() && player.getDistanceSq(pos) <= 64.0D;
     }
 
     @Override

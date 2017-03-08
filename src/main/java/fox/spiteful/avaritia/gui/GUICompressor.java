@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.gui;
 import fox.spiteful.avaritia.tile.TileEntityCompressor;
 import fox.spiteful.avaritia.tile.TileEntityNeutron;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -23,14 +24,14 @@ public class GUICompressor extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
     {
-        String s = StatCollector.translateToLocal("container.neutronium_compressor");
+        String s = I18n.format("container.neutronium_compressor");
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
         if(compressor.getProgress() > 0) {
             s = compressor.getProgress() + " / " + compressor.getTarget();
             this.fontRendererObj.drawString(s, 41, 49, 4210752);
             this.fontRendererObj.drawString(compressor.getIngredient(), 41, 60, 4210752);
         }
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
     protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_)

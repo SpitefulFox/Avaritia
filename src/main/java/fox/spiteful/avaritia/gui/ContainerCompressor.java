@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
 
 public class ContainerCompressor extends Container {
@@ -15,7 +16,7 @@ public class ContainerCompressor extends Container {
     {
         this.compressor = machine;
         this.addSlotToContainer(new Slot(compressor, 0, 56, 27));
-        this.addSlotToContainer(new SlotFurnace(player.player, machine, 1, 116, 27));
+        this.addSlotToContainer(new SlotFurnaceFuel(machine, 1, 116, 27));
         int i;
 
         for (i = 0; i < 3; ++i)

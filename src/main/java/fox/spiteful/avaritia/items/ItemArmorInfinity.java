@@ -3,7 +3,6 @@ package fox.spiteful.avaritia.items;
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.LudicrousText;
-import fox.spiteful.avaritia.compat.Belmont;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
@@ -27,32 +26,23 @@ import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.IVisDiscountGear;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.Optional;
+
 
 @Optional.InterfaceList({
-        @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"),
-        @Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"),
-        @Optional.Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"),
-        @Optional.Interface(iface = "vazkii.botania.api.item.IPhantomInkable", modid = "Botania"),
         @Optional.Interface(iface = "vazkii.botania.api.mana.IManaDiscountArmor", modid = "Botania"),
         @Optional.Interface(iface = "vazkii.botania.api.item.IManaProficiencyArmor", modid = "Botania")
 })
-public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IGoggles, IRevealer, IVisDiscountGear, IPhantomInkable,
-        IManaDiscountArmor, IManaProficiencyArmor {
+public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IManaDiscountArmor, IManaProficiencyArmor {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
     public Models cosmicMask;
