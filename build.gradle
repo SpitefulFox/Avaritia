@@ -1,9 +1,15 @@
 buildscript {
     repositories {
 		jcenter()
+
 		maven {
-			name = "forge"
-			url = "http://files.minecraftforge.net/maven"
+			name = "covers1624"
+			url = "http://mavenmirror.covers1624.net/general/"
+		}
+
+		maven {
+			name = "covers1624"
+			url = "http://mavenmirror.covers1624.net/forge/"
 		}
 	}
 	dependencies {

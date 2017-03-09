@@ -78,7 +78,7 @@ public class MorvInABoxRenderer implements IItemRenderer {
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
 			
 			RenderItem r = RenderItem.getInstance();
-			r.renderItemIntoGUI(mc.fontRenderer, mc.getTextureManager(), item, 0, 0, true);
+			r.renderItemIntoGUI(mc.ontRenderer, mc.getTextureManager(), item, 0, 0, true);
 			
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
