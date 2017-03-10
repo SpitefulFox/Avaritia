@@ -1,6 +1,7 @@
 package fox.spiteful.avaritia.render;
 
 import java.util.Map;
+
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraftforge.common.model.Models;
 import org.lwjgl.opengl.GL11;

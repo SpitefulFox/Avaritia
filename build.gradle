@@ -80,6 +80,9 @@ repositories {
 		name = "covers1624"
 		url = "http://mavenmirror.covers1624.net/"
 	}
+	maven {
+		url  "https://dl.bintray.com/raoulvdberge/dev/"
+	}
 }
 
 dependencies {
@@ -89,10 +92,11 @@ dependencies {
 	compile "slimeknights:TConstruct:1.10.2-2.6.1.468"
 	compile "slimeknights.mantle:Mantle:1.10.2-1.1.3.199"
 	compile "mcjty.theoneprobe:TheOneProbe:1.1x-1.4.4-55:deobf"
-	deobfCompile "net.sengir.forestry:forestry_1.10.2:5.2.17.+"
-	deobfCompile "MineTweaker3:MineTweaker3-API:3.0.22.+"
+	compile "net.sengir.forestry:forestry_1.10.2:5.2.17.+"
+	compile "MineTweaker3:MineTweaker3-API:3.0.22.+"
 	compile "com.brandon3055.draconicevolution:Draconic-Evolution:1.10.2-2.0.8.+:deobf"
 	compile "com.progwml6.natura:natura:1.10.2-4.1.0.+:deobf"
+	compile "refinedstorage:refinedstorage:1.2.+"
 }
 
 processResources

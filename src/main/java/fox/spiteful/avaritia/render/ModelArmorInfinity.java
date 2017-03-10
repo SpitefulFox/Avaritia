@@ -6,6 +6,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -36,10 +37,10 @@ public class ModelArmorInfinity extends ModelBiped {
     public static final ModelArmorInfinity armorModel = new ModelArmorInfinity(1.0f);
     public static final ModelArmorInfinity legModel = new ModelArmorInfinity(0.5f).setLegs(true);
 
-    public static IIcon overlayIcon = null;
-	public static IIcon invulnOverlayIcon = null;
-	public static IIcon eyesIcon = null;
-	public static IIcon wingOverlayIcon = null;
+    public static Models overlayIcon = null;
+	public static Models invulnOverlayIcon = null;
+	public static Models eyesIcon = null;
+	public static Models wingOverlayIcon = null;
 	
 	public static ResourceLocation eyeTex = new ResourceLocation("avaritia","textures/models/infinity_armor_eyes.png");
 	public static ResourceLocation wingTex = new ResourceLocation("avaritia","textures/models/infinity_armor_wing.png");

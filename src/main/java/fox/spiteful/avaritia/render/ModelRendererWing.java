@@ -1,11 +1,10 @@
 package fox.spiteful.avaritia.render;
 
-import org.lwjgl.opengl.GL11;
-
 import fox.spiteful.avaritia.Lumberjack;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import org.lwjgl.opengl.GL11;
 
 public class ModelRendererWing extends ModelRenderer {
 
@@ -23,14 +22,14 @@ public class ModelRendererWing extends ModelRenderer {
 
 	@Override
 	public void render(float f) {
-		/*if (!this.isHidden && this.showModel) {
+		if (!this.isHidden && this.showModel) {
 			//GL11.glCullFace(GL11.GL_BACK);
 			GL11.glEnable(GL11.GL_CULL_FACE);
-		}*/
+		}
 		super.render(f);
-		/*if (!this.isHidden && this.showModel) {
+		if (!this.isHidden && this.showModel) {
 			//GL11.glCullFace(GL11.GL_NONE);
 			GL11.glDisable(GL11.GL_CULL_FACE);
-		}*/
+		}
 	}
 }
