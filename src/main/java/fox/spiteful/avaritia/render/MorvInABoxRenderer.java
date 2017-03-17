@@ -1,7 +1,7 @@
 package fox.spiteful.avaritia.render;
 
 import java.util.Map;
-
+import java.util.UUID;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraftforge.common.model.Models;
 import org.lwjgl.opengl.GL11;
@@ -27,7 +27,7 @@ import net.minecraft.util.ResourceLocation;
 
 
 public class MorvInABoxRenderer implements IItemRenderer {
-	private static GameProfile morvy; = new GameProfile(UUID.fromString(), "Morvelaira")
+	private static GameProfile morvy; = new GameProfile(UUID.fromString(), "Morvelaira");
 	private static ResourceLocation skin = null;
 
 	public MorvInABoxRenderer() {
@@ -87,7 +87,7 @@ public class MorvInABoxRenderer implements IItemRenderer {
 			
 			r.renderWithColor = true;
 			
-			Tessellator t = Tessellator.instance;
+			Tessellator t = Tessellator.getInstance();
 			
 	        if (skin != null) {
 	        	GL11.glPushMatrix();
@@ -234,9 +234,9 @@ public class MorvInABoxRenderer implements IItemRenderer {
             GameProfile gameprofile = null;
 
             //Which one is returning null?  Who knooooooooows
-            if(MinecraftServer.getServer() != null && MinecraftServer.getServer().func_152358_ax() != null
+            if(MinecraftServer.getServer() != null && MinecraftServer.getServer().getPlayerProfileCache() != null
                     && morvy != null)
-                gameprofile = MinecraftServer.getServer().func_152358_ax().func_152655_a(morvy.getName());
+                gameprofile = MinecraftServer.getServer().getPlayerProfileCache().func_152655_a(morvy.getName());
 
             if (gameprofile != null)
             {
@@ -244,7 +244,7 @@ public class MorvInABoxRenderer implements IItemRenderer {
 
                 if (property == null)
                 {
-                    gameprofile = MinecraftServer.getServer().func_147130_as().fillProfileProperties(gameprofile, true);
+                    gameprofile = MinecraftServer.getServer().getMinecraftSessionService().fillProfileProperties(gameprofile, true);
                 }
             }
             morvy = gameprofile;
@@ -253,14 +253,14 @@ public class MorvInABoxRenderer implements IItemRenderer {
 		if (skin == null) {
 			Lumberjack.info("2");
 			Minecraft minecraft = Minecraft.getMinecraft();
-            Map map = minecraft.func_152342_ad().func_152788_a(morvy);
-			Map map = minecraft.func_152342_ad().func_152788_a(Minecraft.getMinecraft().thePlayer.getGameProfile());
+            Map map = minecraft.getSkinManager().loadSkinFromCache(morvy);
+			Map map = minecraft.getSkinManager().loadSkinFromCache(Minecraft.getMinecraft().thePlayer.getGameProfile());
             Lumberjack.info(map);
             
             if (map.containsKey(Type.SKIN))
             {
             	//Lumberjack.info("3");
-                skin = minecraft.func_152342_ad().func_152792_a((MinecraftProfileTexture)map.get(Type.SKIN), Type.SKIN);
+                skin = minecraft.getSkinManager().loadSkin((MinecraftProfileTexture)map.get(Type.SKIN), Type.SKIN);
             }
 		}
 	}

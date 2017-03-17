@@ -76,15 +76,15 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
             player.getFoodStats().addStats(20, 20F);
         }
         else if(armorType == 1){
-            //player.capabilities.allowFlying = true;
+            player.capabilities.allowFlying = true;
             Collection effects = player.getActivePotionEffects();
             if(effects.size() > 0){
                 ArrayList<Potion> bad = new ArrayList<Potion>();
                 for(Object effect : effects){
                     if(effect instanceof PotionEffect){
                         PotionEffect potion = (PotionEffect)effect;
-                        if(PotionHelper.badPotion(Potion.potionTypes[potion.getPotionID()]))
-                            bad.add(Potion.potionTypes[potion.getPotionID()]);
+                        if(PotionHelper.badPotion(Potion.potionType[Potion.getPotionById()]))
+                            bad.add(Potion.potionTypes[Potion.getPotionById()]);
                     }
                 }
                 if(bad.size() > 0){
