@@ -10,20 +10,23 @@ import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.items.tools.ToolHelper;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.model.Models;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemMatterCluster extends Item implements ICosmicRenderItem {
+
+public class ItemMatterCluster extends Item  {
 
 	protected static Random randy = new Random();
 	
@@ -35,24 +38,10 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 	
 	public static int capacity = 64*64;
 	
-	public Models iconFull;
-	public Models cosmicIcon;
-	public Models cosmicIconFull;
-	
 	public ItemMatterCluster() {
 		this.setMaxStackSize(1);
 		this.setUnlocalizedName("avaritia_mattercluster");
-		this.setTextureName("avaritia:mattercluster");
-	}
-	
-	@SideOnly(Side.CLIENT)
-    public void registerIcons(TextureUtils.IIconRegister ir) {
-		super.registerIcons(ir);
-		
-		this.cosmicIcon = ir.registerIcon("avaritia:mattercluster_mask");
-		
-		this.iconFull = ir.registerIcon("avaritia:mattercluster_full");
-		this.cosmicIconFull = ir.registerIcon("avaritia:mattercluster_full_mask");
+
 	}
 	
 	@Override
@@ -69,7 +58,7 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 		}
 		NBTTagCompound clustertag = stack.getTagCompound().getCompoundTag(MAINTAG);
 		
-		tooltip.add(clustertag.getInteger(MAINCOUNTTAG) + "/" + capacity + " " + StatCollector.translateToLocal("tooltip.matter_cluster.counter"));
+		tooltip.add(clustertag.getInteger(MAINCOUNTTAG) + "/" + capacity + " " + I18n.format("tooltip.matter_cluster.counter"));
 		tooltip.add("");
 		
 		
@@ -83,8 +72,8 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 				tooltip.add(countstack.getItem().getRarity(countstack).rarityColor + countstack.getDisplayName() +TextFormatting.GRAY+" x " + count);
 			}
 		} else {
-			tooltip.add(TextFormatting.DARK_GRAY + StatCollector.translateToLocal("tooltip.matter_cluster.desc"));
-			tooltip.add(TextFormatting.DARK_GRAY.toString() + TextFormatting.ITALIC + StatCollector.translateToLocal("tooltip.matter_cluster.desc2"));
+			tooltip.add(TextFormatting.DARK_GRAY + I18n.format("tooltip.matter_cluster.desc"));
+			tooltip.add(TextFormatting.DARK_GRAY.toString() + TextFormatting.ITALIC + I18n.format("tooltip.matter_cluster.desc2"));
 		}
 	}
 	
@@ -236,60 +225,19 @@ public class ItemMatterCluster extends Item implements ICosmicRenderItem {
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
     {
 		if(!world.isRemote) {
 			List<ItemStack> drops = ToolHelper.collateMatterClusterContents(ItemMatterCluster.getClusterData(stack));
 			
 			for (ItemStack drop : drops) {
-				ToolHelper.dropItem(drop, world, MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+				ToolHelper.dropItem(drop, world, new BlockPos(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ)));
 			}
 		}
 		
         stack.stackSize = 0;
-        return stack;
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Models getMaskTexture(ItemStack stack, EntityPlayer player) {
-		int count = getClusterSize(stack);
-		if (count == capacity) {
-			return cosmicIconFull;
-		}
-		return cosmicIcon;
-	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public float getMaskMultiplier(ItemStack stack, EntityPlayer player) {
-		int count = getClusterSize(stack);
-		return count / (float)capacity;
-	}
-	
-	@Override
-	public Models getIcon(ItemStack stack, int pass) {
-		int count = getClusterSize(stack);
-		if (count == capacity) {
-			return iconFull;
-		}
-		return super.getIcon(stack, pass);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-    public Models getIconIndex(ItemStack stack)
-    {
-        return this.getIcon(stack, 0);
-    }
-	
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-    {
-		int count = getClusterSize(stack);
-		if (count == capacity) {
-			return super.getUnlocalizedName(stack) + ".full";
-		}
-        return super.getUnlocalizedName(stack);
-    }
 }

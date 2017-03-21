@@ -6,34 +6,35 @@
 
 package fox.spiteful.avaritia.items.tools;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.apache.logging.log4j.Level;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,10 +48,8 @@ public class ItemAxeInfinity extends ItemAxe {
 
     public ItemAxeInfinity(){
         super(opAxe);
-        setUnlocalizedName("infinity_axe");
-        setTextureName("avaritia:infinity_axe");
         setCreativeTab(Avaritia.tab);
-        FMLCommonHandler.instance().bus().register(this);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override
@@ -65,42 +64,44 @@ public class ItemAxeInfinity extends ItemAxe {
     }
 
     @Override
-    public float getDigSpeed(ItemStack stack, Block block, int meta){
-        if (ForgeHooks.isToolEffective(stack, block, meta) || block.getMaterial() == Material.leaves)
-        {
+    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+        if (super.getStrVsBlock(stack, state) > 1.0F || state.getMaterial() == Material.LEAVES) {
             return efficiencyOnProperMaterial;
         }
-        return Math.max(func_150893_a(stack, block), 6.0F);
+        return Math.max(super.getStrVsBlock(stack, state), 6.0F);
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if(player.isSneaking()) {
-            player.swingItem();
-            int fortune = EnchantmentHelper.getFortuneModifier(player);
-            boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
+            player.swingArm(hand);
+            int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+            boolean silk = EnchantmentHelper.getEnchantments(stack).containsKey(Enchantments.SILK_TOUCH);
 
             int range = 13;
 
             ToolHelper.removeBlocksInIteration(player, stack, world, (int)player.posX, (int)player.posY, (int)player.posZ, -range, -3, -range, range, range * 2 - 3, range, null, ToolHelper.materialsAxe, silk, fortune, false);
         }
-        return stack;
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 
     @Override
-    public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
-        MovingObjectPosition raycast = ToolHelper.raytraceFromEntity(player.worldObj, player, true, 10);
+    public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
+        RayTraceResult raycast = ToolHelper.raytraceFromEntity(player.worldObj, player, true, 10);
         if (raycast != null) {
             breakOtherBlock(player, stack, x, y, z, x, y, z, raycast.sideHit);
         }
         return false;
     }
 
-    public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
+    public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, EnumFacing side) {
         if(player.isSneaking())
             return;
-        ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
-        addBlockSwapper(player.worldObj, player, stack, coords, coords, 32, false, true, new ArrayList());
+        BlockPos coords = new BlockPos(x, y, z);
+        addBlockSwapper(player.worldObj, player, stack, coords, coords, 32, false, true, new ArrayList<String>());
     }
 
     @Override
@@ -117,7 +118,7 @@ public class ItemAxeInfinity extends ItemAxe {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    public boolean hasEffect(ItemStack par1ItemStack)
     {
         return false;
     }
@@ -125,7 +126,7 @@ public class ItemAxeInfinity extends ItemAxe {
     @SubscribeEvent
     public void onTickEnd(TickEvent.WorldTickEvent event) {
         if(event.phase == TickEvent.Phase.END) {
-            int dim = event.world.provider.dimensionId;
+            int dim = event.world.provider.getDimension();
             if(blockSwappers.containsKey(dim)) {
                 List<BlockSwapper> swappers = blockSwappers.get(dim);
                 List<BlockSwapper> swappersSafe = new ArrayList(swappers);
@@ -137,9 +138,9 @@ public class ItemAxeInfinity extends ItemAxe {
         }
     }
 
-    private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, ChunkCoordinates coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
+    private static BlockSwapper addBlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, BlockPos coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
         BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, coords, steps, leaves, force, posChecked);
-        int dim = world.provider.dimensionId;
+        int dim = world.provider.getDimension();
         if(!blockSwappers.containsKey(dim))
             blockSwappers.put(dim, new ArrayList());
         blockSwappers.get(dim).add(swapper);
@@ -149,13 +150,13 @@ public class ItemAxeInfinity extends ItemAxe {
         final World world;
         final EntityPlayer player;
         final ItemStack stack;
-        final ChunkCoordinates origCoords;
+        final BlockPos origCoords;
         final int steps;
-        final ChunkCoordinates coords;
+        final BlockPos coords;
         final boolean leaves;
         final boolean force;
         final List<String> posChecked;
-        BlockSwapper(World world, EntityPlayer player, ItemStack stack, ChunkCoordinates origCoords, ChunkCoordinates coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
+        BlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, BlockPos coords, int steps, boolean leaves, boolean force, List<String> posChecked) {
             this.world = world;
             this.player = player;
             this.stack = stack;
@@ -167,28 +168,30 @@ public class ItemAxeInfinity extends ItemAxe {
             this.posChecked = posChecked;
         }
         void tick() {
-            Block blockat = world.getBlock(coords.posX, coords.posY, coords.posZ);
-            if(!force && blockat.isAir(world, coords.posX, coords.posY, coords.posZ))
-                return;
-            ToolHelper.removeBlockWithDrops(player, stack, world, coords.posX, coords.posY, coords.posZ, null, ToolHelper.materialsAxe, EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack), 0F, false);
+            IBlockState state = world.getBlockState(coords);
+            Block blockat = state.getBlock();
+            if (!force && blockat.isAir(state, world, coords)) return;
+              ToolHelper.removeBlockWithDrops(player, stack, world, coords, null, ToolHelper.materialsAxe, EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack), 0F, false);
             if(steps == 0)
                 return;
-            for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                int x = coords.posX + dir.offsetX;
-                int y = coords.posY + dir.offsetY;
-                int z = coords.posZ + dir.offsetZ;
+            for(EnumFacing dir : EnumFacing.VALUES) {
+                int x = coords.getX() + dir.getFrontOffsetX();
+                int y = coords.getY() + dir.getFrontOffsetY();
+                int z = coords.getZ() + dir.getFrontOffsetZ();
                 String pstr = posStr(x, y, z);
                 if(posChecked.contains(pstr))
                     continue;
-                Block block = world.getBlock(x, y, z);
-                boolean log = block.isWood(world, x, y, z);
-                boolean leaf = block.isLeaves(world, x, y, z);
+                BlockPos pos = new BlockPos(x, y, z);
+                IBlockState state1 = world.getBlockState(pos);
+                Block block = state1.getBlock();
+                boolean log = block.isWood(world, pos);
+                boolean leaf = block.isLeaves(state1, world, pos);
                 if(log || leaf) {
                     int steps = this.steps - 1;
                     steps = leaf ? leaves ? steps : 3 : steps;
-                    addBlockSwapper(world, player, stack, origCoords, new ChunkCoordinates(x, y, z), steps, leaf, false, posChecked);
+                    addBlockSwapper(world, player, stack, origCoords, new BlockPos(x, y, z), steps, leaf, false, posChecked);
                     posChecked.add(pstr);
-                }
+                 }
             }
         }
         String posStr(int x, int y, int z) {

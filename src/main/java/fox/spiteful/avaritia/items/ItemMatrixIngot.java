@@ -10,7 +10,6 @@ public class ItemMatrixIngot extends Item {
 
     public ItemMatrixIngot(){
         this.setMaxDamage(0);
-        this.setUnlocalizedName("crystal_matrix_ingot");
         this.setCreativeTab(Avaritia.tab);
     }
 

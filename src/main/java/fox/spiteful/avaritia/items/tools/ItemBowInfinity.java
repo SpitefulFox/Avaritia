@@ -1,14 +1,14 @@
 package fox.spiteful.avaritia.items.tools;
 
 import fox.spiteful.avaritia.Avaritia;
-import fox.spiteful.avaritia.Lumberjack;
 import fox.spiteful.avaritia.entity.EntityHeavenArrow;
 import fox.spiteful.avaritia.render.CosmicBowRenderer;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.model.Models;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBowInfinity extends Item implements ICosmicRenderItem {
     private Models[] iconArray;
@@ -27,8 +29,6 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
     {
         this.maxStackSize = 1;
         this.setMaxDamage(9999);
-        this.setUnlocalizedName("infinity_bow");
-        this.setTextureName("avaritia:infinity_bow");
         this.setCreativeTab(Avaritia.tab);
     }
 
@@ -38,20 +38,14 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
     }
     
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int useCount)
-    {
-    	//this.fire(stack, world, player, useCount);
-    }
-    
-    @Override
-    public void onUsingTick(ItemStack stack, EntityPlayer player, int count)
+    public void onUsingTick(ItemStack stack, EntityLivingBase player, int count)
     {
     	if (count == 1) {
     		this.fire(stack, player.worldObj, player, 0);
     	}
     }
     	
-    public void fire(ItemStack stack, World world, EntityPlayer player, int useCount) 
+    public void fire(ItemStack stack, World world, EntityLivingBase player, int useCount)
     {
     	int max = this.getMaxItemUseDuration(stack);
     	float maxf = (float)max;
@@ -91,21 +85,21 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
                 entityarrow.setIsCritical(true);
             }
 
-            int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, stack);
+            int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 
             if (k > 0)
             {
                 entityarrow.setDamage(entityarrow.getDamage() + k * 1 + 1);
             }
 
-            int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);
+            int l = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
 
             if (l > 0)
             {
                 entityarrow.setKnockbackStrength(l);
             }
 
-            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, stack) > 0)
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0)
             {
                 entityarrow.setFire(100);
             }
@@ -175,8 +169,8 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
     	int pullframes = 3;
         this.itemIcon = ir.registerIcon(this.getIconString() + "_standby");
         this.idleMask = ir.registerIcon(this.getIconString() + "_standby_mask");
-        this.iconArray = new IIcon[pullframes];
-        this.maskArray = new IIcon[pullframes];
+        this.iconArray = new Models[pullframes];
+        this.maskArray = new Models[pullframes];
 
         for (int i = 0; i < pullframes; ++i)
         {
@@ -187,7 +181,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    public Models getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
     {
     	if (usingItem != null)
         {
@@ -213,7 +207,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
     
     @Override
     @SideOnly(Side.CLIENT) 
-    public IIcon getIcon(ItemStack stack, int pass) {
+    public Models getIcon(ItemStack stack, int pass) {
     	return super.getIcon(stack, pass);
     }
     
@@ -226,7 +220,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getMaskTexture(ItemStack stack, EntityPlayer player) {
+	public Models getMaskTexture(ItemStack stack, EntityPlayer player) {
 		int frame = -1;
 		if (player != null) {
 

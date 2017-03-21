@@ -22,26 +22,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
-@Mod(modid = "Avaritia", name = "Avaritia")
+@Mod(modid = ModGlobals.MODID, name = ModGlobals.MODNAME)
 public class Avaritia {
+
     @Mod.Instance
     public static Avaritia instance;
 
-    @SidedProxy(serverSide = "fox.spiteful.avaritia.CommonProxy", clientSide = "fox.spiteful.avaritia.ClientProxy")
+    @SidedProxy(serverSide = ModGlobals.COMMONPROXY, clientSide = ModGlobals.CLIENTPROXY)
     public static CommonProxy proxy;
 
     public static Item matrixIngot;
 
-    public static CreativeTabs tab = new CreativeTabs("avaritia"){
+    public static CreativeTabs tab = new CreativeTabs(ModGlobals.MODID) {
         @Override
         @SideOnly(Side.CLIENT)
-        public Item getTabIconItem(){
+        public Item getTabIconItem() {
             return matrixIngot;
         }
     };
 
     @Mod.EventHandler
-    public void earlyGame(FMLPreInitializationEvent event){
+    public void preInit(FMLPreInitializationEvent event) {
         instance = this;
 
         matrixIngot = new ItemMatrixIngot();
@@ -53,23 +54,24 @@ public class Avaritia {
     }
 
     @Mod.EventHandler
-    public void midGame(FMLInitializationEvent event){
+    public void init(FMLInitializationEvent event) {
         addRecipes();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GooeyHandler());
     }
 
     @Mod.EventHandler
-    public void endGame(FMLPostInitializationEvent event){
-        if(Loader.isModLoaded("MineTweaker3"))
+    public void postInit(FMLPostInitializationEvent event) {
+        if (Loader.isModLoaded("MineTweaker3")) {
             try {
                 Tweak.registrate();
             }
-            catch (Throwable e){
+            catch (Throwable e) {
                 Lumberjack.log(Level.ERROR, e, "Avaritia seems to be having trouble with CraftTweaker.");
             }
+        }
     }
-    
-    private void addRecipes(){
+
+    private void addRecipes() {
         OreDictionary.registerOre("ingotCrystalMatrix", new ItemStack(matrixIngot));
 
         GameRegistry.addShapedRecipe(new ItemStack(matrixIngot, 8), "DSD", 'D', new ItemStack(Blocks.DIAMOND_BLOCK), 'S', new ItemStack(Items.NETHER_STAR));

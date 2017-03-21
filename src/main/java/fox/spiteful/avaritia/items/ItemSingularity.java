@@ -28,11 +28,9 @@ public class ItemSingularity extends Item implements IHaloRenderItem {
     public ItemSingularity(){
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setUnlocalizedName("avaritia_singularity");
-        this.setTextureName("avaritia:singularity");
         this.setCreativeTab(Avaritia.tab);
     }
-
+/*
     @SideOnly(Side.CLIENT)
     @Override
     public int getColorFromItemStack(ItemStack itemstack, int renderpass) {
@@ -40,43 +38,21 @@ public class ItemSingularity extends Item implements IHaloRenderItem {
         return renderpass == 0 ? colors2[itemstack.getItemDamage() % colors.length] : colors[itemstack.getItemDamage() % colors2.length];
     	//return 0xFFFFFF;
     }
-
+*/
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         int i = MathHelper.clamp_int(stack.getItemDamage(), 0, types.length);
         return "item.singularity_" + types[i];
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-	@SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
+    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
         for (int j = 0; j < types.length; ++j) {
             list.add(new ItemStack(item, 1, j));
         }
     }
     
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister ir) {
-    	foreground = ir.registerIcons("avaritia:singularity");
-    	background = ir.registerIcons("avaritia:singularity2");
-    }
-    
-    @Override
-    public Models getIcon(ItemStack stack, int pass)
-    {
-    	if (pass == 0) { return background; }
-    	return foreground;
-    }
-    
-    @SideOnly(Side.CLIENT)
-    @Override
-    public boolean requiresMultipleRenderPasses()
-    {
-        return true;
-    }
-
     @Override
     public EnumRarity getRarity(ItemStack stack)
     {

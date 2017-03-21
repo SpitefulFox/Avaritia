@@ -18,13 +18,13 @@ public class ItemStackWrapper {
 				&& this.stack.getItemDamage() == other.stack.getItemDamage()
 			) {
 				
-				if (this.stack.stackTagCompound == null && other.stack.stackTagCompound == null) {
+				if (this.stack.getTagCompound() == null && other.stack.getTagCompound() == null) {
 					return true;
 				} else {
-					if (this.stack.stackTagCompound == null ^ other.stack.stackTagCompound == null) {
+					if (this.stack.getTagCompound() == null ^ other.stack.getTagCompound() == null) {
 						return false;
 					}
-					else if (this.stack.stackTagCompound.equals(other.stack.stackTagCompound)) {
+					else if (this.stack.getTagCompound().equals(other.stack.getTagCompound())) {
 						return true;
 					}
 				}
@@ -37,8 +37,8 @@ public class ItemStackWrapper {
 	@Override 
 	public int hashCode() {
 		int h = this.stack.getItem().hashCode();
-		if (this.stack.stackTagCompound != null) {
-			h ^= this.stack.stackTagCompound.hashCode();
+		if (this.stack.getTagCompound() != null) {
+			h ^= this.stack.getTagCompound().hashCode();
 		}
 		return h ^ this.stack.getItemDamage();
 	}

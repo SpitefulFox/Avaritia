@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.items;
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.LudicrousText;
+import fox.spiteful.avaritia.ModGlobals;
 import fox.spiteful.avaritia.compat.Compat;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.render.ICosmicRenderItem;
@@ -12,7 +13,9 @@ import net.minecraft.client.model.ModelBiped;
 import fox.spiteful.avaritia.PotionHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
@@ -42,22 +45,19 @@ import java.util.List;
         @Optional.Interface(iface = "vazkii.botania.api.mana.IManaDiscountArmor", modid = "Botania"),
         @Optional.Interface(iface = "vazkii.botania.api.item.IManaProficiencyArmor", modid = "Botania")
 })
-public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, IManaDiscountArmor, IManaProficiencyArmor {
+public class ItemArmorInfinity extends ItemArmor implements IManaDiscountArmor, IManaProficiencyArmor {
 
-    public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("infinity", 9999, new int[]{6, 16, 12, 6}, 1000);
-    public Models cosmicMask;
-    public final int slot;
+    public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial(ModGlobals.MODID+":infinity", "", 9999, new int[]{6, 16, 12, 6}, 1000, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
+    public final EntityEquipmentSlot slot;
 
-    public ItemArmorInfinity(int slot){
+    public ItemArmorInfinity(EntityEquipmentSlot slot){
         super(infinite_armor, 0, slot);
         this.slot = slot;
         setCreativeTab(Avaritia.tab);
-        setUnlocalizedName("infinity_armor_" + slot);
-        setTextureName("avaritia:infinity_armor_" + slot);
-    }
+         }
 
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
     {
         return "avaritia:textures/models/infinity_armor.png";
     }
@@ -71,30 +71,25 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 	@Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
     {
-        if(armorType == 0){
+        if(armorType == EntityEquipmentSlot.HEAD){
             player.setAir(300);
             player.getFoodStats().addStats(20, 20F);
         }
-        else if(armorType == 1){
+        else if (armorType == EntityEquipmentSlot.CHEST) {
             player.capabilities.allowFlying = true;
             Collection effects = player.getActivePotionEffects();
-            if(effects.size() > 0){
-                ArrayList<Potion> bad = new ArrayList<Potion>();
-                for(Object effect : effects){
-                    if(effect instanceof PotionEffect){
-                        PotionEffect potion = (PotionEffect)effect;
-                        if(PotionHelper.badPotion(Potion.potionType[Potion.getPotionById()]))
-                            bad.add(Potion.potionTypes[Potion.getPotionById()]);
-                    }
-                }
-                if(bad.size() > 0){
-                    for(Potion potion : bad){
-                        player.removePotionEffect(potion.id);
+            if (effects.size() > 0) {
+                for (Object effect : effects) {
+                    if (effect instanceof PotionEffect) {
+                        PotionEffect potion = (PotionEffect) effect;
+                        if (potion.getPotion().isBadEffect()) {
+                            player.removePotionEffect(potion.getPotion());
+                        }
                     }
                 }
             }
         }
-        else if(armorType == 2){
+        else if(armorType == EntityEquipmentSlot.LEGS){
             if(player.isBurning())
                 player.extinguish();
         }
@@ -109,75 +104,23 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
     @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemstack, EntityEquipmentSlot armorSlot, ModelBiped _deafult){
-        ModelArmorInfinity model = armorSlot == 2 ? ModelArmorInfinity.legModel : ModelArmorInfinity.armorModel;
+        ModelArmorInfinity model = armorSlot == EntityEquipmentSlot.LEGS ? ModelArmorInfinity.legModel : ModelArmorInfinity.armorModel;
 
         model.update(entityLiving, itemstack, armorSlot);
 
         return model;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-    public Multimap getAttributeModifiers(ItemStack stack)
-    {
-        Multimap multimap = super.getAttributeModifiers(stack);
-        //if(armorType == 3)
-        //    multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Armor modifier", 0.7, 1));
-        return multimap;
-    }
 
-    @Optional.Method(modid = "Thaumcraft")
     @Override
-    public boolean showIngamePopups(ItemStack itemStack, EntityLivingBase entityLivingBase){
-        if(armorType == 0)
-            return true;
-        return false;
-    }
-
-    @Optional.Method(modid = "Thaumcraft")
-    @Override
-    public boolean showNodes(ItemStack itemStack, EntityLivingBase entityLivingBase){
-        if(armorType == 0)
-            return true;
-        return false;
-    }
-
-    @Optional.Method(modid = "Thaumcraft")
-    @Override
-    public int getVisDiscount(ItemStack itemStack, EntityPlayer entityPlayer, Aspect aspect){
-        return 20;
-    }
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        if(Compat.thaumic)
-            list.add(TextFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + this.getVisDiscount(stack, player, (Aspect)null) + "%");
-        if(Compat.botan) {
-            if (hasPhantomInk(stack))
-                list.add(StatCollector.translateToLocal("botaniamisc.hasPhantomInk").replaceAll("&", "\u00a7"));
-        }
-        if (this.slot == 3) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
+        if (this.slot == EntityEquipmentSlot.FEET) {
         	list.add("");
         	list.add(TextFormatting.BLUE+"+"+TextFormatting.ITALIC+LudicrousText.makeSANIC("SANIC")+TextFormatting.RESET+""+TextFormatting.BLUE+"% Speed");
         }
         super.addInformation(stack, player, list, par4);
     }
 
-    public boolean hasPhantomInk(ItemStack stack) {
-        if(stack.getTagCompound() == null)
-            return false;
-        return stack.getTagCompound().getBoolean("phantomInk");
-    }
-
-    public void setPhantomInk(ItemStack stack, boolean ink) {
-
-        NBTTagCompound tag = stack.getTagCompound();
-        if(tag == null){
-            tag = new NBTTagCompound();
-            stack.setTagCompound(tag);
-        }
-        tag.setBoolean("phantomInk", ink);
-    }
 
     @Optional.Method(modid = "Botania")
     @Override
@@ -191,41 +134,9 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerIcons(IIconRegister ir) {
-        super.registerIcons(ir);
-
-        this.cosmicMask = ir.registerIcon("avaritia:infinity_armor_" + slot + "_mask");
-    }
-    
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Models getMaskTexture(ItemStack stack, EntityPlayer player) {
-		return this.cosmicMask;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public float getMaskMultiplier(ItemStack stack, EntityPlayer player) {
-		return 1.0f;
-	}
-	
-	@Override
-	public boolean hasCustomEntity (ItemStack stack)
-    {
-        return true;
-    }
-
-	@Override
-    public Entity createEntity (World world, Entity location, ItemStack itemstack)
-    {
-        return new EntityImmortalItem(world, location, itemstack);
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    public boolean hasEffect(ItemStack par1ItemStack)
     {
         return false;
     }
@@ -321,13 +232,13 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 								* (sneaking ? 0.1f : 1.0f); 
 							
 							if (player.moveForward > 0f) {
-								player.moveFlying(0f, 1f, speed);
+								player.moveRelative(0f, 1f, speed);
 							} else if (player.moveForward < 0f) {
-								player.moveFlying(0f, 1f, -speed * 0.3f);
+								player.moveRelative(0f, 1f, -speed * 0.3f);
 							}
 							
 							if (player.moveStrafing != 0f) {
-								player.moveFlying(1f, 0f, speed * 0.5f * Math.signum(player.moveStrafing));
+								player.moveRelative(1f, 0f, speed * 0.5f * Math.signum(player.moveStrafing));
 							}
 						}
 					} else {

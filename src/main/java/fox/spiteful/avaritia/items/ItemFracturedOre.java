@@ -11,6 +11,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.Lumberjack;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,12 +28,10 @@ public class ItemFracturedOre extends Item {
 	public static final String OREKEY = "ore";
 	protected static List<ItemStack> emulatedOres = new ArrayList<ItemStack>();
 	protected static Map<String, ItemStack> nameMapping = new HashMap<String, ItemStack>();
-	public static Models unknownIcon;
-		
+
 	public ItemFracturedOre() {
 		this.setCreativeTab(Avaritia.tab);
 		this.setUnlocalizedName("avaritia_fracturedore");
-		this.setTextureName("avaritia:fracturedore");
 		this.setHasSubtypes(true);
 	}
 
@@ -69,7 +68,7 @@ public class ItemFracturedOre extends Item {
 			if (namestack != null) {
 				ItemStack orestack = namestack.getStack();
 				Item oreitem = orestack.getItem();
-				return StatCollector.translateToLocal("item.avaritia_fracturedore.prefix") +" "+ oreitem.getItemStackDisplayName(orestack);
+				return I18n.format("item.avaritia_fracturedore.prefix") +" "+ oreitem.getItemStackDisplayName(orestack);
 			}
 		}
 		return super.getItemStackDisplayName(stack);
@@ -86,14 +85,6 @@ public class ItemFracturedOre extends Item {
 			return out;
 		}
 		return 0;
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ir) {
-		super.registerIcons(ir);
-		
-		unknownIcon = ir.registerIcon("avaritia:unknown");
 	}
 	
 	// ########################################
@@ -137,10 +128,9 @@ public class ItemFracturedOre extends Item {
 					OreDictionary.registerOre(oreidname, stack);
 				}
 				
-				ItemStack smeltingResult = FurnaceRecipes.smelting().getSmeltingResult(orestack);
+				ItemStack smeltingResult = FurnaceRecipes.instance().getSmeltingResult(orestack);
 				if (smeltingResult != null) {
-					float exp = FurnaceRecipes.smelting().func_151398_b(orestack);
-					//Lumberjack.info("Registering "+stack+" to smelt to "+smeltingResult+" for "+exp+" experience");
+					float exp = FurnaceRecipes.instance().getSmeltingExperience(orestack);
 					GameRegistry.addSmelting(stack, smeltingResult, exp);
 				}
 			}
@@ -154,7 +144,7 @@ public class ItemFracturedOre extends Item {
 		int size;
 		
 		public NameStack(ItemStack source) {
-			this(source.getItem().delegate.name(), source.getItemDamage(), source.stackSize, source.getTagCompound());
+			this(source.getItem().delegate.name().getResourcePath(), source.getItemDamage(), source.stackSize, source.getTagCompound());
 		}
 		
 		public NameStack(String name, int damage, int size, NBTTagCompound nbt) {
@@ -184,7 +174,7 @@ public class ItemFracturedOre extends Item {
 		}
 		
 		public Item getItem() {
-			return (Item) Item.itemRegistry.getObject(this.name);
+			return (Item) Item.getByNameOrId(this.name);
 		}
 		
 		public static NBTTagCompound saveStackToNBT(ItemStack stack) {

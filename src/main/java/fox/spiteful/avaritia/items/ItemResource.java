@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.items;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.entity.EntityImmortalItem;
 import fox.spiteful.avaritia.render.IHaloRenderItem;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -36,26 +37,13 @@ public class ItemResource extends Item implements IHaloRenderItem {
         this.setCreativeTab(Avaritia.tab);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ir) {
-        icons = new Models[types.length];
-
-        for (int x = 0; x < types.length; x++) {
-            icons[x] = ir.registerIcon("avaritia:" + "resource_" + types[x]);
-        }
-
-        halo = new Models[2];
-        halo[0] = ir.registerIcon("avaritia:halo");
-        halo[1] = ir.registerIcon("avaritia:halonoise");
-    }
-
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
     public void addInformation(ItemStack item, EntityPlayer player, List tooltip, boolean wut) {
 
     	int meta = item.getItemDamage();
     	if (meta != 0) {
-    		tooltip.add(TextFormatting.DARK_GRAY +""+ TextFormatting.ITALIC + StatCollector.translateToLocal("tooltip."+types[meta]+".desc"));
+    		tooltip.add(TextFormatting.DARK_GRAY +""+ TextFormatting.ITALIC + I18n.format("tooltip."+types[meta]+".desc"));
     	}
     }
 
