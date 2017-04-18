@@ -1,0 +1,90 @@
+{
+	"ccl_marker": 1,
+	"variant_sets": [
+		"infinity_pickaxe",
+		"infinity_shovel",
+		"type",
+		"armor"
+	],
+	"texture_domain": "avaritia",
+	"defaults": {
+		"model": "builtin/generated",
+		"textures": {
+			"layer0": "minecraft:dirt"
+		},
+		"transform": "ccl:default-item"
+	},
+	"variants": {
+		"infinity_pickaxe": {
+			"pickaxe": {
+				"transform": "ccl:default-tool",
+				"textures": {
+					"layer0": "items/tools/infinity_pickaxe/pickaxe"
+				}
+			},
+			"hammer": {
+				"transform": "ccl:default-tool",
+				"textures": {
+					"layer0": "items/tools/infinity_pickaxe/hammer"
+				}
+			}
+		},
+		"infinity_shovel": {
+			"shovel": {
+				"transform": "ccl:default-tool",
+				"textures": {
+					"layer0": "items/tools/infinity_shovel/shovel"
+				}
+			},
+			"destroyer": {
+				"transform": "ccl:default-tool",
+				"textures": {
+					"layer0": "items/tools/infinity_shovel/destroyer"
+				}
+			}
+		},
+		"type": {
+			"infinity_sword": {
+				"transform": "ccl:default-tool",
+				"textures": {
+					"layer0": "items/tools/infinity_sword/layer_0",
+					"layer1": "items/tools/infinity_sword/layer_1"
+				}
+			},
+			"infinity_axe": {
+				"transform": "ccl:default-tool",
+				"textures": {
+					"layer0": "items/tools/infinity_axe/layer_0"
+				}
+			},
+			"skull_sword": {
+				"transform": "ccl:default-tool",
+				"textures": {
+					"layer0": "items/tools/skull_sword/layer_0"
+				}
+			}
+		},
+		"armor": {
+			"boots": {
+				"textures": {
+					"layer0": "items/armor/boots/layer_0"
+				}
+			},
+			"chestplate": {
+				"textures": {
+					"layer0": "items/armor/chestplate/layer_0"
+				}
+			},
+			"helmet": {
+				"textures": {
+					"layer0": "items/armor/helmet/layer_0"
+				}
+			},
+			"legs": {
+				"textures": {
+					"layer0": "items/armor/legs/layer_0"
+				}
+			}
+		}
+	}
+}

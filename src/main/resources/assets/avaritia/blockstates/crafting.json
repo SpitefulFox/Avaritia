@@ -1,0 +1,41 @@
+{
+	"ccl_marker": 1,
+	"variant_sets": [
+		"type"
+	],
+	"texture_domain": "avaritia",
+	"defaults": {
+		"model": "minecraft:cube_bottom_top",
+		"textures": {
+			"top": "minecraft:dirt",
+			"bottom": "minecraft:dirt",
+			"side": "minecraft:dirt"
+		},
+		"transform": "ccl:default-block"
+	},
+	"variants": {
+		"type": {
+			"double": {
+				"textures": {
+					"top": "blocks/double_craft",
+					"bottom": "blocks/double_craft",
+					"side": "blocks/double_craft"
+				}
+			},
+			"triple": {
+				"textures": {
+					"top": "blocks/triple_craft",
+					"bottom": "blocks/triple_craft",
+					"side": "blocks/triple_craft"
+				}
+			},
+			"dire": {
+				"textures": {
+					"top": "blocks/dire_crafting_top",
+					"bottom": "blocks/dire_crafting_top",
+					"side": "blocks/dire_crafting_side"
+				}
+			}
+		}
+	}
+}

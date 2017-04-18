@@ -1,0 +1,63 @@
+{
+	"ccl_marker": 1,
+	"variant_sets": [
+		"type,facing,active"
+	],
+	"texture_domain": "avaritia",
+	"defaults": {
+		"model": "avaritia:cube_top_front",
+		"textures": {
+			"top": "minecraft:dirt",
+			"side": "minecraft:dirt",
+			"front": "minecraft:dirt"
+		},
+		"transform": "ccl:default-block"
+	},
+	"variants": {
+		"type": {
+			"neutronium_compressor": {
+				"textures": {
+					"top": "blocks/machine/compressor/top",
+					"side": "blocks/machine/compressor/side",
+					"front": "blocks/machine/compressor/front"
+				},
+				"variants": {
+					"active": {
+						"true": {
+						},
+						"false": {
+						}
+					}
+				}
+			},
+			"neutron_collector": {
+				"textures": {
+					"top": "blocks/machine/collector/top",
+					"side": "blocks/machine/collector/side",
+					"front": "blocks/machine/collector/front"
+				},
+				"variants": {
+					"active": {
+						"true": {
+						},
+						"false": {
+						}
+					}
+				}
+			}
+		},
+		"facing": {
+			"north": {
+			},
+			"south": {
+				"y": 180
+			},
+			"west": {
+				"y": 270
+			},
+			"east": {
+				"y": 90
+			}
+		}
+	}
+}

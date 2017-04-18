@@ -1,0 +1,33 @@
+{
+	"ccl_marker": 1,
+	"variant_sets": [
+		"type"
+	],
+	"texture_domain": "avaritia",
+	"defaults": {
+		"model": "minecraft:cube_all",
+		"textures": {
+			"all": "minecraft:dirt"
+		},
+		"transform": "ccl:default-block"
+	},
+	"variants": {
+		"type": {
+			"neutronium": {
+				"textures": {
+					"all": "blocks/resource/neutronium"
+				}
+			},
+			"infinity": {
+				"textures": {
+					"all": "blocks/resource/infinity"
+				}
+			},
+			"crystal_matrix": {
+				"textures": {
+					"all": "blocks/resource/crystal_matrix"
+				}
+			}
+		}
+	}
+}
