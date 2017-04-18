@@ -57,7 +57,6 @@ public class CosmicItemRender extends WrappedItemRenderer {
     }
 
     protected void renderSimple(ItemStack stack, EntityLivingBase player) {
-        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
 
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
@@ -67,7 +66,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
         World world = player != null ? player.worldObj : null;
         IBakedModel model = wrapped.getOverrides().handleItemState(wrapped, stack, world, player);
 
-        renderItem.renderModel(model, stack);
+        renderModel(model, stack);
 
         if (stack.getItem() instanceof ICosmicRenderItem) {
             ICosmicRenderItem cri = ((ICosmicRenderItem) stack.getItem());
@@ -82,7 +81,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
             CosmicShaderHelper.cosmicOpacity = cri.getMaskOpacity(stack, player);
             CosmicShaderHelper.useShader();
 
-            renderItem.renderModel(cosmicModel, stack);
+            renderModel(cosmicModel, stack);
 
             CosmicShaderHelper.releaseShader();
 
@@ -94,7 +93,6 @@ public class CosmicItemRender extends WrappedItemRenderer {
     }
 
     protected void renderInventory(ItemStack stack, EntityLivingBase player) {
-        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
 
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
@@ -105,7 +103,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
 
         World world = player != null ? player.worldObj : null;
         IBakedModel model = wrapped.getOverrides().handleItemState(wrapped, stack, world, player);
-        renderItem.renderModel(model, stack);
+        renderModel(model, stack);
 
         if (stack.getItem() instanceof ICosmicRenderItem) {
             ICosmicRenderItem cri = (ICosmicRenderItem) stack.getItem();
@@ -125,7 +123,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
             CosmicShaderHelper.inventoryRender = true;
             CosmicShaderHelper.useShader();
 
-            renderItem.renderModel(cosmicModel, stack);
+            renderModel(cosmicModel, stack);
 
             CosmicShaderHelper.releaseShader();
             CosmicShaderHelper.inventoryRender = false;

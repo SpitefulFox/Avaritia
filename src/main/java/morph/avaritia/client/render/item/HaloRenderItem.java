@@ -89,7 +89,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
                 GlStateManager.popMatrix();
             }
 
-            renderItem.renderModel(wrapped, stack);
+            renderModel(wrapped, stack);
 
             GlStateManager.enableAlpha();
             GlStateManager.enableRescaleNormal();
@@ -98,40 +98,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();
         } else {
-            renderItem.renderModel(wrapped, stack);
+            renderModel(wrapped, stack);
         }
-    }
-
-    private static void renderModel(IBakedModel model, ItemStack stack, float alphaOverride) {
-
-        ItemColors itemColorProvider = Minecraft.getMinecraft().getItemColors();
-        Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
-        buffer.begin(0x07, DefaultVertexFormats.ITEM);
-        List<BakedQuad> quads = new LinkedList<>();
-
-        for (EnumFacing face : EnumFacing.VALUES) {
-            quads.addAll(model.getQuads(null, face, 0));
-        }
-        quads.addAll(model.getQuads(null, null, 0));
-
-        int alpha = (int) (alphaOverride * 255F) & 0xFF000000;
-        for (BakedQuad quad : quads) {
-            int colour = -1;
-
-            if (quad.hasTintIndex()) {
-                colour = itemColorProvider.getColorFromItemstack(stack, quad.getTintIndex());
-
-                if (EntityRenderer.anaglyphEnable) {
-                    colour = TextureUtil.anaglyphColor(colour);
-                }
-            }
-
-
-            colour |= alpha;
-            LightUtil.renderQuadColor(buffer, quad, colour);
-        }
-
-        tess.draw();
     }
 }
