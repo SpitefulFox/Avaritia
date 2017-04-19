@@ -209,6 +209,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     }
 
     @Override
+    @SideOnly (Side.CLIENT)
     public void registerModels() {
         BlockBakery.registerItemKeyGenerator(this, stack -> {
             String key = BlockBakery.defaultItemKeyGenerator.generateKey(stack);

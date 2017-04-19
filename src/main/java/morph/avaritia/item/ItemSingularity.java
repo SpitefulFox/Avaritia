@@ -62,6 +62,7 @@ public class ItemSingularity extends ItemMultiType implements IHaloRenderItem, I
     }
 
     @Override
+    @SideOnly (Side.CLIENT)
     public void registerModels() {
         ModelResourceLocation location = new ModelResourceLocation("avaritia:singularity", "type=singularity");
         ModelLoader.registerItemVariants(this, location);
