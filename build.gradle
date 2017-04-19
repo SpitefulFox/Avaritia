@@ -1,120 +1,187 @@
 buildscript {
     repositories {
-		jcenter()
-
-		maven {
-			name = "covers1624"
-			url = "http://mavenmirror.covers1624.net/general/"
-		}
-
-		maven {
-			name = "covers1624"
-			url = "http://mavenmirror.covers1624.net/forge/"
-		}
-	}
-	dependencies {
-		classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
-	}
+        maven {
+            name = "Jcenter, and MavenCentral."
+            url = "http://mavenmirror.covers1624.net/general"
+        }
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+    }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
-apply plugin: 'maven-publish'
 
 
 
-version = "1.10.2-2.1.0"
-group= "fox.spiteful.avaritia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+
+group = "morph.avaritia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Avaritia"
 
-sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
+// Define properties file
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    // Load config.  It shall from now be referenced as simply config or project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
 }
 
-minecraft {
-    version = "1.10.2-12.18.3.2239"
-    runDir = "run"
-    
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not allways work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_nodoc_20161111"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-}
 repositories {
     maven {
-        name "JEI & Natura Maven."
-        url "http://dvs1.progwml6.com/files/maven"
+        name = "MavenMirror, Has basically all the mods."
+        url = "http://mavenmirror.covers1624.net/mod"
     }
-	maven {
-		name = "ChickenBones"
-		url "http://chickenbones.net/maven"
-	}
-	maven {
-		name = "tehnut"
-		url = "http://tehnut.info/maven"
-	}
-	maven {
-		name = "progwml6"
-		url = "http://dvs1.progwml6.com/files/maven"
-	}
-	maven {
-		name "Probe Repo"
-		url "http://maven.tterrag.com"
-	}
-	maven {
-		name "Forestry"
-		url "http://maven.ic2.player.to"
-	}
-	maven {
-        name 'Jared'
-        url 'http://blamejared.com/maven'
-    }
-	maven {
-		name = "covers1624"
-		url = "http://maven.covers1624.net/"
-	}
-	maven {
-		name = "covers1624"
-		url = "http://mavenmirror.covers1624.net/"
-	}
-	maven {
-		url  "https://dl.bintray.com/raoulvdberge/dev/"
-	}
 }
 
 dependencies {
-	compile "mezz.jei:jei_1.10.2:3.14.7.+"
-	compile "codechicken:CodeChickenLib:1.10.2-2.5.6.233:deobf"
-	compile "com.wayoftime.bloodmagic:BloodMagic:1.10.2-2.1.5-74"
-	compile "slimeknights:TConstruct:1.10.2-2.6.1.468"
-	compile "slimeknights.mantle:Mantle:1.10.2-1.1.3.199"
-	compile "mcjty.theoneprobe:TheOneProbe:1.1x-1.4.4-55:deobf"
-	compile "net.sengir.forestry:forestry_1.10.2:5.2.17.+"
-	compile "MineTweaker3:MineTweaker3-API:3.0.22.+"
-	compile "com.brandon3055.draconicevolution:Draconic-Evolution:1.10.2-2.0.8.+:deobf"
-	compile "com.progwml6.natura:natura:1.10.2-4.1.0.+:deobf"
-	compile "refinedstorage:refinedstorage:1.2.+"
+    /*HARD DEPENDENCIES*/
+    compile "codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:deobf"
+
+    /*SOFT DEPENDENCIES*/
+    compile "mezz.jei:jei_${config.mc_version}:${config.jei_version}"
+    compile "com.wayoftime.bloodmagic:BloodMagic:${config.mc_version}-${config.blood_magic_version}"
+    compile "slimeknights:TConstruct:${config.mc_version}-${config.tinkers_version}"
+    compile "slimeknights.mantle:Mantle:${config.mc_version}-${config.mantle_version}"
+    compile "mcjty.theoneprobe:TheOneProbe:1.1x-${config.top_version}"
+    compile "net.sengir.forestry:forestry_${config.mc_version}:${config.forestry_version}"
+    compile "MineTweaker3:MineTweaker3-API:${config.minetweaker_version}"
+    compile "com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:deobf"
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+targetCompatibility = "1.8"
+sourceCompatibility = "1.8"
 
-    // replace stuff in mcmod.info, nothing else
+version = "${project.config.mod_version}." + (System.getenv("BUILD_NUMBER") ?: "1")
+
+println config.mc_version + "-" + config.forge_version
+// Setup the forge minecraft plugin data. Specify the preferred forge/minecraft version here
+minecraft {
+    version = config.mc_version + "-" + config.forge_version
+    mappings = config.mappings
+    runDir = "run"
+    makeObfSourceJar = false
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mc_version", project.config.mc_version
+
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mc_version': project.config.mc_version
     }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+    rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+version = "${project.minecraft.version}-${project.version}"
+def commonManifest = {
+    attributes 'FMLAT': 'avaritia_at.cfg'
+}
+
+jar {
+    classifier = 'universal'
+    manifest commonManifest
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+    manifest commonManifest
+}
+
+task srcJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+    manifest commonManifest
+}
+
+// Tell the artifact system about our extra jars
+artifacts {
+    archives deobfJar
+    archives srcJar
+}
+
+// Configure an upload task.
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            if (project.hasProperty("local_maven")) {
+                repository(url: "file://${local_maven}")
+                pom {
+                    groupId = project.group
+                    // Force the maven upload to use the <mcversion>-<version> syntax preferred at files
+                    artifactId = project.archivesBaseName
+                    project {
+                        name project.archivesBaseName
+                        packaging 'jar'
+                        description 'Avaritia'
+                        url 'https://github.com/Morpheus1101/Avaritia'
+
+                        scm {
+                            url 'https://github.com/Morpheus1101/Avaritia'
+                            connection 'scm:git:git://github.com/Morpheus1101/Avaritia.git'
+                            developerConnection 'scm:git:git@github.com:Morpheus1101/Avaritia.git'
+                        }
+
+                        issueManagement {
+                            system 'github'
+                            url 'https://github.com/Morpheus1101/Avaritia/issues'
+                        }
+
+                        licenses {
+                            license {
+                                name 'MIT'
+                                url 'https://opensource.org/licenses/MIT'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'Morpheus1101'
+                                name 'Morpheus1101'
+                                roles {
+                                    role 'developer'
+                                }
+                            }
+                            developer {
+                                id 'covers1624'
+                                name 'covers1624'
+                                roles {
+                                    role 'developer'
+                                }
+                            }
+                            developer {
+                                id 'brandon3055'
+                                name 'brandon3055'
+                                roles {
+                                    role 'developer'
+                                }
+                            }
+                            developer {
+                                id 'SpitefulFox'
+                                name 'SpitefulFox'
+                                roles {
+                                    role 'Retired-Developer'
+                                }
+                            }
+                            developer {
+                                id 'TTFTCUTS'
+                                name 'TTFTCUTS'
+                                roles {
+                                    role 'Retired-Developer'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

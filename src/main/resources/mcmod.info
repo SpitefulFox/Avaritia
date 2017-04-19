@@ -4,7 +4,7 @@
   "name": "Avaritia",
   "description": "A mod to see how hard people are willing to grind.",
   "version": "${version}",
-  "mcversion": "${mcversion}",
+  "mcversion": "${mc_version}",
   "url": "",
   "updateUrl": "",
   "authorList": ["SpitefulFox", "TTFTCUTS"],
