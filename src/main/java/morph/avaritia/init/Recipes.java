@@ -181,7 +181,12 @@ public class Recipes {
                 ModItems.neutronium_ingot,
                 ModItems.ultimate_stew,
                 ModItems.cosmic_meatballs,
-                ModItems.endest_pearl
+                ModItems.endest_pearl,
+                ModItems.ironSingularity,
+                ModItems.goldSingularity,
+                ModItems.lapisSingularity,
+                ModItems.redstoneSingularity,
+                ModItems.quartzSingularity
         );
 
         ItemStack result = new ItemStack(ModItems.infinity_pickaxe, 1);
