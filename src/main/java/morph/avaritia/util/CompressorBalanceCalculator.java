@@ -21,7 +21,7 @@ public class CompressorBalanceCalculator {
         if (Loader.isModLoaded("technom")) {
             modifier += 600;
         }
-        if (Loader.isModLoaded("magicalcrops")) {
+        if (Loader.isModLoaded("mysticalagriculture")) {
             multiplier += 1;
         }
         if (Loader.isModLoaded("AgriCraft")) {
@@ -30,7 +30,7 @@ public class CompressorBalanceCalculator {
         if (Loader.isModLoaded("MineFactoryReloaded")) {
             multiplier += 3;
         }
-        if (Loader.isModLoaded("BigReactors")) {
+        if (Loader.isModLoaded("ExtremeReactors")) {
             modifier += 100;
         }
         if (Loader.isModLoaded("EE3")) {
@@ -58,6 +58,10 @@ public class CompressorBalanceCalculator {
             multiplier += 2;
         }
         if (Loader.isModLoaded("DraconicEvolution")) {
+            modifier += 300;
+            multiplier += 1;
+        }
+        if (Loader.isModLoaded("RFTools")) {
             modifier += 300;
             multiplier += 1;
         }
