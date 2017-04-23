@@ -22,12 +22,12 @@ public class FoodRecipes {
     // here's where all the food magic goes on
     //@formatter:off
     private static final String[] sacredCropNames = new String[] {
-            "cropWheat", "cropCarrot", "cropPotato", "cropApple",
+            "cropWheat", "cropCarrot", "cropBeetroot", "cropPotato", "cropApple",
             "cropMelon", "cropPumpkin", "cropCactus", "cropMushroomRed",
             "cropMushroomBrown", "cropCherry"
     };
     private static final String[] forbiddenCropNames = new String[] {
-            "cropEdibleroot", "cropWhitemushroom", "cropBeet", "cropCotton",
+            "cropEdibleroot", "cropWhitemushroom", "CropBeet", "cropCotton",
             "cropPoppy", "cropTulipRed", "cropTulipWhite", "cropDaisy",
             "cropTulipPink", "cropAllium", "cropOrchid", "cropTulipOrange",
             "cropDandelion", "cropShroomRed", "cropShroomBrown", "cropFerranium",
@@ -46,6 +46,7 @@ public class FoodRecipes {
         knownMeats.add(new ItemStack(Items.BEEF));
         knownMeats.add(new ItemStack(Items.CHICKEN));
         knownMeats.add(new ItemStack(Items.PORKCHOP));
+        knownMeats.add(new ItemStack(Items.RABBIT));
 
 		/*for (int i=0; i<ItemFishFood.FishType.values().length; i++) {
             knownMeats.add(new ItemStack(Items.fish, 1, i));
@@ -67,13 +68,15 @@ public class FoodRecipes {
                     new ItemStack(Items.WHEAT, 1),
                     new ItemStack(Items.CARROT),
                     new ItemStack(Items.POTATO),
+                    new ItemStack(Items.BEETROOT),
                     new ItemStack(Items.APPLE),
                     new ItemStack(Items.MELON),
                     new ItemStack(Blocks.PUMPKIN),
                     new ItemStack(Blocks.CACTUS),
                     new ItemStack(Blocks.RED_MUSHROOM),
                     new ItemStack(Blocks.BROWN_MUSHROOM)
-            );
+
+                     );
             meatballRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(
                     new ItemStack(ModItems.cosmic_meatballs, 1),
                     new ItemStack(Items.BEEF),
@@ -82,6 +85,8 @@ public class FoodRecipes {
                     new ItemStack(Items.CHICKEN),
                     new ItemStack(Items.PORKCHOP),
                     new ItemStack(Items.PORKCHOP),
+                    new ItemStack(Items.RABBIT),
+                    new ItemStack(Items.RABBIT),
                     new ItemStack(Items.FISH),
                     new ItemStack(Items.FISH)
             );
