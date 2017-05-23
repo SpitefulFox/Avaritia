@@ -54,7 +54,7 @@ public abstract class WrappedItemRenderer extends PerspectiveAwareItemRenderer {
      * @param model The model to render.
      * @param stack The stack being rendered. Used for quad tinting.
      */
-    protected static void renderModel(IBakedModel model, ItemStack stack) {
+    public static void renderModel(IBakedModel model, ItemStack stack) {
         renderModel(model, stack, 1.0F);
     }
 
@@ -65,7 +65,7 @@ public abstract class WrappedItemRenderer extends PerspectiveAwareItemRenderer {
      * @param stack         The stack being renderer. Used for quad tinting.
      * @param alphaOverride Th alpha override 1.0 -> 0.0
      */
-    protected static void renderModel(IBakedModel model, ItemStack stack, float alphaOverride) {
+    public static void renderModel(IBakedModel model, ItemStack stack, float alphaOverride) {
 
         ItemColors itemColorProvider = Minecraft.getMinecraft().getItemColors();
         Tessellator tess = Tessellator.getInstance();

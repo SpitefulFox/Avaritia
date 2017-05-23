@@ -1,46 +1,76 @@
 package morph.avaritia.client.gui;
 
-import codechicken.lib.texture.TextureUtils;
 import morph.avaritia.container.ContainerNeutroniumCompressor;
 import morph.avaritia.tile.TileNeutroniumCompressor;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.covers1624.lib.gui.DrawableGuiElement.AnimationDirection;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.lang3.tuple.Pair;
 
-public class GUINeutroniumCompressor extends GuiContainer {
+public class GUINeutroniumCompressor extends GuiMachineBase<TileNeutroniumCompressor, ContainerNeutroniumCompressor> {
 
     private static final ResourceLocation GUI_TEX = new ResourceLocation("avaritia", "textures/gui/compressor.png");
-    private TileNeutroniumCompressor compressor;
 
     public GUINeutroniumCompressor(InventoryPlayer player, TileNeutroniumCompressor machine) {
         super(new ContainerNeutroniumCompressor(player, machine));
-        compressor = machine;
+        setBackgroundTexture(GUI_TEX);
+
+        DrawableBuilder builder = drawableBuilder();
+        builder.setGuiLocation(62, 35).setSpriteSize(176, 0, 22, 16);
+        builder.setAnimationDirection(AnimationDirection.LEFT_RIGHT);
+        builder.setRenderPredicate(() -> machineTile.getConsumptionProgress() > 0);
+        builder.setAnimationSupplier(() -> Pair.of(kick(machineTile.getConsumptionProgress()), machineTile.getConsumptionTarget()));
+        addDrawable(builder.build());
+
+        builder = drawableBuilder();
+        builder.setGuiLocation(90, 35).setSpriteSize(176, 16, 16, 16);
+        builder.setAnimationDirection(AnimationDirection.BOTTOM_UP);
+        builder.setRenderPredicate(() -> machineTile.getCompressionProgress() > 0);
+        builder.setAnimationSupplier(() -> Pair.of(kick(machineTile.getCompressionProgress()), machineTile.getCompressionTarget()));
+        builder.setTooltipSupplier(() -> scaleF(machineTile.getCompressionProgress(), machine.getCompressionTarget(), 100) + " %");
+        addDrawable(builder.build());
     }
 
-    protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String s = I18n.format("container.neutronium_compressor");
-        this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-        if (compressor.getProgress() > 0) {
-            s = compressor.getProgress() + " / " + compressor.getTarget();
-            this.fontRendererObj.drawString(s, 41, 49, 4210752);
-            this.fontRendererObj.drawString(compressor.getIngredient(), 41, 60, 4210752);
+        fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 0x404040);
+        fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 0x404040);
+        if (machineTile.getCompressionProgress() > 0) {
+            s = machineTile.getCompressionProgress() + " / " + machineTile.getCompressionTarget();
+            int x = xSize / 2 - fontRendererObj.getStringWidth(s) / 2;
+            fontRendererObj.drawString(s, x, 60, 0x404040);
         }
-        this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        if (machineTile.getTargetStack() != null) {
+            s = "Output";
+            int x = (xSize + 147 - 8) / 2 - fontRendererObj.getStringWidth(s) / 2;
+            fontRendererObj.drawString(s, x, 25, 0x404040);
+        }
+        if (machineTile.getTargetStack() != null) {
+            s = "Input";
+            if (machineTile.getInputItems().size() > 1) {
+                s += "s";
+            }
+            int x = (20 - fontRendererObj.getStringWidth(s) / 2);
+            fontRendererObj.drawString(s, x, 25, 0x404040);
+        }
+
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
     }
 
-    protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        TextureUtils.changeTexture(GUI_TEX);
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-
-        if (compressor.getProgress() > 0) {
-            int i1 = compressor.getProgress() * 24 / compressor.getTarget();
-            this.drawTexturedModalRect(k + 79, l + 26, 176, 14, i1 + 1, 16);
+    private int kick(int num) {
+        if (num > 0) {
+            return num + 1;
         }
+        return num;
+    }
 
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        drawBackground();
+        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
     }
 }

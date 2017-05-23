@@ -11,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class TileDireCraftingTable extends TileLudicrous implements IInventory, ISidedInventory {
+public class TileDireCraftingTable extends TileBase implements IInventory, ISidedInventory {
 
     private ItemStack result;
     private ItemStack[] matrix = new ItemStack[81];

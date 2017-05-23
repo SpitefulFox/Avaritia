@@ -5,6 +5,7 @@ import codechicken.lib.util.RotationUtils;
 import morph.avaritia.Avaritia;
 import morph.avaritia.api.registration.IModelRegister;
 import morph.avaritia.init.AvaritiaProps;
+import morph.avaritia.tile.TileMachineBase;
 import morph.avaritia.tile.TileNeutronCollector;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
@@ -55,10 +56,10 @@ public class BlockNeutronCollector extends BlockContainer implements IModelRegis
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if (tileEntity instanceof TileNeutronCollector) {
-            TileNeutronCollector compressor = (TileNeutronCollector) tileEntity;
-            state = state.withProperty(AvaritiaProps.HORIZONTAL_FACING, compressor.getFacing());
-            state = state.withProperty(AvaritiaProps.ACTIVE, true);//TODO Figure out active states.
+        if (tileEntity instanceof TileMachineBase) {
+            TileMachineBase machineBase = (TileMachineBase) tileEntity;
+            state = state.withProperty(AvaritiaProps.HORIZONTAL_FACING, machineBase.getFacing());
+           state = state.withProperty(AvaritiaProps.ACTIVE, machineBase.isActive());
         }
         return super.getActualState(state, worldIn, pos);
     }

@@ -1,35 +1,29 @@
 package morph.avaritia.tile;
 
+import codechicken.lib.packet.PacketCustom;
 import codechicken.lib.util.BlockUtils;
 import codechicken.lib.util.ItemUtils;
 import morph.avaritia.init.ModItems;
-import morph.avaritia.util.Lumberjack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 
-public class TileNeutronCollector extends TileLudicrous implements IInventory, ITickable {
+public class TileNeutronCollector extends TileMachineBase implements IInventory {
+
+    public static final int PRODUCTION_TICKS = 7111;//TODO config.
 
     private ItemStack neutrons;
-    private EnumFacing facing = EnumFacing.NORTH;
     private int progress;
-    private boolean stuck;
 
     @Override
-    public void update() {
-        //TODO stuck.
-        if (++progress >= 7111) {
+    public void doWork() {
+        if (++progress >= PRODUCTION_TICKS) {
             if (neutrons == null) {
                 neutrons = ItemUtils.copyStack(ModItems.neutron_pile, 1);
             } else if (ItemUtils.areStacksSameType(neutrons, ModItems.neutron_pile)) {
                 if (neutrons.stackSize < 64) {
                     neutrons.stackSize++;
-                }
-                if (neutrons.stackSize == 64) {
-                    stuck = true;
                 }
             }
             progress = 0;
@@ -37,27 +31,32 @@ public class TileNeutronCollector extends TileLudicrous implements IInventory, I
         }
     }
 
-    public EnumFacing getFacing() {
-        return facing;
+    @Override
+    protected void onWorkStopped() {
+        progress = 0;
     }
 
-    public void setFacing(EnumFacing dir) {
-        facing = dir;
+    @Override
+    protected boolean canWork() {
+        return neutrons == null || neutrons.stackSize < 64;
+    }
+
+    public int getProgress() {
+        return progress;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-
-        this.neutrons = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Neutrons"));
+        if (tag.hasKey("Neutrons")) {
+            this.neutrons = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Neutrons"));
+        }
         this.progress = tag.getInteger("Progress");
-        this.facing = EnumFacing.VALUES[tag.getByte("facing")];
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         tag.setInteger("Progress", this.progress);
-        tag.setByte("facing", (byte) facing.ordinal());
         if (neutrons != null) {
             NBTTagCompound produce = new NBTTagCompound();
             neutrons.writeToNBT(produce);
@@ -66,6 +65,16 @@ public class TileNeutronCollector extends TileLudicrous implements IInventory, I
             tag.removeTag("Neutrons");
         }
         return super.writeToNBT(tag);
+    }
+
+    @Override
+    public void writeGuiData(PacketCustom packet, boolean isFullSync) {
+        packet.writeVarInt(progress);
+    }
+
+    @Override
+    public void readGuiData(PacketCustom packet, boolean isFullSync) {
+        progress = packet.readVarInt();
     }
 
     @Override
@@ -151,7 +160,7 @@ public class TileNeutronCollector extends TileLudicrous implements IInventory, I
 
     @Override
     public int getFieldCount() {
-        return 0;
+        return 2;
     }
 
     @Override

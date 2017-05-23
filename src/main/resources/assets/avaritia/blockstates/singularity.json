@@ -1,13 +1,13 @@
 {
 	"ccl_marker": 1,
-	"variant_sets" : [
+	"variant_sets": [
 		"type"
 	],
 	"texture_domain": "avaritia",
 	"defaults": {
 		"model": "builtin/generated",
 		"textures": {
-			"layer0" : "minecraft:dirt"
+			"layer0": "minecraft:dirt"
 		},
 		"transform": "ccl:default-item"
 	},
@@ -15,8 +15,8 @@
 		"type": {
 			"singularity": {
 				"textures": {
-					"layer1": "items/singularity/layer_0",
-					"layer0": "items/singularity/layer_1"
+					"layer0": "items/singularity/layer_0",
+					"layer1": "items/singularity/layer_1"
 				}
 			}
 		}

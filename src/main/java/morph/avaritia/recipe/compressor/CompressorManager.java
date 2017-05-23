@@ -3,6 +3,7 @@ package morph.avaritia.recipe.compressor;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompressorManager {
 
@@ -16,36 +17,72 @@ public class CompressorManager {
         recipes.add(new CompressOreRecipe(output, amount, ore));
     }
 
+    public static boolean isValidInput(ItemStack input) {
+        if (input != null) {
+            for (CompressorRecipe recipe : recipes) {
+                if (recipe.isValidInput(input)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isValidInputForOutput(ItemStack input, ItemStack output) {
+        if (input != null) {
+            for (CompressorRecipe recipe : recipes) {
+                if (recipe.isValidInput(input)) {
+                    if (output != null) {
+                        if (!recipe.getOutput().isItemEqual(output)) {
+                            continue;
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static ItemStack getOutput(ItemStack input) {
-        for (CompressorRecipe recipe : recipes) {
-            if (recipe.validInput(input)) {
-                return recipe.getOutput();
+        if (input != null) {
+            for (CompressorRecipe recipe : recipes) {
+                if (recipe.isValidInput(input)) {
+                    return recipe.getOutput();
+                }
             }
         }
         return null;
     }
 
-    public static int getCost(ItemStack input) {
-        if (input == null) {
-            return 0;
+    public static List<ItemStack> getInputs(ItemStack output) {
+        if (output != null) {
+            for (CompressorRecipe recipe : recipes) {
+                if (recipe.getOutput().isItemEqual(output)) {
+                    return recipe.getInputs();
+                }
+            }
         }
+        return new ArrayList<>();
+    }
 
-        for (CompressorRecipe recipe : recipes) {
-            if (recipe.validInput(input)) {
-                return recipe.getCost();
+    public static int getCost(ItemStack input) {
+        if (input != null) {
+            for (CompressorRecipe recipe : recipes) {
+                if (recipe.isValidInput(input)) {
+                    return recipe.getCost();
+                }
             }
         }
         return 0;
     }
 
     public static int getPrice(ItemStack output) {
-        if (output == null) {
-            return 0;
-        }
-
-        for (CompressorRecipe recipe : recipes) {
-            if (recipe.getOutput().isItemEqual(output)) {
-                return recipe.getCost();
+        if (output != null) {
+            for (CompressorRecipe recipe : recipes) {
+                if (recipe.getOutput().isItemEqual(output)) {
+                    return recipe.getCost();
+                }
             }
         }
         return 0;
@@ -53,14 +90,14 @@ public class CompressorManager {
 
     public static String getName(ItemStack input) {
         for (CompressorRecipe recipe : recipes) {
-            if (recipe.validInput(input)) {
+            if (recipe.isValidInput(input)) {
                 return recipe.getIngredientName();
             }
         }
-        return null;
+        return "";
     }
 
-    public static ArrayList<CompressorRecipe> getRecipes() {
+    public static List<CompressorRecipe> getRecipes() {
         return recipes;
     }
 

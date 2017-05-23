@@ -1,37 +1,33 @@
 package morph.avaritia.container;
 
+import morph.avaritia.container.slot.OutputSlot;
+import morph.avaritia.container.slot.ScrollingFakeSlot;
+import morph.avaritia.container.slot.StaticFakeSlot;
 import morph.avaritia.recipe.compressor.CompressorManager;
 import morph.avaritia.tile.TileNeutroniumCompressor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
 
-public class ContainerNeutroniumCompressor extends Container {
+import java.awt.*;
 
-    private TileNeutroniumCompressor compressor;
+public class ContainerNeutroniumCompressor extends ContainerMachineBase<TileNeutroniumCompressor> {
 
-    public ContainerNeutroniumCompressor(InventoryPlayer player, TileNeutroniumCompressor machine) {
-        this.compressor = machine;
-        this.addSlotToContainer(new Slot(compressor, 0, 56, 27));
-        this.addSlotToContainer(new SlotFurnaceFuel(machine, 1, 116, 27));
-        int i;
+    public OutputSlot outputSlot;
 
-        for (i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-
-        for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
-        }
+    public ContainerNeutroniumCompressor(InventoryPlayer playerInventory, TileNeutroniumCompressor machine) {
+        super(machine);
+        this.addSlotToContainer(new Slot(machine, 0, 39, 35));
+        this.addSlotToContainer(outputSlot = new OutputSlot(machine, 1, 117, 35));
+        bindPlayerInventory(playerInventory);
+        this.addSlotToContainer(new StaticFakeSlot(147, 35, machineTile::getTargetStack));
+        this.addSlotToContainer(new ScrollingFakeSlot(13, 35, machineTile::getInputItems));
     }
 
-    public boolean canInteractWith(EntityPlayer player) {
-        return this.compressor.isUseableByPlayer(player);
+    @Override
+    protected Point getPlayerInvOffset() {
+        return new Point(8, 84);
     }
 
     /**

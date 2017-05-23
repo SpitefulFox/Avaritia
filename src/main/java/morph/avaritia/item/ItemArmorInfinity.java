@@ -1,13 +1,17 @@
 package morph.avaritia.item;
 
-import morph.avaritia.client.render.entity.ModelArmorInfinity;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
 import morph.avaritia.Avaritia;
+import morph.avaritia.client.render.entity.ModelArmorInfinity;
 import morph.avaritia.init.ModItems;
+import morph.avaritia.util.ModHelper;
 import morph.avaritia.util.TextUtils;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
@@ -61,16 +65,11 @@ public class ItemArmorInfinity extends ItemArmor implements IManaDiscountArmor, 
             player.getFoodStats().addStats(20, 20F);
         } else if (armorType == EntityEquipmentSlot.CHEST) {
             player.capabilities.allowFlying = true;
-            Collection effects = player.getActivePotionEffects();
-            if (effects.size() > 0) {
-                for (Object effect : effects) {
-                    if (effect instanceof PotionEffect) {
-                        PotionEffect potion = (PotionEffect) effect;
-                        if (potion.getPotion().isBadEffect()) {
-                            player.removePotionEffect(potion.getPotion());
-                        }
-                    }
+            for (PotionEffect potion : Collections2.filter(player.getActivePotionEffects(), potion -> potion.getPotion().isBadEffect())) {
+                if (ModHelper.isHoldingCleaver(player) && potion.getPotion().equals(MobEffects.MINING_FATIGUE)) {
+                    continue;
                 }
+                player.removePotionEffect(potion.getPotion());
             }
         } else if (armorType == EntityEquipmentSlot.LEGS) {
             if (player.isBurning()) {

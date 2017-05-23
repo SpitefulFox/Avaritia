@@ -1,157 +1,253 @@
 package morph.avaritia.handler;
 
 import morph.avaritia.item.ItemArmorInfinity;
-import morph.avaritia.util.Lumberjack;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Predicate;
 
+import static net.minecraft.inventory.EntityEquipmentSlot.*;
+
+/**
+ * Handles all abilities for ANY EntityLivingBase.
+ * Some abilities are player specific, but just don't give a zombie your boots..
+ */
 public class AbilityHandler {
 
-    public static List<String> playersWithHat = new ArrayList<>();
-    public static List<String> playersWithChest = new ArrayList<>();
-    public static List<String> playersWithLeg = new ArrayList<>();
-    public static List<String> playersWithFoot = new ArrayList<>();
+    //@formatter:off
+    public static final Set<String> entitiesWithHelmets =     new HashSet<>();
+    public static final Set<String> entitiesWithChestplates = new HashSet<>();
+    public static final Set<String> entitiesWithLeggings =    new HashSet<>();
+    public static final Set<String> entitiesWithBoots =       new HashSet<>();
+    //@formatter:on
 
-    public static final Set<UUID> playersWithStepAssist = new HashSet<>();
-
-    public static boolean playerHasHat(EntityPlayer player) {
-        ItemStack armour = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        return armour != null && armour.getItem() instanceof ItemArmorInfinity;
-    }
-
-    public static boolean playerHasChest(EntityPlayer player) {
-        ItemStack armour = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        return armour != null && armour.getItem() instanceof ItemArmorInfinity;
-    }
-
-    public static boolean playerHasLeg(EntityPlayer player) {
-        ItemStack armour = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
-        return armour != null && armour.getItem() instanceof ItemArmorInfinity;
-    }
-
-    public static boolean playerHasFoot(EntityPlayer player) {
-        ItemStack armour = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
-        return armour != null && armour.getItem() instanceof ItemArmorInfinity;
-    }
-
-    public static String playerKey(EntityPlayer player) {
-        return player.getGameProfile().getName() + ":" + player.worldObj.isRemote;
+    public static boolean isPlayerWearing(EntityLivingBase entity, EntityEquipmentSlot slot, Predicate<Item> predicate) {
+        ItemStack stack = entity.getItemStackFromSlot(slot);
+        return stack != null && predicate.test(stack.getItem());
     }
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    //Updates all ability states for an entity, Handles firing updates and state changes.
+    public void updateAbilities(LivingUpdateEvent event) {
+        if (!(event.getEntity() instanceof EntityPlayer)) {
+            return;
+        }
 
-        EntityPlayer player = event.player;
+        EntityLivingBase entity = event.getEntityLiving();
+        String key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
 
-        boolean hasBoots = playerHasFoot(player);
-        if (player.worldObj.isRemote) {
-            boolean hasStepAssist = playersWithStepAssist.contains(player.getUniqueID());
-            if (hasStepAssist && !hasBoots) {
-                playersWithStepAssist.remove(player.getUniqueID());
-                player.stepHeight = 0.5F;
-            }
-            if (!hasStepAssist && hasBoots) {
-                playersWithStepAssist.add(player.getUniqueID());
-                player.stepHeight = 1.0625F;//Step 17 pixels, Allows for stepping directly from a path to the top of a block next to the path.
+        boolean hasHelmet = isPlayerWearing(event.getEntityLiving(), HEAD, item -> item instanceof ItemArmorInfinity);
+        boolean hasChestplate = isPlayerWearing(event.getEntityLiving(), CHEST, item -> item instanceof ItemArmorInfinity);
+        boolean hasLeggings = isPlayerWearing(event.getEntityLiving(), LEGS, item -> item instanceof ItemArmorInfinity);
+        boolean hasBoots = isPlayerWearing(event.getEntityLiving(), FEET, item -> item instanceof ItemArmorInfinity);
+
+        boolean curHasHelmet = entitiesWithHelmets.contains(key);
+        boolean curHasChestplate = entitiesWithChestplates.contains(key);
+        boolean curHasLeggings = entitiesWithLeggings.contains(key);
+        boolean curHasBoots = entitiesWithBoots.contains(key);
+
+        //Helmet toggle.
+        if (hasHelmet && !curHasHelmet) {
+            entitiesWithHelmets.add(key);
+            handleHelmetStateChange(entity, true);
+        }
+        if (!hasHelmet && curHasHelmet) {
+            entitiesWithHelmets.remove(key);
+            handleHelmetStateChange(entity, false);
+        }
+
+        //Chestplate toggle.
+        if (hasChestplate && !curHasChestplate) {
+            entitiesWithChestplates.add(key);
+            handleChestplateStateChange(entity, true);
+        }
+        if (!hasChestplate && curHasChestplate) {
+            entitiesWithChestplates.remove(key);
+            handleChestplateStateChange(entity, false);
+        }
+
+        //Leggings toggle.
+        if (hasLeggings && !curHasLeggings) {
+            entitiesWithLeggings.add(key);
+            handleLeggingsStateChange(entity, true);
+        }
+        if (!hasLeggings && curHasLeggings) {
+            entitiesWithLeggings.remove(key);
+            handleLeggingsStateChange(entity, false);
+        }
+
+        //Boots toggle.
+        if (hasBoots && !curHasBoots) {
+            entitiesWithBoots.add(key);
+            handleBootsStateChange(entity, true);
+        }
+        if (!hasBoots && curHasBoots) {
+            entitiesWithBoots.remove(key);
+            handleBootsStateChange(entity, false);
+        }
+
+        //Active ability ticking.
+        if (entitiesWithHelmets.contains(key)) {
+            tickHelmetAbilities(entity);
+        }
+        if (entitiesWithChestplates.contains(key)) {
+            tickChestplateAbilities(entity);
+        }
+        if (entitiesWithLeggings.contains(key)) {
+            tickLeggingsAbilities(entity);
+        }
+        if (entitiesWithBoots.contains(key)) {
+            tickBootsAbilities(entity);
+        }
+    }
+
+    /**
+     * Strips all Abilities from an entity if the entity had any special abilities.
+     *
+     * @param entity EntityLivingBase we speak of.
+     */
+    private static void stripAbilities(EntityLivingBase entity) {
+        String key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
+
+        if (entitiesWithHelmets.remove(key)) {
+            handleHelmetStateChange(entity, false);
+        }
+
+        if (entitiesWithChestplates.remove(key)) {
+            handleChestplateStateChange(entity, false);
+        }
+
+        if (entitiesWithLeggings.remove(key)) {
+            handleLeggingsStateChange(entity, false);
+        }
+
+        if (entitiesWithBoots.remove(key)) {
+            handleBootsStateChange(entity, false);
+        }
+    }
+
+    //region StateChanging
+    private static void handleHelmetStateChange(EntityLivingBase entity, boolean isNew) {
+        //TODO, Helmet abilities? Water breathing, NightVision, Auto Eat or No Hunger, No bad effects.
+    }
+
+    private static void handleChestplateStateChange(EntityLivingBase entity, boolean isNew) {
+        if (entity instanceof EntityPlayer) {
+            EntityPlayer player = ((EntityPlayer) entity);
+            if (isNew) {
+                player.capabilities.allowFlying = true;
+            } else {
+                if (!player.capabilities.isCreativeMode) {
+                    player.capabilities.allowFlying = false;
+                    player.capabilities.isFlying = false;
+                }
             }
         }
     }
 
-    @SubscribeEvent
-    public void updatePlayerAbilityStatus(LivingUpdateEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            String key = playerKey(player);
+    private static void handleLeggingsStateChange(EntityLivingBase entity, boolean isNew) {
 
-            // hat
-            Boolean hasHat = playerHasHat(player);
-            if (playersWithHat.contains(key)) {
-                if (hasHat) {
+    }
 
-                } else {
-                    playersWithHat.remove(key);
-                }
-            } else if (hasHat) {
-                playersWithHat.add(key);
+    private static void handleBootsStateChange(EntityLivingBase entity, boolean isNew) {
+        if (isNew) {
+            entity.stepHeight = 1.0625F;//Step 17 pixels, Allows for stepping directly from a path to the top of a block next to the path.
+        } else {
+            entity.stepHeight = 0.5F;
+        }
+    }
+    //endregion
+
+    //region Ability Ticking
+    private static void tickHelmetAbilities(EntityLivingBase entity) {
+
+    }
+
+    private static void tickChestplateAbilities(EntityLivingBase entity) {
+
+    }
+
+    private static void tickLeggingsAbilities(EntityLivingBase entity) {
+
+    }
+
+    private static void tickBootsAbilities(EntityLivingBase entity) {
+        boolean flying = entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying;
+        boolean swimming = entity.isInsideOfMaterial(Material.WATER) || entity.isInWater();
+        if (entity.onGround || flying || swimming) {
+            boolean sneaking = entity.isSneaking();
+
+            float speed = 0.15f * (flying ? 1.1f : 1.0f)
+                    //* (swimming ? 1.2f : 1.0f)
+                    * (sneaking ? 0.1f : 1.0f);
+
+            if (entity.moveForward > 0f) {
+                entity.moveRelative(0f, 1f, speed);
+            } else if (entity.moveForward < 0f) {
+                entity.moveRelative(0f, 1f, -speed * 0.3f);
             }
 
-            // chest
-            Boolean hasChest = playerHasChest(player);
-            if (playersWithChest.contains(key)) {
-                if (hasChest) {
-                    player.capabilities.allowFlying = true;
-                } else {
-                    if (!player.capabilities.isCreativeMode) {
-                        player.capabilities.allowFlying = false;
-                        player.capabilities.isFlying = false;
-                    }
-                    playersWithChest.remove(key);
-                }
-            } else if (hasChest) {
-                playersWithChest.add(key);
-            }
-
-            // legs
-            Boolean hasLeg = playerHasLeg(player);
-            if (playersWithLeg.contains(key)) {
-                if (hasLeg) {
-
-                } else {
-                    playersWithLeg.remove(key);
-                }
-            } else if (hasLeg) {
-                playersWithLeg.add(key);
-            }
-
-            // shoes
-            Boolean hasFoot = playerHasFoot(player);
-            if (playersWithFoot.contains(key)) {
-                if (hasFoot) {
-                    boolean flying = player.capabilities.isFlying;
-                    boolean swimming = player.isInsideOfMaterial(Material.WATER) || player.isInWater();
-                    if (player.onGround || flying || swimming) {
-                        boolean sneaking = player.isSneaking();
-
-                        float speed = 0.15f * (flying ? 1.1f : 1.0f)
-                                //* (swimming ? 1.2f : 1.0f)
-                                * (sneaking ? 0.1f : 1.0f);
-
-                        if (player.moveForward > 0f) {
-                            player.moveRelative(0f, 1f, speed);
-                        } else if (player.moveForward < 0f) {
-                            player.moveRelative(0f, 1f, -speed * 0.3f);
-                        }
-
-                        if (player.moveStrafing != 0f) {
-                            player.moveRelative(1f, 0f, speed * 0.5f * Math.signum(player.moveStrafing));
-                        }
-                    }
-                } else {
-                    playersWithFoot.remove(key);
-                }
-            } else if (hasFoot) {
-                playersWithFoot.add(key);
+            if (entity.moveStrafing != 0f) {
+                entity.moveRelative(1f, 0f, speed * 0.5f * Math.signum(entity.moveStrafing));
             }
         }
     }
+    //endregion
 
+    //region Ability Specific Events
     @SubscribeEvent
     public void jumpBoost(LivingJumpEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            String key = playerKey(player);
-
-            if (playersWithFoot.contains(key)) {
-                player.motionY += 0.4f;
-            }
+        EntityLivingBase entity = event.getEntityLiving();
+        if (entitiesWithBoots.contains(entity.getUniqueID())) {
+            entity.motionY += 0.4f;
         }
     }
+    //endregion
+
+    //region Ability Striping Events
+    //These are anything that should strip all abilities from an entity, Anything that creates an entity.
+    @SubscribeEvent
+    public void onPlayerDemensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
+        stripAbilities(event.player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        stripAbilities(event.player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        stripAbilities(event.player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        stripAbilities(event.player);
+    }
+
+    @SubscribeEvent
+    public void entityContstructedEvent(EntityConstructing event) {
+        if (event.getEntity() instanceof EntityLivingBase) {
+            //stripAbilities((EntityLivingBase) event.getEntity());
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityDeath(LivingDeathEvent event) {
+        stripAbilities(event.getEntityLiving());
+    }
+    //endregion
 }

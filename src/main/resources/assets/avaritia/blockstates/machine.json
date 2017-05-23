@@ -34,11 +34,14 @@
 				"textures": {
 					"top": "blocks/machine/collector/top",
 					"side": "blocks/machine/collector/side",
-					"front": "blocks/machine/collector/front"
+					"front": "blocks/machine/collector/inactive"
 				},
 				"variants": {
 					"active": {
 						"true": {
+							"textures": {
+								"front": "blocks/machine/collector/active"
+							}
 						},
 						"false": {
 						}

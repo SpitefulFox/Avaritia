@@ -1,7 +1,12 @@
 package morph.avaritia.recipe.compressor;
 
+import com.google.common.collect.Lists;
 import morph.avaritia.util.CompressorBalanceCalculator;
 import net.minecraft.item.ItemStack;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public class CompressorRecipe {
 
@@ -25,6 +30,10 @@ public class CompressorRecipe {
         return product.copy();
     }
 
+    public List<ItemStack> getInputs() {
+        return Collections.singletonList(input);
+    }
+
     public int getCost() {
         if (specific) {
             return cost;
@@ -33,7 +42,7 @@ public class CompressorRecipe {
         }
     }
 
-    public boolean validInput(ItemStack ingredient) {
+    public boolean isValidInput(ItemStack ingredient) {
         return ingredient.isItemEqual(input);
     }
 

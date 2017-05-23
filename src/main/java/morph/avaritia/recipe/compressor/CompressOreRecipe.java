@@ -4,22 +4,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CompressOreRecipe extends CompressorRecipe {
 
     private int oreID;
 
-    public CompressOreRecipe(ItemStack output, int amount, String lex, boolean exact) {
+    public CompressOreRecipe(ItemStack output, int amount, String oreId, boolean exact) {
         super(output, amount, null, exact);
-        oreID = OreDictionary.getOreID(lex);
+        oreID = OreDictionary.getOreID(oreId);
     }
 
-    public CompressOreRecipe(ItemStack output, int amount, String lex) {
-        this(output, amount, lex, false);
+    public CompressOreRecipe(ItemStack output, int amount, String oreId) {
+        this(output, amount, oreId, false);
     }
 
     @Override
-    public boolean validInput(ItemStack ingredient) {
+    public boolean isValidInput(ItemStack ingredient) {
 
         int[] ids = OreDictionary.getOreIDs(ingredient);
         for (int id : ids) {
@@ -31,8 +33,13 @@ public class CompressOreRecipe extends CompressorRecipe {
     }
 
     @Override
+    public List<ItemStack> getInputs() {
+        return OreDictionary.getOres(OreDictionary.getOreName(oreID));
+    }
+
+    @Override
     public String getIngredientName() {
-        ArrayList<ItemStack> ores = (ArrayList<ItemStack>) OreDictionary.getOres(OreDictionary.getOreName(oreID));
+        List<ItemStack> ores = OreDictionary.getOres(OreDictionary.getOreName(oreID));
         if (!ores.isEmpty()) {
             return ores.get(0).getDisplayName();
         }

@@ -1,6 +1,5 @@
 package morph.avaritia.handler;
 
-import morph.avaritia.api.ITrashConfigurable;
 import morph.avaritia.init.ModItems;
 import morph.avaritia.item.ItemArmorInfinity;
 import morph.avaritia.item.ItemFracturedOre;
@@ -25,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -48,10 +48,11 @@ public class AvaritiaEventHandler {
 
     private static Map<Integer, List<AEOCrawlerTask>> crawlerTasks = new HashMap<>();
 
-    public static Set<EntityPlayer> playerHammerTracker = new HashSet<>();
-    public static Map<EntityPlayer, List<ItemStack>> playerHammerDrops = new WeakHashMap<>();
+    private static Set<ItemStack> capturedDrops = new LinkedHashSet<>();
+    private static boolean doItemCapture = false;
 
-    static final String[] trash = new String[] { "dirt", "sand", "gravel", "cobblestone", "netherrack" };//TODO, config?
+    //These are defaults, loaded from config.
+    public static final Set<String> defaultTrashOres = new HashSet<>();
 
     public static boolean isInfinite(EntityPlayer player) {
         for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
@@ -64,6 +65,48 @@ public class AvaritiaEventHandler {
             }
         }
         return true;
+    }
+
+    //region EntityItem capture.
+    public static void enableItemCapture() {
+        doItemCapture = true;
+    }
+
+    public static void stopItemCapture() {
+        doItemCapture = false;
+    }
+
+    public static boolean isItemCaptureEnabled() {
+        return doItemCapture;
+    }
+
+    public static Set<ItemStack> getCapturedDrops() {
+        Set<ItemStack> dropsCopy = new LinkedHashSet<>(capturedDrops);
+        capturedDrops.clear();
+        return dropsCopy;
+    }
+
+    @SubscribeEvent
+    public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        if (doItemCapture) {
+            if (event.getEntity() instanceof EntityItem) {
+                ItemStack stack = ((EntityItem) event.getEntity()).getEntityItem();
+                capturedDrops.add(stack);
+                event.setCanceled(true);
+            }
+        }
+    }
+    //endregion
+
+
+    public static AEOCrawlerTask startCrawlerTask(World world, EntityPlayer player, ItemStack stack, BlockPos coords, int steps, boolean leaves, boolean force, Set<BlockPos> posChecked) {
+        AEOCrawlerTask swapper = new AEOCrawlerTask(world, player, stack, coords, steps, leaves, force, posChecked);
+        int dim = world.provider.getDimension();
+        if (!crawlerTasks.containsKey(dim)) {
+            crawlerTasks.put(dim, new ArrayList<>());
+        }
+        crawlerTasks.get(dim).add(swapper);
+        return swapper;
     }
 
     @SubscribeEvent
@@ -81,16 +124,6 @@ public class AvaritiaEventHandler {
                 }
             }
         }
-    }
-
-    public static AEOCrawlerTask startCrawlerTask(World world, EntityPlayer player, ItemStack stack, BlockPos coords, int steps, boolean leaves, boolean force, Set<BlockPos> posChecked) {
-        AEOCrawlerTask swapper = new AEOCrawlerTask(world, player, stack, coords, steps, leaves, force, posChecked);
-        int dim = world.provider.getDimension();
-        if (!crawlerTasks.containsKey(dim)) {
-            crawlerTasks.put(dim, new ArrayList<>());
-        }
-        crawlerTasks.get(dim).add(swapper);
-        return swapper;
     }
 
     @SubscribeEvent
@@ -128,38 +161,33 @@ public class AvaritiaEventHandler {
         if (event.getHarvester() == null) {
             return;
         }
-
         ItemStack mainHand = event.getHarvester().getHeldItem(EnumHand.MAIN_HAND);
 
-        if (playerHammerTracker.contains(event.getHarvester())) {
-            List<ItemStack> playerDrops = playerHammerDrops.get(event.getHarvester());
-            List<ItemStack> eventDrops = event.getDrops();//TODO, AOECrawler may have issues if a player changes item in hand with this here.
-            eventDrops.removeAll(combTrashItems(mainHand, eventDrops));
-            playerDrops.addAll(eventDrops);
-            eventDrops.clear();
-        }
-
         if (mainHand != null && mainHand.getItem() == ModItems.infinity_pickaxe) {
-            extraLuck(event, 4);
+            applyLuck(event, 4);
         }
-
     }
 
-    public static void extraLuck(HarvestDropsEvent event, int mult) {//TODO, optimize somewhat.
+    public static void applyLuck(HarvestDropsEvent event, int multiplier) {
+        //Only do stuff on rock.
         if (event.getState().getMaterial() == Material.ROCK) {
             List<ItemStack> adds = new ArrayList<>();
             List<ItemStack> removals = new ArrayList<>();
+
             for (ItemStack drop : event.getDrops()) {
+                //We are a drop that is not the same as the Blocks ItemBlock and the drop itself is not an ItemBlock, AKA, Redstone, Lapis.
                 if (drop.getItem() != Item.getItemFromBlock(event.getState().getBlock()) && !(drop.getItem() instanceof ItemBlock)) {
-                    drop.stackSize = Math.min(drop.stackSize * mult, drop.getMaxStackSize());
+                    //Apply standard Luck modifier
+                    drop.stackSize = Math.min(drop.stackSize * multiplier, drop.getMaxStackSize());
                 } else if (ConfigHandler.fractured && drop.getItem() == Item.getItemFromBlock(event.getState().getBlock())) {
-                    ItemFracturedOre ifo = (ItemFracturedOre) ModItems.fractured_ore;
-                    int[] oreids = OreDictionary.getOreIDs(drop);
-                    for (int i = 0; i < oreids.length; i++) {
-                        String orename = OreDictionary.getOreName(oreids[i]);
-                        if (orename.startsWith("ore")) {
+                    //kk, we are an ore block, Lets test for oreDict and add fractured ores.
+                    ItemFracturedOre fracturedOre = ModItems.fractured_ore;
+                    int[] iDs = OreDictionary.getOreIDs(drop);
+                    for (int id : iDs) {
+                        String oreName = OreDictionary.getOreName(id);
+                        if (oreName.startsWith("ore")) {
                             // add the fractured ores
-                            adds.add(ifo.getStackForOre(drop, Math.min(drop.stackSize * (mult + 1), drop.getMaxStackSize())));
+                            adds.add(fracturedOre.getStackForOre(drop, Math.min(drop.stackSize * (multiplier + 1), drop.getMaxStackSize())));
                             removals.add(drop);
                             break;
                         }
@@ -171,32 +199,7 @@ public class AvaritiaEventHandler {
         }
     }
 
-    private static Collection<ItemStack> combTrashItems(ItemStack holdingStack, Collection<ItemStack> drops) {
-        Set<ItemStack> trashItems = new HashSet<>();
-        for (ItemStack drop : drops) {
-            if (isTrash(holdingStack, drop)) {
-                trashItems.add(drop);
-            }
-        }
-        return trashItems;
-    }
 
-    private static boolean isTrash(ItemStack holdingStack, ItemStack suspect) {//TODO, Items need a default trash list.
-        boolean isTrash = false;
-        //for (int id : OreDictionary.getOreIDs(suspect)) {
-        //    for (String ore : trash) {
-        //        if (OreDictionary.getOreName(id).equals(ore)) {
-        //            return true;
-        //        }
-        //    }
-        //}
-
-        if (holdingStack.getItem() instanceof ITrashConfigurable) {
-            isTrash |= ((ITrashConfigurable) holdingStack.getItem()).isTrashStack(suspect);
-        }
-
-        return isTrash;
-    }
 
     @SideOnly (Side.CLIENT)
     @SubscribeEvent

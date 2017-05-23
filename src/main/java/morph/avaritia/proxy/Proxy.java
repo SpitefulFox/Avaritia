@@ -16,6 +16,7 @@ import morph.avaritia.init.ModBlocks;
 import morph.avaritia.init.ModItems;
 import morph.avaritia.init.Recipes;
 import morph.avaritia.util.CompressorBalanceCalculator;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -53,6 +54,18 @@ public class Proxy {
 
     public void addModelRegister(IModelRegister register) {
 
+    }
+
+    public boolean isClient() {
+        return false;
+    }
+
+    public boolean isServer() {
+        return true;
+    }
+
+    public World getClientWorld() {
+        return null;
     }
 
 }

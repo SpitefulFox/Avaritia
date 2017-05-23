@@ -188,6 +188,8 @@ public class ConfigHandler {
         multiplier = prop.getInt();
 
         loadCompatibilityConfigs();
+        loadTrashConfig();
+
         config.save();
     }
 
@@ -210,5 +212,23 @@ public class ConfigHandler {
             return false;
         }
         return Loader.isModLoaded(modid) && MOD_INTEGRATIONS.get(modid);
+    }
+
+    private static void loadTrashConfig() {
+        String[] defaults = { "dirt", "sand", "gravel", "cobblestone", "netherrack", "stoneGranite", "stoneDiorite", "stoneAndesite" };
+        String category;
+        String comment;
+        String langKey;
+        Property prop;
+
+        category = "general";
+        comment = "These are the OreDictionary ID's for default trashed items. These are synced from the server to the client. And will appear as defaults on the client also. Clients can override these, They are defaults not Musts.";
+        langKey = "avaritia:config.general.trash_defaults";
+
+        prop = config.get(category, "AOE Trash Defaults", defaults);
+        prop.setComment(comment);
+        prop.setRequiresMcRestart(false);
+        AvaritiaEventHandler.defaultTrashOres.clear();
+        AvaritiaEventHandler.defaultTrashOres.addAll(Sets.newHashSet(prop.getStringList()));
     }
 }

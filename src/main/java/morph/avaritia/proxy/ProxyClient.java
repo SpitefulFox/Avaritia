@@ -1,5 +1,6 @@
 package morph.avaritia.proxy;
 
+import codechicken.lib.packet.PacketCustom;
 import codechicken.lib.texture.TextureUtils;
 import codechicken.lib.util.ItemNBTUtils;
 import morph.avaritia.api.registration.IModelRegister;
@@ -15,6 +16,8 @@ import morph.avaritia.entity.EntityHeavenSubArrow;
 import morph.avaritia.init.AvaritiaTextures;
 import morph.avaritia.init.ModItems;
 import morph.avaritia.item.ItemMatterCluster;
+import morph.avaritia.network.ClientPacketHandler;
+import morph.avaritia.network.NetworkDispatcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -24,6 +27,7 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -158,6 +162,7 @@ public class ProxyClient extends Proxy {
             });
         }
         registerRenderers();
+        PacketCustom.assignHandler(NetworkDispatcher.NET_CHANNEL, new ClientPacketHandler());
     }
 
     @SuppressWarnings ("unchecked")
@@ -187,5 +192,20 @@ public class ProxyClient extends Proxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityGapingVoid.class, RenderGapingVoid::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityHeavenArrow.class, RenderHeavenArrow::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityHeavenSubArrow.class, RenderHeavenArrow::new);
+    }
+
+    @Override
+    public boolean isClient() {
+        return true;
+    }
+
+    @Override
+    public boolean isServer() {
+        return false;
+    }
+
+    @Override
+    public World getClientWorld() {
+        return Minecraft.getMinecraft().theWorld;
     }
 }

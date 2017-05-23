@@ -71,7 +71,7 @@ public class ItemMatterCluster extends Item {
         }
     }
 
-    public static List<ItemStack> makeClusters(List<ItemStack> input) {
+    public static List<ItemStack> makeClusters(Set<ItemStack> input) {
         Map<ItemStackWrapper, Integer> items = ToolHelper.collateMatterCluster(input);
         List<ItemStack> clusters = new ArrayList<>();
         List<Entry<ItemStackWrapper, Integer>> itemlist = new ArrayList<>();
