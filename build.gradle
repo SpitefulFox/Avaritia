@@ -1,9 +1,7 @@
 buildscript {
     repositories {
-        maven {
-            name = "Jcenter, and MavenCentral."
-            url = "http://mavenmirror.covers1624.net/general"
-        }
+        jcenter()
+        mavenCentral()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -34,8 +32,8 @@ configFile.withReader {
 
 repositories {
     maven {
-        name = "MavenMirror, Has basically all the mods."
-        url = "http://mavenmirror.covers1624.net/mod"
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl/"
     }
 }
 
@@ -45,7 +43,7 @@ dependencies {
 
     /*SOFT DEPENDENCIES*/
     compile "mezz.jei:jei_${config.mc_version}:${config.jei_version}"
-    compile "com.wayoftime.bloodmagic:BloodMagic:${config.mc_version}-${config.blood_magic_version}"
+    //compile "com.wayoftime.bloodmagic:BloodMagic:${config.mc_version}-${config.blood_magic_version}"
     compile "slimeknights:TConstruct:${config.mc_version}-${config.tinkers_version}"
     compile "slimeknights.mantle:Mantle:${config.mc_version}-${config.mantle_version}"
     compile "mcjty.theoneprobe:TheOneProbe:1.1x-${config.top_version}"

@@ -7,10 +7,8 @@ import morph.avaritia.init.ModItems;
 import morph.avaritia.util.ToolHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
@@ -123,15 +121,13 @@ public class ItemShovelInfinity extends ItemSpade {
             return;
         }
 
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-        boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
         boolean doY = sideHit.getAxis() != Axis.Y;
 
         int range = 8;
         BlockPos min = new BlockPos(-range, doY ? -1 : -range, -range);
         BlockPos max = new BlockPos(range, doY ? range * 2 - 2 : range, range);
 
-        ToolHelper.aoeBlocks(player, stack, world, pos, min, max, null, ItemPickaxeInfinity.MATERIALS, silk, fortune, false);
+        ToolHelper.aoeBlocks(player, stack, world, pos, min, max, null, ItemPickaxeInfinity.MATERIALS);
 
     }
 

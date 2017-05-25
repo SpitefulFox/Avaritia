@@ -159,15 +159,13 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
             return;
         }
 
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-        boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
         boolean doY = sideHit.getAxis() != Axis.Y;
 
         int range = 8;
         BlockPos minOffset = new BlockPos(-range, doY ? -1 : -range, -range);
         BlockPos maxOffset = new BlockPos(range, doY ? range * 2 - 2 : range, range);
 
-        ToolHelper.aoeBlocks(player, stack, world, pos, minOffset, maxOffset, null, MATERIALS, silk, fortune, false);
+        ToolHelper.aoeBlocks(player, stack, world, pos, minOffset, maxOffset, null, MATERIALS);
 
     }
 

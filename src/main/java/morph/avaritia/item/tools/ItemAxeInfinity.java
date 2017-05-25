@@ -14,10 +14,8 @@ import morph.avaritia.init.ModItems;
 import morph.avaritia.util.ToolHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
@@ -69,14 +67,12 @@ public class ItemAxeInfinity extends ItemAxe {
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if (player.isSneaking()) {
             player.swingArm(hand);
-            int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-            boolean silk = EnchantmentHelper.getEnchantments(stack).containsKey(Enchantments.SILK_TOUCH);
 
             int range = 13;
             BlockPos min = new BlockPos(-range, -3, -range);
             BlockPos max = new BlockPos(range, range * 2 - 3, range);
 
-            ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe, silk, fortune, false);
+            ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe);
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
