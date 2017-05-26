@@ -52,7 +52,7 @@ public class ContainerNeutroniumCompressor extends ContainerMachineBase<TileNeut
                     if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
                         return null;
                     }
-                } else if (slotNumber >= 3 && slotNumber < 30) {
+                } else if (slotNumber >= 2 && slotNumber < 29) {
                     if (!this.mergeItemStack(itemstack1, 29, 38, false)) {
                         return null;
                     }
