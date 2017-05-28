@@ -352,8 +352,8 @@ public class Recipes {
         CompressorManager.addRecipe(ModItems.goldSingularity, 200, new ItemStack(Blocks.GOLD_BLOCK, 1));
         CompressorManager.addRecipe(ModItems.lapisSingularity, 400, new ItemStack(Blocks.LAPIS_BLOCK, 1));
         CompressorManager.addRecipe(ModItems.redstoneSingularity, 500, new ItemStack(Blocks.REDSTONE_BLOCK, 1));
-        CompressorManager.addRecipe(ModItems.quartzSingularity, 300, new ItemStack(Blocks.QUARTZ_BLOCK, 1));
-
+        CompressorManager.addRecipe(ModItems.diamondSingularity, 300, new ItemStack(Blocks.DIAMOND_BLOCK, 1));
+        CompressorManager.addRecipe(ModItems.emeraldSingularity, 200, new ItemStack(Blocks.EMERALD_BLOCK, 1));
 
         if (ConfigHandler.endStone) {
             ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(
@@ -446,7 +446,7 @@ public class Recipes {
             catalyst.getInput().add(ModItems.nickelSingularity);
         }
         //if (ConfigHandler.diamond && !OreDictionary.getOres("blockDiamond").isEmpty()) {
-        //    CompressorManager.addOreRecipe(ModItems.diamondSingularity, 200, "blockNickel");
+        //    CompressorManager.addOreRecipe(ModItems.diamondSingularity, 200, "blockDiamond");
         //    catalyst.getInput().add(ModItems.diamondSingularity);
         //}
         //if (ConfigHandler.emerald && !OreDictionary.getOres("blockEmerald").isEmpty()) {
