@@ -53,6 +53,7 @@ public class CompressorBalanceCalculator {
         }
         if (Loader.isModLoaded("mekanism")) {
             modifier += 500;
+            multiplier += 1;
 
         }
         if (Loader.isModLoaded("torcherino")) {
