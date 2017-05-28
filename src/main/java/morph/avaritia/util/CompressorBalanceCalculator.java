@@ -9,13 +9,14 @@ public class CompressorBalanceCalculator {
     public static int multiplier = 1;
 
     public static void gatherBalanceModifier() {//TODO, Update these for the correct ModID's
-        if (Loader.isModLoaded("Thaumcraft")) {
+        if (Loader.isModLoaded("thaumcraft")) {
             modifier += 100;
         }
-        if (Loader.isModLoaded("TConstruct") || Loader.isModLoaded("HydCraft")) {
+        if (Loader.isModLoaded("tconstruct")) {
             modifier += 100;
+            multiplier += 1;
         }
-        if (Loader.isModLoaded("ThermalExpansion") || Loader.isModLoaded("TSteelworks") || Loader.isModLoaded("IC2") || Loader.isModLoaded("ThaumicTinkerer")) {
+        if (Loader.isModLoaded("thermalExpansion") || Loader.isModLoaded("ic2") || Loader.isModLoaded("thaumictinkerer")) {
             modifier += 300;
         }
         if (Loader.isModLoaded("technom")) {
@@ -24,44 +25,44 @@ public class CompressorBalanceCalculator {
         if (Loader.isModLoaded("mysticalagriculture")) {
             multiplier += 1;
         }
-        if (Loader.isModLoaded("AgriCraft")) {
+        if (Loader.isModLoaded("agriCraft")) {
             multiplier += 1;
         }
-        if (Loader.isModLoaded("MineFactoryReloaded")) {
+        if (Loader.isModLoaded("minefactoryreloaded")) {
             multiplier += 3;
         }
-        if (Loader.isModLoaded("ExtremeReactors")) {
+        if (Loader.isModLoaded("bigreactors")) {
             modifier += 100;
-        }
+        }//The mod name is ExtremeReactors but in game still uses bigreactors for items
         if (Loader.isModLoaded("EE3")) {
             multiplier += 1;
-        } else if (Loader.isModLoaded("ProjectE")) {
+        } else if (Loader.isModLoaded("projecte")) {
             multiplier += 3;
         }
-        if (Loader.isModLoaded("Botania")) {
+        if (Loader.isModLoaded("botania")) {
             modifier += 50;
         }
-        if (Loader.isModLoaded("ExtraUtilities")) {
+        if (Loader.isModLoaded("extrautils2")) {
             modifier += 500;
         }
         if (Loader.isModLoaded("appliedenergistics2")) {
             modifier += 200;
         }
-        if (Loader.isModLoaded("ImmersiveEngineering")) {
+        if (Loader.isModLoaded("immersiveengineering")) {
             modifier += 300;
         }
-        if (Loader.isModLoaded("Mekanism")) {
+        if (Loader.isModLoaded("mekanism")) {
             modifier += 500;
-            multiplier += 1;
+
         }
-        if (Loader.isModLoaded("Torcherino")) {
+        if (Loader.isModLoaded("torcherino")) {
             multiplier += 2;
         }
-        if (Loader.isModLoaded("DraconicEvolution")) {
+        if (Loader.isModLoaded("draconicevolution")) {
             modifier += 300;
             multiplier += 1;
         }
-        if (Loader.isModLoaded("RFTools")) {
+        if (Loader.isModLoaded("rfools") || Loader.isModLoaded("rftoolsdim")) {
             modifier += 300;
             multiplier += 1;
         }

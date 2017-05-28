@@ -55,7 +55,7 @@ dependencies {
 targetCompatibility = "1.8"
 sourceCompatibility = "1.8"
 
-version = "${project.config.mod_version}." + (System.getenv("BUILD_NUMBER") ?: "1")
+version = "${project.config.mod_version}." //+ (System.getenv("BUILD_NUMBER") ?: "1")
 
 println config.mc_version + "-" + config.forge_version
 // Setup the forge minecraft plugin data. Specify the preferred forge/minecraft version here
