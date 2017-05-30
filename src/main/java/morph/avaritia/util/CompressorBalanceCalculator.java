@@ -16,7 +16,7 @@ public class CompressorBalanceCalculator {
             modifier += 100;
             multiplier += 1;
         }
-        if (Loader.isModLoaded("thermalExpansion") || Loader.isModLoaded("ic2") || Loader.isModLoaded("thaumictinkerer")) {
+        if (Loader.isModLoaded("thermalexpansion") || Loader.isModLoaded("ic2") || Loader.isModLoaded("thaumictinkerer")) {
             modifier += 300;
         }
         if (Loader.isModLoaded("technom")) {
