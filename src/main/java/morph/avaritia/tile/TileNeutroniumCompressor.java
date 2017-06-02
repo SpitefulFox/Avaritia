@@ -17,7 +17,7 @@ import java.util.List;
 public class TileNeutroniumCompressor extends TileMachineBase implements ISidedInventory {
 
     //Number of ticks needed to consume an item.
-    public static int CONSUME_TICKS = 10;//TODO Config.
+    public static int CONSUME_TICKS = 1;//TODO Config.
 
     //The consumption progress.
     private int consumption_progress;

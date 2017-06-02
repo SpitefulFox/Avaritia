@@ -50,7 +50,7 @@ public class GUINeutroniumCompressor extends GuiMachineBase<TileNeutroniumCompre
         }
         if (machineTile.getTargetStack() != null) {
             s = "Input";
-            if (machineTile.getInputItems().size() > 1) {
+            if (machineTile.getInputItems() != null && machineTile.getInputItems().size() > 1) {
                 s += "s";
             }
             int x = (20 - fontRendererObj.getStringWidth(s) / 2);
