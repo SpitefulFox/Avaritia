@@ -188,7 +188,7 @@ public class ExtremeCraftingManager {
     /**
      * returns the List<> of all recipes
      */
-    public List getRecipeList() {
+    public List<IRecipe> getRecipeList() {
         return this.recipes;
     }
 }
