@@ -56,7 +56,7 @@ public abstract class TileMachineBase extends TileBase implements ITickable {
      * Does checks to see if a delay has passed since the machine was turned off for triggering client updates.
      */
     private void updateCheck() {
-        if (wasActive && offTracker.hasDelayPassed(worldObj, 0)) {
+        if (wasActive && offTracker.hasDelayPassed(worldObj, 100)) {
             wasActive = false;
             sendUpdatePacket = true;
         }
