@@ -25,7 +25,7 @@ public class CompressorBalanceCalculator {
         if (Loader.isModLoaded("mysticalagriculture")) {
             multiplier += 1;
         }
-        if (Loader.isModLoaded("agriCraft")) {
+        if (Loader.isModLoaded("agricraft")) {
             multiplier += 1;
         }
         if (Loader.isModLoaded("minefactoryreloaded")) {
@@ -34,7 +34,7 @@ public class CompressorBalanceCalculator {
         if (Loader.isModLoaded("bigreactors")) {
             modifier += 100;
         }//The mod name is ExtremeReactors but in game still uses bigreactors for items
-        if (Loader.isModLoaded("EE3")) {
+        if (Loader.isModLoaded("ee3")) {
             multiplier += 1;
         } else if (Loader.isModLoaded("projecte")) {
             multiplier += 3;
@@ -63,7 +63,7 @@ public class CompressorBalanceCalculator {
             modifier += 300;
             multiplier += 1;
         }
-        if (Loader.isModLoaded("rfools") || Loader.isModLoaded("rftoolsdim")) {
+        if (Loader.isModLoaded("rftools") || Loader.isModLoaded("rftoolsdim")) {
             modifier += 300;
             multiplier += 1;
         }
