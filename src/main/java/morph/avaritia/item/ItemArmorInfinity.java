@@ -1,7 +1,6 @@
 package morph.avaritia.item;
 
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
 import morph.avaritia.Avaritia;
 import morph.avaritia.client.render.entity.ModelArmorInfinity;
 import morph.avaritia.init.ModItems;
@@ -21,22 +20,12 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaDiscountArmor;
 
-import java.util.Collection;
 import java.util.List;
 
-//@formatter:off
-@Optional.InterfaceList({
-        @Optional.Interface(iface = "vazkii.botania.api.mana.IManaDiscountArmor", modid = "Botania"),
-        @Optional.Interface(iface = "vazkii.botania.api.item.IManaProficiencyArmor", modid = "Botania")
-})
-//@formatter:on
-public class ItemArmorInfinity extends ItemArmor implements IManaDiscountArmor, IManaProficiencyArmor {
+public class ItemArmorInfinity extends ItemArmor {
 
     public static final ArmorMaterial infinite_armor = EnumHelper.addArmorMaterial("avaritia_infinity", "", 9999, new int[] { 6, 16, 12, 6 }, 1000, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
     public final EntityEquipmentSlot slot;
@@ -100,18 +89,6 @@ public class ItemArmorInfinity extends ItemArmor implements IManaDiscountArmor, 
             list.add(TextFormatting.BLUE + "+" + TextFormatting.ITALIC + TextUtils.makeSANIC("SANIC") + TextFormatting.RESET + "" + TextFormatting.BLUE + "% Speed");
         }
         super.addInformation(stack, player, list, par4);
-    }
-
-    @Optional.Method (modid = "Botania")
-    @Override
-    public float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
-        return 0.25F;
-    }
-
-    @Optional.Method (modid = "Botania")
-    @Override
-    public boolean shouldGiveProficiency(ItemStack itemStack, int i, EntityPlayer player) {
-        return true;
     }
 
     @Override

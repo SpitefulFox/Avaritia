@@ -17,6 +17,8 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Random;
@@ -162,14 +164,15 @@ public class EntityGapingVoid extends Entity {
             for (int y = -blockrange; y <= blockrange; y++) {
                 for (int z = -blockrange; z <= blockrange; z++) {
                     for (int x = -blockrange; x <= blockrange; x++) {
-                        Vector3 rPos = posFloor.copy().add(x, y, z);
+                        Vector3 pos2 = new Vector3(x, y, z);
+                        Vector3 rPos = posFloor.copy().add(pos2);
                         BlockPos blockPos = rPos.pos();
 
                         if (blockPos.getY() < 0 || blockPos.getY() > 255) {
                             continue;
                         }
 
-                        double dist = rPos.mag();
+                        double dist = pos2.mag();
                         if (dist <= nomrange && !this.worldObj.isAirBlock(blockPos)) {
                             IBlockState state = worldObj.getBlockState(blockPos);
                             float resist = state.getBlock().getExplosionResistance(this);//TODO HELP state.getExplosionResistance(this, this.worldObj, lx, ly, lz, this.posX, this.posY, this.posZ);
@@ -222,5 +225,11 @@ public class EntityGapingVoid extends Entity {
     @Override
     public boolean canBeCollidedWith() {
         return false;
+    }
+
+    @Override
+    @SideOnly (Side.CLIENT)
+    public boolean isInRangeToRenderDist(double distance) {
+        return true;
     }
 }

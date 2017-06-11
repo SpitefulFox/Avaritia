@@ -101,9 +101,11 @@ public class RenderGapingVoid extends Render<EntityGapingVoid> {
 
             GlStateManager.scale(scale, scale, scale);
 
+            GlStateManager.disableCull();
             ccrs.startDrawing(0x07, DefaultVertexFormats.POSITION_TEX_NORMAL);
             model.render(ccrs);
             ccrs.draw();
+            GlStateManager.enableCull();
 
         }
         GlStateManager.popMatrix();

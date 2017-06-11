@@ -53,47 +53,42 @@ public class AbilityHandler {
         boolean hasLeggings = isPlayerWearing(event.getEntityLiving(), LEGS, item -> item instanceof ItemArmorInfinity);
         boolean hasBoots = isPlayerWearing(event.getEntityLiving(), FEET, item -> item instanceof ItemArmorInfinity);
 
-        boolean curHasHelmet = entitiesWithHelmets.contains(key);
-        boolean curHasChestplate = entitiesWithChestplates.contains(key);
-        boolean curHasLeggings = entitiesWithLeggings.contains(key);
-        boolean curHasBoots = entitiesWithBoots.contains(key);
-
         //Helmet toggle.
-        if (hasHelmet && !curHasHelmet) {
+        if (hasHelmet) {
             entitiesWithHelmets.add(key);
             handleHelmetStateChange(entity, true);
         }
-        if (!hasHelmet && curHasHelmet) {
+        if (!hasHelmet) {
             entitiesWithHelmets.remove(key);
             handleHelmetStateChange(entity, false);
         }
 
         //Chestplate toggle.
-        if (hasChestplate && !curHasChestplate) {
+        if (hasChestplate) {
             entitiesWithChestplates.add(key);
             handleChestplateStateChange(entity, true);
         }
-        if (!hasChestplate && curHasChestplate) {
+        if (!hasChestplate) {
             entitiesWithChestplates.remove(key);
             handleChestplateStateChange(entity, false);
         }
 
         //Leggings toggle.
-        if (hasLeggings && !curHasLeggings) {
+        if (hasLeggings) {
             entitiesWithLeggings.add(key);
             handleLeggingsStateChange(entity, true);
         }
-        if (!hasLeggings && curHasLeggings) {
+        if (!hasLeggings) {
             entitiesWithLeggings.remove(key);
             handleLeggingsStateChange(entity, false);
         }
 
         //Boots toggle.
-        if (hasBoots && !curHasBoots) {
+        if (hasBoots) {
             entitiesWithBoots.add(key);
             handleBootsStateChange(entity, true);
         }
-        if (!hasBoots && curHasBoots) {
+        if (!hasBoots) {
             entitiesWithBoots.remove(key);
             handleBootsStateChange(entity, false);
         }

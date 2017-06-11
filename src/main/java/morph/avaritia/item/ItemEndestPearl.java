@@ -12,12 +12,14 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,10 +40,12 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, 
             --stack.stackSize;
         }
 
-        //world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isRemote) {
-            world.spawnEntityInWorld(new EntityEndestPearl(world, player));
+            EntityEndestPearl pearl = new EntityEndestPearl(world, player);
+            pearl.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+            world.spawnEntityInWorld(pearl);
         }
 
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
@@ -87,7 +91,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, 
     public void registerModels() {
         ModelResourceLocation pearl = new ModelResourceLocation("avaritia:resource", "type=endest_pearl");
         ModelLoader.registerItemVariants(this, pearl);
-        IBakedModel wrapped = new HaloRenderItem(TransformUtils.DEFAULT_TOOL, modelRegistry -> modelRegistry.getObject(pearl));
+        IBakedModel wrapped = new HaloRenderItem(TransformUtils.DEFAULT_ITEM, modelRegistry -> modelRegistry.getObject(pearl));
         ModelRegistryHelper.register(pearl, wrapped);
         ModelLoader.setCustomMeshDefinition(this, (ItemStack stack) -> pearl);
     }
