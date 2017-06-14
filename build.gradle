@@ -6,9 +6,13 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -33,7 +37,19 @@ configFile.withReader {
 repositories {
     maven {
         name = "ModMaven"
-        url = "https://modmaven.k-4u.nl/"
+        url = "https://modmaven.k-4u.nl/"     
+    }
+    maven {
+        name = "JEI"
+        url = "http://dvs1.progwml6.com/files/maven"
+        }
+    maven {
+        name 'CB Maven'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'OC Maven'
+        url "http://maven.cil.li/"
     }
 }
 
