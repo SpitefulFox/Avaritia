@@ -144,7 +144,7 @@ public class AbilityHandler {
             if (isNew) {
                 player.capabilities.allowFlying = true;
             } else {
-                if (!player.capabilities.isCreativeMode) {
+                if (!player.capabilities.isCreativeMode && !player.capabilities.allowFlying) {
                     player.capabilities.allowFlying = false;
                     player.capabilities.isFlying = false;
                 }

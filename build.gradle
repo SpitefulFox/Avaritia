@@ -51,6 +51,10 @@ repositories {
         name 'OC Maven'
         url "http://maven.cil.li/"
     }
+     maven {
+        name 'Forestry'
+        url "http://maven.ic2.player.to"
+    }
 }
 
 dependencies {
