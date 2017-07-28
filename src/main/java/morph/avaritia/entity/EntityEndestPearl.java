@@ -1,5 +1,6 @@
 package morph.avaritia.entity;
 
+import codechicken.lib.vec.Vector3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -38,7 +39,11 @@ public class EntityEndestPearl extends EntityThrowable {
 
             Entity ent = new EntityGapingVoid(this.worldObj);
             EnumFacing dir = pos.sideHit;
-            ent.setLocationAndAngles(this.posX + dir.getFrontOffsetX() * 0.25, this.posY + dir.getFrontOffsetY() * 0.25, this.posZ + dir.getFrontOffsetZ() * 0.25, this.rotationYaw, 0.0F);
+            Vector3 offset = Vector3.zero.copy();
+            if (pos.sideHit != null) {
+                offset = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ());
+            }
+            ent.setLocationAndAngles(this.posX + offset.x * 0.25, this.posY + offset.y * 0.25, this.posZ + offset.z * 0.25, this.rotationYaw, 0.0F);
             this.worldObj.spawnEntityInWorld(ent);
 
             this.setDead();

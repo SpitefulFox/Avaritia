@@ -3,6 +3,7 @@ package morph.avaritia.compat.jei;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import morph.avaritia.client.gui.GUIExtremeCrafting;
+import morph.avaritia.container.ContainerExtremeCrafting;
 import morph.avaritia.init.ModBlocks;
 import morph.avaritia.recipe.extreme.ExtremeCraftingManager;
 import net.minecraft.item.ItemStack;
@@ -36,6 +37,7 @@ public class AvaritiaJEIPlugin implements IModPlugin {
         registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.dire_craft), RecipeCategoryUids.EXTREME_CRAFTING);
 
         registry.addRecipes(ExtremeCraftingManager.getInstance().getRecipeList());
+        registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerExtremeCrafting.class, RecipeCategoryUids.EXTREME_CRAFTING, 1, 81, 82, 36);
     }
 
     @Override

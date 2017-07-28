@@ -1,6 +1,7 @@
 package morph.avaritia.item;
 
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import morph.avaritia.Avaritia;
 import morph.avaritia.client.render.entity.ModelArmorInfinity;
 import morph.avaritia.init.ModItems;
@@ -54,7 +55,8 @@ public class ItemArmorInfinity extends ItemArmor {
             player.getFoodStats().addStats(20, 20F);
         } else if (armorType == EntityEquipmentSlot.CHEST) {
             player.capabilities.allowFlying = true;
-            for (PotionEffect potion : Collections2.filter(player.getActivePotionEffects(), potion -> potion.getPotion().isBadEffect())) {
+            List<PotionEffect> effects = Lists.newArrayList(player.getActivePotionEffects());
+            for (PotionEffect potion : Collections2.filter(effects, potion -> potion.getPotion().isBadEffect())) {
                 if (ModHelper.isHoldingCleaver(player) && potion.getPotion().equals(MobEffects.MINING_FATIGUE)) {
                     continue;
                 }

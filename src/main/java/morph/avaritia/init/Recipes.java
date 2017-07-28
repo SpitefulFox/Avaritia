@@ -354,6 +354,7 @@ public class Recipes {
         CompressorManager.addRecipe(ModItems.redstoneSingularity, 500, new ItemStack(Blocks.REDSTONE_BLOCK, 1));
         CompressorManager.addRecipe(ModItems.diamondSingularity, 300, new ItemStack(Blocks.DIAMOND_BLOCK, 1));
         CompressorManager.addRecipe(ModItems.emeraldSingularity, 200, new ItemStack(Blocks.EMERALD_BLOCK, 1));
+        CompressorManager.addOreRecipe(ModItems.quartzSingularity, 200, "blockQuartz");
 
         if (ConfigHandler.endStone) {
             ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(

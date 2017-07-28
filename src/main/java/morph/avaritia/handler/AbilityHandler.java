@@ -31,6 +31,7 @@ public class AbilityHandler {
     public static final Set<String> entitiesWithChestplates = new HashSet<>();
     public static final Set<String> entitiesWithLeggings =    new HashSet<>();
     public static final Set<String> entitiesWithBoots =       new HashSet<>();
+    public static final Set<String> entitiesWithFlight =      new HashSet<>();
     //@formatter:on
 
     public static boolean isPlayerWearing(EntityLivingBase entity, EntityEquipmentSlot slot, Predicate<Item> predicate) {
@@ -86,11 +87,11 @@ public class AbilityHandler {
         //Boots toggle.
         if (hasBoots) {
             entitiesWithBoots.add(key);
-            handleBootsStateChange(entity, true);
+            handleBootsStateChange(entity);
         }
         if (!hasBoots) {
             entitiesWithBoots.remove(key);
-            handleBootsStateChange(entity, false);
+            handleBootsStateChange(entity);
         }
 
         //Active ability ticking.
@@ -129,7 +130,7 @@ public class AbilityHandler {
         }
 
         if (entitiesWithBoots.remove(key)) {
-            handleBootsStateChange(entity, false);
+            handleBootsStateChange(entity);
         }
     }
 
@@ -139,14 +140,17 @@ public class AbilityHandler {
     }
 
     private static void handleChestplateStateChange(EntityLivingBase entity, boolean isNew) {
+        String key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
         if (entity instanceof EntityPlayer) {
             EntityPlayer player = ((EntityPlayer) entity);
             if (isNew) {
                 player.capabilities.allowFlying = true;
+                entitiesWithFlight.add(key);
             } else {
-                if (!player.capabilities.isCreativeMode && !player.capabilities.allowFlying) {
+                if (!player.capabilities.isCreativeMode && entitiesWithFlight.contains(key)) {
                     player.capabilities.allowFlying = false;
                     player.capabilities.isFlying = false;
+                    entitiesWithFlight.remove(key);
                 }
             }
         }
@@ -156,11 +160,19 @@ public class AbilityHandler {
 
     }
 
-    private static void handleBootsStateChange(EntityLivingBase entity, boolean isNew) {
-        if (isNew) {
+    private static void handleBootsStateChange(EntityLivingBase entity) {
+        String temp_key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
+        boolean hasBoots = isPlayerWearing(entity, FEET, item -> item instanceof ItemArmorInfinity);
+        if (hasBoots) {
             entity.stepHeight = 1.0625F;//Step 17 pixels, Allows for stepping directly from a path to the top of a block next to the path.
+            if (!entitiesWithBoots.contains(temp_key)) {
+                entitiesWithBoots.add(temp_key);
+            }
         } else {
-            entity.stepHeight = 0.5F;
+            if (entitiesWithBoots.contains(temp_key)) {
+                entity.stepHeight = 0.5F;
+                entitiesWithBoots.remove(temp_key);
+            }
         }
     }
     //endregion
