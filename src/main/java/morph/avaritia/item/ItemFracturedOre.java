@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,7 +36,7 @@ public class ItemFracturedOre extends Item {
     @SuppressWarnings ({ "rawtypes" })
     @SideOnly (Side.CLIENT)
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
+    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
         // for debug purposes only - don't want these cluttering up the tab.
         /*for (ItemStack stack : emulatedOres) {
             list.add(getStackForOre(stack, 1));
@@ -140,7 +141,7 @@ public class ItemFracturedOre extends Item {
         int size;
 
         public NameStack(ItemStack source) {
-            this(source.getItem().delegate.name().getResourcePath(), source.getItemDamage(), source.stackSize, source.getTagCompound());
+            this(source.getItem().delegate.name().getResourcePath(), source.getItemDamage(), source.getCount(), source.getTagCompound());
         }
 
         public NameStack(String name, int damage, int size, NBTTagCompound nbt) {

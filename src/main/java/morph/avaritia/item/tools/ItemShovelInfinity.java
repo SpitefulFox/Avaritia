@@ -84,7 +84,8 @@ public class ItemShovelInfinity extends ItemSpade {
     //}
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (player.isSneaking()) {
             NBTTagCompound tags = stack.getTagCompound();
             if (tags == null) {
@@ -110,7 +111,7 @@ public class ItemShovelInfinity extends ItemSpade {
 
     public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, EnumFacing sideHit) {
 
-        World world = player.worldObj;
+        World world = player.world;
         IBlockState state = world.getBlockState(pos);
         Material mat = state.getMaterial();
         if (!ItemPickaxeInfinity.MATERIALS.contains(mat)) {

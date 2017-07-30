@@ -31,20 +31,20 @@ public class EntityEndestPearl extends EntityThrowable {
         }
 
         for (int i = 0; i < 100; ++i) {
-            this.worldObj.spawnParticle(EnumParticleTypes.PORTAL, this.posX, this.posY, this.posZ, this.rand.nextGaussian() * 3, this.rand.nextGaussian() * 3, this.rand.nextGaussian() * 3);
+            this.world.spawnParticle(EnumParticleTypes.PORTAL, this.posX, this.posY, this.posZ, this.rand.nextGaussian() * 3, this.rand.nextGaussian() * 3, this.rand.nextGaussian() * 3);
         }
 
-        if (!this.worldObj.isRemote) {
+        if (!this.world.isRemote) {
             //this.worldObj.createExplosion(this, pos.hitVec.xCoord, pos.hitVec.yCoord, pos.hitVec.zCoord, 4.0f, true);
 
-            Entity ent = new EntityGapingVoid(this.worldObj);
+            Entity ent = new EntityGapingVoid(this.world);
             EnumFacing dir = pos.sideHit;
             Vector3 offset = Vector3.zero.copy();
             if (pos.sideHit != null) {
                 offset = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ());
             }
             ent.setLocationAndAngles(this.posX + offset.x * 0.25, this.posY + offset.y * 0.25, this.posZ + offset.z * 0.25, this.rotationYaw, 0.0F);
-            this.worldObj.spawnEntityInWorld(ent);
+            this.world.spawnEntity(ent);
 
             this.setDead();
         }

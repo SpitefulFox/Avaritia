@@ -22,6 +22,9 @@ public class CompressOreRecipe extends CompressorRecipe {
 
     @Override
     public boolean isValidInput(ItemStack ingredient) {
+        if (ingredient.isEmpty()) {
+            return false;
+        }
 
         int[] ids = OreDictionary.getOreIDs(ingredient);
         for (int id : ids) {

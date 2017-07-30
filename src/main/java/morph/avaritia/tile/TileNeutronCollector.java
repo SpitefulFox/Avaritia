@@ -13,17 +13,17 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
 
     public static final int PRODUCTION_TICKS = 7111;//TODO config.
 
-    private ItemStack neutrons;
+    private ItemStack neutrons = ItemStack.EMPTY;
     private int progress;
 
     @Override
     public void doWork() {
         if (++progress >= PRODUCTION_TICKS) {
-            if (neutrons == null) {
+            if (neutrons.isEmpty()) {
                 neutrons = ItemUtils.copyStack(ModItems.neutron_pile, 1);
             } else if (ItemUtils.areStacksSameType(neutrons, ModItems.neutron_pile)) {
-                if (neutrons.stackSize < 64) {
-                    neutrons.stackSize++;
+                if (neutrons.getCount() < 64) {
+                    neutrons.grow(1);
                 }
             }
             progress = 0;
@@ -38,7 +38,7 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
 
     @Override
     protected boolean canWork() {
-        return neutrons == null || neutrons.stackSize < 64;
+        return neutrons.isEmpty() || neutrons.getCount() < 64;
     }
 
     public int getProgress() {
@@ -49,7 +49,7 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         if (tag.hasKey("Neutrons")) {
-            this.neutrons = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Neutrons"));
+            this.neutrons = new ItemStack(tag.getCompoundTag("Neutrons"));
         }
         this.progress = tag.getInteger("Progress");
     }
@@ -83,24 +83,29 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
     }
 
     @Override
+    public boolean isEmpty() {
+        return neutrons.isEmpty();
+    }
+
+    @Override
     public ItemStack getStackInSlot(int slot) {
         return neutrons;
     }
 
     @Override
     public ItemStack decrStackSize(int slot, int decrement) {
-        if (neutrons == null) {
-            return null;
+        if (neutrons.isEmpty()) {
+            return ItemStack.EMPTY;
         } else {
-            if (decrement < neutrons.stackSize) {
+            if (decrement < neutrons.getCount()) {
                 ItemStack take = neutrons.splitStack(decrement);
-                if (neutrons.stackSize <= 0) {
-                    neutrons = null;
+                if (neutrons.getCount() <= 0) {
+                    neutrons = ItemStack.EMPTY;
                 }
                 return take;
             } else {
                 ItemStack take = neutrons;
-                neutrons = null;
+                neutrons = ItemStack.EMPTY;
                 return take;
             }
         }
@@ -115,8 +120,8 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(getPos()) == this && BlockUtils.isEntityInRange(getPos(), player, 64);
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(getPos()) == this && BlockUtils.isEntityInRange(getPos(), player, 64);
     }
 
     @Override
@@ -146,7 +151,7 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
 
     @Override
     public ItemStack removeStackFromSlot(int slot) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override

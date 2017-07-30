@@ -2,6 +2,7 @@ package morph.avaritia.entity;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -49,14 +50,14 @@ public class EntityImmortalItem extends EntityItem {
 
     @Override
     public void onUpdate() {
-        ItemStack stack = getDataManager().get(ITEM).orNull();
-        if (stack != null && stack.getItem() != null) {
+        ItemStack stack = getDataManager().get(ITEM);
+        if (!stack.isEmpty()) {
             if (stack.getItem().onEntityItemUpdate(this)) {
                 return;
             }
         }
 
-        if (getEntityItem() == null) {
+        if (getEntityItem().isEmpty()) {
             setDead();
         } else {
             super.onUpdate();
@@ -70,18 +71,18 @@ public class EntityImmortalItem extends EntityItem {
             prevPosZ = posZ;
             motionY -= 0.03999999910593033D;
             noClip = pushOutOfBlocks(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
-            moveEntity(motionX, motionY, motionZ);
+            move(MoverType.SELF, motionX, motionY, motionZ);
             boolean flag = (int) prevPosX != (int) posX || (int) prevPosY != (int) posY || (int) prevPosZ != (int) posZ;
 
             if (flag || ticksExisted % 25 == 0) {
-                if (worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ))).getMaterial() == Material.LAVA) {
+                if (world.getBlockState(new BlockPos(posX, posY, posZ)).getMaterial() == Material.LAVA) {
                     motionY = 0.20000000298023224D;
                     motionX = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
                     motionZ = (rand.nextFloat() - rand.nextFloat()) * 0.2F;
                     //this.playSound("random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
                 }
 
-                if (!worldObj.isRemote) {
+                if (!world.isRemote) {
                     searchForOtherItemsNearby();
                 }
             }
@@ -89,7 +90,7 @@ public class EntityImmortalItem extends EntityItem {
             float f = 0.98F;
 
             if (onGround) {
-                f = worldObj.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock().slipperiness * 0.98F;
+                f = world.getBlockState(new BlockPos(posX, getEntityBoundingBox().minY - 1, posZ)).getBlock().slipperiness * 0.98F;
             }
 
             motionX *= f;
@@ -102,10 +103,10 @@ public class EntityImmortalItem extends EntityItem {
 
             ++age;
 
-            ItemStack item = getDataManager().get(ITEM).orNull();
+            ItemStack item = getDataManager().get(ITEM);
 
-            if (!worldObj.isRemote && age >= lifespan) {
-                if (item != null) {
+            if (!world.isRemote && age >= lifespan) {
+                if (!item.isEmpty()) {
                     /*ItemExpireEvent event = new ItemExpireEvent(this, (item.getItem() == null ? 6000 : item.getItem().getEntityLifespan(item, worldObj)));
 					if (MinecraftForge.EVENT_BUS.post(event))
 					{
@@ -120,7 +121,7 @@ public class EntityImmortalItem extends EntityItem {
                 }
             }
 
-            if (item != null && item.stackSize <= 0) {
+            if (!item.isEmpty() && item.getCount() <= 0) {
                 setDead();
             }
         }

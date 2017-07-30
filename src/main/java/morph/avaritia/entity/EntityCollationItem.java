@@ -78,7 +78,7 @@ public class EntityCollationItem extends EntityItem {
     // and the big one!
     @Override
     public void onCollideWithPlayer(EntityPlayer player) {
-        if (!this.worldObj.isRemote) {
+        if (!this.world.isRemote) {
             if (this.cannotPickup()) {
                 return;
             }
@@ -97,7 +97,7 @@ public class EntityCollationItem extends EntityItem {
 
             for (int i = 0; i < list.tagCount(); i++) {
 
-                ItemStack itemstack = ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i));
+                ItemStack itemstack = new ItemStack(list.getCompoundTagAt(i));
 
                 if (!cannotPickup() && (owner == null || lifespan - this.getAge() <= 200 || owner.equals(player.getDisplayName())) && (event.getResult() == Event.Result.ALLOW || player.inventory.addItemStackToInventory(itemstack))) {
                     if (itemstack.getItem() == Item.getItemFromBlock(Blocks.LOG)) {
@@ -130,7 +130,7 @@ public class EntityCollationItem extends EntityItem {
                     }
 
                     if (itemstack.getItem() == Items.DIAMOND && this.getThrower() != null) {
-                        EntityPlayer entityplayer1 = this.worldObj.getPlayerEntityByName(this.getThrower());
+                        EntityPlayer entityplayer1 = this.world.getPlayerEntityByName(this.getThrower());
 
                         if (entityplayer1 != null && entityplayer1 != player) {
                             entityplayer1.addStat(AchievementList.DIAMONDS_TO_YOU);
@@ -142,7 +142,7 @@ public class EntityCollationItem extends EntityItem {
                     //this.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     //player.onItemPickup(this, itemstack.stackSize);
 
-                    if (itemstack.stackSize <= 0) {
+                    if (itemstack.getCount() <= 0) {
                         removed.add(0, i);
                     }
                 }

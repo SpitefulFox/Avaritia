@@ -20,12 +20,11 @@ public class InventoryDireCraftResult extends InventoryCraftResult {
     @Override
     public ItemStack decrStackSize(int par1, int par2) {
         ItemStack stack = craft.getStackInSlot(0);
-        if (stack != null) {
-            ItemStack itemstack = stack;
-            craft.setInventorySlotContents(0, null);
-            return itemstack;
+        if (!stack.isEmpty()) {
+            craft.setInventorySlotContents(0, ItemStack.EMPTY);
+            return stack;
         } else {
-            return null;
+            return ItemStack.EMPTY;
         }
     }
 

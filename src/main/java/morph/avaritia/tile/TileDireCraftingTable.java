@@ -1,5 +1,6 @@
 package morph.avaritia.tile;
 
+import codechicken.lib.util.ArrayUtils;
 import codechicken.lib.util.BlockUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,21 +14,27 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileDireCraftingTable extends TileBase implements IInventory, ISidedInventory {
 
-    private ItemStack result;
+    private ItemStack result = ItemStack.EMPTY;
     private ItemStack[] matrix = new ItemStack[81];
+
+    public TileDireCraftingTable() {
+        ArrayUtils.fillArray(matrix, ItemStack.EMPTY);
+    }
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        this.result = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Result"));
+        this.result = new ItemStack(tag.getCompoundTag("Result"));
         for (int x = 0; x < matrix.length; x++) {
-            matrix[x] = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Craft" + x));
+            if (tag.hasKey("Craft" + x)) {
+                matrix[x] = new ItemStack(tag.getCompoundTag("Craft" + x));
+            }
         }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-        if (result != null) {
+        if (!result.isEmpty()) {
             NBTTagCompound produce = new NBTTagCompound();
             result.writeToNBT(produce);
             tag.setTag("Result", produce);
@@ -36,7 +43,7 @@ public class TileDireCraftingTable extends TileBase implements IInventory, ISide
         }
 
         for (int x = 0; x < matrix.length; x++) {
-            if (matrix[x] != null) {
+            if (!matrix[x].isEmpty()) {
                 NBTTagCompound craft = new NBTTagCompound();
                 matrix[x].writeToNBT(craft);
                 tag.setTag("Craft" + x, craft);
@@ -53,13 +60,18 @@ public class TileDireCraftingTable extends TileBase implements IInventory, ISide
     }
 
     @Override
+    public boolean isEmpty() {
+        return ArrayUtils.count(matrix, stack -> !stack.isEmpty()) <= 0 && result.isEmpty();
+    }
+
+    @Override
     public ItemStack getStackInSlot(int slot) {
         if (slot == 0) {
             return result;
         } else if (slot <= matrix.length) {
             return matrix[slot - 1];
         } else {
-            return null;
+            return ItemStack.EMPTY;
         }
     }
 
@@ -67,63 +79,63 @@ public class TileDireCraftingTable extends TileBase implements IInventory, ISide
     public ItemStack decrStackSize(int slot, int decrement) {
 
         if (slot == 0) {
-            if (result != null) {
+            if (!result.isEmpty()) {
                 for (int x = 1; x <= matrix.length; x++) {
                     decrStackSize(x, 1);
                 }
-                if (result.stackSize <= decrement) {
+                if (result.getCount() <= decrement) {
                     ItemStack craft = result;
-                    result = null;
+                    result = ItemStack.EMPTY;
                     return craft;
                 }
                 ItemStack split = result.splitStack(decrement);
-                if (result.stackSize <= 0) {
-                    result = null;
+                if (result.getCount() <= 0) {
+                    result = ItemStack.EMPTY;
                 }
                 return split;
             } else {
-                return null;
+                return ItemStack.EMPTY;
             }
         } else if (slot <= matrix.length) {
-            if (matrix[slot - 1] != null) {
-                if (matrix[slot - 1].stackSize <= decrement) {
+            if (matrix[slot - 1] != ItemStack.EMPTY) {
+                if (matrix[slot - 1].getCount() <= decrement) {
                     ItemStack ingredient = matrix[slot - 1];
-                    matrix[slot - 1] = null;
+                    matrix[slot - 1] = ItemStack.EMPTY;
                     return ingredient;
                 }
                 ItemStack split = matrix[slot - 1].splitStack(decrement);
-                if (matrix[slot - 1].stackSize <= 0) {
-                    matrix[slot - 1] = null;
+                if (matrix[slot - 1].getCount() <= 0) {
+                    matrix[slot - 1] = ItemStack.EMPTY;
                 }
                 return split;
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
     public ItemStack removeStackFromSlot(int slot) {
         if (slot == 0) {
-            if (result != null) {
+            if (!result.isEmpty()) {
                 for (int x = 1; x <= matrix.length; x++) {
                     decrStackSize(x, 1);
                 }
 
                 ItemStack craft = result;
-                result = null;
+                result = ItemStack.EMPTY;
                 return craft;
 
             } else {
-                return null;
+                return ItemStack.EMPTY;
             }
         } else if (slot <= matrix.length) {
-            if (matrix[slot - 1] != null) {
+            if (!matrix[slot - 1].isEmpty()) {
                 ItemStack ingredient = matrix[slot - 1];
-                matrix[slot - 1] = null;
+                matrix[slot - 1] = ItemStack.EMPTY;
                 return ingredient;
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -135,8 +147,8 @@ public class TileDireCraftingTable extends TileBase implements IInventory, ISide
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(pos) == this && BlockUtils.isEntityInRange(pos, player, 64);
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(pos) == this && BlockUtils.isEntityInRange(pos, player, 64);
     }
 
     @Override
@@ -208,9 +220,9 @@ public class TileDireCraftingTable extends TileBase implements IInventory, ISide
 
     @Override
     public void clear() {
-        result = null;
+        result = ItemStack.EMPTY;
         for (int x = 0; x < matrix.length; x++) {
-            matrix[x] = null;
+            matrix[x] = ItemStack.EMPTY;
         }
     }
 

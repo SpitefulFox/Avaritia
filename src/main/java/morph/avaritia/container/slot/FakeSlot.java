@@ -5,7 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 /**
@@ -18,14 +17,13 @@ public class FakeSlot extends OutputSlot {
 
     }
 
-    @Nullable
     @Override
     public ItemStack getStack() {
         return new ItemStack(Blocks.NETHER_BRICK);
     }
 
     @Override
-    public void putStack(@Nullable ItemStack stack) {
+    public void putStack(ItemStack stack) {
     }
 
     @Override

@@ -2,8 +2,8 @@ package morph.avaritia.client.render.entity;
 
 import codechicken.lib.math.MathHelper;
 import codechicken.lib.render.CCModel;
-import codechicken.lib.render.CCOBJParser;
 import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.OBJParser;
 import codechicken.lib.texture.TextureUtils;
 import morph.avaritia.entity.EntityGapingVoid;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,7 @@ public class RenderGapingVoid extends Render<EntityGapingVoid> {
 
     public RenderGapingVoid(RenderManager manager) {
         super(manager);
-        this.model = CCOBJParser.parseObjModels(new ResourceLocation("avaritia", "model/hemisphere.obj")).get("model");
+        this.model = OBJParser.parseModels(new ResourceLocation("avaritia", "model/hemisphere.obj")).get("model");
     }
 
     @Override

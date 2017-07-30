@@ -71,8 +71,8 @@ public class ContainerExtremeCrafting extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotNumber) {
-        ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(slotNumber);
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(slotNumber);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
@@ -80,33 +80,33 @@ public class ContainerExtremeCrafting extends Container {
 
             if (slotNumber == 0) {
                 if (!this.mergeItemStack(itemstack1, 82, 118, true)) {//83 start??
-                    return null;
+                    return ItemStack.EMPTY;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
             } else if (slotNumber >= 82 && slotNumber < 109) {
                 if (!this.mergeItemStack(itemstack1, 109, 118, false)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (slotNumber >= 109 && slotNumber < 118) {
                 if (!this.mergeItemStack(itemstack1, 82, 109, false)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(itemstack1, 82, 118, false)) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
-            if (itemstack1.stackSize == 0) {
-                slot.putStack((ItemStack) null);
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
 
-            if (itemstack1.stackSize == itemstack.stackSize) {
-                return null;
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
             }
 
-            slot.onPickupFromSlot(player, itemstack1);
+            slot.onTake(player, itemstack1);
         }
 
         return itemstack;

@@ -39,7 +39,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
     }
 
     @Override
-    public void renderItem(ItemStack stack) {
+    public void renderItem(ItemStack stack, TransformType transformType) {
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
         Tessellator tess = Tessellator.getInstance();
         VertexBuffer buffer = tess.getBuffer();

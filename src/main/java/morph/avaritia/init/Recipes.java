@@ -171,6 +171,7 @@ public class Recipes {
                 'X', ModItems.infinity_catalyst
         );
 
+        //TODO, This needs to just grab all singularities that are registered instead of this bs.
         catalyst = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(
                 ModItems.infinity_catalyst,
                 new ItemStack(Blocks.EMERALD_BLOCK, 1),
@@ -426,25 +427,29 @@ public class Recipes {
         GameRegistry.addRecipe(smashysmashy);
         //}
 
-        if (ConfigHandler.copper && !OreDictionary.getOres("blockCopper").isEmpty()) {
+        if (ConfigHandler.copper && OreDictionary.doesOreNameExist("blockCopper")) {
             CompressorManager.addOreRecipe(ModItems.copperSingularity, 400, "blockCopper");
             catalyst.getInput().add(ModItems.copperSingularity);
         }
-        if (ConfigHandler.tin && !OreDictionary.getOres("blockTin").isEmpty()) {
+        if (ConfigHandler.tin && OreDictionary.doesOreNameExist("blockTin")) {
             CompressorManager.addOreRecipe(ModItems.tinSingularity, 400, "blockTin");
             catalyst.getInput().add(ModItems.tinSingularity);
         }
-        if (ConfigHandler.lead && !OreDictionary.getOres("blockLead").isEmpty()) {
+        if (ConfigHandler.lead && OreDictionary.doesOreNameExist("blockLead")) {
             CompressorManager.addOreRecipe(ModItems.leadSingularity, 300, "blockLead");
             catalyst.getInput().add(ModItems.leadSingularity);
         }
-        if (ConfigHandler.silver && !OreDictionary.getOres("blockSilver").isEmpty()) {
+        if (ConfigHandler.silver && OreDictionary.doesOreNameExist("blockSilver")) {
             CompressorManager.addOreRecipe(ModItems.silverSingularity, 300, "blockSilver");
             catalyst.getInput().add(ModItems.silverSingularity);
         }
-        if (ConfigHandler.nickel && !OreDictionary.getOres("blockNickel").isEmpty()) {
+        if (ConfigHandler.nickel && OreDictionary.doesOreNameExist("blockNickel")) {
             CompressorManager.addOreRecipe(ModItems.nickelSingularity, 400, "blockNickel");
             catalyst.getInput().add(ModItems.nickelSingularity);
+        }
+        if (OreDictionary.doesOreNameExist("blockElectrumFlux")) {
+            CompressorManager.addOreRecipe(ModItems.fluxedSingularity, 100, "blockElectrumFlux");
+            catalyst.getInput().add(ModItems.fluxedSingularity);
         }
         //if (ConfigHandler.diamond && !OreDictionary.getOres("blockDiamond").isEmpty()) {
         //    CompressorManager.addOreRecipe(ModItems.diamondSingularity, 200, "blockDiamond");

@@ -37,6 +37,6 @@ public class ScrollingFakeSlot extends FakeSlot {
             }
             return stacks.get(index);
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 }

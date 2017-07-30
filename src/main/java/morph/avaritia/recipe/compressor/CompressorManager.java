@@ -18,7 +18,7 @@ public class CompressorManager {
     }
 
     public static boolean isValidInput(ItemStack input) {
-        if (input != null) {
+        if (!input.isEmpty()) {
             for (CompressorRecipe recipe : recipes) {
                 if (recipe.isValidInput(input)) {
                     return true;
@@ -29,10 +29,10 @@ public class CompressorManager {
     }
 
     public static boolean isValidInputForOutput(ItemStack input, ItemStack output) {
-        if (input != null) {
+        if (!input.isEmpty()) {
             for (CompressorRecipe recipe : recipes) {
                 if (recipe.isValidInput(input)) {
-                    if (output != null) {
+                    if (!output.isEmpty()) {
                         if (!recipe.getOutput().isItemEqual(output)) {
                             continue;
                         }
@@ -45,18 +45,18 @@ public class CompressorManager {
     }
 
     public static ItemStack getOutput(ItemStack input) {
-        if (input != null) {
+        if (!input.isEmpty()) {
             for (CompressorRecipe recipe : recipes) {
                 if (recipe.isValidInput(input)) {
                     return recipe.getOutput();
                 }
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     public static List<ItemStack> getInputs(ItemStack output) {
-        if (output != null) {
+        if (!output.isEmpty()) {
             for (CompressorRecipe recipe : recipes) {
                 if (recipe.getOutput().isItemEqual(output)) {
                     return recipe.getInputs();
@@ -67,7 +67,7 @@ public class CompressorManager {
     }
 
     public static int getCost(ItemStack input) {
-        if (input != null) {
+        if (!input.isEmpty()) {
             for (CompressorRecipe recipe : recipes) {
                 if (recipe.isValidInput(input)) {
                     return recipe.getCost();
@@ -78,7 +78,7 @@ public class CompressorManager {
     }
 
     public static int getPrice(ItemStack output) {
-        if (output != null) {
+        if (!output.isEmpty()) {
             for (CompressorRecipe recipe : recipes) {
                 if (recipe.getOutput().isItemEqual(output)) {
                     return recipe.getCost();

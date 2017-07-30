@@ -149,7 +149,7 @@ public class ModelArmorInfinity extends ModelBiped {
         GlStateManager.disableLighting();
         mc.entityRenderer.disableLightmap();
 
-        long time = mc.thePlayer.worldObj.getWorldTime();
+        long time = mc.player.world.getWorldTime();
 
         this.setGems();
 
@@ -356,7 +356,7 @@ public class ModelArmorInfinity extends ModelBiped {
             Render r = manager.entityRenderMap.get(entity.getClass());
 
             if (r instanceof RenderBiped) {
-                ModelBiped m = ((RenderBiped) r).modelBipedMain;
+                ModelBiped m = (ModelBiped) ((RenderBiped) r).getMainModel();
 
                 copyBipedAngles(m, this);
             }
@@ -516,7 +516,7 @@ public class ModelArmorInfinity extends ModelBiped {
                 Render r = manager.entityRenderMap.get(entity.getClass());
 
                 if (r instanceof RenderBiped) {
-                    ModelBiped m = ((RenderBiped) r).modelBipedMain;
+                    ModelBiped m = (ModelBiped) ((RenderBiped) r).getMainModel();
 
                     copyBipedAngles(m, this);
                 }

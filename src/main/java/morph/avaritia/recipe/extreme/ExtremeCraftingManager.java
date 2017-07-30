@@ -5,6 +5,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class ExtremeCraftingManager {
             if (charStackMap.containsKey(ch)) {
                 ingredients[i1] = charStackMap.get(ch).copy();
             } else {
-                ingredients[i1] = null;
+                ingredients[i1] = ItemStack.EMPTY;
             }
         }
 
@@ -122,15 +123,15 @@ public class ExtremeCraftingManager {
 
     public ItemStack findMatchingRecipe(InventoryCrafting matrix, World world) {
         int numFound = 0;
-        ItemStack firstStackFound = null;
-        ItemStack secondStackFound = null;
+        ItemStack firstStackFound = ItemStack.EMPTY;
+        ItemStack secondStackFound = ItemStack.EMPTY;
         int j;
 
         //Figure out how many items there are in the inventory, Stack 0 is the first item found and stack 1 is the second.
         for (j = 0; j < matrix.getSizeInventory(); ++j) {
             ItemStack inSlot = matrix.getStackInSlot(j);
 
-            if (inSlot != null) {
+            if (!inSlot.isEmpty()) {
                 if (numFound == 0) {
                     firstStackFound = inSlot;
                 }
@@ -144,7 +145,7 @@ public class ExtremeCraftingManager {
         }
 
         //This seems to be for "Repair" / combining recipes
-        if (numFound == 2 && firstStackFound.getItem() == secondStackFound.getItem() && firstStackFound.stackSize == 1 && secondStackFound.stackSize == 1 && firstStackFound.getItem().isRepairable()) {
+        if (numFound == 2 && firstStackFound.getItem() == secondStackFound.getItem() && firstStackFound.getCount() == 1 && secondStackFound.getCount() == 1 && firstStackFound.getItem().isRepairable()) {
             Item item = firstStackFound.getItem();
             int j1 = item.getMaxDamage(firstStackFound) - firstStackFound.getItemDamage();
             int k = item.getMaxDamage(firstStackFound) - secondStackFound.getItemDamage();
@@ -165,24 +166,24 @@ public class ExtremeCraftingManager {
                 }
             }
 
-            return null;
+            return ItemStack.EMPTY;
         }
     }
 
-    public ItemStack[] getRemainingItems(InventoryCrafting craftMatrix, World worldIn) {
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting craftMatrix, World worldIn) {
         for (IRecipe irecipe : this.recipes) {
             if (irecipe.matches(craftMatrix, worldIn)) {
                 return irecipe.getRemainingItems(craftMatrix);
             }
         }
 
-        ItemStack[] aitemstack = new ItemStack[craftMatrix.getSizeInventory()];
+        NonNullList<ItemStack> stacks = NonNullList.withSize(craftMatrix.getSizeInventory(), ItemStack.EMPTY);
 
-        for (int i = 0; i < aitemstack.length; ++i) {
-            aitemstack[i] = craftMatrix.getStackInSlot(i);
+        for (int i = 0; i < stacks.size(); ++i) {
+            stacks.set(i, craftMatrix.getStackInSlot(i));
         }
 
-        return aitemstack;
+        return stacks;
     }
 
     /**

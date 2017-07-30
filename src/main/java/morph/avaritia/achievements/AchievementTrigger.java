@@ -12,7 +12,7 @@ public class AchievementTrigger {
 
     @SubscribeEvent
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
-        if (event.crafting != null) {
+        if (!event.crafting.isEmpty()) {
 
             if (event.crafting.getItem() == ModItems.resource) {
                 switch (event.crafting.getItemDamage()) {
@@ -44,7 +44,7 @@ public class AchievementTrigger {
 
     @SubscribeEvent
     public void onItemSmelted(PlayerEvent.ItemSmeltedEvent event) {
-        if (event.smelting != null) {
+        if (!event.smelting.isEmpty()) {
 
             if (event.smelting.getItem() == ModItems.singularity) {
                 event.player.addStat(Achievements.singularity, 1);

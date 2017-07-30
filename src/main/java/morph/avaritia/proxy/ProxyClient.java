@@ -45,13 +45,15 @@ public class ProxyClient extends Proxy {
     public static final int[] SINGULARITY_COLOURS_FOREGROUND = new int[] {
             0xBFBFBF, 0xE8EF23, 0x5a82e2, 0xDF0000,
             0xeeebe6, 0xE47200, 0xA5C7DE, 0x444072,
-            0xF9F9F9, 0xDEE187, 0x45ACA5, 0x5CBE34
+            0xF9F9F9, 0xDEE187, 0x45ACA5, 0x5CBE34,
+            0xD62306
     };
 
     public static final int[] SINGULARITY_COLOURS_BACKGROUND = new int[] {
             0x7F7F7F, 0xdba213, 0x224baf, 0x900000,
             0x94867d, 0x89511A, 0x9BA9B2, 0x3E3D4E,
-            0xD5D5D5, 0xC4C698, 0x8fcdc9, 0x8cd170
+            0xD5D5D5, 0xC4C698, 0x8fcdc9, 0x8cd170,
+            0xfffc95
     };
 
     public static final int[][] SINGULARITY_COLOURS = new int[][] {
@@ -106,6 +108,12 @@ public class ProxyClient extends Proxy {
             ModelResourceLocation axe = new ModelResourceLocation(tools, "type=infinity_axe");
             ModelLoader.registerItemVariants(ModItems.infinity_axe, axe);
             ModelLoader.setCustomMeshDefinition(ModItems.infinity_axe, (ItemStack stack) -> axe);
+        }
+
+        {
+            ModelResourceLocation hoe = new ModelResourceLocation(tools, "type=infinity_hoe");
+            ModelLoader.registerItemVariants(ModItems.infinity_axe, hoe);
+            ModelLoader.setCustomMeshDefinition(ModItems.infinity_hoe, (ItemStack stack) -> hoe);
         }
 
         {
@@ -206,6 +214,6 @@ public class ProxyClient extends Proxy {
 
     @Override
     public World getClientWorld() {
-        return Minecraft.getMinecraft().theWorld;
+        return Minecraft.getMinecraft().world;
     }
 }

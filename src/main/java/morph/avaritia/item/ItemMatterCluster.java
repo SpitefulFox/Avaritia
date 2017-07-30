@@ -60,7 +60,7 @@ public class ItemMatterCluster extends Item {
             NBTTagList list = clustertag.getTagList(LISTTAG, 10);
             for (int i = 0; i < list.tagCount(); i++) {
                 NBTTagCompound tag = list.getCompoundTagAt(i);
-                ItemStack countstack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(ITEMTAG));
+                ItemStack countstack = new ItemStack(tag.getCompoundTag(ITEMTAG));
                 int count = tag.getInteger(COUNTTAG);
 
                 tooltip.add(countstack.getItem().getRarity(countstack).rarityColor + countstack.getDisplayName() + TextFormatting.GRAY + " x " + count);
@@ -138,7 +138,7 @@ public class ItemMatterCluster extends Item {
 
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound entry = list.getCompoundTagAt(i);
-            ItemStackWrapper wrap = new ItemStackWrapper(ItemStack.loadItemStackFromNBT(entry.getCompoundTag(ITEMTAG)));
+            ItemStackWrapper wrap = new ItemStackWrapper(new ItemStack(entry.getCompoundTag(ITEMTAG)));
             int count = entry.getInteger(COUNTTAG);
             data.put(wrap, count);
         }
@@ -214,12 +214,13 @@ public class ItemMatterCluster extends Item {
             setClusterData(donor, donordata, donorcount);
         } else {
             donor.setTagCompound(null);
-            donor.stackSize = 0;
+            donor.setCount(0);
         }
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (!world.isRemote) {
             List<ItemStack> drops = ToolHelper.collateMatterClusterContents(ItemMatterCluster.getClusterData(stack));
 
@@ -228,7 +229,7 @@ public class ItemMatterCluster extends Item {
             }
         }
 
-        stack.stackSize = 0;
+        stack.setCount(0);
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 

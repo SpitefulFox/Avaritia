@@ -1,8 +1,8 @@
 package morph.avaritia.client.render.item;
 
+import codechicken.lib.model.ItemQuadBakery;
 import codechicken.lib.model.PerspectiveAwareModelProperties;
-import codechicken.lib.model.bakery.ItemModelBakery;
-import codechicken.lib.model.blockbakery.IItemBakery;
+import codechicken.lib.model.bakery.generation.IItemBakery;
 import codechicken.lib.util.TransformUtils;
 import morph.avaritia.init.AvaritiaTextures;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -38,7 +38,7 @@ public class InfinityBowModelBakery implements IItemBakery {
         if (frame != -1) {
             sprite = AvaritiaTextures.INFINITY_BOW_PULL[frame];
         }
-        quads.addAll(ItemModelBakery.bakeItem(Collections.singletonList(sprite)));
+        quads.addAll(ItemQuadBakery.bakeItem(Collections.singletonList(sprite)));
         return quads;
     }
 

@@ -134,13 +134,13 @@ public class ToolHelper {
             for (int i = 0; i < fullstacks; i++) {
                 count -= size;
                 ItemStack stack = wrap.stack.copy();
-                stack.stackSize = size;
+                stack.setCount(size);
                 collated.add(stack);
             }
 
             if (count > 0) {
                 ItemStack stack = wrap.stack.copy();
-                stack.stackSize = count;
+                stack.setCount(count);
                 collated.add(stack);
             }
         }
@@ -158,7 +158,7 @@ public class ToolHelper {
                     counts.put(wrap, 0);
                 }
 
-                counts.put(wrap, counts.get(wrap) + stack.stackSize);
+                counts.put(wrap, counts.get(wrap) + stack.getCount());
             }
         }
 

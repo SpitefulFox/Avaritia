@@ -1,7 +1,7 @@
 package morph.avaritia.network;
 
 import codechicken.lib.packet.PacketCustom;
-import codechicken.lib.packet.PacketCustom.IClientPacketHandler;
+import codechicken.lib.packet.ICustomPacketHandler.IClientPacketHandler;
 import morph.avaritia.tile.TileMachineBase;
 import morph.avaritia.util.Lumberjack;
 import net.minecraft.client.Minecraft;
@@ -22,7 +22,7 @@ public class ClientPacketHandler implements IClientPacketHandler {
         switch(packet.getType()) {
             case 1: {
                 BlockPos pos = packet.readPos();
-                TileEntity tile = mc.theWorld.getTileEntity(pos);
+                TileEntity tile = mc.world.getTileEntity(pos);
                 if (tile instanceof TileMachineBase) {
                     ((TileMachineBase) tile).readUpdatePacket(packet);
                 } else {
@@ -32,7 +32,7 @@ public class ClientPacketHandler implements IClientPacketHandler {
             }
             case 2: {
                 BlockPos pos = packet.readPos();
-                TileEntity tile = mc.theWorld.getTileEntity(pos);
+                TileEntity tile = mc.world.getTileEntity(pos);
                 if (tile instanceof TileMachineBase) {
                     ((TileMachineBase) tile).readGuiData(packet, packet.readBoolean());
                 } else {

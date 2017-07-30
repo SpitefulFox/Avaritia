@@ -35,9 +35,10 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, 
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (!player.capabilities.isCreativeMode) {
-            --stack.stackSize;
+             stack.shrink(1);
         }
 
         world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
@@ -45,7 +46,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, 
         if (!world.isRemote) {
             EntityEndestPearl pearl = new EntityEndestPearl(world, player);
             pearl.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-            world.spawnEntityInWorld(pearl);
+            world.spawnEntity(pearl);
         }
 
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);

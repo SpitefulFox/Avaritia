@@ -41,7 +41,7 @@ public class EntityHeavenArrow extends EntityArrow {
             }
 
             if (this.impacted) {
-                if (!this.worldObj.isRemote) {
+                if (!this.world.isRemote) {
                     this.barrage();
                 }
             }
@@ -81,14 +81,14 @@ public class EntityHeavenArrow extends EntityArrow {
             double dx = Math.sin(dangle) * ddist;
             double dz = Math.cos(dangle) * ddist;
 
-            EntityArrow arrow = new EntityHeavenSubArrow(this.worldObj, x, y, z);
+            EntityArrow arrow = new EntityHeavenSubArrow(this.world, x, y, z);
             arrow.shootingEntity = this.shootingEntity;
             arrow.addVelocity(dx, -(randy.nextDouble() * 1.85 + 0.15), dz);
             arrow.setDamage(this.getDamage());
             arrow.setIsCritical(true);
             arrow.pickupStatus = this.pickupStatus;
 
-            this.worldObj.spawnEntityInWorld(arrow);
+            this.world.spawnEntity(arrow);
         }
     }
 

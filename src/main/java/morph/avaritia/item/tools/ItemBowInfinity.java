@@ -1,10 +1,9 @@
 package morph.avaritia.item.tools;
 
 import codechicken.lib.model.ModelRegistryHelper;
-import codechicken.lib.model.blockbakery.BlockBakery;
-import codechicken.lib.model.blockbakery.IBakeryItem;
-import codechicken.lib.model.blockbakery.IItemBakery;
-import codechicken.lib.model.blockbakery.IItemStackKeyGenerator;
+import codechicken.lib.model.bakery.IBakeryProvider;
+import codechicken.lib.model.bakery.ModelBakery;
+import codechicken.lib.model.bakery.generation.IBakery;
 import codechicken.lib.util.TransformUtils;
 import morph.avaritia.Avaritia;
 import morph.avaritia.api.ICosmicRenderItem;
@@ -36,9 +35,8 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
 
-public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRegister, IBakeryItem {
+public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRegister, IBakeryProvider {
 
     //private IIcon[] iconArray;
     //private IIcon[] maskArray;
@@ -60,7 +58,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     @Override
     public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
         if (count == 1) {
-            this.fire(stack, player.worldObj, player, 0);
+            this.fire(stack, player.world, player, 0);
         }
     }
 
@@ -107,10 +105,10 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
         stack.damageItem(1, player);
         world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-        arrow.pickupStatus = PickupStatus.CREATIVE_ONLY;//TODO, Override arrow droping and such, so we can have null arrow.
+        arrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
 
         if (!world.isRemote) {
-            world.spawnEntityInWorld(arrow);
+            world.spawnEntity(arrow);
         }
     }
 
@@ -125,8 +123,9 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 
+        ItemStack stack  = player.getHeldItem(hand);
         ActionResult<ItemStack> event = ForgeEventFactory.onArrowNock(stack, world, player, hand, true);
         if (event != null) {
             return event;
@@ -211,8 +210,8 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     @Override
     @SideOnly (Side.CLIENT)
     public void registerModels() {
-        BlockBakery.registerItemKeyGenerator(this, stack -> {
-            String key = BlockBakery.defaultItemKeyGenerator.generateKey(stack);
+        ModelBakery.registerItemKeyGenerator(this, stack -> {
+            String key = ModelBakery.defaultItemKeyGenerator.generateKey(stack);
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("frame")) {
                 key += "@pull=" + stack.getTagCompound().getInteger("frame");
             }
@@ -227,7 +226,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     }
 
     @Override
-    public IItemBakery getBakery() {
+    public IBakery getBakery() {
         return InfinityBowModelBakery.INSTANCE;
     }
 }

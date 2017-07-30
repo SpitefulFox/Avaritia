@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
@@ -50,7 +51,7 @@ public class BlockResource extends Block implements IModelRegister {
 
     @Override
     @SideOnly (Side.CLIENT)
-    public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+    public void getSubBlocks(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 
         for (int i = 0; i < Type.METADATA_LOOKUP.length; i++) {
             list.add(new ItemStack(item, 1, i));

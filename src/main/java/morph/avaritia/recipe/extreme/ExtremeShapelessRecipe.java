@@ -3,6 +3,7 @@ package morph.avaritia.recipe.extreme;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
@@ -40,7 +41,7 @@ public class ExtremeShapelessRecipe implements IRecipe {
             for (int j = 0; j < 9; ++j) {
                 ItemStack itemstack = matrix.getStackInRowAndColumn(j, i);
 
-                if (itemstack != null) {
+                if (!itemstack.isEmpty()) {
                     boolean flag = false;
 
                     for (ItemStack stack : inputCopy) {
@@ -76,7 +77,7 @@ public class ExtremeShapelessRecipe implements IRecipe {
     }
 
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv) //getRecipeLeftovers
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv);
     }

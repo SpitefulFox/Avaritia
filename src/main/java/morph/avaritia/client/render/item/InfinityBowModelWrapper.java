@@ -1,7 +1,7 @@
 package morph.avaritia.client.render.item;
 
 import codechicken.lib.math.MathHelper;
-import codechicken.lib.model.blockbakery.CCBakeryModel;
+import codechicken.lib.model.bakery.CCBakeryModel;
 import codechicken.lib.util.ItemNBTUtils;
 import com.google.common.collect.ImmutableList;
 import morph.avaritia.util.Lumberjack;
@@ -20,7 +20,7 @@ public class InfinityBowModelWrapper extends CCBakeryModel {
     private final ItemOverrideList wrappedList = new WrappedBowOverrideList();
 
     public InfinityBowModelWrapper() {
-        super("");
+        super();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class InfinityBowModelWrapper extends CCBakeryModel {
         ItemStack inuse = entity.getActiveItemStack();
         int time = entity.getItemInUseCount();
 
-        if (inuse != null) {
+        if (!inuse.isEmpty()) {
             int max = inuse.getMaxItemUseDuration();
             double pull = (max - time) / (double) max;
             int frame = Math.max(0, (int) Math.ceil(pull * 3.0) - 1);

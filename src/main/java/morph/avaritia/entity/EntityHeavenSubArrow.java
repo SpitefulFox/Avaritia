@@ -34,6 +34,6 @@ public class EntityHeavenSubArrow extends EntityArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(Items.ARROW);//TODO This needs to be null, but it can't be, because vanilla.
+        return new ItemStack(Items.ARROW);
     }
 }

@@ -21,11 +21,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -57,7 +54,7 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
     @SideOnly (Side.CLIENT)
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
         ItemStack pick = new ItemStack(this);
         pick.addEnchantment(Enchantments.FORTUNE, 10);
         list.add(pick);
@@ -105,7 +102,8 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
     //}
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (player.isSneaking()) {
             NBTTagCompound tags = stack.getTagCompound();
             if (tags == null) {
@@ -148,7 +146,7 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
     public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, EnumFacing sideHit) {
 
-        World world = player.worldObj;
+        World world = player.world;
         IBlockState state = world.getBlockState(pos);
         Material mat = state.getMaterial();
         if (!MATERIALS.contains(mat)) {

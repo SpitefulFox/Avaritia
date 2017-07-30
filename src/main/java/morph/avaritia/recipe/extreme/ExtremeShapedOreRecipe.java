@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
@@ -21,7 +22,7 @@ public class ExtremeShapedOreRecipe implements IRecipe {
     private static final int MAX_CRAFT_GRID_WIDTH = 9;
     private static final int MAX_CRAFT_GRID_HEIGHT = 9;
 
-    private ItemStack output = null;
+    private ItemStack output = ItemStack.EMPTY;
     private Object[] input = null;
     public int width = 0;
     public int height = 0;
@@ -118,7 +119,7 @@ public class ExtremeShapedOreRecipe implements IRecipe {
         for (int i = 0; i < input.length; i++) {
             ItemStack ingred = recipe.recipeItems[i];
 
-            if (ingred == null) {
+            if (ingred.isEmpty()) {
                 continue;
             }
 
@@ -214,7 +215,7 @@ public class ExtremeShapedOreRecipe implements IRecipe {
                     if (!matched) {
                         return false;
                     }
-                } else if (target == null && slot != null) {
+                } else if (target == null && !slot.isEmpty()) {
                     return false;
                 }
             }
@@ -239,7 +240,7 @@ public class ExtremeShapedOreRecipe implements IRecipe {
     }
 
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv) //getRecipeLeftovers
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv);
     }

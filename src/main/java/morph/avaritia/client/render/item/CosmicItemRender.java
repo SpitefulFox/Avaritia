@@ -1,8 +1,8 @@
 package morph.avaritia.client.render.item;
 
 import codechicken.lib.model.BakedModelProperties;
+import codechicken.lib.model.ItemQuadBakery;
 import codechicken.lib.model.bakedmodels.PerspectiveAwareBakedModel;
-import codechicken.lib.model.bakery.ItemModelBakery;
 import codechicken.lib.texture.TextureUtils;
 import codechicken.lib.util.TransformUtils;
 import com.google.common.collect.ImmutableList;
@@ -47,8 +47,8 @@ public class CosmicItemRender extends WrappedItemRenderer {
     }
 
     @Override
-    public void renderItem(ItemStack item) {
-        processLightLevel();
+    public void renderItem(ItemStack item, TransformType transformType) {
+        processLightLevel(transformType);
         if (transformType == TransformType.GUI) {
             renderInventory(item, renderEntity);
         } else {
@@ -63,7 +63,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
         GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.color(1F, 1F, 1F, 1F);
 
-        World world = player != null ? player.worldObj : null;
+        World world = player != null ? player.world : null;
         IBakedModel model = wrapped.getOverrides().handleItemState(wrapped, stack, world, player);
 
         renderModel(model, stack);
@@ -101,7 +101,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
         GlStateManager.disableAlpha();
         GlStateManager.disableDepth();
 
-        World world = player != null ? player.worldObj : null;
+        World world = player != null ? player.world : null;
         IBakedModel model = wrapped.getOverrides().handleItemState(wrapped, stack, world, player);
         renderModel(model, stack);
 
@@ -139,11 +139,11 @@ public class CosmicItemRender extends WrappedItemRenderer {
     }
 
     private static IBakedModel computeModel(TextureAtlasSprite sprite) {
-        List<BakedQuad> quads = ItemModelBakery.bakeItem(ImmutableList.of(sprite));
+        List<BakedQuad> quads = ItemQuadBakery.bakeItem(ImmutableList.of(sprite));
         return new PerspectiveAwareBakedModel(quads, TransformUtils.DEFAULT_ITEM, new BakedModelProperties(true, false));
     }
 
-    protected void processLightLevel() {
+    protected void processLightLevel(TransformType transformType) {
         switch(transformType) {
             case GROUND:
                 if (entityPos != null) {

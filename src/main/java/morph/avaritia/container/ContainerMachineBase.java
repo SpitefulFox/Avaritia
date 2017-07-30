@@ -49,7 +49,7 @@ public abstract class ContainerMachineBase<T extends TileMachineBase> extends Co
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return !(machineTile instanceof IInventory) || ((IInventory) machineTile).isUseableByPlayer(playerIn);
+        return !(machineTile instanceof IInventory) || ((IInventory) machineTile).isUsableByPlayer(playerIn);
     }
 
     @Override

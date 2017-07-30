@@ -34,7 +34,7 @@ public class ContainerNeutroniumCompressor extends ContainerMachineBase<TileNeut
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
     public ItemStack transferStackInSlot(EntityPlayer player, int slotNumber) {
-        ItemStack itemstack = null;
+        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(slotNumber);
 
         if (slot != null && slot.getHasStack()) {
@@ -43,37 +43,37 @@ public class ContainerNeutroniumCompressor extends ContainerMachineBase<TileNeut
 
             if (slotNumber == 1) {
                 if (!this.mergeItemStack(itemstack1, 2, 38, true)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
             } else if (slotNumber != 0) {
-                if (CompressorManager.getOutput(itemstack1) != null) {
+                if (!CompressorManager.getOutput(itemstack1).isEmpty()) {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (slotNumber >= 2 && slotNumber < 29) {
                     if (!this.mergeItemStack(itemstack1, 29, 38, false)) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
                 } else if (slotNumber >= 29 && slotNumber < 38 && !this.mergeItemStack(itemstack1, 2, 29, false)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(itemstack1, 2, 38, false)) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
-            if (itemstack1.stackSize == 0) {
-                slot.putStack(null);
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
 
-            if (itemstack1.stackSize == itemstack.stackSize) {
-                return null;
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
             }
 
-            slot.onPickupFromSlot(player, itemstack1);
+            slot.onTake(player, itemstack1);
         }
 
         return itemstack;

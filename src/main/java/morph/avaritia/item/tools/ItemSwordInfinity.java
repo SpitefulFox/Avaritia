@@ -44,7 +44,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem, I
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player) {
-        if (player.worldObj.isRemote) {
+        if (player.world.isRemote) {
             return true;
         }
         if (victim instanceof EntityPlayer) {
@@ -73,7 +73,7 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem, I
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-        if (!entity.worldObj.isRemote && entity instanceof EntityPlayer) {
+        if (!entity.world.isRemote && entity instanceof EntityPlayer) {
             EntityPlayer victim = (EntityPlayer) entity;
             if (victim.capabilities.isCreativeMode && !victim.isDead && victim.getHealth() > 0 && !AvaritiaEventHandler.isInfinite(victim)) {
                 victim.getCombatTracker().trackDamage(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());

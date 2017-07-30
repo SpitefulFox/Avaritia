@@ -1,47 +1,71 @@
 package morph.avaritia.compat.jei;
 
 import mezz.jei.api.*;
-import mezz.jei.api.ingredients.IModIngredientRegistration;
+import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import morph.avaritia.client.gui.GUIExtremeCrafting;
+import morph.avaritia.client.gui.GUINeutroniumCompressor;
+import morph.avaritia.compat.jei.compressor.CompressorRecipeCategory;
+import morph.avaritia.compat.jei.compressor.CompressorRecipeWrapper;
+import morph.avaritia.compat.jei.extreme.ExtremeCraftingCategory;
+import morph.avaritia.compat.jei.extreme.ExtremeRecipeWrapper;
 import morph.avaritia.container.ContainerExtremeCrafting;
 import morph.avaritia.init.ModBlocks;
-import morph.avaritia.recipe.extreme.ExtremeCraftingManager;
+import morph.avaritia.recipe.compressor.CompressorManager;
+import morph.avaritia.recipe.compressor.CompressorRecipe;
+import morph.avaritia.recipe.extreme.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * Created by brandon3055 on 17/02/2017.
  */
 @JEIPlugin
-public class AvaritiaJEIPlugin implements IModPlugin {
+public class AvaritiaJEIPlugin extends BlankModPlugin {
+
+    public static final String EXTREME_CRAFTING = "Avatitia.Extreme";
+    public static final String NEUTRONIUM_COMPRESSOR = "Avatitia.Compressor";
+
+    public static IJeiHelpers jeiHelpers;
+
+    public static IDrawableStatic extreme_crafting;
+    public static IDrawableStatic neutronium_compressor;
+
+    public static IDrawableStatic static_singularity;
 
     @Override
-    public void registerItemSubtypes(ISubtypeRegistry iSubtypeRegistry) {
-
-    }
-
-    @Override
-    public void registerIngredients(IModIngredientRegistration iModIngredientRegistration) {
-
+    public void registerCategories(IRecipeCategoryRegistration registry) {
+        registry.addRecipeCategories(new ExtremeCraftingCategory());
+        registry.addRecipeCategories(new CompressorRecipeCategory());
     }
 
     @Override
     public void register(IModRegistry registry) {
-        IJeiHelpers helpers = registry.getJeiHelpers();
-        IGuiHelper guiHelper = helpers.getGuiHelper();
+        jeiHelpers = registry.getJeiHelpers();
+        IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+        setupDrawables(guiHelper);
 
-        registry.addRecipeCategories(new ExtremeCraftingCategory(guiHelper));
+        registry.addRecipes(ExtremeCraftingManager.getInstance().getRecipeList(), EXTREME_CRAFTING);
+        registry.handleRecipes(ExtremeShapedRecipe.class, ExtremeRecipeWrapper.Shaped::new, EXTREME_CRAFTING);
+        registry.handleRecipes(ExtremeShapelessRecipe.class, ExtremeRecipeWrapper.Shapeless::new, EXTREME_CRAFTING);
+        registry.handleRecipes(ExtremeShapedOreRecipe.class, ExtremeRecipeWrapper.ShapedOre::new, EXTREME_CRAFTING);
+        registry.handleRecipes(ExtremeShapelessOreRecipe.class, ExtremeRecipeWrapper.ShapelessOre::new, EXTREME_CRAFTING);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.dire_craft), EXTREME_CRAFTING);
+        registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerExtremeCrafting.class, EXTREME_CRAFTING, 1, 81, 82, 36);
+        registry.addRecipeClickArea(GUIExtremeCrafting.class, 175, 79, 28, 26, EXTREME_CRAFTING);
 
-        registry.addRecipeHandlers(new ExtremeShapedRecipeHandler(), new ExtremeShapedOreRecipeHandler(helpers), new ExtremeShelessRecipeHandler(), new ExtremeShapelessOreRecipeHandler(helpers));
-
-        registry.addRecipeClickArea(GUIExtremeCrafting.class, 175, 79, 28, 26, RecipeCategoryUids.EXTREME_CRAFTING);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.dire_craft), RecipeCategoryUids.EXTREME_CRAFTING);
-
-        registry.addRecipes(ExtremeCraftingManager.getInstance().getRecipeList());
-        registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerExtremeCrafting.class, RecipeCategoryUids.EXTREME_CRAFTING, 1, 81, 82, 36);
+        registry.addRecipes(CompressorManager.getRecipes(), NEUTRONIUM_COMPRESSOR);
+        registry.handleRecipes(CompressorRecipe.class, CompressorRecipeWrapper::new, NEUTRONIUM_COMPRESSOR);
+        registry.addRecipeClickArea(GUINeutroniumCompressor.class, 62, 35, 22, 15, NEUTRONIUM_COMPRESSOR);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.neutronium_compressor), NEUTRONIUM_COMPRESSOR);
     }
 
-    @Override
-    public void onRuntimeAvailable(IJeiRuntime iJeiRuntime) {
+    private static void setupDrawables(IGuiHelper helper) {
+        ResourceLocation location = new ResourceLocation("avaritia:textures/gui/extreme_jei.png");
+        extreme_crafting = helper.createDrawable(location, 0, 0, 189, 163);
 
+        location = new ResourceLocation("avaritia:textures/gui/compressor.png");
+        neutronium_compressor = helper.createDrawable(location, 37, 29, 102, 41);
+        static_singularity = helper.createDrawable(location, 176, 16, 16, 16);
     }
 }

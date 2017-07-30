@@ -24,11 +24,11 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
     //The production progress.
     private int compression_progress;
     //What we are creating.
-    private ItemStack target_stack;
+    private ItemStack target_stack = ItemStack.EMPTY;
     private int compression_target;
 
-    private ItemStack input;
-    private ItemStack output;
+    private ItemStack input = ItemStack.EMPTY;
+    private ItemStack output = ItemStack.EMPTY;
 
     private List<ItemStack> c_InputItems;
 
@@ -40,7 +40,7 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
 
         boolean dirty = false;
 
-        if (target_stack == null) {
+        if (target_stack.isEmpty()) {
             fullContainerSync = true;
             target_stack = CompressorManager.getOutput(input);
             compression_target = CompressorManager.getPrice(target_stack);
@@ -50,9 +50,9 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
         if (consumption_progress == CONSUME_TICKS) {
             consumption_progress = 0;
 
-            input.stackSize--;
-            if (input.stackSize == 0) {
-                input = null;
+            input.shrink(1);
+            if (input.getCount() == 0) {
+                input = ItemStack.EMPTY;
             }
 
             compression_progress++;
@@ -61,13 +61,13 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
 
         if (compression_progress >= compression_target) {
             compression_progress = 0;
-            if (output == null) {
+            if (output.isEmpty()) {
                 output = ItemUtils.copyStack(target_stack, 1);
             } else {
-                output.stackSize++;
+                output.grow(1);
             }
             dirty = true;
-            target_stack = null;
+            target_stack = ItemStack.EMPTY;
             fullContainerSync = true;
         }
 
@@ -83,7 +83,15 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
 
     @Override
     protected boolean canWork() {
-        return CompressorManager.isValidInputForOutput(input, target_stack) && (output == null || output.stackSize < Math.min(output.getMaxStackSize(), getInventoryStackLimit()));
+        if (input.isEmpty()) {
+            return false;
+        }
+        if (CompressorManager.isValidInputForOutput(input, target_stack) || target_stack.isEmpty()) {
+            if (output.isEmpty() || output.getCount() < Math.min(output.getMaxStackSize(), getInventoryStackLimit())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -92,8 +100,8 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
         packet.writeVarInt(compression_progress);
 
         if (isFullSync) {
-            packet.writeBoolean(target_stack != null);
-            if (target_stack != null) {
+            packet.writeBoolean(!target_stack.isEmpty());
+            if (!target_stack.isEmpty()) {
                 packet.writeVarInt(compression_target);
                 packet.writeItemStack(target_stack);
             }
@@ -116,7 +124,7 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
                 compression_target = packet.readVarInt();
                 target_stack = packet.readItemStack();
             } else {
-                target_stack = null;
+                target_stack = ItemStack.EMPTY;
                 compression_target = 0;
             }
 
@@ -158,13 +166,13 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        input = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("input"));
-        output = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("output"));
+        input = new ItemStack(tag.getCompoundTag("input"));
+        output = new ItemStack(tag.getCompoundTag("output"));
 
         consumption_progress = tag.getInteger("consumption_progress");
         compression_progress = tag.getInteger("compression_progress");
 
-        target_stack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("target"));
+        target_stack = new ItemStack(tag.getCompoundTag("target"));
         //Calc compression target.
         compression_target = CompressorManager.getPrice(target_stack);
         fullContainerSync = true;
@@ -172,17 +180,17 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-        if (input != null) {
+        if (!input.isEmpty()) {
             NBTTagCompound inputTag = new NBTTagCompound();
             input.writeToNBT(inputTag);
             tag.setTag("input", inputTag);
         }
-        if (output != null) {
+        if (!output.isEmpty()) {
             NBTTagCompound outputTag = new NBTTagCompound();
             output.writeToNBT(outputTag);
             tag.setTag("output", outputTag);
         }
-        if (target_stack != null) {
+        if (!target_stack.isEmpty()) {
             NBTTagCompound targetTag = new NBTTagCompound();
             target_stack.writeToNBT(targetTag);
             tag.setTag("target", targetTag);
@@ -198,6 +206,11 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
     }
 
     @Override
+    public boolean isEmpty() {
+        return input.isEmpty() && output.isEmpty();
+    }
+
+    @Override
     public ItemStack getStackInSlot(int slot) {
         if (slot == 0) {
             return input;
@@ -209,56 +222,56 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
     @Override
     public ItemStack decrStackSize(int slot, int decrement) {
         if (slot == 0) {
-            if (input == null) {
-                return null;
+            if (input.isEmpty()) {
+                return ItemStack.EMPTY;
             } else {
-                if (decrement < input.stackSize) {
+                if (decrement < input.getCount()) {
                     ItemStack take = input.splitStack(decrement);
-                    if (input.stackSize <= 0) {
-                        input = null;
+                    if (input.getCount() <= 0) {
+                        input = ItemStack.EMPTY;
                     }
                     return take;
                 } else {
                     ItemStack take = input;
-                    input = null;
+                    input = ItemStack.EMPTY;
                     return take;
                 }
             }
         } else if (slot == 1) {
-            if (output == null) {
-                return null;
+            if (output.isEmpty()) {
+                return ItemStack.EMPTY;
             } else {
-                if (decrement < output.stackSize) {
+                if (decrement < output.getCount()) {
                     ItemStack take = output.splitStack(decrement);
-                    if (output.stackSize <= 0) {
-                        output = null;
+                    if (output.getCount() <= 0) {
+                        output = ItemStack.EMPTY;
                     }
                     return take;
                 } else {
                     ItemStack take = output;
-                    output = null;
+                    output = ItemStack.EMPTY;
                     return take;
                 }
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return worldObj.getTileEntity(getPos()) == this && player.getDistanceSq(getPos().getX() + 0.5D, getPos().getY() + 0.5D, getPos().getZ() + 0.5D) <= 64.0D;
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return world.getTileEntity(getPos()) == this && player.getDistanceSq(getPos().getX() + 0.5D, getPos().getY() + 0.5D, getPos().getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
-        if (stack == null) {
+        if (stack.isEmpty()) {
             return false;
         }
         if (slot == 0) {
-            if (target_stack == null) {
+            if (target_stack.isEmpty()) {
                 return true;
             }
-            if (CompressorManager.getOutput(stack) == null) {
+            if (CompressorManager.getOutput(stack).isEmpty()) {
                 return false;
             }
             if (CompressorManager.getOutput(stack).isItemEqual(target_stack)) {
@@ -322,7 +335,7 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
 
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override

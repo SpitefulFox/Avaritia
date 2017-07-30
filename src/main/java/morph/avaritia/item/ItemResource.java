@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -23,7 +24,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -31,8 +34,21 @@ import java.util.Set;
  */
 public class ItemResource extends ItemMultiType implements IHaloRenderItem, IModelRegister {
 
+    protected HashMap<Integer, EnumRarity> rarityMap = new HashMap<>();
+
     public ItemResource(CreativeTabs tab, String registryName) {
         super(tab, registryName);
+    }
+
+    public ItemStack registerItem(String name, EnumRarity rarity) {
+        ItemStack stack = super.registerItem(name);
+        for (Entry<Integer, String> entry : names.entrySet()) {
+            if (entry.getValue().equals(name)) {
+                rarityMap.put(entry.getKey(), rarity);
+                break;
+            }
+        }
+        return stack;
     }
 
     @Override
@@ -110,7 +126,7 @@ public class ItemResource extends ItemMultiType implements IHaloRenderItem, IMod
     @Override
     @SideOnly (Side.CLIENT)
     public void registerModels() {
-        ModItems.resource.registerModelVariants();
+        super.registerModels();
         Set<Integer> toRegister = Sets.newHashSet(2, 3, 4, 5, 6);
 
         for (int meta : toRegister) {
@@ -119,6 +135,10 @@ public class ItemResource extends ItemMultiType implements IHaloRenderItem, IMod
             IBakedModel wrapped = new HaloRenderItem(TransformUtils.DEFAULT_ITEM, modelRegistry -> modelRegistry.getObject(location));
             ModelRegistryHelper.register(location, wrapped);
         }
+    }
 
+    @Override
+    public EnumRarity getRarity(ItemStack stack) {
+        return rarityMap.getOrDefault(stack.getMetadata(), super.getRarity(stack));
     }
 }

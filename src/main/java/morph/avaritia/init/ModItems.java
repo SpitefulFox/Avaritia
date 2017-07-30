@@ -38,6 +38,7 @@ public class ModItems {
      * 9 = Nickel,
      * 10 = Diamond,
      * 11 = Emerald
+     * 12 = Fluxed
      */
     public static ItemSingularity singularity;
 
@@ -46,6 +47,7 @@ public class ModItems {
     public static ItemPickaxeInfinity infinity_pickaxe;
     public static ItemShovelInfinity infinity_shovel;
     public static ItemAxeInfinity infinity_axe;
+    public static ItemHoeInfinity infinity_hoe;
 
     public static ItemArmorInfinity infinity_helmet;
     public static ItemArmorInfinity infinity_chestplate;
@@ -74,6 +76,7 @@ public class ModItems {
     public static ItemStack nickelSingularity;
     public static ItemStack diamondSingularity;
     public static ItemStack emeraldSingularity;
+    public static ItemStack fluxedSingularity;
 
     public static ItemStack diamond_lattice;
     public static ItemStack crystal_matrix_ingot;
@@ -88,39 +91,40 @@ public class ModItems {
 
         resource = register(new ItemResource(Avaritia.tab, "resource"));
         //0
-        diamond_lattice = resource.registerSubItem("diamond_lattice", EnumRarity.UNCOMMON);
+        diamond_lattice = resource.registerItem("diamond_lattice", EnumRarity.UNCOMMON);
         //1
-        crystal_matrix_ingot = resource.registerSubItem("crystal_matrix_ingot", EnumRarity.RARE);
+        crystal_matrix_ingot = resource.registerItem("crystal_matrix_ingot", EnumRarity.RARE);
         //2
-        neutron_pile = resource.registerSubItem("neutron_pile", EnumRarity.UNCOMMON);
+        neutron_pile = resource.registerItem("neutron_pile", EnumRarity.UNCOMMON);
         //3
-        neutron_nugget = resource.registerSubItem("neutron_nugget", EnumRarity.UNCOMMON);
+        neutron_nugget = resource.registerItem("neutron_nugget", EnumRarity.UNCOMMON);
         //4
-        neutronium_ingot = resource.registerSubItem("neutronium_ingot", EnumRarity.RARE);
+        neutronium_ingot = resource.registerItem("neutronium_ingot", EnumRarity.RARE);
         //5
-        infinity_catalyst = resource.registerSubItem("infinity_catalyst", EnumRarity.EPIC);
+        infinity_catalyst = resource.registerItem("infinity_catalyst", EnumRarity.EPIC);
         //6
-        infinity_ingot = resource.registerSubItem("infinity_ingot", COSMIC_RARITY);
+        infinity_ingot = resource.registerItem("infinity_ingot", COSMIC_RARITY);
         //7
-        record_fragment = resource.registerSubItem("record_fragment", COSMIC_RARITY);
+        record_fragment = resource.registerItem("record_fragment", COSMIC_RARITY);
 
         if (ConfigHandler.craftingOnly) {
             return;
         }
 
         singularity = register(new ItemSingularity(Avaritia.tab, "singularity"));
-        ironSingularity = singularity.registerSubItem("iron");
-        goldSingularity = singularity.registerSubItem("gold");
-        lapisSingularity = singularity.registerSubItem("lapis");
-        redstoneSingularity = singularity.registerSubItem("redstone");
-        quartzSingularity = singularity.registerSubItem("quartz");
-        copperSingularity = singularity.registerSubItem("copper");
-        tinSingularity = singularity.registerSubItem("tin");
-        leadSingularity = singularity.registerSubItem("lead");
-        silverSingularity = singularity.registerSubItem("silver");
-        nickelSingularity = singularity.registerSubItem("nickel");
-        diamondSingularity = singularity.registerSubItem("diamond");
-        emeraldSingularity = singularity.registerSubItem("emerald");
+        ironSingularity = singularity.registerItem("iron");
+        goldSingularity = singularity.registerItem("gold");
+        lapisSingularity = singularity.registerItem("lapis");
+        redstoneSingularity = singularity.registerItem("redstone");
+        quartzSingularity = singularity.registerItem("quartz");
+        copperSingularity = singularity.registerItem("copper");
+        tinSingularity = singularity.registerItem("tin");
+        leadSingularity = singularity.registerItem("lead");
+        silverSingularity = singularity.registerItem("silver");
+        nickelSingularity = singularity.registerItem("nickel");
+        diamondSingularity = singularity.registerItem("diamond");
+        emeraldSingularity = singularity.registerItem("emerald");
+        fluxedSingularity = singularity.registerItem("fluxed");
 
         infinity_sword = register(new ItemSwordInfinity());
 
@@ -131,6 +135,8 @@ public class ModItems {
         infinity_shovel = register(new ItemShovelInfinity());
 
         infinity_axe = register(new ItemAxeInfinity());
+
+        infinity_hoe = register(new ItemHoeInfinity());
 
         infinity_helmet = new ItemArmorInfinity(EntityEquipmentSlot.HEAD);
         infinity_helmet.setUnlocalizedName("avaritia:infinity_helmet");

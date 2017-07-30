@@ -83,11 +83,11 @@ public class EntityGapingVoid extends Entity {
         int age = this.getAge();
 
         if (age >= maxLifetime) {
-            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 6.0f, true);
+            this.world.createExplosion(this, this.posX, this.posY, this.posZ, 6.0f, true);
             this.setDead();
         } else {
             if (age == 0) {
-                this.worldObj.playSound(this.posX, this.posY, this.posZ, ModSounds.GAPING_VOID, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
+                this.world.playSound(this.posX, this.posY, this.posZ, ModSounds.GAPING_VOID, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
             }
             this.setAge(age + 1);
         }
@@ -105,13 +105,13 @@ public class EntityGapingVoid extends Entity {
             velocity.multiply(particlespeed);
             particlePos.add(pos);
 
-            this.worldObj.spawnParticle(EnumParticleTypes.PORTAL, particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
+            this.world.spawnParticle(EnumParticleTypes.PORTAL, particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
         }
 
         // *slurping noises*
         Cuboid6 cuboid = new Cuboid6().add(pos);
         cuboid.expand(suckRange);
-        List<Entity> sucked = this.worldObj.getEntitiesWithinAABB(Entity.class, cuboid.aabb(), SUCK_PREDICATE);
+        List<Entity> sucked = this.world.getEntitiesWithinAABB(Entity.class, cuboid.aabb(), SUCK_PREDICATE);
 
         double radius = getVoidScale(age) * 0.5;
 
@@ -140,7 +140,7 @@ public class EntityGapingVoid extends Entity {
         double nomrange = radius * 0.95;
         cuboid = new Cuboid6().add(pos);
         cuboid.expand(nomrange);
-        List<Entity> nommed = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, cuboid.aabb(), OMNOM_PREDICATE);
+        List<Entity> nommed = this.world.getEntitiesWithinAABB(EntityLivingBase.class, cuboid.aabb(), OMNOM_PREDICATE);
 
         for (Entity nommee : nommed) {
             if (nommee != this) {
@@ -150,7 +150,7 @@ public class EntityGapingVoid extends Entity {
                 double len = diff.mag();
 
                 if (len <= nomrange) {
-                    nommee.attackEntityFrom(DamageSource.outOfWorld, 3.0f);
+                    nommee.attackEntityFrom(DamageSource.OUT_OF_WORLD, 3.0f);
                 }
             }
         }
@@ -173,12 +173,12 @@ public class EntityGapingVoid extends Entity {
                         }
 
                         double dist = pos2.mag();
-                        if (dist <= nomrange && !this.worldObj.isAirBlock(blockPos)) {
-                            IBlockState state = worldObj.getBlockState(blockPos);
+                        if (dist <= nomrange && !this.world.isAirBlock(blockPos)) {
+                            IBlockState state = world.getBlockState(blockPos);
                             float resist = state.getBlock().getExplosionResistance(this);//TODO HELP state.getExplosionResistance(this, this.worldObj, lx, ly, lz, this.posX, this.posY, this.posZ);
                             if (resist <= 10.0) {
-                                state.getBlock().dropBlockAsItemWithChance(worldObj, blockPos, state, 0.9F, 0);
-                                this.worldObj.setBlockToAir(blockPos);
+                                state.getBlock().dropBlockAsItemWithChance(world, blockPos, state, 0.9F, 0);
+                                this.world.setBlockToAir(blockPos);
                             }
                         }
                     }

@@ -36,7 +36,7 @@ public class AbilityHandler {
 
     public static boolean isPlayerWearing(EntityLivingBase entity, EntityEquipmentSlot slot, Predicate<Item> predicate) {
         ItemStack stack = entity.getItemStackFromSlot(slot);
-        return stack != null && predicate.test(stack.getItem());
+        return !stack.isEmpty() && predicate.test(stack.getItem());
     }
 
     @SubscribeEvent
@@ -47,7 +47,7 @@ public class AbilityHandler {
         }
 
         EntityLivingBase entity = event.getEntityLiving();
-        String key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
+        String key = entity.getCachedUniqueIdString() + "|" + entity.world.isRemote;
 
         boolean hasHelmet = isPlayerWearing(event.getEntityLiving(), HEAD, item -> item instanceof ItemArmorInfinity);
         boolean hasChestplate = isPlayerWearing(event.getEntityLiving(), CHEST, item -> item instanceof ItemArmorInfinity);
@@ -115,7 +115,7 @@ public class AbilityHandler {
      * @param entity EntityLivingBase we speak of.
      */
     private static void stripAbilities(EntityLivingBase entity) {
-        String key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
+        String key = entity.getCachedUniqueIdString() + "|" + entity.world.isRemote;
 
         if (entitiesWithHelmets.remove(key)) {
             handleHelmetStateChange(entity, false);
@@ -140,7 +140,7 @@ public class AbilityHandler {
     }
 
     private static void handleChestplateStateChange(EntityLivingBase entity, boolean isNew) {
-        String key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
+        String key = entity.getCachedUniqueIdString() + "|" + entity.world.isRemote;
         if (entity instanceof EntityPlayer) {
             EntityPlayer player = ((EntityPlayer) entity);
             if (isNew) {
@@ -161,7 +161,7 @@ public class AbilityHandler {
     }
 
     private static void handleBootsStateChange(EntityLivingBase entity) {
-        String temp_key = entity.getCachedUniqueIdString() + "|" + entity.worldObj.isRemote;
+        String temp_key = entity.getCachedUniqueIdString() + "|" + entity.world.isRemote;
         boolean hasBoots = isPlayerWearing(entity, FEET, item -> item instanceof ItemArmorInfinity);
         if (hasBoots) {
             entity.stepHeight = 1.0625F;//Step 17 pixels, Allows for stepping directly from a path to the top of a block next to the path.

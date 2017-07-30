@@ -64,7 +64,8 @@ public class ItemAxeInfinity extends ItemAxe {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (player.isSneaking()) {
             player.swingArm(hand);
 
@@ -91,7 +92,7 @@ public class ItemAxeInfinity extends ItemAxe {
         if (player.isSneaking()) {
             return;
         }
-        AvaritiaEventHandler.startCrawlerTask(player.worldObj, player, stack, pos, 32, false, true, new HashSet<>());
+        AvaritiaEventHandler.startCrawlerTask(player.world, player, stack, pos, 32, false, true, new HashSet<>());
     }
 
     @Override

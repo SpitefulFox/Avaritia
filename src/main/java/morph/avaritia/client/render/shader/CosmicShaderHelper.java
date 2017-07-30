@@ -27,8 +27,8 @@ public class CosmicShaderHelper {
                 float scale = 1.0f;
 
                 if (!inventoryRender) {
-                    yaw = (float) ((mc.thePlayer.rotationYaw * 2 * Math.PI) / 360.0);
-                    pitch = -(float) ((mc.thePlayer.rotationPitch * 2 * Math.PI) / 360.0);
+                    yaw = (float) ((mc.player.rotationYaw * 2 * Math.PI) / 360.0);
+                    pitch = -(float) ((mc.player.rotationPitch * 2 * Math.PI) / 360.0);
                 } else {
                     scale = 25.0f;
                 }

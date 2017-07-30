@@ -47,8 +47,8 @@ public final class ShaderHelper {
         if (shader != 0) {
             int time = ARBShaderObjects.glGetUniformLocationARB(shader, "time");
             Minecraft mc = Minecraft.getMinecraft();
-            if (mc.thePlayer != null && mc.thePlayer.worldObj != null) {
-                ARBShaderObjects.glUniform1iARB(time, (int) (mc.thePlayer.worldObj.getWorldTime() % Integer.MAX_VALUE));
+            if (mc.player != null && mc.player.world != null) {
+                ARBShaderObjects.glUniform1iARB(time, (int) (mc.player.world.getWorldTime() % Integer.MAX_VALUE));
             }
 
             if (callback != null) {

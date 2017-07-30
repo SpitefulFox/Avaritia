@@ -32,9 +32,6 @@ import java.util.List;
  */
 public abstract class PerspectiveAwareItemRenderer implements IItemRenderer, IPerspectiveAwareModel, IEntityItemTickCallback {
 
-    @Nonnull//If this is null, someone has seriously fucked with item rendering..
-    protected TransformType transformType;
-
     //This can be null if rendered in a gui, ALWAYS null check this.
     //Havent traced all routes, but only hand rendering may fire this..
     @Nullable
@@ -92,9 +89,8 @@ public abstract class PerspectiveAwareItemRenderer implements IItemRenderer, IPe
     }
 
     @Override
-    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-        this.transformType = cameraTransformType;
-        return MapWrapper.handlePerspective(this, state, cameraTransformType);
+    public IModelState getTransforms() {
+        return state;
     }
 
     @Override

@@ -29,7 +29,7 @@ public abstract class TileMachineBase extends TileBase implements ITickable {
 
     @Override
     public final void update() {
-        if (CommonUtils.isClientWorld(worldObj)) {
+        if (CommonUtils.isClientWorld(world)) {
             return;
         }
         if (canWork()) {
@@ -43,8 +43,8 @@ public abstract class TileMachineBase extends TileBase implements ITickable {
             if (isActive) {
                 onWorkStopped();
                 wasActive = true;
-                if (worldObj != null) {
-                    offTracker.markTime(worldObj);
+                if (world != null) {
+                    offTracker.markTime(world);
                 }
             }
             isActive = false;
@@ -56,7 +56,7 @@ public abstract class TileMachineBase extends TileBase implements ITickable {
      * Does checks to see if a delay has passed since the machine was turned off for triggering client updates.
      */
     private void updateCheck() {
-        if (wasActive && offTracker.hasDelayPassed(worldObj, 100)) {
+        if (wasActive && offTracker.hasDelayPassed(world, 100)) {
             wasActive = false;
             sendUpdatePacket = true;
         }
@@ -84,7 +84,7 @@ public abstract class TileMachineBase extends TileBase implements ITickable {
     public void readUpdatePacket(PacketCustom packet) {
         isActive = packet.readBoolean();
         facing = EnumFacing.VALUES[packet.readUByte()];
-        BlockUtils.fireBlockUpdate(worldObj, getPos());
+        BlockUtils.fireBlockUpdate(world, getPos());
     }
 
     public abstract void writeGuiData(PacketCustom packet, boolean isFullSync);

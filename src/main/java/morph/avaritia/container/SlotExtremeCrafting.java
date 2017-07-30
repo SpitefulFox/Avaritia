@@ -9,8 +9,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.*;
 import net.minecraft.stats.AchievementList;
-
-import javax.annotation.Nullable;
+import net.minecraft.util.NonNullList;
 
 /**
  * Created by brandon3055 on 18/02/2017.
@@ -28,14 +27,14 @@ public class SlotExtremeCrafting extends Slot {
     }
 
     @Override
-    public boolean isItemValid(@Nullable ItemStack stack) {
+    public boolean isItemValid(ItemStack stack) {
         return false;
     }
 
     @Override
     public ItemStack decrStackSize(int amount) {
         if (this.getHasStack()) {
-            this.amountCrafted += Math.min(amount, this.getStack().stackSize);
+            this.amountCrafted += Math.min(amount, this.getStack().getCount());
         }
 
         return super.decrStackSize(amount);
@@ -50,7 +49,7 @@ public class SlotExtremeCrafting extends Slot {
     @Override
     protected void onCrafting(ItemStack stack) {
         if (this.amountCrafted > 0) {
-            stack.onCrafting(this.thePlayer.worldObj, this.thePlayer, this.amountCrafted);
+            stack.onCrafting(this.thePlayer.world, this.thePlayer, this.amountCrafted);
         }
 
         this.amountCrafted = 0;
@@ -97,32 +96,33 @@ public class SlotExtremeCrafting extends Slot {
     }
 
     @Override
-    public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
+    public ItemStack onTake(EntityPlayer playerIn, ItemStack stack) {
         net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, craftMatrix);
         this.onCrafting(stack);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(playerIn);
-        ItemStack[] aitemstack = ExtremeCraftingManager.getInstance().getRemainingItems(this.craftMatrix, playerIn.worldObj);
+        NonNullList<ItemStack> slots = ExtremeCraftingManager.getInstance().getRemainingItems(this.craftMatrix, playerIn.world);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
-        for (int i = 0; i < aitemstack.length; ++i) {
+        for (int i = 0; i < slots.size(); ++i) {
             ItemStack itemstack = this.craftMatrix.getStackInSlot(i);
-            ItemStack itemstack1 = aitemstack[i];
+            ItemStack itemstack1 = slots.get(i);
 
-            if (itemstack != null) {
+            if (!itemstack.isEmpty()) {
                 this.craftMatrix.decrStackSize(i, 1);
                 itemstack = this.craftMatrix.getStackInSlot(i);
             }
 
-            if (itemstack1 != null) {
-                if (itemstack == null) {
+            if (!itemstack1.isEmpty()) {
+                if (itemstack.isEmpty()) {
                     this.craftMatrix.setInventorySlotContents(i, itemstack1);
                 } else if (ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1)) {
-                    itemstack1.stackSize += itemstack.stackSize;
+                    itemstack1.grow(itemstack.getCount());
                     this.craftMatrix.setInventorySlotContents(i, itemstack1);
                 } else if (!this.thePlayer.inventory.addItemStackToInventory(itemstack1)) {
                     this.thePlayer.dropItem(itemstack1, false);
                 }
             }
         }
+        return stack;
     }
 }
