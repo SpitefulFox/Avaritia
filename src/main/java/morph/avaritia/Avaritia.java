@@ -2,6 +2,7 @@ package morph.avaritia;
 
 import codechicken.lib.CodeChickenLib;
 import codechicken.lib.gui.SimpleCreativeTab;
+import morph.avaritia.compat.minetweaker.Tweak;
 import morph.avaritia.proxy.Proxy;
 import morph.avaritia.util.Lumberjack;
 import net.minecraft.creativetab.CreativeTabs;
@@ -45,7 +46,7 @@ public class Avaritia {
         proxy.postInit(event);
         if (Loader.isModLoaded("MineTweaker3")) {
             try {
-                //Tweak.registrate();
+                Tweak.registrate();
             } catch (Throwable e) {
                 Lumberjack.errorError("Avaritia seems to be having trouble with CraftTweaker.", e);
             }
