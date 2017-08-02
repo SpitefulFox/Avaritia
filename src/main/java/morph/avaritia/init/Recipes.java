@@ -258,6 +258,21 @@ public class Recipes {
         );
 
         ExtremeCraftingManager.getInstance().addRecipe(
+                new ItemStack(ModItems.infinity_hoe),
+                "     N   ",
+                " IIIIII  ",
+                "IIIIIII  ",
+                "I    II  ",
+                "     N   ",
+                "     N   ",
+                "     N   ",
+                "     N   ",
+                "     N   ",
+                'I', ModItems.infinity_ingot,
+                'N', ModItems.neutronium_ingot
+        );
+
+        ExtremeCraftingManager.getInstance().addRecipe(
                 new ItemStack(ModItems.infinity_bow),
                 "   II    ",
                 "  I W    ",

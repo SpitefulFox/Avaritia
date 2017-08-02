@@ -128,7 +128,7 @@ public class ItemShovelInfinity extends ItemSpade {
         BlockPos min = new BlockPos(-range, doY ? -1 : -range, -range);
         BlockPos max = new BlockPos(range, doY ? range * 2 - 2 : range, range);
 
-        ToolHelper.aoeBlocks(player, stack, world, pos, min, max, null, ItemPickaxeInfinity.MATERIALS);
+        ToolHelper.aoeBlocks(player, stack, world, pos, min, max, null, ItemPickaxeInfinity.MATERIALS, false);
 
     }
 

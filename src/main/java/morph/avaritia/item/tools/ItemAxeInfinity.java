@@ -73,7 +73,7 @@ public class ItemAxeInfinity extends ItemAxe {
             BlockPos min = new BlockPos(-range, -3, -range);
             BlockPos max = new BlockPos(range, range * 2 - 3, range);
 
-            ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe);
+            ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe, false);
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }

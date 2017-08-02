@@ -158,7 +158,6 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
         return target_stack;
     }
 
-    @SideOnly(Side.CLIENT)
     public List<ItemStack> getInputItems() {
         return c_InputItems;
     }

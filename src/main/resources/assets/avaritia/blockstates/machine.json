@@ -19,11 +19,14 @@
 				"textures": {
 					"top": "blocks/machine/compressor/top",
 					"side": "blocks/machine/compressor/side",
-					"front": "blocks/machine/compressor/front"
+					"front": "blocks/machine/compressor/inactive"
 				},
 				"variants": {
 					"active": {
 						"true": {
+							"textures": {
+								"front": "blocks/machine/compressor/active"
+							}
 						},
 						"false": {
 						}

@@ -34,7 +34,7 @@ public class ToolHelper {
     public static Material[] materialsShovel = new Material[] { Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY };
     public static Set<Material> materialsAxe = Sets.newHashSet(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.VINE);
 
-    public static void aoeBlocks(EntityPlayer player, ItemStack stack, World world, BlockPos origin, BlockPos min, BlockPos max, Block target, Set<Material> validMaterials) {
+    public static void aoeBlocks(EntityPlayer player, ItemStack stack, World world, BlockPos origin, BlockPos min, BlockPos max, Block target, Set<Material> validMaterials, boolean filterTrash) {
 
         AvaritiaEventHandler.enableItemCapture();
 
@@ -48,7 +48,10 @@ public class ToolHelper {
         }
 
         AvaritiaEventHandler.stopItemCapture();
-        Set<ItemStack> drops = removeTrash(stack, AvaritiaEventHandler.getCapturedDrops());
+        Set<ItemStack> drops = AvaritiaEventHandler.getCapturedDrops();
+        if (filterTrash) {
+            drops = removeTrash(stack, drops);
+        }
         if (!world.isRemote) {
             List<ItemStack> clusters = ItemMatterCluster.makeClusters(drops);
             for (ItemStack cluster : clusters) {

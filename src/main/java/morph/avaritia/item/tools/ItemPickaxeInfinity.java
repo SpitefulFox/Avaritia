@@ -163,7 +163,7 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
         BlockPos minOffset = new BlockPos(-range, doY ? -1 : -range, -range);
         BlockPos maxOffset = new BlockPos(range, doY ? range * 2 - 2 : range, range);
 
-        ToolHelper.aoeBlocks(player, stack, world, pos, minOffset, maxOffset, null, MATERIALS);
+        ToolHelper.aoeBlocks(player, stack, world, pos, minOffset, maxOffset, null, MATERIALS, true);
 
     }
 

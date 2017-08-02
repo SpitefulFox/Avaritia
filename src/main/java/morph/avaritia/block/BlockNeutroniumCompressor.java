@@ -58,7 +58,7 @@ public class BlockNeutroniumCompressor extends BlockContainer implements IModelR
         if (tileEntity instanceof TileNeutroniumCompressor) {
             TileNeutroniumCompressor compressor = (TileNeutroniumCompressor) tileEntity;
             state = state.withProperty(AvaritiaProps.HORIZONTAL_FACING, compressor.getFacing());
-            state = state.withProperty(AvaritiaProps.ACTIVE, true);//TODO Figure out active states.
+            state = state.withProperty(AvaritiaProps.ACTIVE, compressor.isActive());
         }
         return super.getActualState(state, worldIn, pos);
     }
