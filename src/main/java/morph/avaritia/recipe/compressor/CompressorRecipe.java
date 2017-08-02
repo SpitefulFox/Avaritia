@@ -1,12 +1,10 @@
 package morph.avaritia.recipe.compressor;
 
-import com.google.common.collect.Lists;
 import morph.avaritia.util.CompressorBalanceCalculator;
 import net.minecraft.item.ItemStack;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class CompressorRecipe {
 

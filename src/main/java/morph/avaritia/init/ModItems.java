@@ -166,7 +166,6 @@ public class ModItems {
         register(cosmic_meatballs.setRegistryName("cosmic_meatballs"));
         cosmic_meatballs.setPotionEffect(new PotionEffect(MobEffects.STRENGTH, 300, 1), 1.0F).setUnlocalizedName("avaritia:cosmic_meatballs").setCreativeTab(Avaritia.tab);
 
-
         if (ConfigHandler.fractured) {
             fractured_ore = register(new ItemFracturedOre());
             ItemFracturedOre.parseOreDictionary();
@@ -174,7 +173,6 @@ public class ModItems {
 
         matter_cluster = register(new ItemMatterCluster());
     }
-
 
     public static <V extends IForgeRegistryEntry<?>> V register(V registerObject) {
         GameRegistry.register(registerObject);

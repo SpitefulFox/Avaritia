@@ -10,7 +10,6 @@ import net.minecraft.util.EnumFacing.Axis;
  */
 public class AvaritiaProps {
 
-
     public static final PropertyEnum<EnumFacing> HORIZONTAL_FACING = PropertyEnum.create("facing", EnumFacing.class, facing -> facing.getAxis() != Axis.Y);
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 

@@ -1,16 +1,13 @@
 package morph.avaritia.network;
 
-import codechicken.lib.packet.PacketCustom;
 import codechicken.lib.packet.ICustomPacketHandler.IClientPacketHandler;
+import codechicken.lib.packet.PacketCustom;
 import morph.avaritia.tile.TileMachineBase;
 import morph.avaritia.util.Lumberjack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.Arrays;
 
 /**
  * Created by covers1624 on 20/05/2017.
@@ -19,7 +16,7 @@ public class ClientPacketHandler implements IClientPacketHandler {
 
     @Override
     public void handlePacket(PacketCustom packet, Minecraft mc, INetHandlerPlayClient handler) {
-        switch(packet.getType()) {
+        switch (packet.getType()) {
             case 1: {
                 BlockPos pos = packet.readPos();
                 TileEntity tile = mc.world.getTileEntity(pos);

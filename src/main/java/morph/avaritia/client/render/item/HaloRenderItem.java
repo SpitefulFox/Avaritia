@@ -3,25 +3,20 @@ package morph.avaritia.client.render.item;
 import codechicken.lib.colour.Colour;
 import morph.avaritia.api.IHaloRenderItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.client.model.pipeline.LightUtil;
 import net.minecraftforge.common.model.IModelState;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 /**
  * Created by covers1624 on 14/04/2017.I

@@ -1,9 +1,9 @@
 package morph.avaritia.container;
 
-import morph.avaritia.recipe.extreme.InventoryDireCraftResult;
-import morph.avaritia.recipe.extreme.InventoryDireCrafting;
 import morph.avaritia.init.ModBlocks;
 import morph.avaritia.recipe.extreme.ExtremeCraftingManager;
+import morph.avaritia.recipe.extreme.InventoryDireCraftResult;
+import morph.avaritia.recipe.extreme.InventoryDireCrafting;
 import morph.avaritia.tile.TileDireCraftingTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

@@ -9,7 +9,6 @@ import morph.avaritia.api.registration.IModelRegister;
 import morph.avaritia.client.render.item.HaloRenderItem;
 import morph.avaritia.entity.EntityImmortalItem;
 import morph.avaritia.init.AvaritiaTextures;
-import morph.avaritia.init.ModItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

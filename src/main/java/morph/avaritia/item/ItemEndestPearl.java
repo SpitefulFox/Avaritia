@@ -38,7 +38,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, 
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
         if (!player.capabilities.isCreativeMode) {
-             stack.shrink(1);
+            stack.shrink(1);
         }
 
         world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERPEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));

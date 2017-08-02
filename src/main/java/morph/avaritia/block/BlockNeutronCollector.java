@@ -59,7 +59,7 @@ public class BlockNeutronCollector extends BlockContainer implements IModelRegis
         if (tileEntity instanceof TileMachineBase) {
             TileMachineBase machineBase = (TileMachineBase) tileEntity;
             state = state.withProperty(AvaritiaProps.HORIZONTAL_FACING, machineBase.getFacing());
-           state = state.withProperty(AvaritiaProps.ACTIVE, machineBase.isActive());
+            state = state.withProperty(AvaritiaProps.ACTIVE, machineBase.isActive());
         }
         return super.getActualState(state, worldIn, pos);
     }

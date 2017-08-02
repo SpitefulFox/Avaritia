@@ -19,7 +19,6 @@ public class ModHelper {
     public static final boolean isTinkersLoaded = Loader.isModLoaded("tconstruct");
     private static Item tinkersCleaver;
 
-
     public static boolean isHoldingCleaver(EntityLivingBase entity) {
         if (!isTinkersLoaded) {
             return false;
@@ -29,7 +28,6 @@ public class ModHelper {
         }
         return isPlayerHolding(entity, item -> Objects.equals(item, tinkersCleaver));
     }
-
 
     //TODO, move to ccl -covers
     public static boolean isPlayerHolding(EntityLivingBase entity, Predicate<Item> predicate) {
@@ -43,6 +41,5 @@ public class ModHelper {
         }
         return false;
     }
-
 
 }

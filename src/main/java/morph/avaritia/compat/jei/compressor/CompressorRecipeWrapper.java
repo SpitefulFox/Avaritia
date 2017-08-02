@@ -3,7 +3,6 @@ package morph.avaritia.compat.jei.compressor;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
-import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import morph.avaritia.compat.jei.AvaritiaJEIPlugin;
@@ -12,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by covers1624 on 31/07/2017.

@@ -30,7 +30,6 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Set;
 
 public class ItemPickaxeInfinity extends ItemPickaxe {

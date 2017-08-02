@@ -81,7 +81,7 @@ public class ItemHoeInfinity extends ItemHoe {
             }
 
             boolean canDropAbove = world.getBlockState(aoePos.up()).getBlock() == Blocks.DIRT || world.getBlockState(aoePos.up()).getBlock() == Blocks.GRASS || world.getBlockState(aoePos.up()).getBlock() == Blocks.FARMLAND;
-            boolean canRemoveAbove = canDropAbove|| world.getBlockState(aoePos.up()).getBlock().isReplaceable(world, aoePos.up());
+            boolean canRemoveAbove = canDropAbove || world.getBlockState(aoePos.up()).getBlock().isReplaceable(world, aoePos.up());
             boolean up2OK = world.isAirBlock(aoePos.up().up()) || world.getBlockState(aoePos.up().up()).getBlock().isReplaceable(world, aoePos.up().up());
 
             if (!world.isAirBlock(aoePos.up()) && canRemoveAbove && up2OK) {

@@ -3,7 +3,6 @@ package net.covers1624.lib.gui;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.lib.texture.TextureUtils;
 import codechicken.lib.vec.Rectangle4i;
-import morph.avaritia.util.Lumberjack;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.tuple.Pair;

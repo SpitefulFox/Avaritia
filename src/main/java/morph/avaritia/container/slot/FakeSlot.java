@@ -5,8 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import java.util.function.Supplier;
-
 /**
  * Created by covers1624 on 22/05/2017.
  */

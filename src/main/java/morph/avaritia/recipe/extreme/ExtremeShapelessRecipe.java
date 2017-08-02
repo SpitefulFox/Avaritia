@@ -77,8 +77,7 @@ public class ExtremeShapelessRecipe implements IRecipe {
     }
 
     @Override
-    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-    {
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv);
     }
 }

@@ -8,15 +8,13 @@ import codechicken.lib.util.TransformUtils;
 import com.google.common.collect.ImmutableList;
 import morph.avaritia.api.ICosmicRenderItem;
 import morph.avaritia.client.render.shader.CosmicShaderHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -144,7 +142,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
     }
 
     protected void processLightLevel(TransformType transformType) {
-        switch(transformType) {
+        switch (transformType) {
             case GROUND:
                 if (entityPos != null) {
                     CosmicShaderHelper.setLightFromLocation(world, entityPos);

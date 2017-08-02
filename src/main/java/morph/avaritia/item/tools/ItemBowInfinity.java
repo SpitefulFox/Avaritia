@@ -22,19 +22,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 
 public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRegister, IBakeryProvider {
 
@@ -125,7 +125,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 
-        ItemStack stack  = player.getHeldItem(hand);
+        ItemStack stack = player.getHeldItem(hand);
         ActionResult<ItemStack> event = ForgeEventFactory.onArrowNock(stack, world, player, hand, true);
         if (event != null) {
             return event;

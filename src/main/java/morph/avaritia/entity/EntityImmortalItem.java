@@ -7,7 +7,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityImmortalItem extends EntityItem {
@@ -108,7 +107,7 @@ public class EntityImmortalItem extends EntityItem {
             if (!world.isRemote && age >= lifespan) {
                 if (!item.isEmpty()) {
                     /*ItemExpireEvent event = new ItemExpireEvent(this, (item.getItem() == null ? 6000 : item.getItem().getEntityLifespan(item, worldObj)));
-					if (MinecraftForge.EVENT_BUS.post(event))
+                    if (MinecraftForge.EVENT_BUS.post(event))
 					{
 					    lifespan += event.extraLife;
 					}

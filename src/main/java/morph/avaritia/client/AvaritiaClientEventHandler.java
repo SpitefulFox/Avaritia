@@ -5,7 +5,6 @@ import morph.avaritia.client.render.entity.ModelArmorInfinity;
 import morph.avaritia.client.render.shader.CosmicShaderHelper;
 import morph.avaritia.init.AvaritiaTextures;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -16,7 +15,6 @@ import org.lwjgl.opengl.GL11;
 import java.nio.FloatBuffer;
 
 public class AvaritiaClientEventHandler {
-
 
     public static FloatBuffer cosmicUVs = BufferUtils.createFloatBuffer(4 * 10);
 

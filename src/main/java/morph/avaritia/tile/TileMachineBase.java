@@ -5,7 +5,6 @@ import codechicken.lib.util.BlockUtils;
 import codechicken.lib.util.CommonUtils;
 import morph.avaritia.network.NetworkDispatcher;
 import morph.avaritia.util.TimeTracker;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;

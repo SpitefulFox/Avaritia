@@ -10,12 +10,11 @@ import net.minecraft.util.ResourceLocation;
  */
 public class AvaritiaTextures implements IIconRegister {
 
-
-
     @Override
     public void registerIcons(TextureMap textureMap) {
         map = textureMap;
 
+        //@formatter:off
         HALO = register(ITEMS_ + "halo");
         HALO_NOISE = register(ITEMS_ + "halo_noise");
 
@@ -72,9 +71,9 @@ public class AvaritiaTextures implements IIconRegister {
                 COSMIC_8,
                 COSMIC_9
         };
+        //@formatter:on
 
     }
-
 
     // Bouncer to make the class readable.
     private static TextureAtlasSprite register(String sprite) {
@@ -85,13 +84,10 @@ public class AvaritiaTextures implements IIconRegister {
     //Assign the TextureMap to a file to make things even more readable!.
     private static TextureMap map;
 
-
     private static final String ITEMS_ = "avaritia:items/";
     private static final String MODELS_ = "avaritia:models/";
     private static final String SHADER_ = "avaritia:shader/";
     private static final String TOOLS_ = ITEMS_ + "tools/";
-
-
 
     public static TextureAtlasSprite HALO;
     public static TextureAtlasSprite HALO_NOISE;
@@ -99,7 +95,6 @@ public class AvaritiaTextures implements IIconRegister {
     public static TextureAtlasSprite INFINITY_ARMOR_MASK;
     public static TextureAtlasSprite INFINITY_ARMOR_MASK_INV;
     public static TextureAtlasSprite INFINITY_ARMOR_MASK_WINGS;
-
 
     public static TextureAtlasSprite[] COSMIC;
     public static TextureAtlasSprite COSMIC_0;
@@ -126,6 +121,5 @@ public class AvaritiaTextures implements IIconRegister {
     public static TextureAtlasSprite INFINITY_BOW_PULL_0_MASK;
     public static TextureAtlasSprite INFINITY_BOW_PULL_1_MASK;
     public static TextureAtlasSprite INFINITY_BOW_PULL_2_MASK;
-
 
 }

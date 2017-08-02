@@ -4,7 +4,6 @@ import codechicken.lib.math.MathHelper;
 import codechicken.lib.model.bakery.CCBakeryModel;
 import codechicken.lib.util.ItemNBTUtils;
 import com.google.common.collect.ImmutableList;
-import morph.avaritia.util.Lumberjack;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.entity.EntityLivingBase;

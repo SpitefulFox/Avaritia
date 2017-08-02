@@ -98,7 +98,6 @@ public class AvaritiaEventHandler {
     }
     //endregion
 
-
     public static AEOCrawlerTask startCrawlerTask(World world, EntityPlayer player, ItemStack stack, BlockPos coords, int steps, boolean leaves, boolean force, Set<BlockPos> posChecked) {
         AEOCrawlerTask swapper = new AEOCrawlerTask(world, player, stack, coords, steps, leaves, force, posChecked);
         int dim = world.provider.getDimension();
@@ -198,8 +197,6 @@ public class AvaritiaEventHandler {
             event.getDrops().removeAll(removals);
         }
     }
-
-
 
     @SideOnly (Side.CLIENT)
     @SubscribeEvent

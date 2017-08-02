@@ -211,7 +211,7 @@ public class FoodRecipes {
         }
 
 		/*for (int i=0; i<meatNames.size(); i++) {
-			if (!rawMeats.contains(meatNames.get(i))) {
+            if (!rawMeats.contains(meatNames.get(i))) {
 				List<ItemStack> meatstacks = OreDictionary.getOres(meatNames.get(i));
 				if (!meatstacks.isEmpty()) {
 					meatSortingList.add(new FoodInfo(meatNames.get(i), meatstacks.size()));

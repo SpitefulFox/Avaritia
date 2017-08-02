@@ -3,8 +3,6 @@ package morph.avaritia.recipe.compressor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class CompressOreRecipe extends CompressorRecipe {
