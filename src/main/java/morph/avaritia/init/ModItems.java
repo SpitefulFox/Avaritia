@@ -107,10 +107,6 @@ public class ModItems {
         //7
         record_fragment = resource.registerItem("record_fragment", COSMIC_RARITY);
 
-        if (ConfigHandler.craftingOnly) {
-            return;
-        }
-
         singularity = register(new ItemSingularity(Avaritia.tab, "singularity"));
         ironSingularity = singularity.registerItem("iron");
         goldSingularity = singularity.registerItem("gold");

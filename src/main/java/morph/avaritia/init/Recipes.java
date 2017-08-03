@@ -77,10 +77,6 @@ public class Recipes {
                 'X', new ItemStack(ModBlocks.triple_craft)
         );
 
-        if (ConfigHandler.craftingOnly) {
-            return;
-        }
-
         GameRegistry.addShapedRecipe(
                 new ItemStack(ModBlocks.resource, 1, 2),
                 "CCC",

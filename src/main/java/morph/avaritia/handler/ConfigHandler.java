@@ -39,7 +39,6 @@ public class ConfigHandler {
     //@formatter:on
     private static HashMap<String, Boolean> MOD_INTEGRATIONS = new HashMap<>();
 
-    public static boolean craftingOnly = false;
     public static boolean endStone = true;
     public static boolean bedrockBreaker = true;
     public static boolean boringFood = false;
@@ -74,15 +73,6 @@ public class ConfigHandler {
 
         category = "general";
         config.addCustomCategoryComment(category, "General configuration of Avaritia components.");
-
-        comment = "Enable to completely disable most of the mod except for the Dire Crafting table. For if you just want the mod for MineTweaking purposes.";
-        langKey = "avaritia:config.general.crafting_only";
-
-        prop = config.get(category, "Crafting Only", false);
-        prop.setComment(comment);
-        prop.setLanguageKey(langKey);
-        prop.setRequiresMcRestart(true);
-        craftingOnly = prop.getBoolean();
 
         comment = "Disable to take end stone out of recipes some of Avaritia's recipes.";
         langKey = "avaritia.config.general.end_stone";
