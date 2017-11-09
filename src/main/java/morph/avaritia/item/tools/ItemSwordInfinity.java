@@ -3,7 +3,6 @@ package morph.avaritia.item.tools;
 import codechicken.lib.model.ModelRegistryHelper;
 import codechicken.lib.util.TransformUtils;
 import morph.avaritia.Avaritia;
-import morph.avaritia.achievements.Achievements;
 import morph.avaritia.api.ICosmicRenderItem;
 import morph.avaritia.api.registration.IModelRegister;
 import morph.avaritia.client.render.item.CosmicItemRender;
@@ -79,7 +78,8 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem, I
                 victim.getCombatTracker().trackDamage(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
                 victim.setHealth(0);
                 victim.onDeath(new EntityDamageSource("infinity", player));
-                player.addStat(Achievements.creative_kill, 1);
+                //TODO
+                //player.addStat(Achievements.creative_kill, 1);
                 return true;
             }
         }

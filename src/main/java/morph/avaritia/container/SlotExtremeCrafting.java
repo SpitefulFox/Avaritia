@@ -1,14 +1,15 @@
 package morph.avaritia.container;
 
-import morph.avaritia.recipe.extreme.ExtremeCraftingManager;
+import com.google.common.collect.Lists;
+import morph.avaritia.recipe.AvaritiaRecipeManager;
+import morph.avaritia.recipe.extreme_old.ExtremeRecipeBase;
+import morph.avaritia.recipe.extreme_old.InventoryDireCraftResult;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.*;
-import net.minecraft.stats.AchievementList;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 
 /**
@@ -17,13 +18,13 @@ import net.minecraft.util.NonNullList;
 public class SlotExtremeCrafting extends Slot {
 
     private final InventoryCrafting craftMatrix;
-    private final EntityPlayer thePlayer;
+    private final EntityPlayer player;
     private int amountCrafted;
 
     public SlotExtremeCrafting(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition) {
         super(inventoryIn, slotIndex, xPosition, yPosition);
-        this.thePlayer = player;
-        this.craftMatrix = craftingInventory;
+        this.player = player;
+        craftMatrix = craftingInventory;
     }
 
     @Override
@@ -33,8 +34,8 @@ public class SlotExtremeCrafting extends Slot {
 
     @Override
     public ItemStack decrStackSize(int amount) {
-        if (this.getHasStack()) {
-            this.amountCrafted += Math.min(amount, this.getStack().getCount());
+        if (getHasStack()) {
+            amountCrafted += Math.min(amount, getStack().getCount());
         }
 
         return super.decrStackSize(amount);
@@ -42,84 +43,53 @@ public class SlotExtremeCrafting extends Slot {
 
     @Override
     protected void onCrafting(ItemStack stack, int amount) {
-        this.amountCrafted += amount;
-        this.onCrafting(stack);
+        amountCrafted += amount;
+        onCrafting(stack);
     }
 
     @Override
     protected void onCrafting(ItemStack stack) {
-        if (this.amountCrafted > 0) {
-            stack.onCrafting(this.thePlayer.world, this.thePlayer, this.amountCrafted);
+        if (amountCrafted > 0) {
+            stack.onCrafting(player.world, player, amountCrafted);
+            net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(player, stack, craftMatrix);
         }
 
-        this.amountCrafted = 0;
-
-        if (stack.getItem() == Item.getItemFromBlock(Blocks.CRAFTING_TABLE)) {
-            this.thePlayer.addStat(AchievementList.BUILD_WORK_BENCH);
-        }
-
-        if (stack.getItem() instanceof ItemPickaxe) {
-            this.thePlayer.addStat(AchievementList.BUILD_PICKAXE);
-        }
-
-        if (stack.getItem() == Item.getItemFromBlock(Blocks.FURNACE)) {
-            this.thePlayer.addStat(AchievementList.BUILD_FURNACE);
-        }
-
-        if (stack.getItem() instanceof ItemHoe) {
-            this.thePlayer.addStat(AchievementList.BUILD_HOE);
-        }
-
-        if (stack.getItem() == Items.BREAD) {
-            this.thePlayer.addStat(AchievementList.MAKE_BREAD);
-        }
-
-        if (stack.getItem() == Items.CAKE) {
-            this.thePlayer.addStat(AchievementList.BAKE_CAKE);
-        }
-
-        if (stack.getItem() instanceof ItemPickaxe && ((ItemPickaxe) stack.getItem()).getToolMaterial() != Item.ToolMaterial.WOOD) {
-            this.thePlayer.addStat(AchievementList.BUILD_BETTER_PICKAXE);
-        }
-
-        if (stack.getItem() instanceof ItemSword) {
-            this.thePlayer.addStat(AchievementList.BUILD_SWORD);
-        }
-
-        if (stack.getItem() == Item.getItemFromBlock(Blocks.ENCHANTING_TABLE)) {
-            this.thePlayer.addStat(AchievementList.ENCHANTMENTS);
-        }
-
-        if (stack.getItem() == Item.getItemFromBlock(Blocks.BOOKSHELF)) {
-            this.thePlayer.addStat(AchievementList.BOOKCASE);
+        amountCrafted = 0;
+        //Handle unlocking vanilla recipes.
+        InventoryDireCraftResult icr = (InventoryDireCraftResult) inventory;
+        IRecipe recipe = icr.getRecipeUsed();
+        if (recipe != null) {
+            if (!(recipe instanceof ExtremeRecipeBase) && !recipe.isDynamic()) {
+                player.unlockRecipes(Lists.newArrayList(recipe));
+                icr.setRecipeUsed(null);
+            }
         }
     }
 
     @Override
     public ItemStack onTake(EntityPlayer playerIn, ItemStack stack) {
-        net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, craftMatrix);
-        this.onCrafting(stack);
+        onCrafting(stack);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(playerIn);
-        NonNullList<ItemStack> slots = ExtremeCraftingManager.getInstance().getRemainingItems(this.craftMatrix, playerIn.world);
+        NonNullList<ItemStack> slots = AvaritiaRecipeManager.getRemainingItems(craftMatrix, playerIn.world);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
         for (int i = 0; i < slots.size(); ++i) {
-            ItemStack itemstack = this.craftMatrix.getStackInSlot(i);
+            ItemStack itemstack = craftMatrix.getStackInSlot(i);
             ItemStack itemstack1 = slots.get(i);
 
             if (!itemstack.isEmpty()) {
-                this.craftMatrix.decrStackSize(i, 1);
-                itemstack = this.craftMatrix.getStackInSlot(i);
+                craftMatrix.decrStackSize(i, 1);
+                itemstack = craftMatrix.getStackInSlot(i);
             }
 
             if (!itemstack1.isEmpty()) {
                 if (itemstack.isEmpty()) {
-                    this.craftMatrix.setInventorySlotContents(i, itemstack1);
+                    craftMatrix.setInventorySlotContents(i, itemstack1);
                 } else if (ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1)) {
                     itemstack1.grow(itemstack.getCount());
-                    this.craftMatrix.setInventorySlotContents(i, itemstack1);
-                } else if (!this.thePlayer.inventory.addItemStackToInventory(itemstack1)) {
-                    this.thePlayer.dropItem(itemstack1, false);
+                    craftMatrix.setInventorySlotContents(i, itemstack1);
+                } else if (!player.inventory.addItemStackToInventory(itemstack1)) {
+                    player.dropItem(itemstack1, false);
                 }
             }
         }

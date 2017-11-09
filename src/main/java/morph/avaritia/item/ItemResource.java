@@ -12,6 +12,7 @@ import morph.avaritia.init.AvaritiaTextures;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -51,10 +52,10 @@ public class ItemResource extends ItemMultiType implements IHaloRenderItem, IMod
     }
 
     @Override
-    public void addInformation(ItemStack item, EntityPlayer player, List<String> tooltip, boolean wut) {
-        int meta = item.getItemDamage();
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        int meta = stack.getItemDamage();
         if (meta != 0) {
-            tooltip.add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + I18n.translateToLocal("tooltip." + getUnlocalizedName(item) + ".desc"));
+            tooltip.add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + I18n.translateToLocal("tooltip." + getUnlocalizedName(stack) + ".desc"));
         }
     }
 

@@ -1,7 +1,7 @@
 package morph.avaritia.client.render.item;
 
 import codechicken.lib.model.ItemQuadBakery;
-import codechicken.lib.model.PerspectiveAwareModelProperties;
+import codechicken.lib.model.bakedmodels.ModelProperties.PerspectiveProperties;
 import codechicken.lib.model.bakery.generation.IItemBakery;
 import codechicken.lib.util.TransformUtils;
 import morph.avaritia.init.AvaritiaTextures;
@@ -43,7 +43,7 @@ public class InfinityBowModelBakery implements IItemBakery {
     }
 
     @Override
-    public PerspectiveAwareModelProperties getModelProperties(ItemStack stack) {
-        return new PerspectiveAwareModelProperties(TransformUtils.DEFAULT_BOW, true, false);
+    public PerspectiveProperties getModelProperties(ItemStack stack) {
+        return new PerspectiveProperties(TransformUtils.DEFAULT_BOW, true, false);
     }
 }

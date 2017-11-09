@@ -1,53 +1,61 @@
 package morph.avaritia.recipe.extreme;
 
+import com.google.common.collect.Maps;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
+import net.minecraftforge.common.crafting.JsonContext;
 
-public class ExtremeShapedRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-    /**
-     * How many horizontal slots this recipe is wide.
-     */
-    public final int recipeWidth;
-    /**
-     * How many vertical slots this recipe uses.
-     */
-    public final int recipeHeight;
-    /**
-     * Is a array of ItemStack that composes the recipe.
-     */
-    public final ItemStack[] recipeItems;
-    /**
-     * Is the ItemStack that you get when craft the recipe.
-     */
-    private ItemStack recipeOutput;
+/**
+ * Created by covers1624 on 9/10/2017.
+ */
+public class ExtremeShapedRecipe extends ExtremeRecipeBase {
 
-    public ExtremeShapedRecipe(int width, int height, ItemStack[] ingredients, ItemStack result) {
-        this.recipeWidth = width;
-        this.recipeHeight = height;
-        this.recipeItems = ingredients;
-        this.recipeOutput = result;
+    private static final int MAX_CRAFT_GRID_WIDTH = 9;
+    private static final int MAX_CRAFT_GRID_HEIGHT = 9;
+    protected ItemStack output = ItemStack.EMPTY;
+    protected NonNullList<Ingredient> input = null;
+    protected int width = 0;
+    protected int height = 0;
+    protected boolean mirrored = true;
+
+    public ExtremeShapedRecipe(@Nonnull ItemStack result, ShapedPrimer primer) {
+        output = result.copy();
+        width = primer.width;
+        height = primer.height;
+        input = primer.input;
+        mirrored = primer.mirrored;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
-        return this.recipeOutput;
+        return output.copy();
     }
 
-    /**
-     * Used to check if a recipe matches current crafting inventory
-     */
-    public boolean matches(InventoryCrafting matrix, World world) {
-        for (int i = 0; i <= 9 - this.recipeWidth; ++i) {
-            for (int j = 0; j <= 9 - this.recipeHeight; ++j) {
-                if (this.checkMatch(matrix, i, j, true)) {
+    @Override
+    public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World world) {
+        for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++) {
+            for (int y = 0; y <= MAX_CRAFT_GRID_HEIGHT - height; ++y) {
+                if (checkMatch(inv, x, y, false)) {
                     return true;
                 }
 
-                if (this.checkMatch(matrix, i, j, false)) {
+                if (mirrored && checkMatch(inv, x, y, true)) {
                     return true;
                 }
             }
@@ -57,37 +65,25 @@ public class ExtremeShapedRecipe implements IRecipe {
     }
 
     /**
-     * Checks if the region of a crafting inventory is match for the recipe.
+     * Based on {@link net.minecraftforge.oredict.ShapedOreRecipe#checkMatch(net.minecraft.inventory.InventoryCrafting, int, int, boolean)}
      */
-    private boolean checkMatch(InventoryCrafting matrix, int x, int y, boolean mirrored) {
-        for (int k = 0; k < 9; ++k) {
-            for (int l = 0; l < 9; ++l) {
-                int i1 = k - x;
-                int j1 = l - y;
-                ItemStack itemstack = ItemStack.EMPTY;
+    protected boolean checkMatch(InventoryCrafting inv, int startX, int startY, boolean mirror) {
+        for (int x = 0; x < MAX_CRAFT_GRID_WIDTH; x++) {
+            for (int y = 0; y < MAX_CRAFT_GRID_HEIGHT; y++) {
+                int subX = x - startX;
+                int subY = y - startY;
+                Ingredient target = Ingredient.EMPTY;
 
-                if (i1 >= 0 && j1 >= 0 && i1 < this.recipeWidth && j1 < this.recipeHeight) {
-                    if (mirrored) {
-                        itemstack = this.recipeItems[this.recipeWidth - i1 - 1 + j1 * this.recipeWidth];
+                if (subX >= 0 && subY >= 0 && subX < width && subY < height) {
+                    if (mirror) {
+                        target = input.get(width - subX - 1 + subY * width);
                     } else {
-                        itemstack = this.recipeItems[i1 + j1 * this.recipeWidth];
+                        target = input.get(subX + subY * width);
                     }
                 }
 
-                ItemStack itemstack1 = matrix.getStackInRowAndColumn(k, l);
-
-                if (!itemstack1.isEmpty() || !itemstack.isEmpty()) {
-                    if (itemstack1.isEmpty() && !itemstack.isEmpty() || !itemstack1.isEmpty() && itemstack.isEmpty()) {
-                        return false;
-                    }
-
-                    if (itemstack.getItem() != itemstack1.getItem()) {
-                        return false;
-                    }
-
-                    if (itemstack.getItemDamage() != 32767 && itemstack.getItemDamage() != itemstack1.getItemDamage()) {
-                        return false;
-                    }
+                if (!target.apply(inv.getStackInRowAndColumn(x, y))) {
+                    return false;
                 }
             }
         }
@@ -95,24 +91,80 @@ public class ExtremeShapedRecipe implements IRecipe {
         return true;
     }
 
-    /**
-     * Returns an Item that is the result of this recipe
-     */
-    public ItemStack getCraftingResult(InventoryCrafting p_77572_1_) {
-        return this.getRecipeOutput().copy();
-
-    }
-
-    /**
-     * Returns the size of the recipe area
-     */
-    public int getRecipeSize() {
-        return this.recipeWidth * this.recipeHeight;
-    }
-
     @Override
-    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-        return ForgeHooks.defaultRecipeGetRemainingItems(inv);
+    public NonNullList<Ingredient> getIngredients() {
+        return input;
     }
 
+    public void setMirrored(boolean mirrored) {
+        this.mirrored = mirrored;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public static ExtremeShapedRecipe fromJson(JsonContext context, JsonObject json) {
+
+        Map<Character, Ingredient> ingMap = Maps.newHashMap();
+        for (Entry<String, JsonElement> entry : JsonUtils.getJsonObject(json, "key").entrySet()) {
+            if (entry.getKey().length() != 1) {
+                throw new JsonSyntaxException("Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only).");
+            }
+            if (" ".equals(entry.getKey())) {
+                throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
+            }
+
+            ingMap.put(entry.getKey().toCharArray()[0], CraftingHelper.getIngredient(entry.getValue(), context));
+        }
+
+        ingMap.put(' ', Ingredient.EMPTY);
+
+        JsonArray patternJ = JsonUtils.getJsonArray(json, "pattern");
+
+        if (patternJ.size() == 0) {
+            throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
+        }
+
+        String[] pattern = new String[patternJ.size()];
+        for (int x = 0; x < pattern.length; ++x) {
+            String line = JsonUtils.getString(patternJ.get(x), "pattern[" + x + "]");
+            if (x > 0 && pattern[0].length() != line.length()) {
+                throw new JsonSyntaxException("Invalid pattern: each row must  be the same width");
+            }
+            pattern[x] = line;
+        }
+
+        ShapedPrimer primer = new ShapedPrimer();
+        primer.width = pattern[0].length();
+        primer.height = pattern.length;
+        primer.mirrored = JsonUtils.getBoolean(json, "mirrored", true);
+        primer.input = NonNullList.withSize(primer.width * primer.height, Ingredient.EMPTY);
+
+        Set<Character> keys = new HashSet<>(ingMap.keySet());
+        keys.remove(' ');
+
+        int x = 0;
+        for (String line : pattern) {
+            for (char chr : line.toCharArray()) {
+                Ingredient ing = ingMap.get(chr);
+                if (ing == null) {
+                    throw new JsonSyntaxException("Pattern references symbol '" + chr + "' but it's not defined in the key");
+                }
+                primer.input.set(x++, ing);
+                keys.remove(chr);
+            }
+        }
+
+        if (!keys.isEmpty()) {
+            throw new JsonSyntaxException("Key defines symbols that aren't used in pattern: " + keys);
+        }
+
+        ItemStack result = CraftingHelper.getItemStack(JsonUtils.getJsonObject(json, "result"), context);
+        return new ExtremeShapedRecipe(result, primer);
+    }
 }

@@ -7,6 +7,7 @@ import morph.avaritia.util.Lumberjack;
 import morph.avaritia.util.ToolHelper;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -47,7 +49,7 @@ public class ItemMatterCluster extends Item {
 
     @SuppressWarnings ({ "unchecked", "rawtypes" })
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean debug) {
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey(MAINTAG)) {
             return;
         }
@@ -175,7 +177,7 @@ public class ItemMatterCluster extends Item {
         int donorcount = getClusterSize(donor);
         int recipientcount = getClusterSize(recipient);
 
-        Lumberjack.info(donorcount + ", " + recipientcount);
+        //Lumberjack.log(Level.INFO, donorcount + ", " + recipientcount);
         if (donorcount == 0 || donorcount == CAPACITY || recipientcount == CAPACITY) {
             return;
         }

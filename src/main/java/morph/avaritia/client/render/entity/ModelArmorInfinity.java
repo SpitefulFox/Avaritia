@@ -63,30 +63,30 @@ public class ModelArmorInfinity extends ModelBiped {
     public ModelArmorInfinity(float expand) {
         super(expand, 0, 64, 64);
         this.expand = expand;
-        this.overlay = new Overlay(this, expand);
-        this.invulnOverlay = new Overlay(this, 0);
+        overlay = new Overlay(this, expand);
+        invulnOverlay = new Overlay(this, 0);
 
-        this.bipedHeadwear = new ModelRenderer(this, 32, 0);
-        this.bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, expand * 0.5F);
-        this.bipedHeadwear.setRotationPoint(0.0F, 0.0F + 0, 0.0F);
+        bipedHeadwear = new ModelRenderer(this, 32, 0);
+        bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, expand * 0.5F);
+        bipedHeadwear.setRotationPoint(0.0F, 0.0F + 0, 0.0F);
     }
 
     public ModelArmorInfinity setLegs(boolean islegs) {
-        this.legs = islegs;
+        legs = islegs;
 
         int heightoffset = 0;
         int legoffset = islegs ? 32 : 0;
 
-        this.bipedBody = new ModelRenderer(this, 16, 16 + legoffset);
-        this.bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, this.expand);
-        this.bipedBody.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
-        this.bipedRightLeg = new ModelRenderer(this, 0, 16 + legoffset);
-        this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, this.expand);
-        this.bipedRightLeg.setRotationPoint(-1.9F, 12.0F + heightoffset, 0.0F);
-        this.bipedLeftLeg = new ModelRenderer(this, 0, 16 + legoffset);
-        this.bipedLeftLeg.mirror = true;
-        this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, this.expand);
-        this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F + heightoffset, 0.0F);
+        bipedBody = new ModelRenderer(this, 16, 16 + legoffset);
+        bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, expand);
+        bipedBody.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
+        bipedRightLeg = new ModelRenderer(this, 0, 16 + legoffset);
+        bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, expand);
+        bipedRightLeg.setRotationPoint(-1.9F, 12.0F + heightoffset, 0.0F);
+        bipedLeftLeg = new ModelRenderer(this, 0, 16 + legoffset);
+        bipedLeftLeg.mirror = true;
+        bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, expand);
+        bipedLeftLeg.setRotationPoint(1.9F, 12.0F + heightoffset, 0.0F);
 
         return this;
     }
@@ -95,29 +95,29 @@ public class ModelArmorInfinity extends ModelBiped {
     public void rebuildWings() {
 
         // remove the old items from the list so that the new ones don't just stack up
-        if (this.bipedBody.childModels == null) {
-            this.bipedBody.childModels = new ArrayList();
+        if (bipedBody.childModels == null) {
+            bipedBody.childModels = new ArrayList();
         }
-        if (this.bipedLeftWing != null) {
-            this.bipedBody.childModels.remove(this.bipedLeftWing);
+        if (bipedLeftWing != null) {
+            bipedBody.childModels.remove(bipedLeftWing);
         }
-        if (this.bipedRightWing != null) {
-            this.bipedBody.childModels.remove(this.bipedRightWing);
+        if (bipedRightWing != null) {
+            bipedBody.childModels.remove(bipedRightWing);
         }
 
         // define new
-        this.bipedLeftWing = new ModelRendererWing(this, 0, 0);
-        this.bipedLeftWing.mirror = true;
-        this.bipedLeftWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
-        this.bipedLeftWing.setRotationPoint(-1.5f, 0.0f, 2.0f);
-        this.bipedLeftWing.rotateAngleY = (float) (Math.PI * 0.4);
-        this.bipedBody.addChild(this.bipedLeftWing);
+        bipedLeftWing = new ModelRendererWing(this, 0, 0);
+        bipedLeftWing.mirror = true;
+        bipedLeftWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+        bipedLeftWing.setRotationPoint(-1.5f, 0.0f, 2.0f);
+        bipedLeftWing.rotateAngleY = (float) (Math.PI * 0.4);
+        bipedBody.addChild(bipedLeftWing);
 
-        this.bipedRightWing = new ModelRendererWing(this, 0, 0);
-        this.bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
-        this.bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
-        this.bipedRightWing.rotateAngleY = (float) (-Math.PI * 0.4);
-        this.bipedBody.addChild(this.bipedRightWing);
+        bipedRightWing = new ModelRendererWing(this, 0, 0);
+        bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+        bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
+        bipedRightWing.rotateAngleY = (float) (-Math.PI * 0.4);
+        bipedBody.addChild(bipedRightWing);
     }
 
     @Override
@@ -136,11 +136,11 @@ public class ModelArmorInfinity extends ModelBiped {
         GlStateManager.disableAlpha();
         GlStateManager.enableBlend();
         GlStateManager.depthMask(false);
-        if (this.invulnRender) {
+        if (invulnRender) {
             GlStateManager.color(1, 1, 1, 0.2F);
-            this.invulnOverlay.render(entity, f, f1, f2, f3, f4, f5);
+            invulnOverlay.render(entity, f, f1, f2, f3, f4, f5);
         }
-        this.overlay.render(entity, f, f1, f2, f3, f4, f5);
+        overlay.render(entity, f, f1, f2, f3, f4, f5);
 
         CosmicShaderHelper.releaseShader();
 
@@ -150,7 +150,7 @@ public class ModelArmorInfinity extends ModelBiped {
 
         long time = mc.player.world.getWorldTime();
 
-        this.setGems();
+        setGems();
 
         double pulse = Math.sin(time / 10.0) * 0.5 + 0.5;
         double pulse_mag_sqr = pulse * pulse * pulse * pulse * pulse * pulse;
@@ -164,14 +164,14 @@ public class ModelArmorInfinity extends ModelBiped {
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();
 
-        if (this.invulnRender) {
+        if (invulnRender) {
             long frame = time / 3;
             randy.setSeed(frame * 1723609L);
             float o = randy.nextFloat() * 6.0f;
             float[] col = ColourHelper.HSVtoRGB(o, 1.0f, 1.0f);
 
             GlStateManager.color(col[0], col[1], col[2], 1);
-            this.setEyes();
+            setEyes();
             super.render(entity, f, f1, f2, f3, f4, f5);
         }
 
@@ -183,7 +183,7 @@ public class ModelArmorInfinity extends ModelBiped {
 
         // WINGS
         if (isFlying && !CosmicShaderHelper.inventoryRender) {
-            this.setWings();
+            setWings();
             mc.renderEngine.bindTexture(wingTex);
             super.render(entity, f, f1, f2, f3, f4, f5);
 
@@ -192,7 +192,7 @@ public class ModelArmorInfinity extends ModelBiped {
             GlStateManager.disableAlpha();
             GlStateManager.enableBlend();
             GlStateManager.depthMask(false);
-            this.overlay.render(entity, f, f1, f2, f3, f4, f5);
+            overlay.render(entity, f, f1, f2, f3, f4, f5);
 
             CosmicShaderHelper.releaseShader();
 
@@ -220,9 +220,9 @@ public class ModelArmorInfinity extends ModelBiped {
     }
 
     public void update(EntityLivingBase entityLiving, ItemStack itemstack, EntityEquipmentSlot armorSlot) {
-        this.currentSlot = armorSlot;
+        currentSlot = armorSlot;
 
-        this.invulnRender = false;
+        invulnRender = false;
 
         ItemStack hat = entityLiving.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         ItemStack chest = entityLiving.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
@@ -236,59 +236,59 @@ public class ModelArmorInfinity extends ModelBiped {
 
         if (armorSlot == EntityEquipmentSlot.HEAD) {//TODO, Wot.
             if (hasHat && hasChest && hasLeg && hasFoot) {
-                this.invulnRender = true;
+                invulnRender = true;
             }
         }
 
-        this.showHat = hasHat && armorSlot == EntityEquipmentSlot.HEAD;
-        this.showChest = hasChest && armorSlot == EntityEquipmentSlot.CHEST;
-        this.showLeg = hasLeg && armorSlot == EntityEquipmentSlot.LEGS;
-        this.showFoot = hasFoot && armorSlot == EntityEquipmentSlot.FEET;
+        showHat = hasHat && armorSlot == EntityEquipmentSlot.HEAD;
+        showChest = hasChest && armorSlot == EntityEquipmentSlot.CHEST;
+        showLeg = hasLeg && armorSlot == EntityEquipmentSlot.LEGS;
+        showFoot = hasFoot && armorSlot == EntityEquipmentSlot.FEET;
 
-        this.bipedHead.showModel = showHat;
-        this.bipedHeadwear.showModel = showHat;
-        this.bipedBody.showModel = showChest || showLeg;
-        this.bipedRightArm.showModel = showChest;
-        this.bipedLeftArm.showModel = showChest;
-        this.bipedRightLeg.showModel = showLeg || showFoot;
-        this.bipedLeftLeg.showModel = showLeg || showFoot;
+        bipedHead.showModel = showHat;
+        bipedHeadwear.showModel = showHat;
+        bipedBody.showModel = showChest || showLeg;
+        bipedRightArm.showModel = showChest;
+        bipedLeftArm.showModel = showChest;
+        bipedRightLeg.showModel = showLeg || showFoot;
+        bipedLeftLeg.showModel = showLeg || showFoot;
 
-        this.overlay.bipedHead.showModel = showHat;
-        this.overlay.bipedHeadwear.showModel = showHat;
-        this.overlay.bipedBody.showModel = showChest || showLeg;
-        this.overlay.bipedRightArm.showModel = showChest;
-        this.overlay.bipedLeftArm.showModel = showChest;
-        this.overlay.bipedRightLeg.showModel = showLeg || showFoot;
-        this.overlay.bipedLeftLeg.showModel = showLeg || showFoot;
+        overlay.bipedHead.showModel = showHat;
+        overlay.bipedHeadwear.showModel = showHat;
+        overlay.bipedBody.showModel = showChest || showLeg;
+        overlay.bipedRightArm.showModel = showChest;
+        overlay.bipedLeftArm.showModel = showChest;
+        overlay.bipedRightLeg.showModel = showLeg || showFoot;
+        overlay.bipedLeftLeg.showModel = showLeg || showFoot;
 
-        this.bipedLeftWing.showModel = false;
-        this.bipedRightWing.showModel = false;
-        this.overlay.bipedLeftWing.showModel = false;
-        this.overlay.bipedRightWing.showModel = false;
+        bipedLeftWing.showModel = false;
+        bipedRightWing.showModel = false;
+        overlay.bipedLeftWing.showModel = false;
+        overlay.bipedRightWing.showModel = false;
 
-        this.isSneak = entityLiving.isSneaking();
-        this.isRiding = entityLiving.isRiding();
-        this.isChild = entityLiving.isChild();
+        isSneak = entityLiving.isSneaking();
+        isRiding = entityLiving.isRiding();
+        isChild = entityLiving.isChild();
 
-        this.overlay.isSneak = entityLiving.isSneaking();
-        this.overlay.isRiding = entityLiving.isRiding();
-        this.overlay.isChild = entityLiving.isChild();
+        overlay.isSneak = entityLiving.isSneaking();
+        overlay.isRiding = entityLiving.isRiding();
+        overlay.isChild = entityLiving.isChild();
 
-        this.invulnOverlay.isSneak = entityLiving.isSneaking();
-        this.invulnOverlay.isRiding = entityLiving.isRiding();
-        this.invulnOverlay.isChild = entityLiving.isChild();
+        invulnOverlay.isSneak = entityLiving.isSneaking();
+        invulnOverlay.isRiding = entityLiving.isRiding();
+        invulnOverlay.isChild = entityLiving.isChild();
 
-        this.overlay.swingProgress = this.swingProgress;
-        this.invulnOverlay.swingProgress = this.swingProgress;
+        overlay.swingProgress = swingProgress;
+        invulnOverlay.swingProgress = swingProgress;
 
-        this.leftArmPose = ArmPose.EMPTY;
-        this.rightArmPose = ArmPose.EMPTY;
+        leftArmPose = ArmPose.EMPTY;
+        rightArmPose = ArmPose.EMPTY;
 
-        this.overlay.leftArmPose = ArmPose.EMPTY;
-        this.overlay.rightArmPose = ArmPose.EMPTY;
+        overlay.leftArmPose = ArmPose.EMPTY;
+        overlay.rightArmPose = ArmPose.EMPTY;
 
-        this.invulnOverlay.leftArmPose = ArmPose.EMPTY;
-        this.invulnOverlay.rightArmPose = ArmPose.EMPTY;
+        invulnOverlay.leftArmPose = ArmPose.EMPTY;
+        invulnOverlay.rightArmPose = ArmPose.EMPTY;
 
         if (entityLiving instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityLiving;
@@ -296,22 +296,22 @@ public class ModelArmorInfinity extends ModelBiped {
             ItemStack main_hand = player.getHeldItem(EnumHand.MAIN_HAND);
 
             if (main_hand != null) {
-                this.rightArmPose = ArmPose.ITEM;
-                this.overlay.rightArmPose = ArmPose.ITEM;
-                this.invulnOverlay.rightArmPose = ArmPose.ITEM;
+                rightArmPose = ArmPose.ITEM;
+                overlay.rightArmPose = ArmPose.ITEM;
+                invulnOverlay.rightArmPose = ArmPose.ITEM;
 
                 if (player.getItemInUseCount() > 0) {
 
                     EnumAction enumaction = main_hand.getItemUseAction();
 
                     if (enumaction == EnumAction.BOW) {
-                        this.rightArmPose = ArmPose.BOW_AND_ARROW;
-                        this.overlay.rightArmPose = ArmPose.BOW_AND_ARROW;
-                        this.invulnOverlay.rightArmPose = ArmPose.BOW_AND_ARROW;
+                        rightArmPose = ArmPose.BOW_AND_ARROW;
+                        overlay.rightArmPose = ArmPose.BOW_AND_ARROW;
+                        invulnOverlay.rightArmPose = ArmPose.BOW_AND_ARROW;
                     } else if (enumaction == EnumAction.BLOCK) {
-                        this.rightArmPose = ArmPose.BLOCK;
-                        this.overlay.rightArmPose = ArmPose.BLOCK;
-                        this.invulnOverlay.rightArmPose = ArmPose.BLOCK;
+                        rightArmPose = ArmPose.BLOCK;
+                        overlay.rightArmPose = ArmPose.BLOCK;
+                        invulnOverlay.rightArmPose = ArmPose.BLOCK;
                     }
 
                 }
@@ -320,22 +320,22 @@ public class ModelArmorInfinity extends ModelBiped {
 
             ItemStack off_hand = player.getHeldItem(EnumHand.OFF_HAND);
             if (off_hand != null) {
-                this.leftArmPose = ArmPose.ITEM;
-                this.overlay.leftArmPose = ArmPose.ITEM;
-                this.invulnOverlay.leftArmPose = ArmPose.ITEM;
+                leftArmPose = ArmPose.ITEM;
+                overlay.leftArmPose = ArmPose.ITEM;
+                invulnOverlay.leftArmPose = ArmPose.ITEM;
 
                 if (player.getItemInUseCount() > 0) {
 
                     EnumAction enumaction = off_hand.getItemUseAction();
 
                     if (enumaction == EnumAction.BOW) {
-                        this.leftArmPose = ArmPose.BOW_AND_ARROW;
-                        this.overlay.leftArmPose = ArmPose.BOW_AND_ARROW;
-                        this.invulnOverlay.leftArmPose = ArmPose.BOW_AND_ARROW;
+                        leftArmPose = ArmPose.BOW_AND_ARROW;
+                        overlay.leftArmPose = ArmPose.BOW_AND_ARROW;
+                        invulnOverlay.leftArmPose = ArmPose.BOW_AND_ARROW;
                     } else if (enumaction == EnumAction.BLOCK) {
-                        this.leftArmPose = ArmPose.BLOCK;
-                        this.overlay.leftArmPose = ArmPose.BLOCK;
-                        this.invulnOverlay.leftArmPose = ArmPose.BLOCK;
+                        leftArmPose = ArmPose.BLOCK;
+                        overlay.leftArmPose = ArmPose.BLOCK;
+                        invulnOverlay.leftArmPose = ArmPose.BLOCK;
                     }
 
                 }
@@ -348,8 +348,8 @@ public class ModelArmorInfinity extends ModelBiped {
     @Override
     public void setRotationAngles(float f1, float speed, float ticks, float headYaw, float headPitch, float f6, Entity entity) {
         super.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
-        this.overlay.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
-        this.invulnOverlay.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
+        overlay.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
+        invulnOverlay.setRotationAngles(f1, speed, ticks, headYaw, headPitch, f6, entity);
         RenderManager manager = Minecraft.getMinecraft().getRenderManager();
         if (manager.entityRenderMap.containsKey(entity.getClass())) {
             Render r = manager.entityRenderMap.get(entity.getClass());
@@ -363,48 +363,48 @@ public class ModelArmorInfinity extends ModelBiped {
     }
 
     public void setEyes() {
-        this.bipedHead.showModel = false;
-        this.bipedBody.showModel = false;
-        this.bipedRightArm.showModel = false;
-        this.bipedLeftArm.showModel = false;
-        this.bipedRightLeg.showModel = false;
-        this.bipedLeftLeg.showModel = false;
-        this.bipedHeadwear.showModel = this.showHat ? true : false;
+        bipedHead.showModel = false;
+        bipedBody.showModel = false;
+        bipedRightArm.showModel = false;
+        bipedLeftArm.showModel = false;
+        bipedRightLeg.showModel = false;
+        bipedLeftLeg.showModel = false;
+        bipedHeadwear.showModel = showHat ? true : false;
     }
 
     public void setGems() {
-        this.bipedHead.showModel = false;
-        this.bipedHeadwear.showModel = false;
-        this.bipedBody.showModel = this.legs ? false : (this.showChest ? true : false);
-        this.bipedRightArm.showModel = this.legs ? false : (this.showChest ? true : false);
-        this.bipedLeftArm.showModel = this.legs ? false : (this.showChest ? true : false);
-        this.bipedRightLeg.showModel = this.legs ? (this.showLeg ? true : false) : false;
-        this.bipedLeftLeg.showModel = this.legs ? (this.showLeg ? true : false) : false;
+        bipedHead.showModel = false;
+        bipedHeadwear.showModel = false;
+        bipedBody.showModel = legs ? false : (showChest ? true : false);
+        bipedRightArm.showModel = legs ? false : (showChest ? true : false);
+        bipedLeftArm.showModel = legs ? false : (showChest ? true : false);
+        bipedRightLeg.showModel = legs ? (showLeg ? true : false) : false;
+        bipedLeftLeg.showModel = legs ? (showLeg ? true : false) : false;
     }
 
     public void setWings() {
-        this.bipedBody.showModel = this.legs ? false : (this.showChest ? true : false);
-        this.bipedLeftWing.showModel = true;
-        this.bipedRightWing.showModel = true;
-        this.bipedHeadwear.showModel = false;
-        this.bipedRightArm.showModel = false;
-        this.bipedLeftArm.showModel = false;
-        this.bipedRightLeg.showModel = false;
-        this.bipedLeftLeg.showModel = false;
-        this.bipedHeadwear.showModel = false;
-        this.bipedHead.showModel = false;
+        bipedBody.showModel = legs ? false : (showChest ? true : false);
+        bipedLeftWing.showModel = true;
+        bipedRightWing.showModel = true;
+        bipedHeadwear.showModel = false;
+        bipedRightArm.showModel = false;
+        bipedLeftArm.showModel = false;
+        bipedRightLeg.showModel = false;
+        bipedLeftLeg.showModel = false;
+        bipedHeadwear.showModel = false;
+        bipedHead.showModel = false;
 
-        this.overlay.bipedBody.showModel = this.legs ? false : (this.showChest ? true : false);
-        this.overlay.bipedLeftWing.showModel = true;
-        this.overlay.bipedRightWing.showModel = true;
-        this.overlay.bipedHead.showModel = false;
-        this.overlay.bipedHeadwear.showModel = false;
+        overlay.bipedBody.showModel = legs ? false : (showChest ? true : false);
+        overlay.bipedLeftWing.showModel = true;
+        overlay.bipedRightWing.showModel = true;
+        overlay.bipedHead.showModel = false;
+        overlay.bipedHeadwear.showModel = false;
     }
 
     public void rebuildOverlay() {
-        this.rebuildWings();
-        this.overlay.rebuild(AvaritiaTextures.INFINITY_ARMOR_MASK, AvaritiaTextures.INFINITY_ARMOR_MASK_WINGS);
-        this.invulnOverlay.rebuild(AvaritiaTextures.INFINITY_ARMOR_MASK_INV, null);
+        rebuildWings();
+        overlay.rebuild(AvaritiaTextures.INFINITY_ARMOR_MASK, AvaritiaTextures.INFINITY_ARMOR_MASK_WINGS);
+        invulnOverlay.rebuild(AvaritiaTextures.INFINITY_ARMOR_MASK_INV, null);
     }
 
     public static void copyPartAngles(ModelRenderer source, ModelRenderer dest) {
@@ -442,67 +442,67 @@ public class ModelArmorInfinity extends ModelBiped {
             int oy = MathHelper.floor(icon.getMinV() * itempageheight);
 
             float heightoffset = 0.0f;
-            int legoffset = this.parent.legs ? 32 : 0;
+            int legoffset = parent.legs ? 32 : 0;
 
-            this.textureWidth = itempagewidth;
-            this.textureHeight = itempageheight;
-            this.bipedHead = new ModelRenderer(this, 0 + ox, 0 + legoffset + oy);
-            this.bipedHead.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, this.expand);
-            this.bipedHead.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
-            this.bipedHeadwear = new ModelRenderer(this, 32 + ox, 0 + legoffset + oy);
-            this.bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, this.expand * 0.5F);
-            this.bipedHeadwear.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
-            this.bipedBody = new ModelRenderer(this, 16 + ox, 16 + legoffset + oy);
-            this.bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, this.expand);
-            this.bipedBody.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
-            this.bipedRightArm = new ModelRenderer(this, 40 + ox, 16 + legoffset + oy);
-            this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, this.expand);
-            this.bipedRightArm.setRotationPoint(-5.0F, 2.0F + heightoffset, 0.0F);
-            this.bipedLeftArm = new ModelRenderer(this, 40 + ox, 16 + legoffset + oy);
-            this.bipedLeftArm.mirror = true;
-            this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, this.expand);
-            this.bipedLeftArm.setRotationPoint(5.0F, 2.0F + heightoffset, 0.0F);
-            this.bipedRightLeg = new ModelRenderer(this, 0 + ox, 16 + legoffset + oy);
-            this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, this.expand);
-            this.bipedRightLeg.setRotationPoint(-1.9F, 12.0F + heightoffset, 0.0F);
-            this.bipedLeftLeg = new ModelRenderer(this, 0 + ox, 16 + legoffset + oy);
-            this.bipedLeftLeg.mirror = true;
-            this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, this.expand);
-            this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F + heightoffset, 0.0F);
+            textureWidth = itempagewidth;
+            textureHeight = itempageheight;
+            bipedHead = new ModelRenderer(this, 0 + ox, 0 + legoffset + oy);
+            bipedHead.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, expand);
+            bipedHead.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
+            bipedHeadwear = new ModelRenderer(this, 32 + ox, 0 + legoffset + oy);
+            bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, expand * 0.5F);
+            bipedHeadwear.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
+            bipedBody = new ModelRenderer(this, 16 + ox, 16 + legoffset + oy);
+            bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, expand);
+            bipedBody.setRotationPoint(0.0F, 0.0F + heightoffset, 0.0F);
+            bipedRightArm = new ModelRenderer(this, 40 + ox, 16 + legoffset + oy);
+            bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, expand);
+            bipedRightArm.setRotationPoint(-5.0F, 2.0F + heightoffset, 0.0F);
+            bipedLeftArm = new ModelRenderer(this, 40 + ox, 16 + legoffset + oy);
+            bipedLeftArm.mirror = true;
+            bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, expand);
+            bipedLeftArm.setRotationPoint(5.0F, 2.0F + heightoffset, 0.0F);
+            bipedRightLeg = new ModelRenderer(this, 0 + ox, 16 + legoffset + oy);
+            bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, expand);
+            bipedRightLeg.setRotationPoint(-1.9F, 12.0F + heightoffset, 0.0F);
+            bipedLeftLeg = new ModelRenderer(this, 0 + ox, 16 + legoffset + oy);
+            bipedLeftLeg.mirror = true;
+            bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, expand);
+            bipedLeftLeg.setRotationPoint(1.9F, 12.0F + heightoffset, 0.0F);
 
             // rebuild wings!
             if (wingicon != null) {
                 int oxw = MathHelper.floor(wingicon.getMinU() * itempagewidth);
                 int oyw = MathHelper.floor(wingicon.getMinV() * itempageheight);
 
-                if (this.bipedBody.childModels == null) {
-                    this.bipedBody.childModels = new ArrayList();
+                if (bipedBody.childModels == null) {
+                    bipedBody.childModels = new ArrayList();
                 }
-                if (this.bipedLeftWing != null) {
-                    this.bipedBody.childModels.remove(this.bipedLeftWing);
+                if (bipedLeftWing != null) {
+                    bipedBody.childModels.remove(bipedLeftWing);
                 }
-                if (this.bipedRightWing != null) {
-                    this.bipedBody.childModels.remove(this.bipedRightWing);
+                if (bipedRightWing != null) {
+                    bipedBody.childModels.remove(bipedRightWing);
                 }
 
-                this.bipedLeftWing = new ModelRendererWing(this, oxw, oyw);
-                this.bipedLeftWing.mirror = true;
-                this.bipedLeftWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
-                this.bipedLeftWing.setRotationPoint(-1.5f, 0.0f, 2.0f);
-                this.bipedLeftWing.rotateAngleY = (float) (Math.PI * 0.4);
-                this.bipedBody.addChild(this.bipedLeftWing);
+                bipedLeftWing = new ModelRendererWing(this, oxw, oyw);
+                bipedLeftWing.mirror = true;
+                bipedLeftWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+                bipedLeftWing.setRotationPoint(-1.5f, 0.0f, 2.0f);
+                bipedLeftWing.rotateAngleY = (float) (Math.PI * 0.4);
+                bipedBody.addChild(bipedLeftWing);
 
-                this.bipedRightWing = new ModelRendererWing(this, oxw, oyw);
-                this.bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
-                this.bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
-                this.bipedRightWing.rotateAngleY = (float) (-Math.PI * 0.4);
-                this.bipedBody.addChild(this.bipedRightWing);
+                bipedRightWing = new ModelRendererWing(this, oxw, oyw);
+                bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
+                bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
+                bipedRightWing.rotateAngleY = (float) (-Math.PI * 0.4);
+                bipedBody.addChild(bipedRightWing);
             }
         }
 
         @Override
         public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-            copyBipedAngles(this.parent, this);
+            copyBipedAngles(parent, this);
 
             super.render(entity, f, f1, f2, f3, f4, f5);
         }

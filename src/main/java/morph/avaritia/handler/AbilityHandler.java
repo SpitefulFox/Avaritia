@@ -201,13 +201,13 @@ public class AbilityHandler {
                     * (sneaking ? 0.1f : 1.0f);
 
             if (entity.moveForward > 0f) {
-                entity.moveRelative(0f, 1f, speed);
+                entity.moveRelative(0f, 0f, 1f, speed);
             } else if (entity.moveForward < 0f) {
-                entity.moveRelative(0f, 1f, -speed * 0.3f);
+                entity.moveRelative(0f, 0f,1f, -speed * 0.3f);
             }
 
             if (entity.moveStrafing != 0f) {
-                entity.moveRelative(1f, 0f, speed * 0.5f * Math.signum(entity.moveStrafing));
+                entity.moveRelative(1f, 0f,0f, speed * 0.5f * Math.signum(entity.moveStrafing));
             }
         }
     }

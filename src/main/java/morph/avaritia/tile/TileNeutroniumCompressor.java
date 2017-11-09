@@ -2,15 +2,20 @@ package morph.avaritia.tile;
 
 import codechicken.lib.packet.PacketCustom;
 import codechicken.lib.util.ItemUtils;
-import morph.avaritia.recipe.compressor.CompressorManager;
+import morph.avaritia.recipe.AvaritiaRecipeManager;
+import morph.avaritia.recipe.compressor.ICompressorRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TileNeutroniumCompressor extends TileMachineBase implements ISidedInventory {
 
@@ -40,8 +45,9 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
 
         if (target_stack.isEmpty()) {
             fullContainerSync = true;
-            target_stack = CompressorManager.getOutput(input);
-            compression_target = CompressorManager.getPrice(target_stack);
+            ICompressorRecipe recipe = AvaritiaRecipeManager.getCompressorRecipeFromInput(input);
+            target_stack = recipe.getResult();
+            compression_target = recipe.getCost();
         }
 
         consumption_progress++;
@@ -84,7 +90,7 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
         if (input.isEmpty()) {
             return false;
         }
-        if (CompressorManager.isValidInputForOutput(input, target_stack) || target_stack.isEmpty()) {
+        if (AvaritiaRecipeManager.hasCompressorRecipe(input, target_stack) || target_stack.isEmpty()) {
             if (output.isEmpty() || output.getCount() < Math.min(output.getMaxStackSize(), getInventoryStackLimit())) {
                 return true;
             }
@@ -104,7 +110,11 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
                 packet.writeItemStack(target_stack);
             }
 
-            List<ItemStack> inputs = CompressorManager.getInputs(target_stack);
+            List<Ingredient> ings = Collections.emptyList();
+            if (!target_stack.isEmpty()) {
+                ings = AvaritiaRecipeManager.getCompressorRecipeFromResult(target_stack).getIngredients();
+            }
+            List<ItemStack> inputs = ings.stream().flatMap(l -> Arrays.stream(l.getMatchingStacks())).collect(Collectors.toList());
 
             packet.writeInt(inputs.size());
             for (ItemStack input : inputs) {
@@ -171,7 +181,9 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
 
         target_stack = new ItemStack(tag.getCompoundTag("target"));
         //Calc compression target.
-        compression_target = CompressorManager.getPrice(target_stack);
+        if (!target_stack.isEmpty()) {
+            compression_target = AvaritiaRecipeManager.getCompressorRecipeFromResult(target_stack).getCost();
+        }
         fullContainerSync = true;
     }
 
@@ -268,10 +280,7 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
             if (target_stack.isEmpty()) {
                 return true;
             }
-            if (CompressorManager.getOutput(stack).isEmpty()) {
-                return false;
-            }
-            if (CompressorManager.getOutput(stack).isItemEqual(target_stack)) {
+            if (AvaritiaRecipeManager.getCompressorRecipeFromInput(stack).getResult().isItemEqual(target_stack)) {
                 return true;
             }
         }

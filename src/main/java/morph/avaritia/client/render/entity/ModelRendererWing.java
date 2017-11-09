@@ -20,12 +20,12 @@ public class ModelRendererWing extends ModelRenderer {
 
     @Override
     public void render(float f) {
-        if (!this.isHidden && this.showModel) {
+        if (!isHidden && showModel) {
             //GL11.glCullFace(GL11.GL_BACK);
             GlStateManager.enableCull();
         }
         super.render(f);
-        if (!this.isHidden && this.showModel) {
+        if (!isHidden && showModel) {
             //GL11.glCullFace(GL11.GL_NONE);
             GlStateManager.disableCull();
         }

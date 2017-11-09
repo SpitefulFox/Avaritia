@@ -53,10 +53,12 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
     @SideOnly (Side.CLIENT)
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-        ItemStack pick = new ItemStack(this);
-        pick.addEnchantment(Enchantments.FORTUNE, 10);
-        list.add(pick);
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
+        if (isInCreativeTab(tab)) {
+            ItemStack pick = new ItemStack(this);
+            pick.addEnchantment(Enchantments.FORTUNE, 10);
+            list.add(pick);
+        }
     }
 
     @Override
@@ -65,16 +67,16 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
     }
 
     @Override
-    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
         if (stack.getTagCompound() != null && stack.getTagCompound().getBoolean("hammer")) {
             return 5.0F;
         }
         for (String type : getToolClasses(stack)) {
             if (state.getBlock().isToolEffective(type, state)) {
-                return efficiencyOnProperMaterial;
+                return efficiency;
             }
         }
-        return Math.max(super.getStrVsBlock(stack, state), 6.0F);
+        return Math.max(super.getDestroySpeed(stack, state), 6.0F);
     }
 
     //@SideOnly (Side.CLIENT)

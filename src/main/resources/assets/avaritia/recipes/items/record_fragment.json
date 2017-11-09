@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"result": {
+		"item": "avaritia:resource",
+		"data": 7,
+		"count": 8
+	},
+	"ingredients": [
+		{
+			"type": "forge:ore_dict",
+			"ore": "record"
+		}
+	]
+}

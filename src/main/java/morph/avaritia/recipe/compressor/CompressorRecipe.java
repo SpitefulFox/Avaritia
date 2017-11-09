@@ -1,55 +1,66 @@
 package morph.avaritia.recipe.compressor;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import morph.avaritia.util.CompressorBalanceCalculator;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.JsonUtils;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.JsonContext;
 
-import java.util.Collections;
 import java.util.List;
 
-public class CompressorRecipe {
+/**
+ * Created by covers1624 on 8/11/2017.
+ */
+public class CompressorRecipe implements ICompressorRecipe {
 
-    private ItemStack product;
-    private int cost;
-    private ItemStack input;
-    private boolean specific;
+    protected ItemStack result;
+    protected int cost;
+    protected boolean absolute;
+    protected List<Ingredient> ingredients;
 
-    public CompressorRecipe(ItemStack output, int amount, ItemStack ingredient, boolean exact) {
-        product = output;
-        cost = amount;
-        input = ingredient;
-        specific = exact;
+    public CompressorRecipe(ItemStack result, int cost, boolean absolute, List<Ingredient> ingredients) {
+        this.result = result;
+        this.cost = cost;
+        this.absolute = absolute;
+        this.ingredients = ingredients;
     }
 
-    public CompressorRecipe(ItemStack output, int amount, ItemStack ingredient) {
-        this(output, amount, ingredient, false);
+    @Override
+    public ItemStack getResult() {
+        return result;
     }
 
-    public ItemStack getOutput() {
-        return product.copy();
-    }
-
-    public List<ItemStack> getInputs() {
-        return Collections.singletonList(input);
-    }
-
+    @Override
     public int getCost() {
-        if (specific) {
+        if (absolute) {
             return cost;
-        } else {
-            return CompressorBalanceCalculator.balanceCost(cost);
         }
+        return CompressorBalanceCalculator.balanceCost(cost);
     }
 
-    public boolean isValidInput(ItemStack ingredient) {
-        return ingredient.isItemEqual(input);
+    @Override
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public String getIngredientName() {
-        return input.getDisplayName();
+    public static ICompressorRecipe fromJson(JsonContext context, JsonObject json) {
+        ItemStack result = CraftingHelper.getItemStack(JsonUtils.getJsonObject(json, "result"), context);
+        int cost = JsonUtils.getInt(json, "cost");
+        boolean absolute = JsonUtils.getBoolean(json, "absolute", false);
+        NonNullList<Ingredient> ings = NonNullList.create();
+        for (JsonElement ele : JsonUtils.getJsonArray(json, "ingredients")) {
+            Ingredient i = CraftingHelper.getIngredient(ele, context);
+            if (i != Ingredient.EMPTY) {
+                ings.add(i);
+            }
+        }
+        if (ings.isEmpty()) {
+            return null;
+        }
+        return new CompressorRecipe(result, cost, absolute, ings);
     }
-
-    public Object getIngredient() {
-        return input;
-    }
-
 }

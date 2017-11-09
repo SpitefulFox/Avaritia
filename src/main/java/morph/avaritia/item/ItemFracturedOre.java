@@ -27,21 +27,21 @@ public class ItemFracturedOre extends Item {
     protected static Map<String, ItemStack> nameMapping = new HashMap<>();
 
     public ItemFracturedOre() {
-        this.setCreativeTab(Avaritia.tab);
-        this.setUnlocalizedName("avaritia:fractured_ore");
-        this.setUnlocalizedName("fractured_ore");
-        this.setHasSubtypes(true);
+        setCreativeTab(Avaritia.tab);
+        setUnlocalizedName("avaritia:fractured_ore");
+        setUnlocalizedName("fractured_ore");
+        setHasSubtypes(true);
     }
 
-    @SuppressWarnings ({ "rawtypes" })
-    @SideOnly (Side.CLIENT)
-    @Override
-    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-        // for debug purposes only - don't want these cluttering up the tab.
-        /*for (ItemStack stack : emulatedOres) {
-            list.add(getStackForOre(stack, 1));
-        }*/
-    }
+//    @SuppressWarnings ({ "rawtypes" })
+//    @SideOnly (Side.CLIENT)
+//    @Override
+//    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
+//        // for debug purposes only - don't want these cluttering up the tab.
+//        /*for (ItemStack stack : emulatedOres) {
+//            list.add(getStackForOre(stack, 1));
+//        }*/
+//    }
 
     public ItemStack getStackForOre(ItemStack orestack, int stacksize) {
         NBTTagCompound oretag = NameStack.saveStackToNBT(orestack);
@@ -50,7 +50,7 @@ public class ItemFracturedOre extends Item {
         NBTTagCompound stacktag = new NBTTagCompound();
         stacktag.setTag(OREKEY, oretag);
         outstack.setTagCompound(stacktag);
-        outstack.setItemDamage(this.getDamage(outstack));
+        outstack.setItemDamage(getDamage(outstack));
 
         return outstack;
     }
@@ -147,18 +147,18 @@ public class ItemFracturedOre extends Item {
         public NameStack(String name, int damage, int size, NBTTagCompound nbt) {
             this.name = name;
             this.damage = damage;
-            this.tag = nbt;
+            tag = nbt;
             this.size = size;
         }
 
         public NBTTagCompound saveToNBT() {
             NBTTagCompound savetag = new NBTTagCompound();
-            savetag.setInteger("meta", this.damage);
-            if (this.tag != null) {
-                savetag.setTag("nbt", this.tag);
+            savetag.setInteger("meta", damage);
+            if (tag != null) {
+                savetag.setTag("nbt", tag);
             }
-            savetag.setString("name", this.name);
-            savetag.setInteger("size", this.size);
+            savetag.setString("name", name);
+            savetag.setInteger("size", size);
             return savetag;
         }
 
@@ -171,7 +171,7 @@ public class ItemFracturedOre extends Item {
         }
 
         public Item getItem() {
-            return Item.getByNameOrId(this.name);
+            return Item.getByNameOrId(name);
         }
 
         public static NBTTagCompound saveStackToNBT(ItemStack stack) {
@@ -179,16 +179,16 @@ public class ItemFracturedOre extends Item {
         }
 
         public ItemStack getStack() {
-            ItemStack stack = new ItemStack(this.getItem(), this.size, this.damage);
-            if (this.tag != null) {
-                stack.setTagCompound(this.tag.copy());
+            ItemStack stack = new ItemStack(getItem(), size, damage);
+            if (tag != null) {
+                stack.setTagCompound(tag.copy());
             }
             return stack;
         }
 
         @Override
         public String toString() {
-            return "NameStack: " + this.size + "x " + this.name + "@" + this.damage + ", " + this.tag;
+            return "NameStack: " + size + "x " + name + "@" + damage + ", " + tag;
         }
     }
 }

@@ -1,0 +1,46 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:neutron_collector",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"IIIHHHIII",
+		"X N   N X",
+		"I N   N I",
+		"X N   N X",
+		"RNN O NNR",
+		"X N   N X",
+		"I N   N I",
+		"X N   N X",
+		"IIIXIXIII"
+	],
+	"key": {
+		"X": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_ingot"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "blockIron"
+		},
+		"H": {
+			"type": "minecraft:item",
+			"item": "minecraft:hopper",
+			"data": 0
+		},
+		"R": {
+			"type": "forge:ore_dict",
+			"ore": "blockRedstone"
+		},
+		"O": {
+			"type": "minecraft:item",
+			"item": "#neutronium_block"
+		}
+	}
+}

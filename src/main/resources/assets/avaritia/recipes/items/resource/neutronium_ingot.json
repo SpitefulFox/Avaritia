@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "avaritia:resource",
+		"data": 4,
+		"count": 1
+	},
+	"pattern": [
+		"XXX",
+		"XXX",
+		"XXX"
+	],
+	"key": {
+		"X": {
+			"type": "minecraft:item",
+			"item": "#neutron_nugget"
+		}
+	}
+}

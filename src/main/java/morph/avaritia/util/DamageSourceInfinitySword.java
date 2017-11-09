@@ -16,7 +16,7 @@ public class DamageSourceInfinitySword extends EntityDamageSource {
 
     @Override
     public ITextComponent getDeathMessage(EntityLivingBase entity) {
-        ItemStack itemstack = this.damageSourceEntity instanceof EntityLivingBase ? ((EntityLivingBase) this.damageSourceEntity).getHeldItem(EnumHand.MAIN_HAND) : null;
+        ItemStack itemstack = damageSourceEntity instanceof EntityLivingBase ? ((EntityLivingBase) damageSourceEntity).getHeldItem(EnumHand.MAIN_HAND) : null;
         String s = "death.attack.infinity";
         int rando = entity.getEntityWorld().rand.nextInt(5);
         if (rando != 0) {

@@ -1,0 +1,15 @@
+{
+	"type": "avaritia:compressor",
+	"result": {
+		"item": "avaritia:singularity",
+		"data": 10,
+		"count": 1
+	},
+	"cost": 300,
+	"ingredients": [
+		{
+			"type": "forge:ore_dict",
+			"ore": "blockDiamond"
+		}
+	]
+}

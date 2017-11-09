@@ -43,9 +43,9 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     //private IIcon idleMask;
 
     public ItemBowInfinity() {
-        this.maxStackSize = 1;
-        this.setMaxDamage(9999);
-        this.setCreativeTab(Avaritia.tab);
+        maxStackSize = 1;
+        setMaxDamage(9999);
+        setCreativeTab(Avaritia.tab);
         setUnlocalizedName("avaritia:infinity_bow");
         setRegistryName("infinity_bow");
     }
@@ -58,12 +58,12 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
     @Override
     public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
         if (count == 1) {
-            this.fire(stack, player.world, player, 0);
+            fire(stack, player.world, player, 0);
         }
     }
 
     public void fire(ItemStack stack, World world, EntityLivingBase player, int useCount) {
-        int max = this.getMaxItemUseDuration(stack);
+        int max = getMaxItemUseDuration(stack);
         float maxf = (float) max;
         int j = max - useCount;
 
@@ -79,7 +79,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem, IModelRe
         }
 
         EntityArrow arrow = new EntityHeavenArrow(world, player);
-        arrow.setAim(player, player.rotationPitch, player.rotationYaw, 0, f * 3.0F, 1.0F);//TODO, no inaccuracy?
+        arrow.shoot(player, player.rotationPitch, player.rotationYaw, 0, f * 3.0F, 1.0F);//TODO, no inaccuracy?
         arrow.setDamage(20.0);
 
         if (f == 1.0F) {

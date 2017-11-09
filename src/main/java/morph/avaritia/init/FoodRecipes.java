@@ -1,13 +1,19 @@
 package morph.avaritia.init;
 
 import morph.avaritia.handler.ConfigHandler;
-import morph.avaritia.recipe.extreme.ExtremeCraftingManager;
-import morph.avaritia.recipe.extreme.ExtremeShapelessOreRecipe;
+import morph.avaritia.recipe.AvaritiaRecipeManager;
+import morph.avaritia.recipe.extreme.ExtremeShapelessRecipe;
+import morph.avaritia.recipe.extreme.IExtremeRecipe;
 import morph.avaritia.util.Lumberjack;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreIngredient;
+import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,9 +21,6 @@ import java.util.List;
 import java.util.Random;
 
 public class FoodRecipes {
-
-    public static ExtremeShapelessOreRecipe stewRecipe;
-    public static ExtremeShapelessOreRecipe meatballRecipe;
 
     // here's where all the food magic goes on
     //@formatter:off
@@ -59,39 +62,47 @@ public class FoodRecipes {
 
     private static Random randy;
 
+    //TODO, FIXME, Make these json recipes.
     public static void initFoodRecipes() {
 
         if (ConfigHandler.boringFood) {
-            //@formatter:off
-            stewRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(
-                    new ItemStack(ModItems.ultimate_stew, 1),
-                    new ItemStack(Items.WHEAT, 1),
-                    new ItemStack(Items.CARROT),
-                    new ItemStack(Items.POTATO),
-                    new ItemStack(Items.BEETROOT),
-                    new ItemStack(Items.APPLE),
-                    new ItemStack(Items.MELON),
-                    new ItemStack(Blocks.PUMPKIN),
-                    new ItemStack(Blocks.CACTUS),
-                    new ItemStack(Blocks.RED_MUSHROOM),
-                    new ItemStack(Blocks.BROWN_MUSHROOM)
-
-                     );
-            meatballRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(
-                    new ItemStack(ModItems.cosmic_meatballs, 1),
-                    new ItemStack(Items.BEEF),
-                    new ItemStack(Items.BEEF),
-                    new ItemStack(Items.CHICKEN),
-                    new ItemStack(Items.CHICKEN),
-                    new ItemStack(Items.PORKCHOP),
-                    new ItemStack(Items.PORKCHOP),
-                    new ItemStack(Items.RABBIT),
-                    new ItemStack(Items.RABBIT),
-                    new ItemStack(Items.FISH),
-                    new ItemStack(Items.FISH)
-            );
+            List<Ingredient> ings = new ArrayList<>();
+            {
+                ings.add(Ingredient.fromStacks(new ItemStack(Items.WHEAT, 1)));
+                ings.add(Ingredient.fromItem(Items.CARROT));
+                ings.add(Ingredient.fromItem(Items.POTATO));
+                ings.add(Ingredient.fromItem(Items.BEETROOT));
+                ings.add(Ingredient.fromItem(Items.APPLE));
+                ings.add(Ingredient.fromItem(Items.MELON));
+                ings.add(Ingredient.fromStacks(new ItemStack(Blocks.PUMPKIN)));
+                ings.add(Ingredient.fromStacks(new ItemStack(Blocks.CACTUS)));
+                ings.add(Ingredient.fromStacks(new ItemStack(Blocks.RED_MUSHROOM)));
+                ings.add(Ingredient.fromStacks(new ItemStack(Blocks.BROWN_MUSHROOM)));
+                NonNullList<Ingredient> n_ings = NonNullList.create();
+                n_ings.addAll(ings);
+                IExtremeRecipe recipe = new ExtremeShapelessRecipe(n_ings, new ItemStack(ModItems.ultimate_stew, 1));
+                recipe.setRegistryName(new ResourceLocation("avaritia", "ultimate_stew"));
+                AvaritiaRecipeManager.EXTREME_RECIPES.put(recipe.getRegistryName(), recipe);
+            }
+            ings.clear();
+            {
+                ings.add(Ingredient.fromItem(Items.BEEF));
+                ings.add(Ingredient.fromItem(Items.BEEF));
+                ings.add(Ingredient.fromItem(Items.CHICKEN));
+                ings.add(Ingredient.fromItem(Items.CHICKEN));
+                ings.add(Ingredient.fromItem(Items.PORKCHOP));
+                ings.add(Ingredient.fromItem(Items.PORKCHOP));
+                ings.add(Ingredient.fromItem(Items.RABBIT));
+                ings.add(Ingredient.fromItem(Items.RABBIT));
+                ings.add(Ingredient.fromItem(Items.FISH));
+                ings.add(Ingredient.fromItem(Items.FISH));
+                NonNullList<Ingredient> n_ings = NonNullList.create();
+                n_ings.addAll(ings);
+                IExtremeRecipe recipe = new ExtremeShapelessRecipe(n_ings, new ItemStack(ModItems.cosmic_meatballs, 1));
+                recipe.setRegistryName(new ResourceLocation("avaritia", "cosmic_meatballs"));
+                AvaritiaRecipeManager.EXTREME_RECIPES.put(recipe.getRegistryName(), recipe);
+            }
             return;
-            //@formatter:on
         }
 
         String[] oreNames = OreDictionary.getOreNames();
@@ -183,14 +194,16 @@ public class FoodRecipes {
 
         // time to actually MAKE the damn thing...
 
-        stewRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(ModItems.ultimate_stew, makesstew), ModItems.neutron_pile);
-
-        List<Object> stewInputs = stewRecipe.getInput();
+        NonNullList<Ingredient> stewInputs = NonNullList.create();
+        stewInputs.add(Ingredient.fromStacks(ModItems.neutron_pile));
         for (String crop : crops) {
             for (int j = 0; j < cropmultiplier; j++) {
-                stewInputs.add(OreDictionary.getOres(crop));
+                stewInputs.add(new OreIngredient(crop));
             }
         }
+        IExtremeRecipe stew_recipe = new ExtremeShapelessRecipe(stewInputs, new ItemStack(ModItems.ultimate_stew, makesstew));
+        stew_recipe.setRegistryName(new ResourceLocation("avaritia", "ultimate_stew"));
+        AvaritiaRecipeManager.EXTREME_RECIPES.put(stew_recipe.getRegistryName(), stew_recipe);
 
         // ok, now on to the meatballs!
 
@@ -209,47 +222,8 @@ public class FoodRecipes {
                 }
             }
         }
-
-		/*for (int i=0; i<meatNames.size(); i++) {
-            if (!rawMeats.contains(meatNames.get(i))) {
-				List<ItemStack> meatstacks = OreDictionary.getOres(meatNames.get(i));
-				if (!meatstacks.isEmpty()) {
-					meatSortingList.add(new FoodInfo(meatNames.get(i), meatstacks.size()));
-				}
-			}
-		}*/
-
-        /*if(Loader.isModLoaded("TwilightForest") && Config.twilight){
-            try {
-                Item venison = Compat.getItem("TwilightForest", "item.venisonRaw");
-                Item meef = Compat.getItem("TwilightForest", "item.meefRaw");
-                knownMeats.add(new ItemStack(venison));
-                knownMeats.add(new ItemStack(meef));
-            }
-            catch(Exception e){}
-        }
-
-        if(Loader.isModLoaded("Natura")){
-            try {
-                Item imp = Compat.getItem("Natura", "impmeat");
-                knownMeats.add(new ItemStack(imp));
-            }
-            catch(Exception e){}
-        }
-
-        if(Compat.am2){
-            try {
-                Item stuff = Compat.getItem("arsmagica2", "itemOre");
-                knownMeats.add(new ItemStack(stuff, 1, 8));
-            }
-            catch(Exception e){
-                Lumberjack.log(Level.INFO, e, "Avaritia got sick of the arcane guardian's healspam.");
-                Compat.am2 = false;
-            }
-        }
-		*/
-        Lumberjack.info("rawMeats: " + rawMeats);
-        Lumberjack.info("knownMeats: " + knownMeats);
+        Lumberjack.log(Level.INFO, "rawMeats: " + rawMeats);
+        Lumberjack.log(Level.INFO, "knownMeats: " + knownMeats);
 
         // sort into size/alphabetic order first to standardise them
         meatSortingList.sort((a, b) -> {
@@ -276,7 +250,7 @@ public class FoodRecipes {
         // CULL!
 
         if (meatSortingList.size() > 80 - meats.size() - knownMeats.size()) {
-            int shouldHave = 80 - crops.size() - knownMeats.size();
+            int shouldHave = 80 - meats.size() - knownMeats.size();
             meatSortingList = meatSortingList.subList(0, shouldHave);
         }
         for (FoodInfo aMeatSortingList : meatSortingList) {
@@ -297,21 +271,22 @@ public class FoodRecipes {
 
         // time to actually MAKE the damn thing...
 
-        meatballRecipe = ExtremeCraftingManager.getInstance().addShapelessOreRecipe(new ItemStack(ModItems.cosmic_meatballs, makesmeatballs), ModItems.neutron_pile);
-
-        List<Object> meatballInputs = meatballRecipe.getInput();
-
+        NonNullList<Ingredient> meatballInputs = NonNullList.create();
+        meatballInputs.add(Ingredient.fromStacks(ModItems.neutron_pile));
         for (ItemStack knownMeat : knownMeats) {
             for (int j = 0; j < meatmultiplier; j++) {
-                meatballInputs.add(knownMeat);
+                meatballInputs.add(Ingredient.fromStacks(knownMeat));
             }
         }
 
         for (String meat : meats) {
             for (int j = 0; j < meatmultiplier; j++) {
-                meatballInputs.add(OreDictionary.getOres(meat));
+                meatballInputs.add(new OreIngredient(meat));
             }
         }
+        IExtremeRecipe metaball_recipe = new ExtremeShapelessRecipe(meatballInputs, new ItemStack(ModItems.cosmic_meatballs, makesmeatballs));
+        metaball_recipe.setRegistryName(new ResourceLocation("avaritia", "cosmic_meatballs"));
+        AvaritiaRecipeManager.EXTREME_RECIPES.put(metaball_recipe.getRegistryName(), metaball_recipe);
     }
 
     private static class FoodInfo {
@@ -325,7 +300,7 @@ public class FoodRecipes {
         }
 
         public String toString() {
-            return this.orename + ": " + this.count;
+            return orename + ": " + count;
         }
     }
 

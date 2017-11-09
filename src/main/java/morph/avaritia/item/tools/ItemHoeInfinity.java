@@ -152,17 +152,17 @@ public class ItemHoeInfinity extends ItemHoe {
 
         if (face != EnumFacing.DOWN && world.isAirBlock(pos.up())) {
             if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
-                this.setBlock(hoeStack, player, world, pos, Blocks.FARMLAND.getDefaultState());
+                setBlock(hoeStack, player, world, pos, Blocks.FARMLAND.getDefaultState());
                 return true;
             }
 
             if (block == Blocks.DIRT) {
                 switch (state.getValue(BlockDirt.VARIANT)) {
                     case DIRT:
-                        this.setBlock(hoeStack, player, world, pos, Blocks.FARMLAND.getDefaultState());
+                        setBlock(hoeStack, player, world, pos, Blocks.FARMLAND.getDefaultState());
                         return true;
                     case COARSE_DIRT:
-                        this.setBlock(hoeStack, player, world, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                        setBlock(hoeStack, player, world, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
                         return true;
                 }
             }

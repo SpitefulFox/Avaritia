@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "avaritia:block_resource",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"CCC",
+		"CCC",
+		"CCC"
+	],
+	"key": {
+		"C": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

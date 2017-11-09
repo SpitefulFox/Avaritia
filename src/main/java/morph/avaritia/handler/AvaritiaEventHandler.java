@@ -90,7 +90,7 @@ public class AvaritiaEventHandler {
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (doItemCapture) {
             if (event.getEntity() instanceof EntityItem) {
-                ItemStack stack = ((EntityItem) event.getEntity()).getEntityItem();
+                ItemStack stack = ((EntityItem) event.getEntity()).getItem();
                 capturedDrops.add(stack);
                 event.setCanceled(true);
             }
@@ -178,7 +178,7 @@ public class AvaritiaEventHandler {
                 if (drop.getItem() != Item.getItemFromBlock(event.getState().getBlock()) && !(drop.getItem() instanceof ItemBlock)) {
                     //Apply standard Luck modifier
                     drop.setCount(Math.min(drop.getCount() * multiplier, drop.getMaxStackSize()));
-                } else if (ConfigHandler.fractured && drop.getItem() == Item.getItemFromBlock(event.getState().getBlock())) {
+                } else if (ConfigHandler.fracturedOres && drop.getItem() == Item.getItemFromBlock(event.getState().getBlock())) {
                     //kk, we are an ore block, Lets test for oreDict and add fractured ores.
                     ItemFracturedOre fracturedOre = ModItems.fractured_ore;
                     int[] iDs = OreDictionary.getOreIDs(drop);
@@ -230,7 +230,7 @@ public class AvaritiaEventHandler {
         if (!(event.getEntityLiving() instanceof EntityPlayer)) {
             return;
         }
-        if (event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityPlayer) {
+        if (event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
             return;
         }
         EntityPlayer player = (EntityPlayer) event.getEntityLiving();
@@ -244,8 +244,8 @@ public class AvaritiaEventHandler {
 
     @SubscribeEvent
     public void onLivingDrops(LivingDropsEvent event) {
-        if (event.isRecentlyHit() && event.getEntityLiving() instanceof EntitySkeleton && event.getSource().getEntity() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
+        if (event.isRecentlyHit() && event.getEntityLiving() instanceof EntitySkeleton && event.getSource().getTrueSource() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             if (!player.getHeldItem(EnumHand.MAIN_HAND).isEmpty() && player.getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.skull_sword) {
                 // ok, we need to drop a skull then.
                 if (event.getDrops().isEmpty()) {
@@ -255,7 +255,7 @@ public class AvaritiaEventHandler {
 
                     for (int i = 0; i < event.getDrops().size(); i++) {
                         EntityItem drop = event.getDrops().get(i);
-                        ItemStack stack = drop.getEntityItem();
+                        ItemStack stack = drop.getItem();
                         if (stack.getItem() == Items.SKULL) {
                             if (stack.getItemDamage() == 1) {
                                 skulls++;
@@ -337,8 +337,8 @@ public class AvaritiaEventHandler {
 
     @SubscribeEvent
     public void clusterClustererererer(EntityItemPickupEvent event) {
-        if (event.getEntityPlayer() != null && event.getItem().getEntityItem().getItem() == ModItems.matter_cluster) {
-            ItemStack stack = event.getItem().getEntityItem();
+        if (event.getEntityPlayer() != null && event.getItem().getItem().getItem() == ModItems.matter_cluster) {
+            ItemStack stack = event.getItem().getItem();
             EntityPlayer player = event.getEntityPlayer();
 
             for (ItemStack slot : player.inventory.mainInventory) {

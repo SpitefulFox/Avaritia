@@ -3,12 +3,10 @@ package morph.avaritia.entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -39,11 +37,11 @@ public class EntityCollationItem extends EntityItem {
         tag.setTag(ITEMTAG, itemlist);
         watchstack.setTagCompound(tag);
 
-        this.setEntityItemStack(watchstack);
+        setItem(watchstack);
 
-        this.lifespan = 18000;
-        this.setPickupDelay(20);
-        this.isImmuneToFire = true;
+        lifespan = 18000;
+        setPickupDelay(20);
+        isImmuneToFire = true;
     }
 
     // default constructors
@@ -63,10 +61,10 @@ public class EntityCollationItem extends EntityItem {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        ItemStack stack = this.getEntityItem();
+        ItemStack stack = getItem();
         NBTTagList list = stack.getTagCompound().getTagList(ITEMTAG, 10);
         if (list.tagCount() == 0) {
-            this.setDead();
+            setDead();
         }
     }
 
@@ -78,8 +76,8 @@ public class EntityCollationItem extends EntityItem {
     // and the big one!
     @Override
     public void onCollideWithPlayer(EntityPlayer player) {
-        if (!this.world.isRemote) {
-            if (this.cannotPickup()) {
+        if (!world.isRemote) {
+            if (cannotPickup()) {
                 return;
             }
 
@@ -89,9 +87,9 @@ public class EntityCollationItem extends EntityItem {
                 return;
             }
 
-            String owner = this.getOwner();
+            String owner = getOwner();
 
-            ItemStack basestack = this.getEntityItem();
+            ItemStack basestack = getItem();
             NBTTagList list = basestack.getTagCompound().getTagList(ITEMTAG, 10);
             List<Integer> removed = new ArrayList<>();
 
@@ -99,65 +97,33 @@ public class EntityCollationItem extends EntityItem {
 
                 ItemStack itemstack = new ItemStack(list.getCompoundTagAt(i));
 
-                if (!cannotPickup() && (owner == null || lifespan - this.getAge() <= 200 || owner.equals(player.getDisplayName())) && (event.getResult() == Event.Result.ALLOW || player.inventory.addItemStackToInventory(itemstack))) {
-                    if (itemstack.getItem() == Item.getItemFromBlock(Blocks.LOG)) {
-                        player.addStat(AchievementList.MINE_WOOD);
-                    }
-
-                    if (itemstack.getItem() == Item.getItemFromBlock(Blocks.LOG2)) {
-                        player.addStat(AchievementList.MINE_WOOD);
-                    }
-
-                    if (itemstack.getItem() == Items.LEATHER) {
-                        ;
-                    }
-                    {
-                        player.addStat(AchievementList.KILL_COW);
-                    }
-
-                    if (itemstack.getItem() == Items.DIAMOND) {
-                        ;
-                    }
-                    {
-                        player.addStat(AchievementList.DIAMONDS);
-                    }
-
-                    if (itemstack.getItem() == Items.BLAZE_ROD) {
-                        ;
-                    }
-                    {
-                        player.addStat(AchievementList.BLAZE_ROD);
-                    }
-
-                    if (itemstack.getItem() == Items.DIAMOND && this.getThrower() != null) {
-                        EntityPlayer entityplayer1 = this.world.getPlayerEntityByName(this.getThrower());
-
-                        if (entityplayer1 != null && entityplayer1 != player) {
-                            entityplayer1.addStat(AchievementList.DIAMONDS_TO_YOU);
-                        }
-                    }
+                if (!cannotPickup() && (owner == null || lifespan - getAge() <= 200 || owner.equals(player.getDisplayName())) && (event.getResult() == Event.Result.ALLOW || player.inventory.addItemStackToInventory(itemstack))) {
 
                     FMLCommonHandler.instance().firePlayerItemPickupEvent(player, this);
-
+                    player.addStat(StatList.getObjectsPickedUpStats(itemstack.getItem()), itemstack.getCount());
+                    //TODO
                     //this.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     //player.onItemPickup(this, itemstack.stackSize);
 
-                    if (itemstack.getCount() <= 0) {
-                        removed.add(0, i);
+                    if (itemstack.isEmpty()) {
+                        removed.add(i);
                     }
                 }
             }
 
-            for (int i = 0; i < removed.size(); i++) {
-                int index = removed.get(i);
-                list.removeTag(index);
-            }
+            removed.forEach(list::removeTag);
+
+            //TODO
+            //            for (int i = 0; i < removed.size(); i++) {
+            //                int index = removed.get(i);
+            //                list.removeTag(index);
+            //            }
 
             if (list.tagCount() == 0) {
-                this.setDead();
+                setDead();
             }
 
-            this.setEntityItemStack(basestack);
+            setItem(basestack);
         }
     }
 }

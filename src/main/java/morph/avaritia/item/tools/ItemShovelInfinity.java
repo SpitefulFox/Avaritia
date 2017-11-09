@@ -49,16 +49,16 @@ public class ItemShovelInfinity extends ItemSpade {
     }
 
     @Override
-    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
         if (stack.getTagCompound() != null && stack.getTagCompound().getBoolean("destroyer")) {
             return 5.0F;
         }
         for (String type : getToolClasses(stack)) {
             if (state.getBlock().isToolEffective(type, state)) {
-                return efficiencyOnProperMaterial;
+                return efficiency;
             }
         }
-        return Math.max(super.getStrVsBlock(stack, state), 1.0F);
+        return Math.max(super.getDestroySpeed(stack, state), 1.0F);
     }
 
     //@SideOnly(Side.CLIENT)

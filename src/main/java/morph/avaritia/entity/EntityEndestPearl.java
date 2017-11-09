@@ -27,26 +27,26 @@ public class EntityEndestPearl extends EntityThrowable {
     @Override
     protected void onImpact(RayTraceResult pos) {
         if (pos.entityHit != null) {
-            pos.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 0.0F);
+            pos.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0.0F);
         }
 
         for (int i = 0; i < 100; ++i) {
-            this.world.spawnParticle(EnumParticleTypes.PORTAL, this.posX, this.posY, this.posZ, this.rand.nextGaussian() * 3, this.rand.nextGaussian() * 3, this.rand.nextGaussian() * 3);
+            world.spawnParticle(EnumParticleTypes.PORTAL, posX, posY, posZ, rand.nextGaussian() * 3, rand.nextGaussian() * 3, rand.nextGaussian() * 3);
         }
 
-        if (!this.world.isRemote) {
+        if (!world.isRemote) {
             //this.worldObj.createExplosion(this, pos.hitVec.xCoord, pos.hitVec.yCoord, pos.hitVec.zCoord, 4.0f, true);
 
-            Entity ent = new EntityGapingVoid(this.world);
+            Entity ent = new EntityGapingVoid(world);
             EnumFacing dir = pos.sideHit;
             Vector3 offset = Vector3.zero.copy();
             if (pos.sideHit != null) {
                 offset = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ());
             }
-            ent.setLocationAndAngles(this.posX + offset.x * 0.25, this.posY + offset.y * 0.25, this.posZ + offset.z * 0.25, this.rotationYaw, 0.0F);
-            this.world.spawnEntity(ent);
+            ent.setLocationAndAngles(posX + offset.x * 0.25, posY + offset.y * 0.25, posZ + offset.z * 0.25, rotationYaw, 0.0F);
+            world.spawnEntity(ent);
 
-            this.setDead();
+            setDead();
         }
     }
 

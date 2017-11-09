@@ -7,9 +7,9 @@ import codechicken.lib.render.OBJParser;
 import codechicken.lib.texture.TextureUtils;
 import morph.avaritia.entity.EntityGapingVoid;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -24,7 +24,7 @@ public class RenderGapingVoid extends Render<EntityGapingVoid> {
 
     public RenderGapingVoid(RenderManager manager) {
         super(manager);
-        this.model = OBJParser.parseModels(new ResourceLocation("avaritia", "model/hemisphere.obj")).get("model");
+        model = OBJParser.parseModels(new ResourceLocation("avaritia", "model/hemisphere.obj")).get("model");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class RenderGapingVoid extends Render<EntityGapingVoid> {
 
         Minecraft mc = Minecraft.getMinecraft();
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
+        BufferBuilder buffer = tess.getBuffer();
         CCRenderState ccrs = CCRenderState.instance();
         TextureUtils.changeTexture(halo);
 
@@ -122,8 +122,8 @@ public class RenderGapingVoid extends Render<EntityGapingVoid> {
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
 
-                GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-                GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+                GlStateManager.rotate(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+                GlStateManager.rotate(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
                 double d = 0;
 
@@ -148,7 +148,7 @@ public class RenderGapingVoid extends Render<EntityGapingVoid> {
 
     @Override
     protected ResourceLocation getEntityTexture(EntityGapingVoid ent) {
-        return this.fill;
+        return fill;
     }
 
     private void setColour(double age, double alpha) {

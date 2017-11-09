@@ -1,0 +1,106 @@
+[
+	{
+		"name": "diamond_lattice",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:resource",
+			"data": 0
+		}
+	},
+	{
+		"name": "crystal_matrix_ingot",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:resource",
+			"data": 1
+		}
+	},
+	{
+		"name": "neutron_pile",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:resource",
+			"data": 2
+		}
+	},
+	{
+		"name": "neutron_nugget",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:resource",
+			"data": 3
+		}
+	},
+	{
+		"name": "neutronium_ingot",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:resource",
+			"data": 4
+		}
+	},
+	{
+		"name": "infinity_catalyst",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:resource",
+			"data": 5
+		}
+	},
+	{
+		"name": "infinity_ingot",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:resource",
+			"data": 6
+		}
+	},
+	{
+		"name": "compressed_crafting_table",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:compressed_crafting_table",
+			"data": 0
+		}
+	},
+	{
+		"name": "double_compressed_crafting_table",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:double_compressed_crafting_table",
+			"data": 0
+		}
+	},
+	{
+		"name": "extreme_crafting_table",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:extreme_crafting_table",
+			"data": 0
+		}
+	},
+	{
+		"name": "neutronium_block",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:block_resource",
+			"data": 0
+		}
+	},
+	{
+		"name": "infinity_block",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:block_resource",
+			"data": 1
+		}
+	},
+	{
+		"name": "crystal_matrix_block",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:block_resource",
+			"data": 2
+		}
+	}
+]

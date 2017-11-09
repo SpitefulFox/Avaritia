@@ -1,0 +1,33 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_shovel",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"      III",
+		"     IIXI",
+		"      III",
+		"     N I ",
+		"    N    ",
+		"   N     ",
+		"  N      ",
+		" N       ",
+		"N        "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "#infinity_block"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

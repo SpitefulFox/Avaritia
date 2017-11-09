@@ -1,0 +1,29 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:resource",
+		"data": 6,
+		"count": 1
+	},
+	"pattern": [
+		"NNNNNNNNN",
+		"NCXXCXXCN",
+		"NXCCXCCXN",
+		"NCXXCXXCN",
+		"NNNNNNNNN"
+	],
+	"key": {
+		"C": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_ingot"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "#infinity_catalyst"
+		}
+	}
+}

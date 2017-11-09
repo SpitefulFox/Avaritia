@@ -49,14 +49,14 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         if (tag.hasKey("Neutrons")) {
-            this.neutrons = new ItemStack(tag.getCompoundTag("Neutrons"));
+            neutrons = new ItemStack(tag.getCompoundTag("Neutrons"));
         }
-        this.progress = tag.getInteger("Progress");
+        progress = tag.getInteger("Progress");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-        tag.setInteger("Progress", this.progress);
+        tag.setInteger("Progress", progress);
         if (neutrons != null) {
             NBTTagCompound produce = new NBTTagCompound();
             neutrons.writeToNBT(produce);
@@ -121,7 +121,7 @@ public class TileNeutronCollector extends TileMachineBase implements IInventory 
 
     @Override
     public boolean isUsableByPlayer(EntityPlayer player) {
-        return this.world.getTileEntity(getPos()) == this && BlockUtils.isEntityInRange(getPos(), player, 64);
+        return world.getTileEntity(getPos()) == this && BlockUtils.isEntityInRange(getPos(), player, 64);
     }
 
     @Override

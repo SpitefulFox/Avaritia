@@ -62,9 +62,9 @@ public class EntityGapingVoid extends Entity {
 
     public EntityGapingVoid(World world) {
         super(world);
-        this.isImmuneToFire = true;
-        this.setSize(0.1F, 0.1F);
-        this.ignoreFrustumCheck = true;
+        isImmuneToFire = true;
+        setSize(0.1F, 0.1F);
+        ignoreFrustumCheck = true;
         //this.renderDistanceWeight = 100.0;//TODO Maybe something, dunno, HELP.
     }
 
@@ -80,16 +80,16 @@ public class EntityGapingVoid extends Entity {
         Vector3 pos = Vector3.fromEntity(this);
 
         // tick, tock
-        int age = this.getAge();
+        int age = getAge();
 
         if (age >= maxLifetime) {
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, 6.0f, true);
-            this.setDead();
+            world.createExplosion(this, posX, posY, posZ, 6.0f, true);
+            setDead();
         } else {
             if (age == 0) {
-                this.world.playSound(this.posX, this.posY, this.posZ, ModSounds.GAPING_VOID, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
+                world.playSound(posX, posY, posZ, ModSounds.GAPING_VOID, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
             }
-            this.setAge(age + 1);
+            setAge(age + 1);
         }
 
         // poot poot
@@ -105,21 +105,21 @@ public class EntityGapingVoid extends Entity {
             velocity.multiply(particlespeed);
             particlePos.add(pos);
 
-            this.world.spawnParticle(EnumParticleTypes.PORTAL, particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
+            world.spawnParticle(EnumParticleTypes.PORTAL, particlePos.x, particlePos.y, particlePos.z, velocity.x, velocity.y, velocity.z);
         }
 
         // *slurping noises*
         Cuboid6 cuboid = new Cuboid6().add(pos);
         cuboid.expand(suckRange);
-        List<Entity> sucked = this.world.getEntitiesWithinAABB(Entity.class, cuboid.aabb(), SUCK_PREDICATE);
+        List<Entity> sucked = world.getEntitiesWithinAABB(Entity.class, cuboid.aabb(), SUCK_PREDICATE);
 
         double radius = getVoidScale(age) * 0.5;
 
         for (Entity suckee : sucked) {
             if (suckee != this) {
-                double dx = this.posX - suckee.posX;
-                double dy = this.posY - suckee.posY;
-                double dz = this.posZ - suckee.posZ;
+                double dx = posX - suckee.posX;
+                double dy = posY - suckee.posY;
+                double dz = posZ - suckee.posZ;
 
                 double lensquared = dx * dx + dy * dy + dz * dz;
                 double len = Math.sqrt(lensquared);
@@ -140,7 +140,7 @@ public class EntityGapingVoid extends Entity {
         double nomrange = radius * 0.95;
         cuboid = new Cuboid6().add(pos);
         cuboid.expand(nomrange);
-        List<Entity> nommed = this.world.getEntitiesWithinAABB(EntityLivingBase.class, cuboid.aabb(), OMNOM_PREDICATE);
+        List<Entity> nommed = world.getEntitiesWithinAABB(EntityLivingBase.class, cuboid.aabb(), OMNOM_PREDICATE);
 
         for (Entity nommee : nommed) {
             if (nommee != this) {
@@ -173,12 +173,12 @@ public class EntityGapingVoid extends Entity {
                         }
 
                         double dist = pos2.mag();
-                        if (dist <= nomrange && !this.world.isAirBlock(blockPos)) {
+                        if (dist <= nomrange && !world.isAirBlock(blockPos)) {
                             IBlockState state = world.getBlockState(blockPos);
                             float resist = state.getBlock().getExplosionResistance(this);//TODO HELP state.getExplosionResistance(this, this.worldObj, lx, ly, lz, this.posX, this.posY, this.posZ);
                             if (resist <= 10.0) {
                                 state.getBlock().dropBlockAsItemWithChance(world, blockPos, state, 0.9F, 0);
-                                this.world.setBlockToAir(blockPos);
+                                world.setBlockToAir(blockPos);
                             }
                         }
                     }
@@ -197,12 +197,12 @@ public class EntityGapingVoid extends Entity {
 
     @Override
     protected void readEntityFromNBT(NBTTagCompound tag) {
-        this.setAge(tag.getInteger("age"));
+        setAge(tag.getInteger("age"));
     }
 
     @Override
     protected void writeEntityToNBT(NBTTagCompound tag) {
-        tag.setInteger("age", this.getAge());
+        tag.setInteger("age", getAge());
     }
 
     public static double getVoidScale(double age) {

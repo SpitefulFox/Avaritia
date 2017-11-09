@@ -1,0 +1,37 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_sword",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"       II",
+		"      III",
+		"     III ",
+		"    III  ",
+		" C III   ",
+		"  CII    ",
+		"  NC     ",
+		" N  C    ",
+		"X        "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "#infinity_catalyst"
+		},
+		"C": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_ingot"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

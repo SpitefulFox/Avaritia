@@ -1,0 +1,26 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_boots",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		" NNN NNN ",
+		" NIN NIN ",
+		" NIN NIN ",
+		"NNIN NINN",
+		"NIIN NIIN",
+		"NNNN NNNN"
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

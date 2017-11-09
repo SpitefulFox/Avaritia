@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.IModelState;
 
 import javax.annotation.Nullable;
@@ -26,7 +25,7 @@ import java.util.List;
  * Created by covers1624 on 13/04/2017.
  * TODO, 1.11 Move some implementation of this to CCL.
  */
-public abstract class PerspectiveAwareItemRenderer implements IItemRenderer, IPerspectiveAwareModel, IEntityItemTickCallback {
+public abstract class PerspectiveAwareItemRenderer implements IItemRenderer, IEntityItemTickCallback {
 
     //This can be null if rendered in a gui, ALWAYS null check this.
     //Havent traced all routes, but only hand rendering may fire this..
@@ -44,11 +43,6 @@ public abstract class PerspectiveAwareItemRenderer implements IItemRenderer, IPe
     }
 
     @Override
-    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-        return new ArrayList<>();
-    }
-
-    @Override
     public boolean isAmbientOcclusion() {
         return true;
     }
@@ -56,21 +50,6 @@ public abstract class PerspectiveAwareItemRenderer implements IItemRenderer, IPe
     @Override
     public boolean isGui3d() {
         return false;
-    }
-
-    @Override
-    public boolean isBuiltInRenderer() {
-        return true;
-    }
-
-    @Override
-    public TextureAtlasSprite getParticleTexture() {
-        return TextureUtils.getMissingSprite();
-    }
-
-    @Override
-    public ItemCameraTransforms getItemCameraTransforms() {
-        return ItemCameraTransforms.DEFAULT;
     }
 
     @Override

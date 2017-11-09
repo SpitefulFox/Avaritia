@@ -15,7 +15,7 @@ public abstract class GuiMachineBase<T extends TileMachineBase, C extends Contai
     public GuiMachineBase(C container) {
         super(container);
         this.container = container;
-        this.machineTile = container.getTile();
+        machineTile = container.getTile();
     }
 
     protected static float scaleF(float num, float max, float pixels) {

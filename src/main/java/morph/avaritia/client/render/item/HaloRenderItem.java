@@ -3,12 +3,12 @@ package morph.avaritia.client.render.item;
 import codechicken.lib.colour.Colour;
 import morph.avaritia.api.IHaloRenderItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -37,8 +37,8 @@ public class HaloRenderItem extends WrappedItemRenderer {
     public void renderItem(ItemStack stack, TransformType transformType) {
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
-        if (stack.getItem() instanceof IHaloRenderItem && transformType == TransformType.GUI) {
+        BufferBuilder buffer = tess.getBuffer();
+        if (stack.getItem() instanceof IHaloRenderItem /*&& transformType == TransformType.GUI*/) {
             IHaloRenderItem hri = ((IHaloRenderItem) stack.getItem());
 
             GlStateManager.pushMatrix();
@@ -47,9 +47,9 @@ public class HaloRenderItem extends WrappedItemRenderer {
             //RenderHelper.enableGUIStandardItemLighting();
 
             GlStateManager.disableAlpha();
-            GlStateManager.disableDepth();
+            //GlStateManager.disableDepth();
 
-            if (hri.shouldDrawHalo(stack)) {
+            if (hri.shouldDrawHalo(stack) && transformType == TransformType.GUI) {
                 Colour.glColourARGB(hri.getHaloColour(stack));
                 TextureAtlasSprite sprite = hri.getHaloTexture(stack);
 
@@ -77,7 +77,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
                 double scale = randy.nextDouble() * 0.15 + 0.95;
                 double trans = (1 - scale) / 2;
                 GlStateManager.translate(trans, trans, 0);
-                GlStateManager.scale(scale, scale, 1.0);
+                GlStateManager.scale(scale, scale, 1.0001);
 
                 renderModel(wrapped, stack, 0.6F);
 
@@ -88,7 +88,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
 
             GlStateManager.enableAlpha();
             GlStateManager.enableRescaleNormal();
-            GlStateManager.enableDepth();
+            //GlStateManager.enableDepth();
 
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();

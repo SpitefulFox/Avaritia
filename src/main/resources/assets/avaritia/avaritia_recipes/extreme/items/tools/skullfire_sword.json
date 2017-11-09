@@ -1,0 +1,41 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:skullfire_sword",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"       IX",
+		"      IXI",
+		"     IXI ",
+		"    IXI  ",
+		" B IXI   ",
+		"  BXI    ",
+		"  WB     ",
+		" W  B    ",
+		"D        "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "minecraft:blaze_powder"
+		},
+		"B": {
+			"type": "minecraft:item",
+			"item": "minecraft:bone"
+		},
+		"D": {
+			"type": "minecraft:item",
+			"item": "minecraft:nether_star"
+		},
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "logWood"
+		}
+	}
+}

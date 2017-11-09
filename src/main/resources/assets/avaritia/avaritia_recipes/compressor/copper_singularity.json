@@ -1,0 +1,28 @@
+{
+	"type": "avaritia:compressor",
+	"result": {
+		"item": "avaritia:singularity",
+		"data": 5,
+		"count": 1
+	},
+	"cost": 400,
+	"ingredients": [
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockCopper"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.copper"
+				}
+			],
+			"pass": {
+				"type": "forge:ore_dict",
+				"ore": "blockCopper"
+			}
+		}
+	]
+}

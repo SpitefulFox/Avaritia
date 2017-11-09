@@ -28,34 +28,34 @@ public class EntityHeavenArrow extends EntityArrow {
 
     @Override
     public void onUpdate() {
-        this.rotationPitch = 0;
-        this.rotationYaw = 0;
+        rotationPitch = 0;
+        rotationYaw = 0;
         super.onUpdate();
-        if (!this.impacted) {
+        if (!impacted) {
             try {
                 if (inGround) {
-                    this.impacted = true;
+                    impacted = true;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            if (this.impacted) {
-                if (!this.world.isRemote) {
-                    this.barrage();
+            if (impacted) {
+                if (!world.isRemote) {
+                    barrage();
                 }
             }
         }
 
         if (inGround && timeInGround >= 100) {
-            this.setDead();
+            setDead();
         }
     }
 
     @Override
     public void writeEntityToNBT(NBTTagCompound tag) {
         super.writeEntityToNBT(tag);
-        tag.setBoolean("impacted", this.impacted);
+        tag.setBoolean("impacted", impacted);
     }
 
     /**
@@ -63,7 +63,7 @@ public class EntityHeavenArrow extends EntityArrow {
      */
     public void readEntityFromNBT(NBTTagCompound tag) {
         super.readEntityFromNBT(tag);
-        this.impacted = tag.getBoolean("impacted");
+        impacted = tag.getBoolean("impacted");
     }
 
     public void barrage() {//TODO, this logic may be borked.
@@ -72,23 +72,23 @@ public class EntityHeavenArrow extends EntityArrow {
             double angle = randy.nextDouble() * 2 * Math.PI;
             double dist = randy.nextGaussian() * 0.5;
 
-            double x = Math.sin(angle) * dist + this.posX;
-            double z = Math.cos(angle) * dist + this.posZ;
-            double y = this.posY + 25.0;
+            double x = Math.sin(angle) * dist + posX;
+            double z = Math.cos(angle) * dist + posZ;
+            double y = posY + 25.0;
 
             double dangle = randy.nextDouble() * 2 * Math.PI;
             double ddist = randy.nextDouble() * 0.35;
             double dx = Math.sin(dangle) * ddist;
             double dz = Math.cos(dangle) * ddist;
 
-            EntityArrow arrow = new EntityHeavenSubArrow(this.world, x, y, z);
-            arrow.shootingEntity = this.shootingEntity;
+            EntityArrow arrow = new EntityHeavenSubArrow(world, x, y, z);
+            arrow.shootingEntity = shootingEntity;
             arrow.addVelocity(dx, -(randy.nextDouble() * 1.85 + 0.15), dz);
-            arrow.setDamage(this.getDamage());
+            arrow.setDamage(getDamage());
             arrow.setIsCritical(true);
-            arrow.pickupStatus = this.pickupStatus;
+            arrow.pickupStatus = pickupStatus;
 
-            this.world.spawnEntity(arrow);
+            world.spawnEntity(arrow);
         }
     }
 

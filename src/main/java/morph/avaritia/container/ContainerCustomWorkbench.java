@@ -14,10 +14,10 @@ public class ContainerCustomWorkbench extends ContainerWorkbench {
     public ContainerCustomWorkbench(InventoryPlayer inv, World world, BlockPos pos) {
         super(inv, world, pos);
         this.pos = pos;
-        this.worldObj = world;
+        worldObj = world;
     }
 
     public boolean canInteractWith(EntityPlayer player) {
-        return !this.worldObj.isAirBlock(pos) && player.getDistanceSq(pos) <= 64.0D;
+        return !worldObj.isAirBlock(pos) && player.getDistanceSq(pos) <= 64.0D;
     }
 }

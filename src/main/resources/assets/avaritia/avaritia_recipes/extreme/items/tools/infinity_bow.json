@@ -1,0 +1,33 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_bow",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"   II    ",
+		"  I W    ",
+		" I  W    ",
+		"I   W    ",
+		"X   W    ",
+		"I   W    ",
+		" I  W    ",
+		"  I W    ",
+		"   II    "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_block"
+		},
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "blockWool"
+		}
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "avaritia:resource",
+		"data": 1,
+		"count": 1
+	},
+	"pattern": [
+		"DSD",
+		"DSD"
+	],
+	"key": {
+		"D": {
+			"type": "minecraft:item",
+			"item": "#diamond_lattice"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "netherStar"
+		}
+	}
+}

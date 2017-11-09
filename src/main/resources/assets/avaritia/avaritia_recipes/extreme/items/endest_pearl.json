@@ -1,0 +1,37 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:endest_pearl",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"   EEE   ",
+		" EEPPPEE ",
+		" EPPPPPE ",
+		"EPPPNPPPE",
+		"EPPNSNPPE",
+		"EPPPNPPPE",
+		" EPPPPPE ",
+		" EEPPPEE ",
+		"   EEE   "
+	],
+	"key": {
+		"E": {
+			"type": "minecraft:item",
+			"item": "minecraft:end_stone"
+		},
+		"P": {
+			"type": "minecraft:item",
+			"item": "minecraft:ender_pearl"
+		},
+		"S": {
+			"type": "minecraft:item",
+			"item": "minecraft:nether_star"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

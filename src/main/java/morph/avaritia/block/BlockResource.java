@@ -48,10 +48,10 @@ public class BlockResource extends Block implements IModelRegister {
 
     @Override
     @SideOnly (Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
+        //TODO
         for (int i = 0; i < Type.METADATA_LOOKUP.length; i++) {
-            list.add(new ItemStack(item, 1, i));
+            list.add(new ItemStack(this, 1, i));
         }
     }
 
@@ -104,13 +104,13 @@ public class BlockResource extends Block implements IModelRegister {
 
         public int getMetadata() {
 
-            return this.metadata;
+            return metadata;
         }
 
         @Override
         public String getName() {
 
-            return this.name;
+            return name;
         }
 
         public static Type byMetadata(int metadata) {

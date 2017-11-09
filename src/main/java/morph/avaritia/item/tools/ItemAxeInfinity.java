@@ -56,11 +56,11 @@ public class ItemAxeInfinity extends ItemAxe {
     }
 
     @Override
-    public float getStrVsBlock(ItemStack stack, IBlockState state) {
-        if (super.getStrVsBlock(stack, state) > 1.0F || state.getMaterial() == Material.LEAVES) {
-            return efficiencyOnProperMaterial;
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
+        if (super.getDestroySpeed(stack, state) > 1.0F || state.getMaterial() == Material.LEAVES) {
+            return efficiency;
         }
-        return Math.max(super.getStrVsBlock(stack, state), 6.0F);
+        return Math.max(super.getDestroySpeed(stack, state), 6.0F);
     }
 
     @Override

@@ -2,16 +2,21 @@ package morph.avaritia;
 
 import codechicken.lib.CodeChickenLib;
 import codechicken.lib.gui.SimpleCreativeTab;
-import morph.avaritia.compat.minetweaker.Tweak;
+import morph.avaritia.init.ModBlocks;
+import morph.avaritia.init.ModItems;
 import morph.avaritia.proxy.Proxy;
 import morph.avaritia.util.Lumberjack;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.oredict.OreDictionary;
+import org.apache.logging.log4j.Level;
 
 import static morph.avaritia.Avaritia.*;
 
@@ -34,6 +39,13 @@ public class Avaritia {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
+        OreDictionary.registerOre("blockWool", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("blockCrystalMatrix", new ItemStack(ModBlocks.resource, 1, 2));
+        OreDictionary.registerOre("blockCosmicNeutronium", new ItemStack(ModBlocks.resource, 1, 0));
+        OreDictionary.registerOre("blockInfinity", new ItemStack(ModBlocks.resource, 1, 1));
+        OreDictionary.registerOre("ingotCrystalMatrix", ModItems.crystal_matrix_ingot);
+        OreDictionary.registerOre("ingotCosmicNeutronium", ModItems.neutronium_ingot);
+        OreDictionary.registerOre("ingotInfinity", ModItems.infinity_ingot);
     }
 
     @Mod.EventHandler
@@ -46,9 +58,9 @@ public class Avaritia {
         proxy.postInit(event);
         if (Loader.isModLoaded("MineTweaker3")) {
             try {
-                Tweak.registrate();
+                //Tweak.registrate();
             } catch (Throwable e) {
-                Lumberjack.errorError("Avaritia seems to be having trouble with CraftTweaker.", e);
+                Lumberjack.log(Level.ERROR, e, "Avaritia seems to be having trouble with CraftTweaker.");
             }
         }
     }

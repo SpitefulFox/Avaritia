@@ -5,6 +5,7 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import morph.avaritia.Avaritia;
 import morph.avaritia.compat.jei.AvaritiaJEIPlugin;
 import net.minecraft.client.resources.I18n;
@@ -14,7 +15,7 @@ import static morph.avaritia.compat.jei.AvaritiaJEIPlugin.EXTREME_CRAFTING;
 /**
  * Created by brandon3055 on 17/02/2017.
  */
-public class ExtremeCraftingCategory extends BlankRecipeCategory<ExtremeRecipeWrapper> {
+public class ExtremeCraftingCategory implements IRecipeCategory<ExtremeRecipeWrapper> {
 
     private static final int craftOutputSlot = 0;
     private static final int craftInputSlot1 = 1;

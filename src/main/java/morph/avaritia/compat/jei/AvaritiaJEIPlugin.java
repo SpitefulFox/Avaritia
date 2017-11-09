@@ -11,17 +11,15 @@ import morph.avaritia.compat.jei.extreme.ExtremeCraftingCategory;
 import morph.avaritia.compat.jei.extreme.ExtremeRecipeWrapper;
 import morph.avaritia.container.ContainerExtremeCrafting;
 import morph.avaritia.init.ModBlocks;
-import morph.avaritia.recipe.compressor.CompressorManager;
-import morph.avaritia.recipe.compressor.CompressorRecipe;
-import morph.avaritia.recipe.extreme.*;
+import morph.avaritia.recipe.AvaritiaRecipeManager;
+import morph.avaritia.recipe.compressor.ICompressorRecipe;
+import morph.avaritia.recipe.extreme.ExtremeShapedRecipe;
+import morph.avaritia.recipe.extreme.ExtremeShapelessRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-/**
- * Created by brandon3055 on 17/02/2017.
- */
 @JEIPlugin
-public class AvaritiaJEIPlugin extends BlankModPlugin {
+public class AvaritiaJEIPlugin implements IModPlugin {
 
     public static final String EXTREME_CRAFTING = "Avatitia.Extreme";
     public static final String NEUTRONIUM_COMPRESSOR = "Avatitia.Compressor";
@@ -45,17 +43,15 @@ public class AvaritiaJEIPlugin extends BlankModPlugin {
         IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
         setupDrawables(guiHelper);
 
-        registry.addRecipes(ExtremeCraftingManager.getInstance().getRecipeList(), EXTREME_CRAFTING);
-        registry.handleRecipes(ExtremeShapedRecipe.class, ExtremeRecipeWrapper.Shaped::new, EXTREME_CRAFTING);
-        registry.handleRecipes(ExtremeShapelessRecipe.class, ExtremeRecipeWrapper.Shapeless::new, EXTREME_CRAFTING);
-        registry.handleRecipes(ExtremeShapedOreRecipe.class, ExtremeRecipeWrapper.ShapedOre::new, EXTREME_CRAFTING);
-        registry.handleRecipes(ExtremeShapelessOreRecipe.class, ExtremeRecipeWrapper.ShapelessOre::new, EXTREME_CRAFTING);
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.dire_craft), EXTREME_CRAFTING);
+        registry.addRecipes(AvaritiaRecipeManager.EXTREME_RECIPES.values(), EXTREME_CRAFTING);
+        registry.handleRecipes(ExtremeShapedRecipe.class, ExtremeRecipeWrapper::new, EXTREME_CRAFTING);
+        registry.handleRecipes(ExtremeShapelessRecipe.class, ExtremeRecipeWrapper::new, EXTREME_CRAFTING);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.extremeCraftingTable), EXTREME_CRAFTING);
         registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerExtremeCrafting.class, EXTREME_CRAFTING, 1, 81, 82, 36);
         registry.addRecipeClickArea(GUIExtremeCrafting.class, 175, 79, 28, 26, EXTREME_CRAFTING);
 
-        registry.addRecipes(CompressorManager.getRecipes(), NEUTRONIUM_COMPRESSOR);
-        registry.handleRecipes(CompressorRecipe.class, CompressorRecipeWrapper::new, NEUTRONIUM_COMPRESSOR);
+        registry.addRecipes(AvaritiaRecipeManager.COMPRESSOR_RECIPES.values(), NEUTRONIUM_COMPRESSOR);
+        registry.handleRecipes(ICompressorRecipe.class, CompressorRecipeWrapper::new, NEUTRONIUM_COMPRESSOR);
         registry.addRecipeClickArea(GUINeutroniumCompressor.class, 62, 35, 22, 15, NEUTRONIUM_COMPRESSOR);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.neutronium_compressor), NEUTRONIUM_COMPRESSOR);
     }

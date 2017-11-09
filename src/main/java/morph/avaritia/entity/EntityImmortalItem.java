@@ -17,12 +17,12 @@ public class EntityImmortalItem extends EntityItem {
         motionX = original.motionX;
         motionY = original.motionY;
         motionZ = original.motionZ;
-        setEntityItemStack(stack);
+        setItem(stack);
     }
 
     public EntityImmortalItem(World world, double x, double y, double z, ItemStack stack) {
         super(world, x, y, z);
-        setEntityItemStack(stack);
+        setItem(stack);
     }
 
     public EntityImmortalItem(World world, double x, double y, double z) {
@@ -56,13 +56,13 @@ public class EntityImmortalItem extends EntityItem {
             }
         }
 
-        if (getEntityItem().isEmpty()) {
+        if (getItem().isEmpty()) {
             setDead();
         } else {
             super.onUpdate();
 
-            if (delayBeforeCanPickup > 0) {
-                --delayBeforeCanPickup;
+            if (pickupDelay > 0) {
+                --pickupDelay;
             }
 
             prevPosX = posX;

@@ -23,12 +23,12 @@ public class EntityHeavenSubArrow extends EntityArrow {
 
     @Override
     public void onUpdate() {
-        this.rotationPitch = 0;
-        this.rotationYaw = 0;
+        rotationPitch = 0;
+        rotationYaw = 0;
         super.onUpdate();
 
         if (inGround && timeInGround >= 20) {
-            this.setDead();
+            setDead();
         }
     }
 

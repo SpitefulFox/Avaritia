@@ -28,10 +28,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, IModelRegister {
 
     public ItemEndestPearl() {
-        this.setUnlocalizedName("avaritia:endest_pearl");
-        this.setRegistryName("endest_pearl");
-        this.maxStackSize = 16;
-        this.setCreativeTab(Avaritia.tab);
+        setUnlocalizedName("avaritia:endest_pearl");
+        setRegistryName("endest_pearl");
+        maxStackSize = 16;
+        setCreativeTab(Avaritia.tab);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, 
 
         if (!world.isRemote) {
             EntityEndestPearl pearl = new EntityEndestPearl(world, player);
-            pearl.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+            pearl.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
             world.spawnEntity(pearl);
         }
 

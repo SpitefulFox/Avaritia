@@ -1,0 +1,34 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_pickaxe",
+		"data": 0,
+		"nbt": "{ench:[{lvl:10s,id:35s}]}",
+		"count": 1
+	},
+	"pattern": [
+		" IIIIIII ",
+		"IIIICIIII",
+		"II  N  II",
+		"    N    ",
+		"    N    ",
+		"    N    ",
+		"    N    ",
+		"    N    ",
+		"    N    "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"C": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_block"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

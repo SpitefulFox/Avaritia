@@ -1,0 +1,41 @@
+{
+	"ccl_marker": 1,
+	"variant_sets": [
+		"type"
+	],
+	"texture_domain": "avaritia",
+	"defaults": {
+		"model": "minecraft:cube_bottom_top",
+		"textures": {
+			"top": "minecraft:dirt",
+			"bottom": "minecraft:dirt",
+			"side": "minecraft:dirt"
+		},
+		"transform": "ccl:default-block"
+	},
+	"variants": {
+		"type": {
+			"compressed": {
+				"textures": {
+					"top": "blocks/crafting/compressed",
+					"bottom": "blocks/crafting/compressed",
+					"side": "blocks/crafting/compressed"
+				}
+			},
+			"double_compressed": {
+				"textures": {
+					"top": "blocks/crafting/double_compressed",
+					"bottom": "blocks/crafting/double_compressed",
+					"side": "blocks/crafting/double_compressed"
+				}
+			},
+			"extreme": {
+				"textures": {
+					"top": "blocks/crafting/extreme_top",
+					"bottom": "blocks/crafting/extreme_top",
+					"side": "blocks/crafting/extreme_side"
+				}
+			}
+		}
+	}
+}

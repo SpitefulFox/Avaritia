@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "avaritia:block_resource",
+		"data": 1,
+		"count": 1
+	},
+	"pattern": [
+		"III",
+		"III",
+		"III"
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		}
+	}
+}

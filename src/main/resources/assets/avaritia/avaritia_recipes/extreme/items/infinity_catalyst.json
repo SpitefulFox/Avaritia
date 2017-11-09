@@ -1,0 +1,223 @@
+{
+	"type": "avaritia:shapeless",
+	"result": {
+		"item": "avaritia:resource",
+		"data": 5,
+		"count": 1
+	},
+	"ingredients": [
+		{
+			"type": "forge:ore_dict",
+			"ore": "blockEmerald"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#diamond_lattice"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_ingot"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#neutron_pile"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#neutron_nugget"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#ultimate_stew"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#cosmic_meatballs"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#endest_pearl"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#record_fragment"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#iron_singularity"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#gold_singularity"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#lapis_singularity"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#redstone_singularity"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#quartz_singularity"
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockCopper"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.copper"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#copper_singularity"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockTin"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.tin"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#tin_singularity"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockLead"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.lead"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#lead_singularity"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockSilver"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.silver"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#silver_singularity"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockNickel"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.nickel"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#nickel_singularity"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockElectrumFlux"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.fluxed"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#fluxed_singularity"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockEnderium"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.enderium"
+				}
+			],
+			"pass": {
+				"type": "forge:ore_dict",
+				"ore": "blockEnderium"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockSteel"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.steel"
+				}
+			],
+			"pass": {
+				"type": "forge:ore_dict",
+				"ore": "blockSteel"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockDarkSteel"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.dark_steel"
+				}
+			],
+			"pass": {
+				"type": "forge:ore_dict",
+				"ore": "blockDarkSteel"
+			}
+		}
+	]
+}

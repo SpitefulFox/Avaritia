@@ -1,9 +1,9 @@
 package morph.avaritia.client.render.item;
 
-import codechicken.lib.model.BakedModelProperties;
 import codechicken.lib.model.ItemQuadBakery;
+import codechicken.lib.model.bakedmodels.ModelProperties;
 import codechicken.lib.model.bakedmodels.PerspectiveAwareBakedModel;
-import codechicken.lib.texture.TextureUtils;
+import codechicken.lib.util.ResourceUtils;
 import codechicken.lib.util.TransformUtils;
 import com.google.common.collect.ImmutableList;
 import morph.avaritia.api.ICosmicRenderItem;
@@ -32,7 +32,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
     private static final HashMap<TextureAtlasSprite, IBakedModel> spriteQuadCache = new HashMap<>();
 
     static {
-        TextureUtils.registerReloadListener(resourceManager -> spriteQuadCache.clear());
+        ResourceUtils.registerReloadListener(resourceManager -> spriteQuadCache.clear());
     }
 
     public CosmicItemRender(IModelState state, IBakedModel wrapped) {
@@ -138,7 +138,7 @@ public class CosmicItemRender extends WrappedItemRenderer {
 
     private static IBakedModel computeModel(TextureAtlasSprite sprite) {
         List<BakedQuad> quads = ItemQuadBakery.bakeItem(ImmutableList.of(sprite));
-        return new PerspectiveAwareBakedModel(quads, TransformUtils.DEFAULT_ITEM, new BakedModelProperties(true, false));
+        return new PerspectiveAwareBakedModel(quads, TransformUtils.DEFAULT_ITEM, new ModelProperties(true, false));
     }
 
     protected void processLightLevel(TransformType transformType) {

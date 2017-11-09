@@ -29,8 +29,8 @@ public class FakeSlot extends OutputSlot {
         return false;
     }
 
-    @Override
-    public boolean canBeHovered() {
-        return getHasStack();
-    }
+//    @Override
+//    public boolean canBeHovered() {
+//        return getHasStack();
+//    }
 }

@@ -2,9 +2,9 @@ package morph.avaritia.client.render.item;
 
 import codechicken.lib.model.ModelRegistryHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -69,7 +69,7 @@ public abstract class WrappedItemRenderer extends PerspectiveAwareItemRenderer {
 
         ItemColors itemColorProvider = Minecraft.getMinecraft().getItemColors();
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
+        BufferBuilder buffer = tess.getBuffer();
         buffer.begin(0x07, DefaultVertexFormats.ITEM);
         List<BakedQuad> quads = new LinkedList<>();
 
@@ -83,7 +83,7 @@ public abstract class WrappedItemRenderer extends PerspectiveAwareItemRenderer {
             int colour = -1;
 
             if (quad.hasTintIndex()) {
-                colour = itemColorProvider.getColorFromItemstack(stack, quad.getTintIndex());
+                colour = itemColorProvider.colorMultiplier(stack, quad.getTintIndex());
 
                 if (EntityRenderer.anaglyphEnable) {
                     colour = TextureUtil.anaglyphColor(colour);

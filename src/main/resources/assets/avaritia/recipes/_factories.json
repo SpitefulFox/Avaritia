@@ -1,0 +1,5 @@
+{
+	"conditions": {
+		"config": "morph.avaritia.recipe.ConfigConditionalFactory"
+	}
+}

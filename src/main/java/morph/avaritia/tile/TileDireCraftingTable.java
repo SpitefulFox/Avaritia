@@ -24,7 +24,7 @@ public class TileDireCraftingTable extends TileBase implements IInventory, ISide
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        this.result = new ItemStack(tag.getCompoundTag("Result"));
+        result = new ItemStack(tag.getCompoundTag("Result"));
         for (int x = 0; x < matrix.length; x++) {
             if (tag.hasKey("Craft" + x)) {
                 matrix[x] = new ItemStack(tag.getCompoundTag("Craft" + x));
@@ -148,7 +148,7 @@ public class TileDireCraftingTable extends TileBase implements IInventory, ISide
 
     @Override
     public boolean isUsableByPlayer(EntityPlayer player) {
-        return this.world.getTileEntity(pos) == this && BlockUtils.isEntityInRange(pos, player, 64);
+        return world.getTileEntity(pos) == this && BlockUtils.isEntityInRange(pos, player, 64);
     }
 
     @Override

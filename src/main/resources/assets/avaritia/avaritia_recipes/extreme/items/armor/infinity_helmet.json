@@ -1,0 +1,30 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_helmet",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"  NNNNN  ",
+		" NIIIIIN ",
+		" N XIX N ",
+		" NIIIIIN ",
+		" NIIIIIN ",
+		" NI I IN "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "#infinity_catalyst"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

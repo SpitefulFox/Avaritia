@@ -1,0 +1,29 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_axe",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"   I     ",
+		"  IIIII  ",
+		"   IIII  ",
+		"     IN  ",
+		"      N  ",
+		"      N  ",
+		"      N  ",
+		"      N  ",
+		"      N  "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

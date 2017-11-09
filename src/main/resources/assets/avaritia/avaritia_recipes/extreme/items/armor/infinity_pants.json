@@ -1,0 +1,37 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_pants",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"NNNNNNNNN",
+		"NIIIXIIIN",
+		"NINNXNNIN",
+		"NIN   NIN",
+		"NCN   NCN",
+		"NIN   NIN",
+		"NIN   NIN",
+		"NIN   NIN",
+		"NNN   NNN"
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "#infinity_catalyst"
+		},
+		"C": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_block"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

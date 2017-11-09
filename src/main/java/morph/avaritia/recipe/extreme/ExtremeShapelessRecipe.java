@@ -1,83 +1,91 @@
 package morph.avaritia.recipe.extreme;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.JsonContext;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Nonnull;
+import java.util.Iterator;
 
-public class ExtremeShapelessRecipe implements IRecipe {
+/**
+ * Created by covers1624 on 9/10/2017.
+ */
+public class ExtremeShapelessRecipe extends ExtremeRecipeBase {
 
-    /**
-     * Is the ItemStack that you get when craft the recipe.
-     */
-    private final ItemStack recipeOutput;
-    /**
-     * Is a List of ItemStack that composes the recipe.
-     */
-    public final List<ItemStack> recipeItems;
+    protected ItemStack output;
+    protected NonNullList<Ingredient> input;
 
-    public ExtremeShapelessRecipe(ItemStack result, List<ItemStack> ingredients) {
-        this.recipeOutput = result;
-        this.recipeItems = ingredients;
+    public ExtremeShapelessRecipe(NonNullList<Ingredient> input, ItemStack result) {
+        this.input = input;
+        output = result.copy();
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
-        return this.recipeOutput;
+        return output.copy();
     }
 
-    /**
-     * Used to check if a recipe matches current crafting inventory
-     */
-    public boolean matches(InventoryCrafting matrix, World world) {
-        ArrayList<ItemStack> inputCopy = new ArrayList<>(this.recipeItems);
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return input;
+    }
 
-        for (int i = 0; i < 9; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                ItemStack itemstack = matrix.getStackInRowAndColumn(j, i);
+    @Override
+    public boolean canFit(int p_194133_1_, int p_194133_2_) {
+        return p_194133_1_ * p_194133_2_ >= input.size();
+    }
 
-                if (!itemstack.isEmpty()) {
-                    boolean flag = false;
+    @Override
+    public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World world) {
+        NonNullList<Ingredient> required = NonNullList.create();
+        required.addAll(input);
 
-                    for (ItemStack stack : inputCopy) {
-                        if (itemstack.getItem() == stack.getItem() && (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE || itemstack.getItemDamage() == stack.getItemDamage())) {
-                            flag = true;
-                            inputCopy.remove(stack);
-                            break;
-                        }
+        for (int x = 0; x < var1.getSizeInventory(); x++) {
+            ItemStack slot = var1.getStackInSlot(x);
+
+            if (!slot.isEmpty()) {
+                boolean inRecipe = false;
+                Iterator<Ingredient> req = required.iterator();
+
+                while (req.hasNext()) {
+                    if (req.next().apply(slot)) {
+                        inRecipe = true;
+                        req.remove();
+                        break;
                     }
+                }
 
-                    if (!flag) {
-                        return false;
-                    }
+                if (!inRecipe) {
+                    return false;
                 }
             }
         }
 
-        return inputCopy.isEmpty();
+        return required.isEmpty();
     }
 
-    /**
-     * Returns an Item that is the result of this recipe
-     */
-    public ItemStack getCraftingResult(InventoryCrafting matrix) {
-        return this.recipeOutput.copy();
-    }
+    public static ExtremeShapelessRecipe fromJson(JsonContext context, JsonObject json) {
+        NonNullList<Ingredient> ings = NonNullList.create();
+        for (JsonElement ele : JsonUtils.getJsonArray(json, "ingredients")) {
+            Ingredient i = CraftingHelper.getIngredient(ele, context);
+            if (i != Ingredient.EMPTY) {
+                ings.add(i);
+            }
+        }
 
-    /**
-     * Returns the size of the recipe area
-     */
-    public int getRecipeSize() {
-        return this.recipeItems.size();
-    }
+        if (ings.isEmpty()) {
+            throw new JsonParseException("No ingredients for shapeless recipe");
+        }
 
-    @Override
-    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-        return ForgeHooks.defaultRecipeGetRemainingItems(inv);
+        ItemStack itemstack = CraftingHelper.getItemStack(JsonUtils.getJsonObject(json, "result"), context);
+        return new ExtremeShapelessRecipe(ings, itemstack);
     }
 }

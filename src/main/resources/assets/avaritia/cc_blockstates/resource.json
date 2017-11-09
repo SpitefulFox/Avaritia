@@ -1,0 +1,86 @@
+{
+	"ccl_marker": 1,
+	"variant_sets": [
+		"type",
+		"matter_cluster"
+	],
+	"texture_domain": "avaritia",
+	"defaults": {
+		"model": "builtin/generated",
+		"textures": {
+			"layer0": "minecraft:dirt"
+		},
+		"transform": "ccl:default-item"
+	},
+	"variants": {
+		"type": {
+			"diamond_lattice": {
+				"textures": {
+					"layer0": "items/resource/diamond_lattice"
+				}
+			},
+			"crystal_matrix_ingot": {
+				"textures": {
+					"layer0": "items/resource/crystal_matrix_ingot"
+				}
+			},
+			"neutron_pile": {
+				"textures": {
+					"layer0": "items/resource/neutron_pile"
+				}
+			},
+			"neutron_nugget": {
+				"textures": {
+					"layer0": "items/resource/neutron_nugget"
+				}
+			},
+			"neutronium_ingot": {
+				"textures": {
+					"layer0": "items/resource/neutronium_ingot"
+				}
+			},
+			"infinity_catalyst": {
+				"textures": {
+					"layer0": "items/resource/infinity_catalyst"
+				}
+			},
+			"infinity_ingot": {
+				"textures": {
+					"layer0": "items/resource/infinity_ingot"
+				}
+			},
+			"record_fragment": {
+				"textures": {
+					"layer0": "items/resource/record_fragment"
+				}
+			},
+			"endest_pearl": {
+				"textures": {
+					"layer0": "items/endest_pearl/layer_0"
+				}
+			},
+			"ultimate_stew": {
+				"textures": {
+					"layer0": "items/ultimate_stew/layer_0"
+				}
+			},
+			"cosmic_meatballs": {
+				"textures": {
+					"layer0": "items/cosmic_meatballs/layer_0"
+				}
+			}
+		},
+		"matter_cluster": {
+			"empty": {
+				"textures": {
+					"layer0": "items/matter_cluster/empty"
+				}
+			},
+			"full": {
+				"textures": {
+					"layer0": "items/matter_cluster/full"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+{
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "avaritia:infinity_chestplate",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		" NN   NN ",
+		"NNN   NNN",
+		"NNN   NNN",
+		" NIIIIIN ",
+		" NIIXIIN ",
+		" NIIIIIN ",
+		" NIIIIIN ",
+		" NIIIIIN ",
+		"  NNNNN  "
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": "#infinity_ingot"
+		},
+		"X": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_block"
+		},
+		"N": {
+			"type": "minecraft:item",
+			"item": "#neutronium_ingot"
+		}
+	}
+}

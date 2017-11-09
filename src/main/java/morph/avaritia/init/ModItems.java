@@ -8,13 +8,16 @@ import morph.avaritia.item.tools.*;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+
+import java.util.function.Consumer;
 
 /**
  * Created by covers1624 on 11/04/2017.
@@ -89,7 +92,7 @@ public class ModItems {
 
     public static void init() {
 
-        resource = register(new ItemResource(Avaritia.tab, "resource"));
+        resource = registerItem(new ItemResource(Avaritia.tab, "resource"));
         //0
         diamond_lattice = resource.registerItem("diamond_lattice", EnumRarity.UNCOMMON);
         //1
@@ -107,7 +110,7 @@ public class ModItems {
         //7
         record_fragment = resource.registerItem("record_fragment", COSMIC_RARITY);
 
-        singularity = register(new ItemSingularity(Avaritia.tab, "singularity"));
+        singularity = registerItem(new ItemSingularity(Avaritia.tab, "singularity"));
         ironSingularity = singularity.registerItem("iron");
         goldSingularity = singularity.registerItem("gold");
         lapisSingularity = singularity.registerItem("lapis");
@@ -122,62 +125,67 @@ public class ModItems {
         emeraldSingularity = singularity.registerItem("emerald");
         fluxedSingularity = singularity.registerItem("fluxed");
 
-        infinity_sword = register(new ItemSwordInfinity());
+        infinity_sword = registerItem(new ItemSwordInfinity());
 
-        infinity_bow = register(new ItemBowInfinity());
+        infinity_bow = registerItem(new ItemBowInfinity());
 
-        infinity_pickaxe = register(new ItemPickaxeInfinity());
+        infinity_pickaxe = registerItem(new ItemPickaxeInfinity());
 
-        infinity_shovel = register(new ItemShovelInfinity());
+        infinity_shovel = registerItem(new ItemShovelInfinity());
 
-        infinity_axe = register(new ItemAxeInfinity());
+        infinity_axe = registerItem(new ItemAxeInfinity());
 
-        infinity_hoe = register(new ItemHoeInfinity());
+        infinity_hoe = registerItem(new ItemHoeInfinity());
 
         infinity_helmet = new ItemArmorInfinity(EntityEquipmentSlot.HEAD);
         infinity_helmet.setUnlocalizedName("avaritia:infinity_helmet");
-        register(infinity_helmet.setRegistryName("infinity_helmet"));
+        registerItem(infinity_helmet.setRegistryName("infinity_helmet"));
 
         infinity_chestplate = new ItemArmorInfinity(EntityEquipmentSlot.CHEST);
         infinity_chestplate.setUnlocalizedName("avaritia:infinity_chestplate");
-        register(infinity_chestplate.setRegistryName("infinity_chestplate"));
+        registerItem(infinity_chestplate.setRegistryName("infinity_chestplate"));
 
         infinity_pants = new ItemArmorInfinity(EntityEquipmentSlot.LEGS);
         infinity_pants.setUnlocalizedName("avaritia:infinity_pants");
-        register(infinity_pants.setRegistryName("infinity_pants"));
+        registerItem(infinity_pants.setRegistryName("infinity_pants"));
 
         infinity_boots = new ItemArmorInfinity(EntityEquipmentSlot.FEET);
         infinity_boots.setUnlocalizedName("avaritia:infinity_boots");
-        register(infinity_boots.setRegistryName("infinity_boots"));
+        registerItem(infinity_boots.setRegistryName("infinity_boots"));
 
-        skull_sword = register(new ItemSwordSkulls());
+        skull_sword = registerItem(new ItemSwordSkulls());
 
-        endest_pearl = register(new ItemEndestPearl());
+        endest_pearl = registerItem(new ItemEndestPearl());
 
         ultimate_stew = new ItemFood(20, 20, false);
-        register(ultimate_stew.setRegistryName("ultimate_stew"));
+        registerItem(ultimate_stew.setRegistryName("ultimate_stew"));
         ultimate_stew.setPotionEffect(new PotionEffect(MobEffects.REGENERATION, 300, 1), 1.0F).setUnlocalizedName("avaritia:ultimate_stew").setCreativeTab(Avaritia.tab);
 
         cosmic_meatballs = new ItemFood(20, 20, false);
-        register(cosmic_meatballs.setRegistryName("cosmic_meatballs"));
+        registerItem(cosmic_meatballs.setRegistryName("cosmic_meatballs"));
         cosmic_meatballs.setPotionEffect(new PotionEffect(MobEffects.STRENGTH, 300, 1), 1.0F).setUnlocalizedName("avaritia:cosmic_meatballs").setCreativeTab(Avaritia.tab);
 
-        if (ConfigHandler.fractured) {
-            fractured_ore = register(new ItemFracturedOre());
+        if (ConfigHandler.fracturedOres) {
+            fractured_ore = registerItem(new ItemFracturedOre());
             ItemFracturedOre.parseOreDictionary();
         }
 
-        matter_cluster = register(new ItemMatterCluster());
+        matter_cluster = registerItem(new ItemMatterCluster());
     }
 
-    public static <V extends IForgeRegistryEntry<?>> V register(V registerObject) {
-        GameRegistry.register(registerObject);
+    public static <V extends Item> V registerItem(V item) {
+        registerImpl(item, ForgeRegistries.ITEMS::register);
+        return item;
+    }
 
-        if (registerObject instanceof IModelRegister) {
-            Avaritia.proxy.addModelRegister((IModelRegister) registerObject);
+    public static <V extends IForgeRegistryEntry<V>> V registerImpl(V registryObject, Consumer<V> registerCallback) {
+        registerCallback.accept(registryObject);
+
+        if (registryObject instanceof IModelRegister) {
+            Avaritia.proxy.addModelRegister((IModelRegister) registryObject);
         }
 
-        return registerObject;
+        return registryObject;
     }
 
 }

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "avaritia:block_resource",
+		"data": 2,
+		"count": 1
+	},
+	"pattern": [
+		"CCC",
+		"CCC",
+		"CCC"
+	],
+	"key": {
+		"C": {
+			"type": "minecraft:item",
+			"item": "#crystal_matrix_ingot"
+		}
+	}
+}

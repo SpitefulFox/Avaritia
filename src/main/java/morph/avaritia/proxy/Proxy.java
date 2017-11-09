@@ -1,7 +1,6 @@
 package morph.avaritia.proxy;
 
 import morph.avaritia.Avaritia;
-import morph.avaritia.achievements.AchievementTrigger;
 import morph.avaritia.api.registration.IModelRegister;
 import morph.avaritia.client.gui.GUIHandler;
 import morph.avaritia.entity.EntityEndestPearl;
@@ -14,7 +13,7 @@ import morph.avaritia.handler.ConfigHandler;
 import morph.avaritia.init.FoodRecipes;
 import morph.avaritia.init.ModBlocks;
 import morph.avaritia.init.ModItems;
-import morph.avaritia.init.Recipes;
+import morph.avaritia.recipe.AvaritiaRecipeManager;
 import morph.avaritia.util.CompressorBalanceCalculator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -34,7 +33,6 @@ public class Proxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(Avaritia.instance, new GUIHandler());
         MinecraftForge.EVENT_BUS.register(new AbilityHandler());
         MinecraftForge.EVENT_BUS.register(new AvaritiaEventHandler());
-        MinecraftForge.EVENT_BUS.register(new AchievementTrigger());
 
         EntityRegistry.registerModEntity(new ResourceLocation("avaritia:endest_pearl"), EntityEndestPearl.class, "EndestPearl", 1, Avaritia.instance, 64, 10, true);
         EntityRegistry.registerModEntity(new ResourceLocation("avaritia:gaping_void"), EntityGapingVoid.class, "GapingVoid", 2, Avaritia.instance, 256, 10, false);
@@ -44,9 +42,8 @@ public class Proxy {
 
     public void init(FMLInitializationEvent event) {
         CompressorBalanceCalculator.gatherBalanceModifier();
+        AvaritiaRecipeManager.init();
         FoodRecipes.initFoodRecipes();
-        Recipes.init();
-        Recipes.initRecipeCompat();
     }
 
     public void postInit(FMLPostInitializationEvent event) {

@@ -1,10 +1,10 @@
 package morph.avaritia.client.render.entity;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -26,13 +26,13 @@ public class RenderHeavenArrow extends RenderArrow<EntityArrow> {
         er.disableLightmap();
         GlStateManager.disableLighting();
 
-        this.bindEntityTexture(entityArrow);
+        bindEntityTexture(entityArrow);
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
         GlStateManager.rotate(entityArrow.prevRotationYaw + (entityArrow.rotationYaw - entityArrow.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(entityArrow.prevRotationPitch + (entityArrow.rotationPitch - entityArrow.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
+        BufferBuilder buffer = tess.getBuffer();
 
         byte b0 = 0;
         float f2 = 0.0F;

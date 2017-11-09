@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "avaritia:resource",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"X X",
+		" X ",
+		"X X"
+	],
+	"key": {
+		"X": {
+			"type": "forge:ore_dict",
+			"ore": "gemDiamond"
+		}
+	}
+}

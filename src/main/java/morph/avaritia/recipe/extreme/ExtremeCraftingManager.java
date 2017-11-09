@@ -1,195 +1,118 @@
 package morph.avaritia.recipe.extreme;
 
-import net.minecraft.block.Block;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
+import codechicken.lib.reflect.ObfMapping;
+import codechicken.lib.reflect.ReflectionManager;
+import com.google.gson.*;
+import net.minecraft.util.JsonUtils;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.RegistryNamespaced;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.JsonContext;
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 public class ExtremeCraftingManager {
 
-    /**
-     * The static instance of this class
-     */
-    private static final ExtremeCraftingManager instance = new ExtremeCraftingManager();
-    /**
-     * A list of all the recipes added
-     */
-    private List<IRecipe> recipes = new ArrayList<>();
+    public static final RegistryNamespaced<ResourceLocation, IExtremeRecipe> REGISTRY = new RegistryNamespaced<>();
 
-    /**
-     * Returns the static instance of this class
-     */
-    public static ExtremeCraftingManager getInstance() {
-        return instance;
+    private static Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    private static Map<ResourceLocation, BiFunction<JsonContext, JsonObject, IExtremeRecipe>> recipeFactories = new HashMap<>();
+
+    private static final ObfMapping mapping = new ObfMapping(//
+            "net/minecraftforge/common/crafting/JsonContext",//
+            "loadConstants",//
+            "([Lcom/google/gson/JsonObject;)V"//
+    );
+    private static final BiConsumer<JsonContext, JsonObject[]> callLoadContext = (ctx, json) -> ReflectionManager.callMethod(mapping, null, ctx, new Object[] { json });
+
+    public static void init() {
+        recipeFactories.put(new ResourceLocation("avaritia:shaped"), ExtremeShapedRecipe::fromJson);
+        recipeFactories.put(new ResourceLocation("avaritia:shapeless"), ExtremeShapelessRecipe::fromJson);
+
+        ModContainer me = Loader.instance().activeModContainer();
+        Loader.instance().setActiveModContainer(null);
+        Loader.instance().getActiveModList().forEach(ExtremeCraftingManager::loadRecipes);
+        Loader.instance().setActiveModContainer(me);
     }
 
-    public ExtremeShapedRecipe addRecipe(ItemStack result, Object... recipe) {
-        String s = "";
-        int i = 0;
-        int width = 0;
-        int height = 0;
+    private static void loadRecipes(ModContainer mod) {
+        JsonContext ctx = new JsonContext(mod.getModId());
 
-        if (recipe[i] instanceof String[]) {
-            String[] astring = (String[]) recipe[i++];
-
-            for (String s1 : astring) {
-                ++height;
-                width = s1.length();
-                s = s + s1;
-            }
-        } else {
-            while (recipe[i] instanceof String) {
-                String s2 = (String) recipe[i++];
-                ++height;
-                width = s2.length();
-                s = s + s2;
-            }
-        }
-
-        HashMap<Character, ItemStack> charStackMap = new HashMap<>();
-
-        for (; i < recipe.length; i += 2) {
-            Character character = (Character) recipe[i];
-            ItemStack itemstack1 = null;
-
-            if (recipe[i + 1] instanceof Item) {
-                itemstack1 = new ItemStack((Item) recipe[i + 1]);
-            } else if (recipe[i + 1] instanceof Block) {
-                itemstack1 = new ItemStack((Block) recipe[i + 1], 1, 32767);
-            } else if (recipe[i + 1] instanceof ItemStack) {
-                itemstack1 = (ItemStack) recipe[i + 1];
-            }
-
-            charStackMap.put(character, itemstack1);
-        }
-
-        ItemStack[] ingredients = new ItemStack[width * height];
-
-        for (int i1 = 0; i1 < width * height; ++i1) {
-            char ch = s.charAt(i1);
-
-            if (charStackMap.containsKey(ch)) {
-                ingredients[i1] = charStackMap.get(ch).copy();
-            } else {
-                ingredients[i1] = ItemStack.EMPTY;
-            }
-        }
-
-        ExtremeShapedRecipe shapedrecipes = new ExtremeShapedRecipe(width, height, ingredients, result);
-        this.recipes.add(shapedrecipes);
-        return shapedrecipes;
-    }
-
-    public ExtremeShapedOreRecipe addExtremeShapedOreRecipe(ItemStack result, Object... recipe) {
-        ExtremeShapedOreRecipe craft = new ExtremeShapedOreRecipe(result, recipe);
-        recipes.add(craft);
-        return craft;
-    }
-
-    public ExtremeShapelessRecipe addShapelessRecipe(ItemStack result, Object... ingredients) {
-        ArrayList<ItemStack> recipeIngredients = new ArrayList<>();
-
-        for (Object object1 : ingredients) {
-            if (object1 instanceof ItemStack) {
-                recipeIngredients.add(((ItemStack) object1).copy());
-            } else if (object1 instanceof Item) {
-                recipeIngredients.add(new ItemStack((Item) object1));
-            } else {
-                if (!(object1 instanceof Block)) {
-                    throw new RuntimeException("Invalid shapeless recipe!");
-                }
-
-                recipeIngredients.add(new ItemStack((Block) object1));
-            }
-        }
-
-        ExtremeShapelessRecipe recipe = new ExtremeShapelessRecipe(result, recipeIngredients);
-        this.recipes.add(recipe);
-        return recipe;
-    }
-
-    public ExtremeShapelessOreRecipe addShapelessOreRecipe(ItemStack result, Object... ingredients) {
-        ExtremeShapelessOreRecipe recipe = new ExtremeShapelessOreRecipe(result, ingredients);
-        recipes.add(recipe);
-        return recipe;
-    }
-
-    public ItemStack findMatchingRecipe(InventoryCrafting matrix, World world) {
-        int numFound = 0;
-        ItemStack firstStackFound = ItemStack.EMPTY;
-        ItemStack secondStackFound = ItemStack.EMPTY;
-        int j;
-
-        //Figure out how many items there are in the inventory, Stack 0 is the first item found and stack 1 is the second.
-        for (j = 0; j < matrix.getSizeInventory(); ++j) {
-            ItemStack inSlot = matrix.getStackInSlot(j);
-
-            if (!inSlot.isEmpty()) {
-                if (numFound == 0) {
-                    firstStackFound = inSlot;
-                }
-
-                if (numFound == 1) {
-                    secondStackFound = inSlot;
-                }
-
-                ++numFound;
-            }
-        }
-
-        //This seems to be for "Repair" / combining recipes
-        if (numFound == 2 && firstStackFound.getItem() == secondStackFound.getItem() && firstStackFound.getCount() == 1 && secondStackFound.getCount() == 1 && firstStackFound.getItem().isRepairable()) {
-            Item item = firstStackFound.getItem();
-            int j1 = item.getMaxDamage(firstStackFound) - firstStackFound.getItemDamage();
-            int k = item.getMaxDamage(firstStackFound) - secondStackFound.getItemDamage();
-            int l = j1 + k + item.getMaxDamage(firstStackFound) * 5 / 100;
-            int i1 = item.getMaxDamage(firstStackFound) - l;
-
-            if (i1 < 0) {
-                i1 = 0;
-            }
-
-            return new ItemStack(firstStackFound.getItem(), 1, i1);
-        } else {
-            for (j = 0; j < this.recipes.size(); ++j) {
-                IRecipe irecipe = this.recipes.get(j);
-
-                if (irecipe.matches(matrix, world)) {
-                    return irecipe.getCraftingResult(matrix);
+        CraftingHelper.findFiles(mod, "assets/" + mod.getModId() + "/recipes", root -> {
+            Path fPath = root.resolve("_constants.json");
+            if (fPath != null && Files.exists(fPath)) {
+                BufferedReader reader = null;
+                try {
+                    reader = Files.newBufferedReader(fPath);
+                    JsonObject[] json = JsonUtils.fromJson(GSON, reader, JsonObject[].class);
+                    callLoadContext.accept(ctx, json);
+                } catch (IOException e) {
+                    FMLLog.log.error("Error loading _constants.json: ", e);
+                    return false;
+                } finally {
+                    IOUtils.closeQuietly(reader);
                 }
             }
+            return true;
+        }, (root, file) -> {
+            Loader.instance().setActiveModContainer(mod);
 
-            return ItemStack.EMPTY;
-        }
-    }
-
-    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting craftMatrix, World worldIn) {
-        for (IRecipe irecipe : this.recipes) {
-            if (irecipe.matches(craftMatrix, worldIn)) {
-                return irecipe.getRemainingItems(craftMatrix);
+            String relative = root.relativize(file).toString();
+            if (!"json".equals(FilenameUtils.getExtension(file.toString())) || relative.startsWith("_")) {
+                return true;
             }
-        }
 
-        NonNullList<ItemStack> stacks = NonNullList.withSize(craftMatrix.getSizeInventory(), ItemStack.EMPTY);
+            String name = FilenameUtils.removeExtension(relative).replaceAll("\\\\", "/");
+            ResourceLocation key = new ResourceLocation(ctx.getModId(), name);
 
-        for (int i = 0; i < stacks.size(); ++i) {
-            stacks.set(i, craftMatrix.getStackInSlot(i));
-        }
-
-        return stacks;
+            BufferedReader reader = null;
+            try {
+                reader = Files.newBufferedReader(file);
+                JsonObject json = JsonUtils.fromJson(GSON, reader, JsonObject.class);
+                if (json.has("conditions") && !CraftingHelper.processConditions(JsonUtils.getJsonArray(json, "conditions"), ctx)) {
+                    return true;
+                }
+                IExtremeRecipe recipe = getExtremeRecipe(json, ctx);
+                REGISTRY.putObject(key, recipe.setRegistryName(key));
+            } catch (JsonParseException e) {
+                FMLLog.log.error("Parsing error loading recipe {}", key, e);
+                return false;
+            } catch (IOException e) {
+                FMLLog.log.error("Couldn't read recipe {} from {}", key, file, e);
+                return false;
+            } finally {
+                IOUtils.closeQuietly(reader);
+            }
+            return true;
+        });
     }
 
-    /**
-     * returns the List<> of all recipes
-     */
-    public List<IRecipe> getRecipeList() {
-        return this.recipes;
+    public static IExtremeRecipe getExtremeRecipe(JsonObject obj, JsonContext ctx) {
+        if (obj == null || obj.isJsonNull())
+            throw new JsonSyntaxException("Json cannot be null");
+        if (ctx == null)
+            throw new IllegalArgumentException("getRecipe Context cannot be null");
+
+        String type = ctx.appendModId(JsonUtils.getString(obj, "type"));
+        if (type.isEmpty())
+            throw new JsonSyntaxException("Recipe type can not be an empty string");
+
+        BiFunction<JsonContext, JsonObject, IExtremeRecipe> factory = recipeFactories.get(new ResourceLocation(type));
+        if (factory == null)
+            throw new JsonSyntaxException("Unknown recipe type: " + type);
+
+        return factory.apply(ctx, obj);
     }
 }

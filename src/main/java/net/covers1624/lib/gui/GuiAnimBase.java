@@ -71,15 +71,15 @@ public abstract class GuiAnimBase extends GuiContainer {
     }
 
     protected Point getGuiPos() {
-        int x = (this.width - this.xSize) / 2;
-        int y = (this.height - this.ySize) / 2;
+        int x = (width - xSize) / 2;
+        int y = (height - ySize) / 2;
         return new Point(x, y);
     }
 
     protected void drawBackground() {
         Point guiPos = getGuiPos();
         TextureUtils.changeTexture(BACKGROUND_TEX);
-        drawTexturedModalRect(guiPos.x, guiPos.y, 0, 0, this.xSize, this.ySize);
+        drawTexturedModalRect(guiPos.x, guiPos.y, 0, 0, xSize, ySize);
     }
 
     protected static class DrawableBuilder {

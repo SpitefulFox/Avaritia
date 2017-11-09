@@ -34,12 +34,12 @@ public abstract class ContainerMachineBase<T extends TileMachineBase> extends Co
 
         for (int row = 0; row < 3; ++row) {
             for (int slot = 0; slot < 9; ++slot) {
-                this.addSlotToContainer(new Slot(playerInventory, slot + row * 9 + 9, xOffset + slot * 18, yOffset + row * 18));
+                addSlotToContainer(new Slot(playerInventory, slot + row * 9 + 9, xOffset + slot * 18, yOffset + row * 18));
             }
         }
 
         for (int slot = 0; slot < 9; ++slot) {
-            this.addSlotToContainer(new Slot(playerInventory, slot, xOffset + slot * 18, yOffset + 58));
+            addSlotToContainer(new Slot(playerInventory, slot, xOffset + slot * 18, yOffset + 58));
         }
     }
 

@@ -8,6 +8,7 @@ import morph.avaritia.init.ModItems;
 import morph.avaritia.util.ModHelper;
 import morph.avaritia.util.TextUtils;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +25,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemArmorInfinity extends ItemArmor {
@@ -85,12 +87,12 @@ public class ItemArmorInfinity extends ItemArmor {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
-        if (this.slot == EntityEquipmentSlot.FEET) {
-            list.add("");
-            list.add(TextFormatting.BLUE + "+" + TextFormatting.ITALIC + TextUtils.makeSANIC("SANIC") + TextFormatting.RESET + "" + TextFormatting.BLUE + "% Speed");
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if (slot == EntityEquipmentSlot.FEET) {
+            tooltip.add("");
+            tooltip.add(TextFormatting.BLUE + "+" + TextFormatting.ITALIC + TextUtils.makeSANIC("SANIC") + TextFormatting.RESET + "" + TextFormatting.BLUE + "% Speed");
         }
-        super.addInformation(stack, player, list, par4);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"result": {
+		"item": "avaritia:resource",
+		"data": 2,
+		"count": 9
+	},
+	"ingredients": [
+		{
+			"type": "minecraft:item",
+			"item": "#neutron_nugget"
+		}
+	]
+}
