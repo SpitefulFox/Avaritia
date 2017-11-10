@@ -28,7 +28,7 @@ public class Tonkers {
 
 	public static void buildstruct() {
 		
-		neutronium = new ToolMaterial(neutroniumName, "material."+neutroniumName, 5, 2400, 900, 6, 2.5f, 0, 0.0f, EnumChatFormatting.DARK_GRAY.toString(), 0x303030);
+		neutronium = new ToolMaterial(neutroniumName, "material."+neutroniumName, 5, 4800, 900, 8, 2.5f, 0, 0.0f, EnumChatFormatting.DARK_GRAY.toString(), 0x303030);
 		infinityMetal = new ToolMaterial(infinityMetalName, "material."+infinityMetalName, 5, 10000, 6000, 50, 10.0f, 10, 0.0f, LudicrousItems.cosmic.rarityColor.toString(), 0xFFFFFF);
 
 		TConstructRegistry.addtoolMaterial(neutroniumId, neutronium);
@@ -37,11 +37,11 @@ public class Tonkers {
 		TConstructRegistry.addDefaultToolPartMaterial(neutroniumId);
 		TConstructRegistry.addDefaultToolPartMaterial(infinityMetalId);
 		
-		TConstructRegistry.addBowMaterial(neutroniumId, 50, 5.0f);
-		TConstructRegistry.addBowMaterial(infinityMetalId, 30, 10.0f);
+		TConstructRegistry.addBowMaterial(neutroniumId, 109, 10.0f);
+		TConstructRegistry.addBowMaterial(infinityMetalId, 10, 60.0f);
 		
-		TConstructRegistry.addArrowMaterial(neutroniumId, 5.0f, 0.0f);
-		TConstructRegistry.addArrowMaterial(infinityMetalId, 2.0f, 0.0f);
+		TConstructRegistry.addArrowMaterial(neutroniumId, 5.0f, 0.1f);
+		TConstructRegistry.addArrowMaterial(infinityMetalId, 4.0f, 0.0f);
 		
 		TConstructRegistry.addDefaultShardMaterial(neutroniumId);
 		
