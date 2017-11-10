@@ -104,9 +104,9 @@ public class EntityHeavenArrow extends EntityArrow {
     }
     
     public void barrage() {
-    	for (int i=0; i<10; i++) {
+    	for (int i=0; i<35; i++) {
     		double angle = randy.nextDouble() * 2 * Math.PI;
-    		double dist = randy.nextGaussian()*0.5;
+    		double dist = randy.nextGaussian()*0.75;
     		
     		double x = Math.sin(angle) * dist + this.posX;
     		double z = Math.cos(angle) * dist + this.posZ;

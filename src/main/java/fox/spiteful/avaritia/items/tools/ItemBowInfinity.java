@@ -87,7 +87,7 @@ public class ItemBowInfinity extends Item implements ICosmicRenderItem {
             }
 
             EntityArrow entityarrow = new EntityHeavenArrow(world, player, f * 2.0F);
-            entityarrow.setDamage(20.0);
+            entityarrow.setDamage(60.0);
             
 
             if (f == 1.0F)
