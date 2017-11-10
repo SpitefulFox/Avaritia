@@ -22,7 +22,7 @@ public class Gregorizer {
         if(Loader.isModLoaded("AgriCraft"))
             multiplier += 1;
         if(Loader.isModLoaded("MineFactoryReloaded"))
-            multiplier += 3;
+            multiplier += 9;
         if(Loader.isModLoaded("BigReactors"))
             modifier += 100;
         if(Loader.isModLoaded("EE3"))
@@ -49,7 +49,7 @@ public class Gregorizer {
         }
 
         modifier = Math.max(modifier + Config.modifier, 0);
-        multiplier = Math.max(multiplier + Config.multiplier, 0);
+        multiplier = Math.max(multiplier + Config.multiplier, 1);
     }
 
     public static int balanceCost(int cost){
