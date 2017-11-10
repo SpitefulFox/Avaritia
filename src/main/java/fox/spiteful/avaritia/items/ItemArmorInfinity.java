@@ -2,6 +2,7 @@ package fox.spiteful.avaritia.items;
 
 import com.google.common.collect.Multimap;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.Config;
 import fox.spiteful.avaritia.LudicrousText;
 import fox.spiteful.avaritia.compat.Belmont;
 import fox.spiteful.avaritia.compat.Compat;
@@ -168,7 +169,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
             if (hasPhantomInk(stack))
                 list.add(StatCollector.translateToLocal("botaniamisc.hasPhantomInk").replaceAll("&", "\u00a7"));
         }
-        if (this.slot == 3) {
+        if (this.slot == 3 && Config.fast) {
         	list.add("");
         	list.add(EnumChatFormatting.BLUE+"+"+EnumChatFormatting.ITALIC+LudicrousText.makeSANIC("SANIC")+EnumChatFormatting.RESET+""+EnumChatFormatting.BLUE+"% Speed");
         }
@@ -319,7 +320,7 @@ public class ItemArmorInfinity extends ItemArmor implements ICosmicRenderItem, I
 				}
 				
 				// shoes
-				Boolean hasFoot = playerHasFoot(player);
+				Boolean hasFoot = playerHasFoot(player) && Config.fast;
 				if (playersWithFoot.contains(key)) {
 					if (hasFoot) {
 						boolean flying = player.capabilities.isFlying;

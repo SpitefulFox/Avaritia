@@ -12,6 +12,7 @@ public class Config {
     public static boolean bedrockBreaker = true;
     public static boolean boringFood = false;
     public static boolean fractured = false;
+    public static boolean fast = true;
 
     public static boolean thaumic = true;
     public static boolean sc2 = true;
@@ -61,6 +62,7 @@ public class Config {
             bedrockBreaker = conf.get("general", "Break Bedrock", bedrockBreaker, "Disable if you don't want the World Breaker to break unbreakable blocks").getBoolean(true);
             boringFood = conf.get("general", "Boring Food", boringFood, "Enable to keep the Ultimate Stew and Cosmic Meatballs from grabbing more ingredients").getBoolean(false);
             fractured = conf.get("general", "Fractured Ores", fractured, "Enable if you don't have Rotarycraft installed and want some buggy fractured ores").getBoolean(false);
+            fast = conf.get("general", "Gotta Go Fast", fast, "Disable if the Infinity Boots' speed boost is too ridiculous").getBoolean(true);
 
             conf.addCustomCategoryComment("compatibility", "Disable to stop compatibility with that particular mod. Will not use the mod in recipes or add new items for that mod.");
             thaumic = conf.get("compatibility", "Thaumcraft", true).getBoolean(true);
