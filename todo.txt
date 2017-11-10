@@ -1,9 +1,10 @@
+- Quintessence
+- Infinity Chest
+- Cintamani
+- Final Cake
 - Sprite the main tools
   - Infinity Axe
   - Infinity Shovel
-- Finish MineTweaker support
-  - Add and remove catalyst, stew, and meatball ingredients
 - Cross-mod support
-  - Finish Thaumcraft support
   - RF usage for machines?
-  - Finish beeeees
+  - Open the portal
