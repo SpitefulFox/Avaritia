@@ -3,15 +3,15 @@ package fox.spiteful.avaritia.tile;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileLudicrous extends TileEntity {
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-
+	public void writeToNBT(NBTTagCompound tag) {
+		super.writeToNBT(tag);
 		writeCustomNBT(tag);
-		return super.writeToNBT(tag);
 	}
 
 	@Override
@@ -23,17 +23,17 @@ public class TileLudicrous extends TileEntity {
 	public void writeCustomNBT(NBTTagCompound tag) {}
 	public void readCustomNBT(NBTTagCompound tag) {}
 
-	/*@Override
+	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound tag = new NBTTagCompound();
 		writeCustomNBT(tag);
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, tag);
-	}*/
+	}
 
-	/*@Override
+	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
 		super.onDataPacket(net, packet);
 		readCustomNBT(packet.func_148857_g());
-	}*/
+	}
 
 }

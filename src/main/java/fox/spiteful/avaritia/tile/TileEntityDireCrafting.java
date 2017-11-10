@@ -5,21 +5,17 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileEntityDireCrafting extends TileLudicrous implements IInventory, ISidedInventory{
 
     private ItemStack result;
     private ItemStack[] matrix = new ItemStack[81];
 
-    /*@Override
+    @Override
     public boolean canUpdate()
     {
         return false;
-    }*/
+    }
 
     @Override
     public void readCustomNBT(NBTTagCompound tag)
@@ -106,40 +102,14 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
     }
 
     @Override
-    public ItemStack removeStackFromSlot(int slot){
-        if(slot == 0){
-            if(result != null){
-                for(int x = 1;x <= matrix.length;x++){
-                    decrStackSize(x, 1);
-                }
-
-                ItemStack craft = result;
-                result = null;
-                return craft;
-
-            }
-            else
-                return null;
-        }
-        else if(slot <= matrix.length){
-            if(matrix[slot - 1] != null){
-                ItemStack ingredient = matrix[slot - 1];
-                matrix[slot - 1] = null;
-                return ingredient;
-            }
-        }
-        return null;
-    }
-
+    public void openInventory() {}
     @Override
-    public void openInventory(EntityPlayer player) {}
-    @Override
-    public void closeInventory(EntityPlayer player) {}
+    public void closeInventory() {}
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player)
     {
-        return this.worldObj.getTileEntity(pos) == this && player.getDistanceSq((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && player.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -164,71 +134,38 @@ public class TileEntityDireCrafting extends TileLudicrous implements IInventory,
     }
 
     @Override
-    public String getName()
+    public ItemStack getStackInSlotOnClosing(int slot){
+        return null;
+    }
+
+    /**
+     * Returns the name of the inventory
+     */
+    @Override
+    public String getInventoryName()
     {
         return  "container.dire";
     }
 
+    /**
+     * Returns if the inventory is named
+     */
     @Override
-    public boolean hasCustomName()
+    public boolean hasCustomInventoryName()
     {
         return false;
     }
 
-    @Override
-    public ITextComponent getDisplayName(){
-        if(hasCustomName()) {
-            return new TextComponentString(getName());
-        }
-        return new TextComponentTranslation(getName());
-    }
-
-    @Override
-    public int[] getSlotsForFace(EnumFacing face){
+    public int[] getAccessibleSlotsFromSide(int side){
         return new int[]{};
     }
 
-    @Override
-    public boolean canInsertItem(int slot, ItemStack item, EnumFacing face){
+    public boolean canInsertItem(int slot, ItemStack item, int side){
         return false;
     }
 
-    @Override
-    public boolean canExtractItem(int slot, ItemStack item, EnumFacing face){
+    public boolean canExtractItem(int slot, ItemStack item, int side){
         return false;
-    }
-
-    /**
-     * What does this method do?  Nobody knoooooows! OoooooOOOOOOOOooooOOOOOOOO
-     * @return
-     */
-    @Override
-    public int getFieldCount() {
-        return 0;
-    }
-
-    /**
-     * What does this method do?  Nobody knoooooows! OoooooOOOOOOOOooooOOOOOOOO
-     * @return
-     */
-    @Override
-    public void setField(int id, int value) {}
-
-    /**
-     * What does this method do?  Nobody knoooooows! OoooooOOOOOOOOooooOOOOOOOO
-     * @return
-     */
-    @Override
-    public int getField(int id) {
-        return 0;
-    }
-
-    @Override
-    public void clear(){
-        result = null;
-        for(int x = 0;x < matrix.length;x++){
-            matrix[x] = null;
-        }
     }
 
 }

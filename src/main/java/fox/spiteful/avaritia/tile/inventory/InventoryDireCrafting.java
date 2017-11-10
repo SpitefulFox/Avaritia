@@ -36,11 +36,11 @@ public class InventoryDireCrafting extends InventoryCrafting {
         }
     }
 
-    /*@Override
+    @Override
     public ItemStack getStackInSlotOnClosing (int par1)
     {
         return null;
-    }*/
+    }
 
     @Override
     public ItemStack decrStackSize (int slot, int decrement)

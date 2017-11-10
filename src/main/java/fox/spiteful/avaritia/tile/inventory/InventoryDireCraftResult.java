@@ -34,11 +34,11 @@ public class InventoryDireCraftResult extends InventoryCraftResult {
         }
     }
 
-    /*@Override
+    @Override
     public ItemStack getStackInSlotOnClosing (int par1)
     {
         return null;
-    }*/
+    }
 
     @Override
     public void setInventorySlotContents (int par1, ItemStack par2ItemStack)
