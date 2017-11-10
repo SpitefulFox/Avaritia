@@ -17,6 +17,7 @@ import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.crafting.Grinder;
 import fox.spiteful.avaritia.items.LudicrousItems;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -410,6 +411,22 @@ public class Compat {
             try {
                 Item ingredient = getItem("witchery", "ingredient");
                 Grinder.catalyst.getInput().add(new ItemStack(ingredient, 1, 150));
+
+                Block egg = getBlock("witchery", "infinityegg");
+
+                ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(new ItemStack(egg, 1, 0),
+                        "   NNN   ",
+                        "  NNNNN  ",
+                        "  NNNNN  ",
+                        " NNNINNN ",
+                        "NNNIIINNN",
+                        "NNNIEINNN",
+                        "NNNIIINNN",
+                        " NNNNNNN ",
+                        "  NNNNN  ",
+                        'N', new ItemStack(LudicrousItems.resource, 1, 4),
+                        'E', new ItemStack(Items.egg),
+                        'I', new ItemStack(LudicrousItems.resource, 1, 6));
             }
             catch (Throwable e){
                 Lumberjack.log(Level.INFO, e, "Avaritia suffered from Curse of the Incompatibility.");
