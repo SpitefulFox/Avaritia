@@ -1,6 +1,0 @@
-{
-  "parent": "avaritia:item/base_item",
-  "textures": {
-    "layer0": "avaritia:items/crystal_matrix_ingot"
-  }
-}

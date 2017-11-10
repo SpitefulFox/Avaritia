@@ -2,31 +2,26 @@ package fox.spiteful.avaritia.blocks;
 
 import fox.spiteful.avaritia.Avaritia;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public class BlockDoubleCraft extends Block {
 
     public BlockDoubleCraft(){
-        super(Material.WOOD);
+        super(Material.wood);
         setHardness(4.0F);
-        setUnlocalizedName("compressed_workbench");
-        setSoundType(SoundType.WOOD);
+        setBlockName("compressed_workbench");
+        setStepSound(Block.soundTypeWood);
+        setBlockTextureName("avaritia:double_craft");
         setCreativeTab(Avaritia.tab);
 
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         if (world.isRemote)
         {
@@ -34,7 +29,7 @@ public class BlockDoubleCraft extends Block {
         }
         else
         {
-            player.openGui(Avaritia.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+            player.openGui(Avaritia.instance, 0, world, x, y, z);
             return true;
         }
     }

@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
 
 public class ExtremeShapedRecipe implements IRecipe
 {
@@ -120,12 +119,6 @@ public class ExtremeShapedRecipe implements IRecipe
     public int getRecipeSize()
     {
         return this.recipeWidth * this.recipeHeight;
-    }
-
-    @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv) //getRecipeLeftovers
-    {
-        return ForgeHooks.defaultRecipeGetRemainingItems(inv);
     }
 
 }

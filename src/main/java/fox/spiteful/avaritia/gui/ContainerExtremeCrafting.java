@@ -11,7 +11,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerExtremeCrafting extends Container {
@@ -19,13 +18,17 @@ public class ContainerExtremeCrafting extends Container {
     /** The crafting matrix inventory (9x9). */
     public InventoryCrafting craftMatrix;
     public IInventory craftResult;
-    protected World worldObj;
-    protected BlockPos pos;
+    private World worldObj;
+    private int posX;
+    private int posY;
+    private int posZ;
 
-    public ContainerExtremeCrafting(InventoryPlayer player, World world, BlockPos pos, TileEntityDireCrafting table)
+    public ContainerExtremeCrafting(InventoryPlayer player, World world, int x, int y, int z, TileEntityDireCrafting table)
     {
         this.worldObj = world;
-        this.pos = pos;
+        this.posX = x;
+        this.posY = y;
+        this.posZ = z;
         craftMatrix = new InventoryDireCrafting(this, table);
         craftResult = new InventoryDireCraftResult(table);
         this.addSlotToContainer(new SlotCrafting(player.player, this.craftMatrix, this.craftResult, 0, 210, 80));
@@ -56,7 +59,6 @@ public class ContainerExtremeCrafting extends Container {
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
-    @Override
     /**
      * Callback for when the crafting matrix is changed.
      */
@@ -65,7 +67,6 @@ public class ContainerExtremeCrafting extends Container {
         this.craftResult.setInventorySlotContents(0, ExtremeCraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
     }
 
-    @Override
     /**
      * Called when the container is closed.
      */
@@ -75,13 +76,11 @@ public class ContainerExtremeCrafting extends Container {
 
     }
 
-    @Override
     public boolean canInteractWith(EntityPlayer player)
     {
-        return this.worldObj.getBlockState(pos) == LudicrousBlocks.dire_crafting.getDefaultState() && player.getDistanceSq(pos) <= 64.0D;
+        return this.worldObj.getBlock(this.posX, this.posY, this.posZ) == LudicrousBlocks.dire_crafting && player.getDistanceSq((double)this.posX + 0.5D, (double)this.posY + 0.5D, (double)this.posZ + 0.5D) <= 64.0D;
     }
 
-    @Override
     /**
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */

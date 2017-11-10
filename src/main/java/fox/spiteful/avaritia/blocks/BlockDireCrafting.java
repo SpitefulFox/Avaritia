@@ -1,37 +1,60 @@
 package fox.spiteful.avaritia.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
 import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
+import fox.spiteful.avaritia.tile.TileEntityNeutron;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockDireCrafting extends BlockContainer {
+    private static IIcon top, sides, bottom;
     private Random randy = new Random();
 
     public BlockDireCrafting(){
-        super(Material.IRON);
-        setSoundType(SoundType.GLASS);
+        super(Material.iron);
+        setStepSound(Block.soundTypeGlass);
         setHardness(50.0F);
         setResistance(2000.0F);
-        setUnlocalizedName("dire_crafting");
+        setBlockName("dire_crafting");
+        setHarvestLevel("pickaxe", 3);
         setCreativeTab(Avaritia.tab);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    public void registerBlockIcons (IIconRegister iconRegister)
+    {
+        top = iconRegister.registerIcon("avaritia:dire_crafting_top");
+        sides = iconRegister.registerIcon("avaritia:dire_crafting_side");
+        bottom = iconRegister.registerIcon("avaritia:block_crystal_matrix");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon (int side, int metadata)
+    {
+        if (side == 0)
+            return bottom;
+        if (side == 1)
+            return top;
+        return sides;
+    }
+
+    @Override
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         if (world.isRemote)
         {
@@ -39,7 +62,7 @@ public class BlockDireCrafting extends BlockContainer {
         }
         else
         {
-            player.openGui(Avaritia.instance, 1, world, pos.getX(), pos.getY(), pos.getZ());
+            player.openGui(Avaritia.instance, 1, world, x, y, z);
             return true;
         }
     }
@@ -50,10 +73,46 @@ public class BlockDireCrafting extends BlockContainer {
         return new TileEntityDireCrafting();
     }
 
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state)
+    public void breakBlock(World world, int x, int y, int z, Block block, int wut)
     {
-        return EnumBlockRenderType.MODEL;
-    }
+        TileEntityDireCrafting craft = (TileEntityDireCrafting)world.getTileEntity(x, y, z);
 
+        if (craft != null)
+        {
+            for(int i = 1;i < 82;i++) {
+                ItemStack itemstack = craft.getStackInSlot(i);
+
+                if (itemstack != null) {
+                    float f = this.randy.nextFloat() * 0.8F + 0.1F;
+                    float f1 = this.randy.nextFloat() * 0.8F + 0.1F;
+                    float f2 = this.randy.nextFloat() * 0.8F + 0.1F;
+
+                    while (itemstack.stackSize > 0) {
+                        int j1 = this.randy.nextInt(21) + 10;
+
+                        if (j1 > itemstack.stackSize) {
+                            j1 = itemstack.stackSize;
+                        }
+
+                        itemstack.stackSize -= j1;
+                        EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+
+                        if (itemstack.hasTagCompound()) {
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
+                        }
+
+                        float f3 = 0.05F;
+                        entityitem.motionX = (double) ((float) this.randy.nextGaussian() * f3);
+                        entityitem.motionY = (double) ((float) this.randy.nextGaussian() * f3 + 0.2F);
+                        entityitem.motionZ = (double) ((float) this.randy.nextGaussian() * f3);
+                        world.spawnEntityInWorld(entityitem);
+                    }
+                }
+
+                world.func_147453_f(x, y, z, block);
+            }
+        }
+
+        super.breakBlock(world, x, y, z, block, wut);
+    }
 }

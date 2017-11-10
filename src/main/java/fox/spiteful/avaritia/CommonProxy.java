@@ -1,8 +1,16 @@
 package fox.spiteful.avaritia;
 
 public class CommonProxy {
+
+	public void prepareForPretty() {
+		
+	}
 	
-	public void stupidJsonBullshit() {
+	public void makeThingsPretty() {
+		
+	}
+	
+	public void theAfterPretty() {
 		
 	}
 }
