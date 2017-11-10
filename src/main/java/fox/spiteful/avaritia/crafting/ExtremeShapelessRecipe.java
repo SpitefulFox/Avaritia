@@ -51,9 +51,12 @@ public class ExtremeShapelessRecipe implements IRecipe
 
                         if (itemstack.getItem() == itemstack1.getItem() && (itemstack1.getItemDamage() == 32767 || itemstack.getItemDamage() == itemstack1.getItemDamage()))
                         {
-                            flag = true;
-                            arraylist.remove(itemstack1);
-                            break;
+                            if (!itemstack1.hasTagCompound() || ItemStack.areItemStackTagsEqual(itemstack1, itemstack))
+                            {
+                                flag = true;
+                                arraylist.remove(itemstack1);
+                                break;
+                            }
                         }
                     }
 

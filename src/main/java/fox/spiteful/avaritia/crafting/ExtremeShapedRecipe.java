@@ -97,6 +97,11 @@ public class ExtremeShapedRecipe implements IRecipe
                     {
                         return false;
                     }
+
+                    if (itemstack.hasTagCompound() &&  !ItemStack.areItemStackTagsEqual(itemstack, itemstack1))
+                    {
+                        return false;
+                    }
                 }
             }
         }

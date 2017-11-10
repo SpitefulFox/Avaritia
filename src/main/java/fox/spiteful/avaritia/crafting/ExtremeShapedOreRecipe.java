@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -224,9 +225,24 @@ public class ExtremeShapedOreRecipe implements IRecipe {
 
                 if (target instanceof ItemStack)
                 {
+                    ItemStack targetStack = (ItemStack) target;
                     if (!OreDictionary.itemMatches((ItemStack)target, slot, false))
                     {
                         return false;
+                    }
+                    if (targetStack.hasTagCompound())
+                    {
+                        NBTTagCompound tagCompound = targetStack.getTagCompound();
+                        if (!slot.hasTagCompound())
+                        {
+                            return false;
+                        }
+                        NBTTagCompound slotTagCompound = slot.getTagCompound();
+                        // I forget, how to compare NBT...
+                        if (!slotTagCompound.equals(tagCompound))
+                        {
+                            return false;
+                        }
                     }
                 }
                 else if (target instanceof ArrayList)
