@@ -3,25 +3,29 @@ package fox.spiteful.avaritia.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.LudicrousText;
 import fox.spiteful.avaritia.render.IHaloRenderItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class ItemSingularity extends Item implements IHaloRenderItem {
 
     public static final String[] types = new String[]{"iron", "gold", "lapis", "redstone", "quartz", "copper",
-        "tin", "lead", "silver", "nickel"};
+        "tin", "lead", "silver", "nickel", "clay"};
     public static final int[] colors = new int[]{0xBFBFBF, 0xE8EF23, 0x5a82e2, 0xDF0000, 0xeeebe6, 0xE47200,
-        0xA5C7DE, 0x444072, 0xF9F9F9, 0xDEE187};
+        0xA5C7DE, 0x444072, 0xF9F9F9, 0xDEE187, 0x8890AD};
     public static final int[] colors2 = new int[]{0x7F7F7F, 0xdba213, 0x224baf, 0x900000, 0x94867d, 0x89511A,
-        0x9BA9B2, 0x3E3D4E, 0xD5D5D5, 0xC4C698};
+        0x9BA9B2, 0x3E3D4E, 0xD5D5D5, 0xC4C698, 0x666B7F};
     public static IIcon background;
     public static IIcon foreground;
 
@@ -80,7 +84,20 @@ public class ItemSingularity extends Item implements IHaloRenderItem {
     @Override
     public EnumRarity getRarity(ItemStack stack)
     {
+        if(stack.getItemDamage() == 10)
+            return LudicrousItems.cosmic;
         return EnumRarity.uncommon;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public void addInformation(ItemStack item, EntityPlayer player, List tooltip, boolean wut) {
+
+        int meta = item.getItemDamage();
+        if (meta == 10) {
+            //tooltip.add(EnumChatFormatting.DARK_GRAY +""+ EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip.claybalance.desc"));
+            tooltip.add(LudicrousText.makeFabulous(StatCollector.translateToLocal("tooltip.claybalance.desc")));
+        }
     }
 
 	@Override
@@ -98,7 +115,9 @@ public class ItemSingularity extends Item implements IHaloRenderItem {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getHaloSize(ItemStack stack) {
-		return 4;
+		if(stack.getItemDamage() == 10)
+            return 8;
+        return 4;
 	}
 
 	@Override

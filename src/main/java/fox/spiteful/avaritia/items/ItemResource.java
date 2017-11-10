@@ -24,7 +24,7 @@ import java.util.List;
 public class ItemResource extends Item implements IHaloRenderItem {
 
     private static final String[] types = new String[]{"diamond_lattice", "crystal_matrix_ingot", "neutron_pile",
-            "neutron_nugget", "neutronium_ingot", "infinity_catalyst", "infinity_ingot", "record_fragment"};
+            "neutron_nugget", "neutronium_ingot", "infinity_catalyst", "infinity_ingot", "record_fragment", "starfuel"};
 
     @SideOnly(Side.CLIENT)
     public IIcon[] icons;
@@ -56,7 +56,7 @@ public class ItemResource extends Item implements IHaloRenderItem {
     public void addInformation(ItemStack item, EntityPlayer player, List tooltip, boolean wut) {
 
     	int meta = item.getItemDamage();
-    	if (meta != 0) {
+    	if (meta != 0 && meta != 8) {
     		tooltip.add(EnumChatFormatting.DARK_GRAY +""+ EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip."+types[meta]+".desc"));
     	}
     }
@@ -91,6 +91,7 @@ public class ItemResource extends Item implements IHaloRenderItem {
                 return EnumRarity.uncommon;
             case 1:
             case 4:
+            case 8:
                 return EnumRarity.rare;
             case 5:
                 return EnumRarity.epic;
@@ -105,7 +106,7 @@ public class ItemResource extends Item implements IHaloRenderItem {
 	@SideOnly(Side.CLIENT)
 	public boolean drawHalo(ItemStack stack) {
 		int meta = stack.getItemDamage();
-		return (meta >= 2 && meta <= 6);
+		return (meta >= 2 && meta <= 6) || meta == 8;
 	}
 
 	@Override
