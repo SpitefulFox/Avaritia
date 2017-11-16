@@ -3,6 +3,7 @@ package fox.spiteful.avaritia.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fox.spiteful.avaritia.Avaritia;
+import fox.spiteful.avaritia.tile.TileEntityAutoDireCrafting;
 import fox.spiteful.avaritia.tile.TileEntityDireCrafting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -61,7 +62,7 @@ public class BlockAutoDireCrafting extends BlockContainer {
         }
         else
         {
-            player.openGui(Avaritia.instance, 1, world, x, y, z);
+            player.openGui(Avaritia.instance, 4, world, x, y, z);
             return true;
         }
     }
@@ -69,12 +70,12 @@ public class BlockAutoDireCrafting extends BlockContainer {
     @Override
     public TileEntity createNewTileEntity(World world, int meta)
     {
-        return new TileEntityDireCrafting();
+        return new TileEntityAutoDireCrafting();
     }
 
     public void breakBlock(World world, int x, int y, int z, Block block, int wut)
     {
-        TileEntityDireCrafting craft = (TileEntityDireCrafting)world.getTileEntity(x, y, z);
+        TileEntityAutoDireCrafting craft = (TileEntityAutoDireCrafting)world.getTileEntity(x, y, z);
 
         if (craft != null)
         {
