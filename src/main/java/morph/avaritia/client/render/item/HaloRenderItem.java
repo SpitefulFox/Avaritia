@@ -38,7 +38,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buffer = tess.getBuffer();
-        if (stack.getItem() instanceof IHaloRenderItem /*&& transformType == TransformType.GUI*/) {
+        if (stack.getItem() instanceof IHaloRenderItem && transformType == TransformType.GUI) {
             IHaloRenderItem hri = ((IHaloRenderItem) stack.getItem());
 
             GlStateManager.pushMatrix();
@@ -47,11 +47,9 @@ public class HaloRenderItem extends WrappedItemRenderer {
             //RenderHelper.enableGUIStandardItemLighting();
 
             GlStateManager.disableAlpha();
-            if (transformType == TransformType.GUI) {
-                GlStateManager.disableDepth();
-            }
+            GlStateManager.disableDepth();
 
-            if (hri.shouldDrawHalo(stack) && transformType == TransformType.GUI) {
+            if (hri.shouldDrawHalo(stack)) {
                 Colour.glColourARGB(hri.getHaloColour(stack));
                 TextureAtlasSprite sprite = hri.getHaloTexture(stack);
 
@@ -90,9 +88,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
 
             GlStateManager.enableAlpha();
             GlStateManager.enableRescaleNormal();
-            if (transformType == TransformType.GUI) {
-                GlStateManager.enableDepth();
-            }
+            GlStateManager.enableDepth();
 
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();

@@ -1,7 +1,7 @@
 {
 	"type": "avaritia:shaped",
 	"result": {
-		"item": "avaritia:neutron_collector",
+		"item": "avaritia:neutronium_compressor",
 		"data": 0,
 		"count": 1
 	},

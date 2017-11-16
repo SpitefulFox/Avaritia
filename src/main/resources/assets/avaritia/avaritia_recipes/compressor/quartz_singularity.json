@@ -9,7 +9,7 @@
 	"ingredients": [
 		{
 			"type": "forge:ore_dict",
-			"ore": "blockEmerald"
+			"ore": "blockQuartz"
 		}
 	]
 }
