@@ -47,7 +47,9 @@ public class HaloRenderItem extends WrappedItemRenderer {
             //RenderHelper.enableGUIStandardItemLighting();
 
             GlStateManager.disableAlpha();
-            //GlStateManager.disableDepth();
+            if (transformType == TransformType.GUI) {
+                GlStateManager.disableDepth();
+            }
 
             if (hri.shouldDrawHalo(stack) && transformType == TransformType.GUI) {
                 Colour.glColourARGB(hri.getHaloColour(stack));
@@ -88,7 +90,9 @@ public class HaloRenderItem extends WrappedItemRenderer {
 
             GlStateManager.enableAlpha();
             GlStateManager.enableRescaleNormal();
-            //GlStateManager.enableDepth();
+            if (transformType == TransformType.GUI) {
+                GlStateManager.enableDepth();
+            }
 
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();

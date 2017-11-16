@@ -164,7 +164,7 @@ public class AvaritiaRecipeManager {
                 IOUtils.closeQuietly(reader);
             }
             return true;
-        }, false, false);
+        });
     }
 
     private static <T> T getRecipe(JsonObject obj, JsonContext ctx, Function<ResourceLocation, IRecipeFactory<T>> getter) {
