@@ -67,6 +67,14 @@
 			"item": "#quartz_singularity"
 		},
 		{
+			"type": "minecraft:item",
+			"item": "#diamond_singularity"
+		},
+		{
+			"type": "minecraft:item",
+			"item": "#emerald_singularity"
+		},
+		{
 			"type": "codechickenlib:conditional",
 			"conditions": [
 				{

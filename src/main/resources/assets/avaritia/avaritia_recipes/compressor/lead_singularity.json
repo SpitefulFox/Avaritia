@@ -16,7 +16,7 @@
 				},
 				{
 					"type": "avaritia:config",
-					"tag": "!materials.lead"
+					"tag": "materials.lead"
 				}
 			],
 			"pass": {
