@@ -28,6 +28,8 @@ item.singularity.nickel.name=Nickel Singularity
 item.singularity.diamond.name=Diamond Singularity
 item.singularity.emerald.name=Emerald Singularity
 item.singularity.fluxed.name=Fluxed Singularity
+item.singularity.platinum.name=Platinum Singularity
+item.singularity.iridium.name=Iridium Singularity
 #
 # Tools
 item.avaritia:infinity_sword.name=Sword of the Cosmos

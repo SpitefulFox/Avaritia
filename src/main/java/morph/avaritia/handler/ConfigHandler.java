@@ -34,6 +34,8 @@ public class ConfigHandler {
     public static boolean fluxed = true;
     public static boolean enderium = true;
     public static boolean darkSteel = true;
+    public static boolean platinum = true;
+    public static boolean iridium = true;
 
     public static int modifier = 0;
     public static int multiplier = 0;
@@ -97,6 +99,8 @@ public class ConfigHandler {
             fluxed = materials.getTag("fluxed").setDefaultBoolean(true).getBoolean();
             enderium = materials.getTag("enderium").setDefaultBoolean(true).getBoolean();
             darkSteel = materials.getTag("dark_steel").setDefaultBoolean(true).getBoolean();
+            platinum = materials.getTag("platinum").setDefaultBoolean(true).getBoolean();
+            iridium = materials.getTag("iridium").setDefaultBoolean(true).getBoolean();
         }
 
         {
