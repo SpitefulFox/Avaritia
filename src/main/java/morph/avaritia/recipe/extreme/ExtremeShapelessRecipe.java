@@ -14,6 +14,7 @@ import net.minecraftforge.common.crafting.JsonContext;
 
 import javax.annotation.Nonnull;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by covers1624 on 9/10/2017.

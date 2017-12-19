@@ -27,7 +27,7 @@ public class CompressorRecipeWrapper implements IRecipeWrapper {
     public CompressorRecipeWrapper(ICompressorRecipe recipe) {
         this.recipe = recipe;
         IGuiHelper helper = AvaritiaJEIPlugin.jeiHelpers.getGuiHelper();
-        singularity = helper.createAnimatedDrawable(AvaritiaJEIPlugin.static_singularity, recipe.getCost() / 16, StartDirection.BOTTOM, false);
+        singularity = helper.createAnimatedDrawable(AvaritiaJEIPlugin.static_singularity, Math.max(recipe.getCost() / 16, 1), StartDirection.BOTTOM, false);
     }
 
     @Override

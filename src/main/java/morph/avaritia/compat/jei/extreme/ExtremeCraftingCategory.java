@@ -1,5 +1,8 @@
 package morph.avaritia.compat.jei.extreme;
 
+import com.google.common.collect.Lists;
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.gui.ICraftingGridHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -8,6 +11,12 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import morph.avaritia.Avaritia;
 import morph.avaritia.compat.jei.AvaritiaJEIPlugin;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static morph.avaritia.compat.jei.AvaritiaJEIPlugin.EXTREME_CRAFTING;
 
@@ -20,9 +29,11 @@ public class ExtremeCraftingCategory implements IRecipeCategory<ExtremeRecipeWra
     private static final int craftInputSlot1 = 1;
 
     private final String localizedName;
+    private final ICraftingGridHelper gridHelper;
 
-    public ExtremeCraftingCategory() {
+    public ExtremeCraftingCategory(IGuiHelper guiHelper) {
         localizedName = I18n.format("crafting.extreme");
+        gridHelper = guiHelper.createCraftingGridHelper(craftInputSlot1, craftOutputSlot);
     }
 
     @Override
@@ -46,8 +57,8 @@ public class ExtremeCraftingCategory implements IRecipeCategory<ExtremeRecipeWra
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, ExtremeRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+    public void setRecipe(IRecipeLayout layout, ExtremeRecipeWrapper wrapper, IIngredients ingredients) {
+        IGuiItemStackGroup guiItemStacks = layout.getItemStacks();
 
         guiItemStacks.init(craftOutputSlot, false, 167, 73);
 
@@ -56,6 +67,30 @@ public class ExtremeCraftingCategory implements IRecipeCategory<ExtremeRecipeWra
                 int index = craftInputSlot1 + x + (y * 9);
                 guiItemStacks.init(index, true, (x * 18) + 1, (y * 18) + 1);
             }
+        }
+        List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
+        if (wrapper.recipe.isShapedRecipe()) {
+            try {
+                int width = wrapper.recipe.getWidth();
+                int height = wrapper.recipe.getHeight();
+                if (width != 9) {
+                    List<List<ItemStack>> newInputs = NonNullList.withSize(9 * height, Collections.emptyList());
+                    for (int i = 0; i < height; i++) {
+                        for (int j = 0; j < 9; j++) {
+                            int index = i + j * 9;
+                            int oldidx = i + j * width;
+                            if (j < width) {
+                                newInputs.set(index, inputs.get(oldidx));
+                            }
+                        }
+                    }
+                    ingredients.setInputLists(ItemStack.class, newInputs);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            layout.setShapeless();
         }
         guiItemStacks.set(ingredients);
     }

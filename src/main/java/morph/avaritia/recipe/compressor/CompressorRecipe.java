@@ -9,13 +9,14 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.JsonContext;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.List;
 
 /**
  * Created by covers1624 on 8/11/2017.
  */
-public class CompressorRecipe implements ICompressorRecipe {
+public class CompressorRecipe extends IForgeRegistryEntry.Impl<ICompressorRecipe> implements ICompressorRecipe {
 
     protected ItemStack result;
     protected int cost;

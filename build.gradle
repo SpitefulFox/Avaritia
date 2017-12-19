@@ -35,26 +35,18 @@ configFile.withReader {
 }
 
 repositories {
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl/"     
-    }
+	maven {
+		name 'CB Maven'
+		url "http://chickenbones.net/maven/"
+	}
     maven {
         name = "JEI"
         url = "http://dvs1.progwml6.com/files/maven"
-        }
-    maven {
-        name 'CB Maven'
-        url "http://chickenbones.net/maven/"
     }
-    maven {
-        name 'OC Maven'
-        url "http://maven.cil.li/"
-    }
-     maven {
-        name 'Forestry'
-        url "http://maven.ic2.player.to"
-    }
+	maven {
+		name = "Jared"
+		url = "http://maven.blamejared.com/"
+	}
 }
 
 dependencies {
@@ -63,7 +55,8 @@ dependencies {
 
     /*SOFT DEPENDENCIES*/
     compile "mezz.jei:jei_${config.mc_version}:${config.jei_version}"
-	compile "MineTweaker3:MineTweaker3-API:${config.minetweaker_version}"
+	compile "CraftTweaker2:CraftTweaker2-API:${config.craft_tweaker_version}"
+	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:${config.mc_version}-${config.craft_tweaker_version}"
 
 	/*OTHERS*/
     //compile "com.wayoftime.bloodmagic:BloodMagic:${config.mc_version}-${config.blood_magic_version}"

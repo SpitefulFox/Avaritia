@@ -41,9 +41,6 @@ public class Proxy {
     }
 
     public void init(FMLInitializationEvent event) {
-        CompressorBalanceCalculator.gatherBalanceModifier();
-        AvaritiaRecipeManager.init();
-        FoodRecipes.initFoodRecipes();
     }
 
     public void postInit(FMLPostInitializationEvent event) {

@@ -33,7 +33,7 @@ public class AvaritiaJEIPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
-        registry.addRecipeCategories(new ExtremeCraftingCategory());
+        registry.addRecipeCategories(new ExtremeCraftingCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new CompressorRecipeCategory());
     }
 

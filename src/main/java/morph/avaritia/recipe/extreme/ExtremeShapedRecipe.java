@@ -100,10 +100,17 @@ public class ExtremeShapedRecipe extends ExtremeRecipeBase {
         this.mirrored = mirrored;
     }
 
+    @Override
+    public boolean isShapedRecipe() {
+        return true;
+    }
+
+    @Override
     public int getWidth() {
         return width;
     }
 
+    @Override
     public int getHeight() {
         return height;
     }

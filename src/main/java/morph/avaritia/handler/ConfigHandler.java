@@ -19,6 +19,7 @@ public class ConfigHandler {
     public static boolean bedrockBreaker = true;
     public static boolean boringFood = false;
     public static boolean fracturedOres = false;
+    public static boolean verboseCraftTweekerLogging = false;
 
     public static boolean copper = true;
     public static boolean tin = true;
@@ -79,6 +80,10 @@ public class ConfigHandler {
             tag.setDefaultStringList(Lists.newArrayList(defaults));
             AvaritiaEventHandler.defaultTrashOres.clear();
             AvaritiaEventHandler.defaultTrashOres.addAll(tag.getStringList());
+
+            tag = general.getTag("verbose_craft_tweaker_logging");
+            tag.setComment("Enables verbose logging of actions taken on avaritia by CraftTweaker scripts. Only effects CraftTweakers script log file.");
+            verboseCraftTweekerLogging = tag.setDefaultBoolean(false).getBoolean();
         }
 
         {

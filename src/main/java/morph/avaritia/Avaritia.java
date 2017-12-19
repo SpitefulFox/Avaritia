@@ -2,19 +2,27 @@ package morph.avaritia;
 
 import codechicken.lib.CodeChickenLib;
 import codechicken.lib.gui.SimpleCreativeTab;
+import morph.avaritia.init.FoodRecipes;
 import morph.avaritia.init.ModBlocks;
 import morph.avaritia.init.ModItems;
 import morph.avaritia.proxy.Proxy;
+import morph.avaritia.recipe.AvaritiaRecipeManager;
+import morph.avaritia.util.CompressorBalanceCalculator;
 import morph.avaritia.util.Lumberjack;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Level;
 
@@ -38,6 +46,7 @@ public class Avaritia {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(this);
         proxy.preInit(event);
         OreDictionary.registerOre("blockWool", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("blockCrystalMatrix", new ItemStack(ModBlocks.resource, 1, 2));
@@ -56,13 +65,13 @@ public class Avaritia {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-        if (Loader.isModLoaded("MineTweaker3")) {
-            try {
-                //Tweak.registrate();
-            } catch (Throwable e) {
-                Lumberjack.log(Level.ERROR, e, "Avaritia seems to be having trouble with CraftTweaker.");
-            }
-        }
+    }
+
+    @SubscribeEvent
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        CompressorBalanceCalculator.gatherBalanceModifier();
+        AvaritiaRecipeManager.init();
+        FoodRecipes.initFoodRecipes();
     }
 
 }

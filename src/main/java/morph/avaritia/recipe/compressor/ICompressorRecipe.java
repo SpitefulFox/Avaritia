@@ -2,13 +2,14 @@ package morph.avaritia.recipe.compressor;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.List;
 
 /**
  * Created by covers1624 on 8/11/2017.
  */
-public interface ICompressorRecipe {
+public interface ICompressorRecipe extends IForgeRegistryEntry<ICompressorRecipe> {
 
     ItemStack getResult();
 
