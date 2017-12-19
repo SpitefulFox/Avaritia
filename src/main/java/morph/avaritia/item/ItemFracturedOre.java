@@ -6,15 +6,11 @@ import morph.avaritia.Avaritia;
 import morph.avaritia.init.ModItems;
 import morph.avaritia.util.ItemStackWrapper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.*;
@@ -33,15 +29,15 @@ public class ItemFracturedOre extends Item {
         setHasSubtypes(true);
     }
 
-//    @SuppressWarnings ({ "rawtypes" })
-//    @SideOnly (Side.CLIENT)
-//    @Override
-//    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-//        // for debug purposes only - don't want these cluttering up the tab.
-//        /*for (ItemStack stack : emulatedOres) {
-//            list.add(getStackForOre(stack, 1));
-//        }*/
-//    }
+    //    @SuppressWarnings ({ "rawtypes" })
+    //    @SideOnly (Side.CLIENT)
+    //    @Override
+    //    public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
+    //        // for debug purposes only - don't want these cluttering up the tab.
+    //        /*for (ItemStack stack : emulatedOres) {
+    //            list.add(getStackForOre(stack, 1));
+    //        }*/
+    //    }
 
     public ItemStack getStackForOre(ItemStack orestack, int stacksize) {
         NBTTagCompound oretag = NameStack.saveStackToNBT(orestack);

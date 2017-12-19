@@ -3,15 +3,10 @@ package morph.avaritia.handler;
 import codechicken.lib.configuration.ConfigFile;
 import codechicken.lib.configuration.ConfigTag;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import joptsimple.internal.Strings;
 import morph.avaritia.util.Lumberjack;
-import net.minecraftforge.common.config.Property;
 import org.apache.logging.log4j.Level;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Set;
 
 public class ConfigHandler {
 

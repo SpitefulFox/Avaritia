@@ -1,14 +1,14 @@
-package morph.avaritia.recipe.extreme_old;
+package morph.avaritia.recipe.extreme;
 
 import morph.avaritia.tile.TileDireCraftingTable;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.item.ItemStack;
 
-public class InventoryDireCraftResult extends InventoryCraftResult {
+public class InventoryExtremeCraftResult extends InventoryCraftResult {
 
     private TileDireCraftingTable craft;
 
-    public InventoryDireCraftResult(TileDireCraftingTable table) {
+    public InventoryExtremeCraftResult(TileDireCraftingTable table) {
         craft = table;
     }
 

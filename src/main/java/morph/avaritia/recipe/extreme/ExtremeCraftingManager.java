@@ -100,18 +100,22 @@ public class ExtremeCraftingManager {
     }
 
     public static IExtremeRecipe getExtremeRecipe(JsonObject obj, JsonContext ctx) {
-        if (obj == null || obj.isJsonNull())
+        if (obj == null || obj.isJsonNull()) {
             throw new JsonSyntaxException("Json cannot be null");
-        if (ctx == null)
+        }
+        if (ctx == null) {
             throw new IllegalArgumentException("getRecipe Context cannot be null");
+        }
 
         String type = ctx.appendModId(JsonUtils.getString(obj, "type"));
-        if (type.isEmpty())
+        if (type.isEmpty()) {
             throw new JsonSyntaxException("Recipe type can not be an empty string");
+        }
 
         BiFunction<JsonContext, JsonObject, IExtremeRecipe> factory = recipeFactories.get(new ResourceLocation(type));
-        if (factory == null)
+        if (factory == null) {
             throw new JsonSyntaxException("Unknown recipe type: " + type);
+        }
 
         return factory.apply(ctx, obj);
     }

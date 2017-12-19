@@ -1,15 +1,11 @@
 package morph.avaritia.container;
 
-import com.google.common.collect.Lists;
 import morph.avaritia.recipe.AvaritiaRecipeManager;
-import morph.avaritia.recipe.extreme_old.ExtremeRecipeBase;
-import morph.avaritia.recipe.extreme_old.InventoryDireCraftResult;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 
 /**
@@ -55,15 +51,6 @@ public class SlotExtremeCrafting extends Slot {
         }
 
         amountCrafted = 0;
-        //Handle unlocking vanilla recipes.
-        InventoryDireCraftResult icr = (InventoryDireCraftResult) inventory;
-        IRecipe recipe = icr.getRecipeUsed();
-        if (recipe != null) {
-            if (!(recipe instanceof ExtremeRecipeBase) && !recipe.isDynamic()) {
-                player.unlockRecipes(Lists.newArrayList(recipe));
-                icr.setRecipeUsed(null);
-            }
-        }
     }
 
     @Override

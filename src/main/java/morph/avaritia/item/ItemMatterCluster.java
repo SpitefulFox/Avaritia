@@ -3,7 +3,6 @@ package morph.avaritia.item;
 import codechicken.lib.util.ItemUtils;
 import morph.avaritia.init.ModItems;
 import morph.avaritia.util.ItemStackWrapper;
-import morph.avaritia.util.Lumberjack;
 import morph.avaritia.util.ToolHelper;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -19,7 +18,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.Level;
 
 import java.util.*;
 import java.util.Map.Entry;

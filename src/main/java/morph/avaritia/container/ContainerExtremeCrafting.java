@@ -2,8 +2,8 @@ package morph.avaritia.container;
 
 import morph.avaritia.init.ModBlocks;
 import morph.avaritia.recipe.AvaritiaRecipeManager;
-import morph.avaritia.recipe.extreme_old.InventoryDireCraftResult;
-import morph.avaritia.recipe.extreme_old.InventoryDireCrafting;
+import morph.avaritia.recipe.extreme.InventoryExtremeCraftResult;
+import morph.avaritia.recipe.extreme.InventoryExtremeCrafting;
 import morph.avaritia.tile.TileDireCraftingTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -21,15 +21,15 @@ public class ContainerExtremeCrafting extends Container {
      * The crafting matrix inventory (9x9).
      */
     public InventoryCrafting craftMatrix;
-    public InventoryDireCraftResult craftResult;
+    public InventoryExtremeCraftResult craftResult;
     protected World worldObj;
     protected BlockPos pos;
 
     public ContainerExtremeCrafting(InventoryPlayer player, World world, BlockPos pos, TileDireCraftingTable table) {
         worldObj = world;
         this.pos = pos;
-        craftMatrix = new InventoryDireCrafting(this, table);
-        craftResult = new InventoryDireCraftResult(table);
+        craftMatrix = new InventoryExtremeCrafting(this, table);
+        craftResult = new InventoryExtremeCraftResult(table);
         addSlotToContainer(new SlotExtremeCrafting(player.player, craftMatrix, craftResult, 0, 210, 80));
         int wy;
         int ex;
@@ -55,7 +55,7 @@ public class ContainerExtremeCrafting extends Container {
 
     @Override
     public void onCraftMatrixChanged(IInventory matrix) {
-       craftResult.setInventorySlotContents(0, AvaritiaRecipeManager.getExtremeCraftingResult(craftMatrix, worldObj));
+        craftResult.setInventorySlotContents(0, AvaritiaRecipeManager.getExtremeCraftingResult(craftMatrix, worldObj));
     }
 
     @Override

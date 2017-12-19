@@ -1,12 +1,12 @@
 package morph.avaritia.recipe.extreme;
 
-        import net.minecraft.inventory.InventoryCrafting;
-        import net.minecraft.item.ItemStack;
-        import net.minecraft.item.crafting.Ingredient;
-        import net.minecraft.util.NonNullList;
-        import net.minecraft.world.World;
-        import net.minecraftforge.common.ForgeHooks;
-        import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
  * Basically IRecipe but not IRecipe.
