@@ -77,6 +77,7 @@ public class AvaritiaRecipeManager {
                 loadRecipes(mod, "compressor", (json, ctx, key) -> {
                     ICompressorRecipe recipe = getRecipe(json, ctx, compressorRecipeFactories::get);
                     if (recipe != null) {
+                        recipe.setRegistryName(key);
                         COMPRESSOR_RECIPES.put(key, recipe);
                     }
                 })//
