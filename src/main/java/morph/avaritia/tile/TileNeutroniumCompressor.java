@@ -10,7 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -210,6 +215,24 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
     }
 
     @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    }
+
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (side != null) {
+                return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new SidedInvWrapper(this, side));
+            } else {
+                return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new InvWrapper(this));
+            }
+        }
+        return super.getCapability(capability, side);
+    }
+
+    @Override
     public int getSizeInventory() {
         return 2;
     }
@@ -280,16 +303,13 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
             if (target_stack.isEmpty()) {
                 return true;
             }
-            if (AvaritiaRecipeManager.getCompressorRecipeFromInput(stack).getResult().isItemEqual(target_stack)) {
-                return true;
+            if (AvaritiaRecipeManager.hasCompressorRecipe(stack)) {
+                if (AvaritiaRecipeManager.getCompressorRecipeFromInput(stack).getResult().isItemEqual(target_stack)) {
+                    return true;
+                }
             }
         }
         return false;
-    }
-
-    @Override
-    public int getInventoryStackLimit() {
-        return 64;
     }
 
     @Override
@@ -299,22 +319,6 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
         } else if (slot == 1) {
             output = stack;
         }
-    }
-
-    /**
-     * Returns the name of the inventory
-     */
-    @Override
-    public String getName() {
-        return "container.neutronium_compressor";
-    }
-
-    /**
-     * Returns if the inventory is named
-     */
-    @Override
-    public boolean hasCustomName() {
-        return false;
     }
 
     @Override
@@ -344,30 +348,15 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public void openInventory(EntityPlayer player) {
-    }
-
-    @Override
-    public void closeInventory(EntityPlayer player) {
-    }
-
-    @Override
-    public int getField(int id) {
-        return 0;
-    }
-
-    @Override
-    public void setField(int id, int value) {
-    }
-
-    @Override
-    public int getFieldCount() {
-        return 0;
-    }
-
-    @Override
-    public void clear() {
-    }
-
+    //@formatter:off
+    @Override public int getInventoryStackLimit() { return 64; }
+    @Override public String getName() { return "container.neutronium_compressor"; }
+    @Override public boolean hasCustomName() { return false; }
+    @Override public void openInventory(EntityPlayer player) { }
+    @Override public void closeInventory(EntityPlayer player) { }
+    @Override public int getField(int id) { return 0; }
+    @Override public void setField(int id, int value) { }
+    @Override public int getFieldCount() { return 0; }
+    @Override public void clear() { }
+    //@formatter:on
 }

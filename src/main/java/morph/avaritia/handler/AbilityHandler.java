@@ -86,12 +86,12 @@ public class AbilityHandler {
 
         //Boots toggle.
         if (hasBoots) {
-            entitiesWithBoots.add(key);
             handleBootsStateChange(entity);
+            entitiesWithBoots.add(key);
         }
         if (!hasBoots) {
-            entitiesWithBoots.remove(key);
             handleBootsStateChange(entity);
+            entitiesWithBoots.remove(key);
         }
 
         //Active ability ticking.

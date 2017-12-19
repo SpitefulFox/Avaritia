@@ -7,10 +7,6 @@
 	},
 	"ingredients": [
 		{
-			"type": "forge:ore_dict",
-			"ore": "blockEmerald"
-		},
-		{
 			"type": "minecraft:item",
 			"item": "#diamond_lattice"
 		},
@@ -225,6 +221,40 @@
 			"pass": {
 				"type": "forge:ore_dict",
 				"ore": "blockDarkSteel"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockPlatinum"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.platinum"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#platinum_singularity"
+			}
+		},
+		{
+			"type": "codechickenlib:conditional",
+			"conditions": [
+				{
+					"type": "codechickenlib:ore_exists",
+					"ore": "blockIridium"
+				},
+				{
+					"type": "avaritia:config",
+					"tag": "materials.iridium"
+				}
+			],
+			"pass": {
+				"type": "minecraft:item",
+				"item": "#iridium_singularity"
 			}
 		}
 	]

@@ -99,8 +99,8 @@ public class ConfigHandler {
             fluxed = materials.getTag("fluxed").setDefaultBoolean(true).getBoolean();
             enderium = materials.getTag("enderium").setDefaultBoolean(true).getBoolean();
             darkSteel = materials.getTag("dark_steel").setDefaultBoolean(true).getBoolean();
-            platinum = materials.getTag("platinum").setDefaultBoolean(true).getBoolean();
-            iridium = materials.getTag("iridium").setDefaultBoolean(true).getBoolean();
+            platinum = materials.getTag("platinum").setDefaultBoolean(false).getBoolean();
+            iridium = materials.getTag("iridium").setDefaultBoolean(false).getBoolean();
         }
 
         {

@@ -238,5 +238,21 @@
 			"item": "avaritia:singularity",
 			"data": 12
 		}
+	},
+	{
+		"name": "platinum_singularity",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:singularity",
+			"data": 13
+		}
+	},
+	{
+		"name": "iridium_singularity",
+		"ingredient": {
+			"type": "minecraft:item",
+			"item": "avaritia:singularity",
+			"data": 14
+		}
 	}
 ]

@@ -29,7 +29,7 @@ public class GUINeutroniumCompressor extends GuiMachineBase<TileNeutroniumCompre
         builder.setAnimationDirection(AnimationDirection.BOTTOM_UP);
         builder.setRenderPredicate(() -> machineTile.getCompressionProgress() > 0);
         builder.setAnimationSupplier(() -> Pair.of(kick(machineTile.getCompressionProgress()), machineTile.getCompressionTarget()));
-        builder.setTooltipSupplier(() -> scaleF(machineTile.getCompressionProgress(), machine.getCompressionTarget(), 100) + " %");
+        builder.setTooltipSupplier(() -> String.format("%.2f%%", scaleF(machineTile.getCompressionProgress(), machine.getCompressionTarget(), 100)));
         addDrawable(builder.build());
     }
 
