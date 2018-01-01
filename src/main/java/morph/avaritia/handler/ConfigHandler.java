@@ -36,6 +36,21 @@ public class ConfigHandler {
     public static int modifier = 0;
     public static int multiplier = 0;
 
+    public static boolean storagedrawers = false;
+    public static boolean refinedstorage = false;
+    public static boolean tconstruct = false;
+    public static boolean appliedenergistics = false;
+    public static boolean draconicevolutionFlux = false;
+    public static boolean draconicevolutionRF = false;
+    public static boolean thermalexpansion = false;
+    public static boolean embers = false;
+    public static boolean essentialcraft = false;
+    public static boolean botaniaPool = false;
+    public static boolean botaniaTablet = false;
+    public static boolean extrautils2 = false;
+
+
+
     public static void init(File file) {
         config = new ConfigFile(file, false);
         try {
@@ -59,7 +74,7 @@ public class ConfigHandler {
             general.setComment("General configuration of Avaritia components.");
 
             tag = general.getTag("use_end_stone");
-            tag.setComment("Disable to take end stone out of recipes some of Avaritia's recipes.");
+            tag.setComment("Disable to remove end stone out of some of Avaritia's recipes.");
             endStone = tag.setDefaultBoolean(true).getBoolean();
 
             tag = general.getTag("break_bedrock");
@@ -115,6 +130,60 @@ public class ConfigHandler {
             tag.setComment("Added to the existing multiplier to make prices more expensive or cheaper. Can be negative.");
             multiplier = tag.setDefaultInt(0).getInt();
         }
+
+        {
+           ConfigTag creative = config.getTag("creative");
+           creative.setComment("Enable / Disable Extreme recipes for creative items from other mods.");
+
+            tag = creative.getTag("storage_drawers_upgrade");
+            tag.setComment("Creative Storage Upgrade");
+            storagedrawers = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("refined_storage_controller");
+            tag.setComment("Creative Controller");
+            refinedstorage = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("t_construct_modifier");
+            tag.setComment("Creative Modifier");
+            tconstruct = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("applied_energistics_cell");
+            tag.setComment("Creative EnergyCell");
+            appliedenergistics = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("draconic_evolution_capacitor");
+            tag.setComment("Creative Flux Capacitor");
+            draconicevolutionFlux = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("draconic_evolution_rf_source");
+            tag.setComment("Creative RF Source");
+            draconicevolutionRF = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("thermal_expansion_capacitor");
+            tag.setComment("Creative Flux Capacitor");
+            thermalexpansion = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("embers_ember_source");
+            tag.setComment("Creative Ember Source");
+            embers = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("essentialcraft_mru_source");
+            tag.setComment("Creative MRU Source");
+            essentialcraft = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("botania_everlasting_guilty_pool");
+            tag.setComment("Creative Mana Pool");
+            botaniaPool = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("botania_mana_tablet");
+            tag.setComment("Creative Mana tablet");
+            botaniaTablet = tag.setDefaultBoolean(false).getBoolean();
+
+            tag = creative.getTag("extrautils2_energy_source");
+            tag.setComment("Creative Energy Source");
+            extrautils2 = tag.setDefaultBoolean(false).getBoolean();
+        }
+
 
         config.save();
     }

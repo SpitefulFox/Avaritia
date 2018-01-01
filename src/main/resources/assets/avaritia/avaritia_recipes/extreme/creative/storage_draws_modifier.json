@@ -1,0 +1,31 @@
+{
+	"conditions": [
+		{
+			"type": "forge:mod_loaded",
+			"modid": "storagedrawers"
+		}
+	],
+	"type": "avaritia:shaped",
+	"result": {
+		"item": "storagedrawers:upgrade_creative",
+		"data": 0,
+		"count": 1
+	},
+	"pattern": [
+		"IIIIIIIII",
+		"IIIIIIIII",
+		"IIIIIIIII",
+		"IIIIIIIII",
+		"IIIIIIIII",
+		"IIIIIIIII",
+		"IIIIIIIII",
+		"IIIIIIIII",
+		"IIIIIIIII"
+	],
+	"key": {
+		"I": {
+			"type": "minecraft:item",
+			"item": ""
+		}
+	}
+}
