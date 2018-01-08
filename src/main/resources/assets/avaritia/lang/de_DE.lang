@@ -1,0 +1,183 @@
+#Contributors of German Translation:
+#Nerdyyy (started all this (was a mistake), only translated till about ln 110)
+
+#
+# Items
+item.avaritia_resource.diamond_lattice.name=Diamantgitter
+item.avaritia_resource.crystal_matrix_ingot.name=Kristallmatrix-Barren
+item.avaritia_resource.neutron_pile.name=Neutronenhaufen
+item.avaritia_resource.neutron_nugget.name=Neutronennugget
+item.avaritia_resource.neutronium_ingot.name=Neutronenbarren
+item.avaritia_resource.infinity_catalyst.name=Unendlichkeitskatalyst
+item.avaritia_resource.infinity_ingot.name=Unendlichkeitsbarren
+item.avaritia_resource.record_fragment.name=Schallplatten-Fragment
+item.avaritia_resource.starfuel.name=Sternentreibstoff
+item.avaritia_resource.neutronium_gear.name=Neutronenzahnrad
+item.singularity_iron.name=Eisensingularität
+item.singularity_gold.name=Goldsingularität
+item.singularity_lapis.name=Lapissingularität
+item.singularity_redstone.name=Redstonesingularität
+item.singularity_quartz.name=Nether Quartzsingularität
+item.singularity_copper.name=Kupfersingularität
+item.singularity_tin.name=Zinnsingularität
+item.singularity_lead.name=Bleisingularität
+item.singularity_silver.name=Silbersingularität
+item.singularity_nickel.name=Nickelsingularität
+item.singularity_clay.name=Tonsingularität
+item.infinity_pickaxe.name=Weltenzerstörer
+item.infinity_sword.name=Schwert des Kosmos
+item.infinity_shovel.name=Planetenfresser
+item.infinity_axe.name=Ruin der Natur
+item.infinity_bow.name=Langbogen des Himmels
+item.skullfire_sword.name=Schädelfeuer-Schwert
+item.akashic_record.name=Akasische Aufzeichnungen
+item.orb_armok.name=Blut-Orb von Armok
+item.avaritia_stew.name=Ultimative Suppe
+item.avaritia_meatballs.name=Kosmische Fleischbällchen
+item.avaritia_endest_pearl.name=Enderste Perle
+item.infinity_armor_0.name=Unendlichkeitshelm
+item.infinity_armor_1.name=Unendlichkeitsbrustplatte
+item.infinity_armor_2.name=Unendlichkeitshose
+item.infinity_armor_3.name=Unendlichkeitsstiefel
+item.avaritia_fracturedore.name=Unbekanntes zersplittertes Erz
+item.avaritia_fracturedore.prefix=zersplittert
+item.avaritia_mattercluster.name=Materienansammlung
+item.avaritia_mattercluster.full.name=Kritische Materienansammlung
+item.morvinabox.name=Morv-In-A-Box (WIP)(WIRD DICH VERBRENNEN)
+item.avaritia.comb.nerfed.name=verschlechterte Wabe
+item.avaritia.comb.cosmic.name=kosmische Wabe
+item.avaritia_beesource.infinity_drop.name=Unendlichkeitsdrop
+item.avaritia_beesource.dust.name=Staub
+item.extremely_primordial_pearl.name=Extrem elementare Perle
+#
+# Blocks
+tile.compressed_workbench.name=Komprimierte Werkbank
+tile.very_compressed_workbench.name=Doppelt komprimierte Werkbank
+tile.block_crystal_matrix.name=Kristallmatrix
+tile.block_neutronium.name=Neutronenblock
+tile.block_infinity.name=Unendlichkeitsblock
+tile.block_gaia.name=Gaia Block
+tile.dire_crafting.name=Schreckliche Werkbank
+tile.auto_dire_crafting.name=Schreckliche Werkbank MK 20
+tile.neutron_collector.name=Neutronenkollektor
+tile.neutronium_compressor.name=NeutronenKompressor
+tile.infinitato.name=Unendlichkeitstoffel
+tile.alfheim_deadrock0.name=Totstein
+tile.alfheim_deadrock1.name=Totstein-Ziegel
+tile.alfheim_deadrock2.name=Mosige Totstein-Ziegel
+tile.alfheim_deadrock3.name=gebrochene Totstein-Ziegel
+tile.alfheim_deadrock4.name=gemeißelter Totstein-Ziegel
+#
+# Tooltips
+tooltip.armok.desc=Hält unendlich Lebensessenz wenn gehalten
+tooltip.crystal_matrix_ingot.desc=Das ist nichtmal seine finale Form...
+tooltip.neutron_pile.desc=Versuch', nicht darüber nachzudenken.
+tooltip.neutron_nugget.desc=Ungefähr 35,6 Tonnen.
+tooltip.neutronium_ingot.desc=Das dichte Herz eines Sternes in praktischer Barren-Form.
+tooltip.infinity_catalyst.desc=Einer ist alles und alles ist Einer.
+tooltip.infinity_ingot.desc=Die gewalt des Universums in deiner Hand.
+tooltip.record_fragment.desc=Mancher mag es, and die Freiheit der Musik zu glauben~
+tooltip.starfuel.desc=Das Licht des Kosmos in einem praktischen Stück Erde.
+tooltip.skullfire_sword.desc=Köpft Skelette und färbt sie schwarz.
+tooltip.matter_cluster.desc=Benutzen um zu zerstören.
+tooltip.matter_cluster.desc2=Halte SHIFT, um genaueres anzuzeigen.
+tooltip.matter_cluster.counter=Gegenstände
+tooltip.morvinabox.desc=Soforthaus
+tooltip.morvinabox.subdesc=In Kanada kommt Morvy in Tüten.
+tooltip.claybalance.desc=UNENDLICH BALANCE!!!
+#
+# Achievements
+achievement.avaritia:crystal_matrix=Das erste Siegel
+achievement.avaritia:crystal_matrix.desc=Erstelle deinen Ersten Kristallmatrix-Barren
+achievement.avaritia:dire_crafting=HALLO AN ALLE!
+achievement.avaritia:dire_crafting.desc=Benutze eine Normale Werkbank um eine Schreckliche Werkbank zu bauen
+achievement.avaritia:dire_uncrafting=NIMM ES LEICHT!
+achievement.avaritia:dire_uncrafting.desc=Beende die Episode
+achievement.avaritia:collector=Jetzt spielen wir das Wartespiel
+achievement.avaritia:collector.desc=Erstelle deinen ersten Neutronenkollektor und bereite dich aufs chunkloaden vor!
+achievement.avaritia:neutronium=Wartespiel ist Sch****
+achievement.avaritia:neutronium.desc=Erstelle den ersten Neutronenbarren von vielen
+achievement.avaritia:singularity=Eventhorizont
+achievement.avaritia:singularity.desc=Erstelle deine Erste Singularität
+achievement.avaritia:catalyst=Die gesamte Küche sinkt!
+achievement.avaritia:catalyst.desc=Erstelle deinen ersten Unendlichkeitskatalysten
+achievement.avaritia:infinity=UNENDLICHE ENERGIE!
+achievement.avaritia:infinity.desc=Erstelle deinen ersten Unendlichkeitsbarren
+achievement.avaritia:armok=☺♦
+achievement.avaritia:armok.desc=Erstelle den Blut-Orb von Armok
+achievement.avaritia:creative_kill=Sogar Götter können Bluten
+achievement.avaritia:creative_kill.desc="Durch diese Sünde fielen die Engel"
+#
+# Misc
+itemGroup.avaritia=Avaritia
+container.neutron_collector=Neutronenkollektor
+container.neutronium_compressor=Neutronenkompressor
+tc.aspect.terminus=Das Ende von Spielen, Apokalypse, Schleifsteinen
+crafting.extreme=Xtrem Crafting
+crafting.extreme.shapeless=Xtrem Formlos
+crafting.extreme_compression=Neutronenkompressor
+tip.infinity=Unendlichkeit
+death.attack.infinity=%1$s wurde von %2$s ausgelöscht
+death.attack.infinity.item=%1$s wurde von %2$s ausgelöscht
+death.attack.infinity.1=%1$s wurde von %2$s in Stücke zerfleischt
+death.attack.infinity.2=%1$s wurde von %2$s am existieren gehindert
+death.attack.infinity.3=%1$s wurde von %2$s über-umgebracht
+death.attack.infinity.4=%1$s wurde von %2$s annihiliert
+#
+# Botania
+avaritia.flower.asgardandelion.name=Asgardandelion
+tile.botania:flower.asgardandelion.name=Asgardandelion
+tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
+avaritia.lexicon.asgardandelion=Asgardandelion
+avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a never-ending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reckoning.<BR>&oStill not a SAO reference.&r
+avaritia.lexicon.infinitato=Infinitato
+avaritia.lexicon.infinitato.0=Imprinting the essence of everything onto objects can have interesting results, and the Infinitato is no exception.<BR>Somewhat larger than its tiny sibling, and infused with the can-do attitude of a whole crowd of &1Tiny Potatoes&0 plus an &1Infinity Catalyst&0, the &1Infinitato&0 believes that you can do all the things, forever.
+avaritia.lexicon.infinitato.1=Trust me, &oit'll fit.&r
+avaritia.flower.soarleander.name=Soarleander
+tile.botania:flower.soarleander.name=Soarleander
+tile.avaritia.flower.soarleander.lore=Just hook it up to my &oveeeeins!&r
+avaritia.lexicon.soarleander=Soarleander
+avaritia.lexicon.soarleander.0=If you have a surfeit of chicken or chicken by-products, look no further!<BR>The Soarleander will devour any and all things chicken in the vicinity (chickens themselves included) while remaining totally disinterested in everything else.
+avaritia.lexicon.soarleander.1=&oAny random chests are an unintended side-effect.&r
+#
+# Thaumcraft
+item.Wand.infinity.rod=Cosmic Neutronium
+item.Wand.matrix.cap=Crystal Studded
+#
+# Tinkers Construct
+material.avaritia_neutronium=Neutronium
+material.avaritia_neutronium.ability=Supermassive
+material.avaritia_infinitymetal=Infinity
+material.avaritia_infinitymetal.ability=Cosmic
+#
+# Beeeeeeeeeeeees
+avaritia.bee.annoying=Annoying
+avaritia.bee.annoying.desc="How long can it take to build a single honeycomb?!"|Note found in an ancient time capsule
+avaritia.bee.tedious=Tedious
+avaritia.bee.tedious.desc=Their hives are actually built out of smaller hives, which are themselves built out of smaller hives...
+avaritia.bee.insufferable=Insufferable
+avaritia.bee.insufferable.desc=They often sabotage other bees they perceive as having any advantages or improper vocabulary.
+avaritia.bee.trippy=Trippy
+avaritia.bee.trippy.desc="Dude. Like... bees. Man. They're like... whoa."|SpitefulFox, Unlicensed Apiarist
+avaritia.bee.cosmic=Cosmic
+avaritia.bee.cosmic.desc=
+avaritia.bee.neutronium=Neutronium
+avaritia.bee.neutronium.desc=Small objects can often by found orbiting their hives.
+avaritia.bee.infinite=Infinite
+avaritia.bee.infinite.desc=
+
+classification.balanced=Balanced
+classification.balanced.desc=These bees get bored and drop dead the moment they complete whatever they're working on. They take the most long, convoluted routes and methods in order to keep themselves entertained.
+classification.infinite=Infinite
+classification.infinite.desc=They gather pranic energy from the hidden ley-lines and arcane geometries of the universe itself.
+
+avaritia.allele.speedNerfed=Nerfed
+avaritia.allele.lifespanArtificial=Artificial
+#
+# Research
+avaritia.research_name.BIG_PEARL=Extremely Primordial Pearl
+avaritia.research_text.BIG_PEARL=Because you can always have more
+avaritia.research_page.BIG_PEARL.1=Sure, the Primordial Pearl is pretty potent, but you think it could be even MORE potent.<BR><BR>By smashing several primordial pearls together in an arcane infusion, you create an even more potent item: The Extremely Primordial Pearl.<BR><BR>It's guaranteed to be even more primordial than a regular primordial pearl!
+avaritia.research_name.AKASHIC=Akashic Records
+avaritia.research_text.AKASHIC=More knowledge than you'll need
+avaritia.research_page.AKASHIC.1=You've researched enough of the world to crack the fabric of reality and enter the Outer Realms, but surely there's always room for MORE research, right?<BR><BR>The Akashic Records will give you all the research points in the world and then a little more.
