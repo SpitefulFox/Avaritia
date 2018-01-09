@@ -1,0 +1,176 @@
+#Translation submitted by  EngineerXL
+
+#
+# Items
+item.resource.diamond_lattice.name=Алмазная решётка
+item.resource.crystal_matrix_ingot.name=Кристально-матричный слиток
+item.resource.neutron_pile.name=Пылинка нейтрония
+item.resource.neutron_nugget.name=Самородок нейтрония
+item.resource.neutronium_ingot.name=Слиток нейтрония
+item.resource.infinity_catalyst.name=Катализатор бесконечности
+item.resource.infinity_ingot.name=Слиток бесконечности
+item.resource.record_fragment.name=Осколок пластинки
+item.singularity.iron.name=Железная сингулярность
+item.singularity.gold.name=Золотая сингулярность
+item.singularity.lapis.name=Лазуритовая сингулярность
+item.singularity.redstone.name=Редстоуновая сингулярность
+item.singularity.quartz.name=Кварцевая сингулярность
+item.singularity.copper.name=Медная сингулярность
+item.singularity.tin.name=Оловянная сингулярность
+item.singularity.lead.name=Свинцовая сингулярность
+item.singularity.silver.name=Серебряная сингулярность
+item.singularity.nickel.name=Никелевая сингулярность
+item.singularity.diamond.name=Алмазная сингулярность
+item.singularity.emerald.name=Изумрудная сингулярность
+item.avaritia:infinity_pickaxe.name=Разрушитель мира
+item.avaritia:infinity_sword.name=Космический меч
+item.avaritia:infinity_shovel.name=Планетарный пожиратель
+item.avaritia:infinity_axe.name=Убийца природы
+item.avaritia:infinity_bow.name=Небесный лук
+#item.avaritia.infinity_hoe.name=Мотыга вечного урожая
+item.avaritia:skullfire_sword.name=Меч огненного черепа
+item.akashic_record.name=Акашийские Хроники
+item.orb_armok.name=Кровавый шар Армока
+item.avaritia:ultimate_stew.name=Вселенское рагу
+item.avaritia:cosmic_meatballs.name=Космические фрикадельки
+item.avaritia:endest_pearl.name=Всепоглощающая жемчужина
+item.avaritia:infinity_helmet.name=Шлем бесконечности
+item.avaritia:infinity_chestplate.name=Нагрудник бесконечности
+item.avaritia:infinity_pants.name=Поножи бесконечности
+item.avaritia:infinity_boots.name=Ботинки бесконечности
+item.avaritia_fracturedore.name=Неизвестная сломанная руда
+item.avaritia_fracturedore.prefix=Сломана
+item.avaritia:matter_cluster.name=Кусок материи
+item.avaritia:matter_cluster.full.name=Предельный кусок материи
+item.avaritia.comb.nerfed.name=Понёрфленные соты
+item.avaritia.comb.cosmic.name=Космические соты
+item.avaritia_beesource.infinity_drop.name=Капля бесконечности
+item.avaritia_beesource.dust.name=Пыль
+item.extremely_primordial_pearl.name=Бесконечно-сингулярная жемчужина
+#
+# Blocks
+tile.avaritia:compressed_workbench.name=Сжатый верстак
+tile.avaritia:very_compressed_workbench.name=Дважды сжатый верстак
+tile.avaritia:block_resource.crystal_matrix.name.name=Кристалическая матрица
+tile.avaritia:block_resource.neutronium.name.name=Блок нейтрония
+tile.avaritia:block_resource.infinity.name.name=Блок бесконечности
+tile.block_gaia.name=Блок Гайи
+tile.avaritia:dire_crafting.name=Ужасающий верстак
+tile.avaritia:neutron_collector.name=Сборщик нейтрония
+tile.avaritia:neutronium_compressor.name=Компрессор нейтрония
+tile.infinitato.name=Картошка Бесконечности
+tile.alfheim_deadrock0.name=Мёртвый камень
+tile.alfheim_deadrock1.name=Кирпич из мёртвого камня
+tile.alfheim_deadrock2.name=Замшелый мёртвый камень
+tile.alfheim_deadrock3.name=Потрескавшийся мёртвый камень
+tile.alfheim_deadrock4.name=Окаймлённый мёртвый камень
+#
+# Tooltips
+tooltip.armok.desc=Содержит в себе бесконечную жизненную эссенцию
+tooltip.item.resource.crystal_matrix_ingot.desc=Это ещё не последняя форма
+tooltip.item.resource.neutron_pile.desc=Попытайся забыть об этом
+tooltip.item.resource.neutron_nugget.desc=Около 35.6 миллионов тонн
+tooltip.item.resource.neutronium_ingot.desc=Плотное сердце звезды в удобной форме слитка
+tooltip.item.resource.infinity_catalyst.desc=Всё в одном и одно во всём
+tooltip.item.resource.infinity_ingot.desc=Вся мощь вселенной в твоей руке
+tooltip.item.resource.record_fragment.desc=Кто-то любит верить в чистоту музыки~
+tooltip.skullfire_sword.desc=Обжигает скелетов и обезглавливает их
+tooltip.matter_cluster.desc=ПКМ для разрушения
+tooltip.matter_cluster.desc2=Зажмите SHIFT для подробностей
+tooltip.matter_cluster.counter=Предметы
+#
+# Achievements
+achievement.avaritia:crystal_matrix=Ваш первый крафт
+achievement.avaritia:crystal_matrix.desc=Создайте первый Кристально-матричный слиток
+achievement.avaritia:dire_crafting=ПРИВЕТ ВСЕМ!
+achievement.avaritia:dire_crafting.desc=Используйте обычный верстак, чтобы создать Ужасающий верстак
+achievement.avaritia:dire_uncrafting=УЗБАГОЙДЕЗЬ!
+achievement.avaritia:dire_uncrafting.desc=Спектакль окончен
+achievement.avaritia:collector=Поиграем в Гляделки?
+achievement.avaritia:collector.desc=Создайте первый Сборщик нейтрония и будьте готовы грузить чанки
+achievement.avaritia:neutronium=Гляделки - отстой
+achievement.avaritia:neutronium.desc=Создайте первый Слиток нейтрония
+achievement.avaritia:singularity=Горизонт событий
+achievement.avaritia:singularity.desc=Создайте первую сингулярность
+achievement.avaritia:catalyst=Найди всё борохло
+achievement.avaritia:catalyst.desc=Создайте первый Катализатор бесконечности
+achievement.avaritia:infinity=БЕСКОНЕЧНАЯ МОЩЬ!
+achievement.avaritia:infinity.desc=Создайте первый Слиток бесконечности
+achievement.avaritia:armok=☺♦
+achievement.avaritia:armok.desc=Создайте Кровавый шар Армока
+achievement.avaritia:creative_kill=Даже Боги падут кровавой смертью
+achievement.avaritia:creative_kill.desc="Этим грехом пали ангелы"
+#
+# Misc
+itemGroup.avaritia=Avaritia
+container.neutron_collector=Сборщик нейтрония
+container.neutronium_compressor=Компрессор нейтрония
+tc.aspect.terminus=Конец игры, Хаос, Бойня
+crafting.extreme=Бесконечное создание
+crafting.extreme.shapeless=Бесконечное бесформенное создание
+crafting.extreme_compression=Компрессор нейтрония
+tip.infinity=Бесконечность
+death.attack.infinity=%1$s был уничтожен %2$s
+death.attack.infinity.item=%1$s был уничтожен %2$s
+death.attack.infinity.1=%2$s искромсал %1$s
+death.attack.infinity.2=%1$s был стёрт из реальности %2$s
+death.attack.infinity.3=%1$s был убит %2$s
+death.attack.infinity.4=%1$s был уничтожен %2$s
+#
+# Botania
+avaritia.flower.asgardandelion.name=Асгардуванчик
+tile.botania:flower.asgardandelion.name=Асгардуванчик
+tile.avaritia.flower.asgardandelion.lore=Полито слёзами Vazkii! :c
+avaritia.lexicon.asgardandelion=Асгардуванчик
+avaritia.lexicon.asgardandelion.0=Ходят слухе о цветке, который способен наделить своего владельца бесконечной маной. Если бы существовал такой цветок, он наверняка бы стоил несмертных богатсв.<BR>&oДо сих пор не ссылался.&r
+avaritia.lexicon.infinitato=Картошка Бесконечности
+avaritia.lexicon.infinitato.0=Исследуя эффект наполнения вещей свойствами бесконечности, вы нашли новые интересные инструменты: Картошка Бесконечности - не исключение.<BR>Нечто большее, чем его родословная, и наделённый вниманием к &1Крошечной картофелине&0 и &1Катализатору бесконечности&0, &1Картошка Бесконечности&0 верит, что ты всегда сможешь сделать всё, что угодно.
+avaritia.lexicon.infinitato.1=Поверь мне, &oэто подойдет.&r
+avaritia.flower.soarleander.name=Парящая земля
+tile.botania:flower.soarleander.name=Парящая земля
+tile.avaritia.flower.soarleander.lore=Просто подключи его к моим &oжииииииииииииииилам!&r
+avaritia.lexicon.soarleander=Парящая земля
+avaritia.lexicon.soarleander.0=Если у вас избыток курицы или куриных продуктов, не читайте дальше!<BR>Парящая земля будет пожирать любую курятину (даже самих куриц), не трогая при этом никого другого.
+avaritia.lexicon.soarleander.1=&oЛюбой случайный сундук содержит побочные эффекты.&r
+#
+# Thaumcraft
+item.Wand.infinity.rod=Космический Нейтрониевый
+item.Wand.matrix.cap=Шипованный Кристаллами
+#
+# Tinkers Construct
+material.avaritia_neutronium=Нейтроний
+material.avaritia_neutronium.ability=Сверхмассивный
+material.avaritia_infinitymetal=Бесконечность
+material.avaritia_infinitymetal.ability=Космический
+#
+# Beeeeeeeeeeeees
+avaritia.bee.annoying=Надоедает
+avaritia.bee.annoying.desc="Да сколько можно уже ждать эту соту?!"|Записка в капсуле времени
+avaritia.bee.tedious=Утомительный
+avaritia.bee.tedious.desc=Их ульи сделанны из меньших ульев - те в свою очередь сделанны из ещё меньших ульев...
+avaritia.bee.insufferable=Невыносимый
+avaritia.bee.insufferable.desc=Они часто саботируют других пчел, которых они воспринимают их как имеющих какие-либо преимущества или неправильный словарь.
+avaritia.bee.trippy=Триповая
+avaritia.bee.trippy.desc="Чувак. Люби... пчёл. Чувак. Они прям как... ух!"|SpitefulFox, нелицензированный пчеловод
+avaritia.bee.cosmic=Космическая
+avaritia.bee.cosmic.desc=
+avaritia.bee.neutronium=Нейтронная
+avaritia.bee.neutronium.desc=На орбите ульев часто летает космический мусор.
+avaritia.bee.infinite=Бесконечная
+avaritia.bee.infinite.desc=
+
+classification.balanced=Уравновешенные
+classification.balanced.desc=Эти пчелы умирают от скуки в тот момент, когда они свершили предначертанное. Они берут самые длинные, запутанные методы, чтобы развлекать себя.
+classification.infinite=Бесконечные
+classification.infinite.desc=Они собирают энергию из невидимых энергетический линий из самой Вселенной.
+
+avaritia.allele.speedNerfed=Понёрфленная
+avaritia.allele.lifespanArtificial=Искусственная
+#
+# Research
+avaritia.research_name.BIG_PEARL=Бесконечно-сингулярная жемчужина
+avaritia.research_text.BIG_PEARL=Ты всегда можешь иметь больше
+avaritia.research_page.BIG_PEARL.1=Сингулярная жемчужина достаточно мощная, но ты думаешь, что есть нечто БОЛЕЕ мощное.<BR><BR>Соединяя несколько Сингулярных жемчужин вместе, ты получил нечто большее: Бесконечно-Сингулярную жемчужину.<BR><BR>Она явно более сингулярная, чем обычная Сингулярная жемчужина!
+avaritia.research_name.AKASHIC=Акашийские Хроники
+avaritia.research_text.AKASHIC=Намного больше, чем ты знаешь
+avaritia.research_page.AKASHIC.1=Ты довольно умён, чтобы исказить пространство и попасть в Далёкие Земли, но всегда есть та комната, где находится БОЛЬШЕ знаний, верно?<BR><BR>Акашийские Хроники дадут все аспекты мира и ничего больше.
