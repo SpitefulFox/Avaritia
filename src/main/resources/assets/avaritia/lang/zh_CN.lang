@@ -106,14 +106,14 @@ achievement.avaritia:creative_kill=甚至上帝也会流血
 achievement.avaritia:creative_kill.desc="因罪而堕落的天使"
 #
 # Misc
-itemGroup.avaritia=Avaritia
+itemGroup.avaritia=无尽贪婪
 container.neutron_collector=中子态素收集器
 container.neutronium_compressor=中子态素压缩机
 tc.aspect.terminus=游戏之终结,启示录,天启,粉碎一切
 crafting.extreme=有序终极合成
 crafting.extreme.shapeless=无序终极合成
 crafting.extreme_compression=中子态素压缩机
-tip.infinity=Infinity
+tip.infinity=无限
 death.attack.infinity=%1$s被%2$s彻底粉碎
 death.attack.infinity.item=%1$s被%2$s彻底粉碎
 death.attack.infinity.1=%1$s被%2$s切成了条
