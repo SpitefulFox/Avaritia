@@ -1,8 +1,10 @@
 package fox.spiteful.avaritia.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -10,6 +12,9 @@ public class TileEntityAutoDireCrafting extends TileLudicrous implements IInvent
 
     private ItemStack result;
     private ItemStack[] matrix = new ItemStack[81];
+    private ItemStack[] storage = new ItemStack[81];
+
+    private boolean recipeChanged = true;
 
     @Override
     public boolean canUpdate()
@@ -58,8 +63,8 @@ public class TileEntityAutoDireCrafting extends TileLudicrous implements IInvent
     public ItemStack getStackInSlot(int slot){
         if(slot == 0)
             return result;
-        else if(slot <= matrix.length)
-            return matrix[slot - 1];
+        else if(slot <= storage.length)
+            return storage[slot - 1];
         else
             return null;
     }
@@ -166,6 +171,48 @@ public class TileEntityAutoDireCrafting extends TileLudicrous implements IInvent
 
     public boolean canExtractItem(int slot, ItemStack item, int side){
         return false;
+    }
+
+    public class ExtremeCraftingMatrix extends InventoryCrafting
+    {
+        public ExtremeCraftingMatrix()
+        {
+            super(new Container()
+            {
+                @Override
+                public boolean canInteractWith(final EntityPlayer entityPlayer)
+                {
+                    return false;
+                }
+            }, 9, 9);
+        }
+
+        @Override
+        public ItemStack getStackInSlot(final int slot)
+        {
+            return matrix[slot];
+        }
+
+        @Override
+        public void setInventorySlotContents(final int slot, final ItemStack itemStack)
+        {
+            recipeChanged = true;
+            matrix[slot] = itemStack;
+            markDirty();
+        }
+
+        @Override
+        public ItemStack decrStackSize(int slot, final int howMuch)
+        {
+            if (matrix[slot] == null)
+                return null;
+            final ItemStack itemStack = matrix[slot].copy();
+            if ((matrix[slot].stackSize -= howMuch) == 0)
+                matrix[slot] = null;
+            itemStack.stackSize = howMuch;
+            markDirty();
+            return itemStack;
+        }
     }
 
 }

@@ -21,7 +21,7 @@ public class LudicrousBlocks {
      */
     public static Block resource_block;
     public static Block dire_crafting;
-    //public static Block auto_dire_crafting;
+    public static Block auto_dire_crafting;
     public static Block neutron_collector;
     public static Block compressor;
 
@@ -31,8 +31,8 @@ public class LudicrousBlocks {
         double_craft = GameRegistry.registerBlock(new BlockDoubleCraft(), "Double_Craft");
         triple_craft = GameRegistry.registerBlock(new BlockTripleCraft(), "Triple_Craft");
         dire_crafting = GameRegistry.registerBlock(new BlockDireCrafting(), "Dire_Crafting");
-        //auto_dire_crafting =GameRegistry.registerBlock(new BlockAutoDireCrafting(), "Auto_Dire_Crafting");
-        //GameRegistry.registerTileEntity(TileEntityDireCrafting.class, "Avaritia_Dire_Craft");
+        auto_dire_crafting =GameRegistry.registerBlock(new BlockAutoDireCrafting(), "Auto_Dire_Crafting");
+        GameRegistry.registerTileEntity(TileEntityDireCrafting.class, "Avaritia_Dire_Craft");
 
         if(Config.craftingOnly)
             return;
