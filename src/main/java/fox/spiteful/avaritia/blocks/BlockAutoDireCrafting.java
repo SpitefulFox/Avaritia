@@ -37,8 +37,8 @@ public class BlockAutoDireCrafting extends BlockContainer {
     @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
-        top = iconRegister.registerIcon("avaritia:dire_crafting_top");
-        sides = iconRegister.registerIcon("avaritia:dire_crafting_side");
+        top = iconRegister.registerIcon("avaritia:dire_autocrafting_top");
+        sides = iconRegister.registerIcon("avaritia:dire_autocrafting_side");
         bottom = iconRegister.registerIcon("avaritia:block_crystal_matrix");
     }
 
