@@ -1,4 +1,4 @@
-# es_ES
+﻿# es_ES
 #
 #############
 #   Items   #
@@ -41,10 +41,10 @@ item.avaritia:infinity_hoe.name=Azada de la Tierra Verde
 item.avaritia:skullfire_sword.name=Espada de Calavera
 #
 # Armor
-item.avaritia:infinity_helmet.name=Casco de Infinito
-item.avaritia:infinity_chestplate.name=Peto de Infinito
-item.avaritia:infinity_pants.name=Grebas de Infinito
-item.avaritia:infinity_boots.name=Botas de Infinito
+item.avaritia:infinity_helmet.name=Casco Infinito
+item.avaritia:infinity_chestplate.name=Peto Infinito
+item.avaritia:infinity_pants.name=Grebas Infinitas
+item.avaritia:infinity_boots.name=Botas Infinitas
 #
 # Misc
 item.avaritia:endest_pearl.name=Endest Pearl
@@ -67,11 +67,11 @@ tile.avaritia:extreme_crafting_table.name=Mesa de Trabajo Extrema
 #
 # Resource
 tile.avaritia:block_resource.neutronium.name.name=Bloque de Neutronio
-tile.avaritia:block_resource.infinity.name.name=Bloque de Infinito
+tile.avaritia:block_resource.infinity.name.name=Bloque Infinito
 tile.avaritia:block_resource.crystal_matrix.name.name=Matriz de Cristal
 #
 # Machines
-tile.avaritia:neutron_collector.name=Colector de Neutrones
+tile.avaritia:neutron_collector.name=Coleccionista de Neutrones
 tile.avaritia:neutronium_compressor.name=Compresor de Neutrones
 
 ############
@@ -94,7 +94,7 @@ tooltip.matter_cluster.counter=artículos
 #
 # Other
 itemGroup.avaritia=Avaritia
-container.neutron_collector=Colector de Neutrones
+container.neutron_collector=Coleccionista de Neutrones
 container.neutronium_compressor=Compresor de Neutrones
 crafting.extreme=Elaboración Extrema
 crafting.extreme.shapeless=Elaboración sin forma Extrema
