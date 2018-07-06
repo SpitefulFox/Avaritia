@@ -234,11 +234,6 @@ public class AvaritiaEventHandler {
             return;
         }
         EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-		/*
-		if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == ModItems.infinity_sword && player.isHandActive()) {//TODO Blocking? Maybe add a shield?
-			event.setCanceled(true);
-		}
-		*/
         if (isInfinite(player) && !event.getSource().damageType.equals("infinity")) {
             event.setCanceled(true);
         }

@@ -21,6 +21,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
@@ -44,31 +45,23 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem, I
     public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player) {
         if (player.world.isRemote) {
             return true;
-        } /*
-			if (victim instanceof EntityPlayer) {
-			   EntityPlayer pvp = (EntityPlayer) victim;
-			   if (AvaritiaEventHandler.isInfinite(pvp)) {
-			       //if(Belmont.isVampire(pvp))
-			       //    victim.attackEntityFrom(new DamageSourceInfinitySword(player).setFireDamage().setDamageBypassesArmor(), 4.0F);
-			       //else
-			       victim.attackEntityFrom(new DamageSourceInfinitySword(player).setDamageBypassesArmor(), 4.0F);
-			       return true;
-			   }
-			   if (pvp.getHeldItem(EnumHand.MAIN_HAND) != null && pvp.getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.infinity_sword && pvp.isHandActive()) {
-			       return true;
-			   }
-			}
-			
-			victim.recentlyHit = 60;
-			victim.getCombatTracker().trackDamage(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
-			victim.setHealth(0);
-			//if(Belmont.isVampire(victim))
-			//    victim.onDeath(new EntityDamageSource("infinity", player).setFireDamage());
-			//else
-			victim.onDeath(new EntityDamageSource("infinity", player));
-			return true;
-			*/
-        return super.hitEntity(stack, victim, player);
+        }
+        if (victim instanceof EntityPlayer) {
+            EntityPlayer pvp = (EntityPlayer) victim;
+            if (AvaritiaEventHandler.isInfinite(pvp)) {
+                victim.attackEntityFrom(new DamageSourceInfinitySword(player).setDamageBypassesArmor(), 4.0F);
+                return true;
+            }
+            if (pvp.getHeldItem(EnumHand.MAIN_HAND) != null && pvp.getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.infinity_sword && pvp.isHandActive()) {
+                return true;
+            }
+        }
+
+        victim.recentlyHit = 60;
+        victim.getCombatTracker().trackDamage(new DamageSourceInfinitySword(player), victim.getHealth(), victim.getHealth());
+        victim.setHealth(0);
+        victim.onDeath(new EntityDamageSource("infinity", player));
+        return true;
     }
 
     @Override
