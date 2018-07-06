@@ -1,21 +1,26 @@
-*.class
-*.iml
-*.ipr
-*.iws
-*.classpath
-*.project
-*.prefs
-*.launch
-/output
+# exclude all
+/*
 
-#ForgeGradle
-/build
-/.gradle
-/eclipse/assets
-/libs
-/bin/
-/run/
-/out/
-gradle.properties
+# Include important folders
 
-\.idea/
+# Gradle stuff
+!gradle/
+!gradlew
+!gradlew.bat
+!build.gradle
+!build.properties
+!settings.gradle
+
+# Other Files.
+!LICENSE
+!README.md
+!todo.txt
+
+# Include git important files
+!.gitmodules
+!.gitignore
+
+# Include Important Folders
+!src/
+!libs/
+!archive
