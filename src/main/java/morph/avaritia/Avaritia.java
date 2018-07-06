@@ -8,23 +8,19 @@ import morph.avaritia.init.ModItems;
 import morph.avaritia.proxy.Proxy;
 import morph.avaritia.recipe.AvaritiaRecipeManager;
 import morph.avaritia.util.CompressorBalanceCalculator;
-import morph.avaritia.util.Lumberjack;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.logging.log4j.Level;
 
 import static morph.avaritia.Avaritia.*;
 

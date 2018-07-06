@@ -49,8 +49,6 @@ public class ConfigHandler {
     public static boolean botaniaTablet = false;
     public static boolean extrautils2 = false;
 
-
-
     public static void init(File file) {
         config = new ConfigFile(file, false);
         try {
@@ -132,8 +130,8 @@ public class ConfigHandler {
         }
 
         {
-           ConfigTag creative = config.getTag("creative");
-           creative.setComment("Enable / Disable Extreme recipes for creative items from other mods.");
+            ConfigTag creative = config.getTag("creative");
+            creative.setComment("Enable / Disable Extreme recipes for creative items from other mods.");
 
             tag = creative.getTag("storage_drawers_upgrade");
             tag.setComment("Creative Storage Upgrade");
@@ -183,7 +181,6 @@ public class ConfigHandler {
             tag.setComment("Creative Energy Source");
             extrautils2 = tag.setDefaultBoolean(false).getBoolean();
         }
-
 
         config.save();
     }

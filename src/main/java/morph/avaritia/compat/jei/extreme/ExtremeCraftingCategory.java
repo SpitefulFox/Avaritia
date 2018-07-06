@@ -1,6 +1,5 @@
 package morph.avaritia.compat.jei.extreme;
 
-import com.google.common.collect.Lists;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.ICraftingGridHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -14,7 +13,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
