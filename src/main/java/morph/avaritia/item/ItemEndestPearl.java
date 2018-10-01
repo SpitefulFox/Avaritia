@@ -30,7 +30,7 @@ public class ItemEndestPearl extends ItemEnderPearl implements IHaloRenderItem, 
     public ItemEndestPearl() {
         setUnlocalizedName("avaritia:endest_pearl");
         setRegistryName("endest_pearl");
-        maxStackSize = 16;
+        setMaxStackSize(64);
         setCreativeTab(Avaritia.tab);
     }
 
