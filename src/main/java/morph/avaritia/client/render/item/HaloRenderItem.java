@@ -39,12 +39,12 @@ public class HaloRenderItem extends WrappedItemRenderer {
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buffer = tess.getBuffer();
         if (stack.getItem() instanceof IHaloRenderItem && transformType == TransformType.GUI) {
-            IHaloRenderItem hri = ((IHaloRenderItem) stack.getItem());
+            IHaloRenderItem hri = (IHaloRenderItem) stack.getItem();
 
             GlStateManager.pushMatrix();
             GlStateManager.enableBlend();
+            GlStateManager.disableDepth();
             GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-            //RenderHelper.enableGUIStandardItemLighting();
 
             GlStateManager.disableAlpha();
 
@@ -86,6 +86,7 @@ public class HaloRenderItem extends WrappedItemRenderer {
             renderModel(wrapped, stack);
 
             GlStateManager.enableAlpha();
+            GlStateManager.enableDepth();
             GlStateManager.enableRescaleNormal();
 
             GlStateManager.disableBlend();
