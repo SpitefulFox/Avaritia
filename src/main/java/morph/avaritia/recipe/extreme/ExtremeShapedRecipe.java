@@ -85,19 +85,6 @@ public class ExtremeShapedRecipe extends ExtremeRecipeBase {
                 if (!target.apply(inv.getStackInRowAndColumn(x, y))) {
                     return false;
                 }
-                boolean found = false;
-                if (target.getMatchingStacks().length == 0) {
-                    found = true;
-                } else {
-                    for (ItemStack stack : target.getMatchingStacks()) {
-                        if (ItemStack.areItemStackTagsEqual(stack, inv.getStackInRowAndColumn(x, y))) {
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        return false;
-                    }
-                }
             }
         }
 
