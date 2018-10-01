@@ -135,6 +135,7 @@ public class ModelArmorInfinity extends ModelBiped {
         TextureUtils.bindBlockTexture();
         GlStateManager.disableAlpha();
         GlStateManager.enableBlend();
+        GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.depthMask(false);
         if (invulnRender) {
             GlStateManager.color(1, 1, 1, 0.2F);
