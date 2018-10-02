@@ -102,6 +102,19 @@ public abstract class TileMachineBase extends TileBase implements ITickable {
         return super.writeToNBT(compound);
     }
 
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound tag = super.getUpdateTag();
+        tag.setBoolean("active", isActive);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(NBTTagCompound tag) {
+        super.handleUpdateTag(tag);
+        isActive = tag.getBoolean("active");
+    }
+
     /**
      * Called Server side to check if work can happen.
      *
