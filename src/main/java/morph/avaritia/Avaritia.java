@@ -51,6 +51,7 @@ public class Avaritia {
         OreDictionary.registerOre("ingotCrystalMatrix", ModItems.crystal_matrix_ingot);
         OreDictionary.registerOre("ingotCosmicNeutronium", ModItems.neutronium_ingot);
         OreDictionary.registerOre("ingotInfinity", ModItems.infinity_ingot);
+        OreDictionary.registerOre("nuggetCosmicNeutronium", ModItems.neutron_nugget);
     }
 
     @Mod.EventHandler
