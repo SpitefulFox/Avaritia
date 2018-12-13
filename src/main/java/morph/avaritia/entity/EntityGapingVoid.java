@@ -4,6 +4,7 @@ import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import com.google.common.base.Predicate;
 import morph.avaritia.init.ModSounds;
+import morph.avaritia.proxy.Proxy;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,6 +18,11 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -60,12 +66,16 @@ public class EntityGapingVoid extends Entity {
         return true;
     };
 
+    private FakePlayer fakePlayer;
+
     public EntityGapingVoid(World world) {
         super(world);
         isImmuneToFire = true;
         setSize(0.1F, 0.1F);
         ignoreFrustumCheck = true;
-        //this.renderDistanceWeight = 100.0;//TODO Maybe something, dunno, HELP.
+        if (world instanceof WorldServer) {
+            fakePlayer = FakePlayerFactory.get((WorldServer) world, Proxy.avaritiaFakePlayer);
+        }
     }
 
     @Override
@@ -77,7 +87,6 @@ public class EntityGapingVoid extends Entity {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        Vector3 pos = Vector3.fromEntity(this);
 
         // tick, tock
         int age = getAge();
@@ -91,6 +100,17 @@ public class EntityGapingVoid extends Entity {
             }
             setAge(age + 1);
         }
+
+        if (world.isRemote) {
+            //we dont want to do any of this on the client.
+            return;
+        }
+        if (fakePlayer == null) {
+            //wot.
+            setDead();
+            return;
+        }
+        Vector3 pos = Vector3.fromEntity(this);
 
         // poot poot
         double particlespeed = 4.5;
@@ -175,10 +195,14 @@ public class EntityGapingVoid extends Entity {
                         double dist = pos2.mag();
                         if (dist <= nomrange && !world.isAirBlock(blockPos)) {
                             IBlockState state = world.getBlockState(blockPos);
-                            float resist = state.getBlock().getExplosionResistance(this);//TODO HELP state.getExplosionResistance(this, this.worldObj, lx, ly, lz, this.posX, this.posY, this.posZ);
-                            if (resist <= 10.0) {
-                                state.getBlock().dropBlockAsItemWithChance(world, blockPos, state, 0.9F, 0);
-                                world.setBlockToAir(blockPos);
+                            BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, blockPos, state, fakePlayer);
+                            MinecraftForge.EVENT_BUS.post(event);
+                            if (!event.isCanceled()) {
+                                float resist = state.getBlock().getExplosionResistance(this);//TODO HELP state.getExplosionResistance(this, this.worldObj, lx, ly, lz, this.posX, this.posY, this.posZ);
+                                if (resist <= 10.0) {
+                                    state.getBlock().dropBlockAsItemWithChance(world, blockPos, state, 0.9F, 0);
+                                    world.setBlockToAir(blockPos);
+                                }
                             }
                         }
                     }
@@ -198,6 +222,9 @@ public class EntityGapingVoid extends Entity {
     @Override
     protected void readEntityFromNBT(NBTTagCompound tag) {
         setAge(tag.getInteger("age"));
+        if (world instanceof WorldServer) {
+            fakePlayer = FakePlayerFactory.get((WorldServer) world, Proxy.avaritiaFakePlayer);
+        }
     }
 
     @Override

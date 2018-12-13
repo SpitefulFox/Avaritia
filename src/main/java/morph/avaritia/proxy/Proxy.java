@@ -1,5 +1,6 @@
 package morph.avaritia.proxy;
 
+import com.mojang.authlib.GameProfile;
 import morph.avaritia.Avaritia;
 import morph.avaritia.api.registration.IModelRegister;
 import morph.avaritia.client.gui.GUIHandler;
@@ -21,7 +22,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
+import java.util.UUID;
+
 public class Proxy {
+
+    public static final GameProfile avaritiaFakePlayer = new GameProfile(UUID.fromString("32283731-bbef-487c-bb69-c7e32f84ed27"), "[Avaritia]");
 
     public void preInit(FMLPreInitializationEvent event) {
         ConfigHandler.init(event.getSuggestedConfigurationFile());
