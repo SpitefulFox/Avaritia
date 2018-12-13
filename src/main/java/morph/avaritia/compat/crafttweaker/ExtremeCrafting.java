@@ -34,7 +34,7 @@ public class ExtremeCrafting {
         if (name.contains(":")) {
             throw new IllegalArgumentException("Name must not contain ':'");
         }
-        recipe.setRegistryName(new ResourceLocation("avaritia", "craft_tweaker/extreme/shapeless/" + name));
+        recipe.setRegistryName(new ResourceLocation("craft_tweaker/extreme/shapeless/" + name));
         CraftTweakerAPI.apply(createAction(recipe));
     }
 
@@ -49,7 +49,7 @@ public class ExtremeCrafting {
         int x = 0;
         for (IIngredient[] row : ingredients) {
             for (IIngredient ing : row) {
-                primer.input.set(x++, Ingredient.fromStacks(CraftTweakerMC.getItemStack(ing)));
+                primer.input.set(x++, ing == null ? Ingredient.EMPTY : new CTIngredientWrapper(ing));
             }
         }
         IExtremeRecipe recipe = new ExtremeShapedRecipe(CraftTweakerMC.getItemStack(output), primer);
@@ -137,7 +137,7 @@ public class ExtremeCrafting {
     private static NonNullList<Ingredient> getIngredients(IIngredient[] input) {
         NonNullList<Ingredient> ingredients = NonNullList.create();
         for (IIngredient ing : input) {
-            ingredients.add(Ingredient.fromStacks(CraftTweakerMC.getItemStack(ing)));
+            ingredients.add(ing == null ? Ingredient.EMPTY : new CTIngredientWrapper(ing));
         }
         return ingredients;
     }

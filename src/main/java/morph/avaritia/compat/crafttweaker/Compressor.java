@@ -30,7 +30,10 @@ public class Compressor {
     @ZenMethod
     public static void add(String name, IItemStack output, int amount, IIngredient input, @Optional boolean absolute) {
         NonNullList<Ingredient> ings = NonNullList.create();
-        ings.add(Ingredient.fromStacks(CraftTweakerMC.getItemStack(input)));
+        if (input == null) {
+            throw new IllegalArgumentException("Input ingredient is null.");
+        }
+        ings.add(new CTIngredientWrapper(input));
         ICompressorRecipe recipe = new CompressorRecipe(CraftTweakerMC.getItemStack(output), amount, absolute, ings);
         if (name.contains(":")) {
             throw new IllegalArgumentException("Name must not contain ':'");
