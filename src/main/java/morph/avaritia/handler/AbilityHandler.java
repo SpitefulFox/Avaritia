@@ -217,7 +217,7 @@ public class AbilityHandler {
     @SubscribeEvent
     public void jumpBoost(LivingJumpEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
-        if (entitiesWithBoots.contains(entity.getUniqueID())) {
+        if (entitiesWithBoots.contains( entity.getCachedUniqueIdString() + "|" + entity.world.isRemote)) {
             entity.motionY += 0.4f;
         }
     }
