@@ -1,0 +1,174 @@
+#
+# Items
+item.avaritia_resource.diamond_lattice.name=鑽石點陣
+item.avaritia_resource.crystal_matrix_ingot.name=水晶矩陣錠
+item.avaritia_resource.neutron_pile.name=中子塵
+item.avaritia_resource.neutron_nugget.name=中子粒
+item.avaritia_resource.neutronium_ingot.name=中子錠
+item.avaritia_resource.infinity_catalyst.name=無盡催化劑
+item.avaritia_resource.infinity_ingot.name=無盡之錠
+item.avaritia_resource.record_fragment.name=唱片碎塊
+item.singularity_iron.name=奇點-鐵
+item.singularity_gold.name=奇點-金
+item.singularity_lapis.name=奇點-青金石
+item.singularity_redstone.name=奇點-紅石
+item.singularity_quartz.name=奇點-石英
+item.singularity_copper.name=奇點-銅
+item.singularity_tin.name=奇點-錫
+item.singularity_lead.name=奇點-鉛
+item.singularity_silver.name=奇點-銀
+item.singularity_nickel.name=奇點-鎳
+item.infinity_pickaxe.name=世界破壞者
+item.infinity_sword.name=宇宙之劍
+item.infinity_shovel.name=吞星者
+item.infinity_axe.name=大自然之末
+item.infinity_bow.name=天堂長弓
+item.skullfire_sword.name=地獄斬首刀
+item.akashic_record.name=阿卡西記錄
+item.orb_armok.name=Blood Orb of Armok
+item.avaritia_stew.name=終極燉菜
+item.avaritia_meatballs.name=宇宙肉丸
+item.avaritia_endest_pearl.name=黑洞珍珠
+item.infinity_armor_0.name=無限頭盔
+item.infinity_armor_1.name=無限胸甲
+item.infinity_armor_2.name=無限護褲
+item.infinity_armor_3.name=無限鞋子
+item.avaritia_fracturedore.name=Unknown Fractured Ore
+item.avaritia_fracturedore.prefix=Fractured
+item.avaritia_mattercluster.name=物質簇
+item.avaritia_mattercluster.full.name=稠密物質簇
+item.morvinabox.name=Morv-In-A-Box (WIP)(WILL LIGHT YOU ON FIRE)
+item.avaritia.comb.nerfed.name=Nerfed Comb
+item.avaritia.comb.cosmic.name=Cosmic Comb
+item.avaritia_beesource.infinity_drop.name=Infinity Drop
+item.avaritia_beesource.dust.name=Dust
+item.extremely_primordial_pearl.name=極端元初明珠
+#
+# Blocks
+tile.compressed_workbench.name=壓縮工作台
+tile.very_compressed_workbench.name=雙重壓縮工作台
+tile.block_crystal_matrix.name=水晶矩陣
+tile.block_neutronium.name=中子磚
+tile.block_infinity.name=無限之磚
+tile.block_gaia.name=Gaia Block
+tile.dire_crafting.name=超級工作台
+tile.neutron_collector.name=中子收集器
+tile.neutronium_compressor.name=中子壓縮機
+tile.infinitato.name=無限土豆
+tile.alfheim_deadrock0.name=死石
+tile.alfheim_deadrock1.name=死石磚
+tile.alfheim_deadrock2.name=青苔死石磚
+tile.alfheim_deadrock3.name=破裂死石磚
+tile.alfheim_deadrock4.name=鑿過的死石磚
+#
+# Tooltips
+tooltip.armok.desc=Stores unlimited Life Essence while held
+tooltip.crystal_matrix_ingot.desc=這仍不是它的最終狀態。
+tooltip.neutron_pile.desc=嘗試不要想它。
+tooltip.neutron_nugget.desc=約3.2億噸重。
+tooltip.neutronium_ingot.desc=錠狀的行星。
+tooltip.infinity_catalyst.desc=一即是全，全即是一。
+tooltip.infinity_ingot.desc=你手上的東西就是宇宙的憤怒。
+tooltip.record_fragment.desc=自由奔放的音樂~
+tooltip.skullfire_sword.desc=使被其殺死的骷髏掉一個變黑的骷髏頭。
+tooltip.matter_cluster.desc=右鍵釋放出所有物品。
+tooltip.matter_cluster.desc2=-SHIFT- 詳細信息
+tooltip.matter_cluster.counter=物品
+tooltip.morvinabox.desc=Instant housing
+tooltip.morvinabox.subdesc=In Canada, Morvy comes in bags.
+#
+# Achievements
+achievement.avaritia:crystal_matrix=第一步
+achievement.avaritia:crystal_matrix.desc=合成你的第一塊水晶矩陣錠
+achievement.avaritia:dire_crafting=大家好！
+achievement.avaritia:dire_crafting.desc=用一般工作台合成一個超級工作台
+achievement.avaritia:dire_uncrafting=TAKE IT EASY!
+achievement.avaritia:dire_uncrafting.desc=End the episode
+achievement.avaritia:collector=挂機遊戲
+achievement.avaritia:collector.desc=合成你的第一台中子收集器
+achievement.avaritia:neutronium=垃圾挂機遊戲
+achievement.avaritia:neutronium.desc=合成你的第一塊中子錠
+achievement.avaritia:singularity=事件視界
+achievement.avaritia:singularity.desc=創造你的第一個奇點
+achievement.avaritia:catalyst=有限的無盡
+achievement.avaritia:catalyst.desc=合成你的第一份無盡催化劑
+achievement.avaritia:infinity=無盡之力！
+achievement.avaritia:infinity.desc=合成你的第一塊無盡之錠
+achievement.avaritia:armok=☺♦
+achievement.avaritia:armok.desc=Craft the Blood Orb of Armok
+achievement.avaritia:creative_kill=流血的神
+achievement.avaritia:creative_kill.desc=弒神
+#
+# Misc
+itemGroup.avaritia=Avaritia
+container.neutron_collector=Neutron Collector
+container.neutronium_compressor=Neutronium Compressor
+tc.aspect.terminus=終點，啟示錄，末日
+crafting.extreme=Xtreme Crafting
+crafting.extreme.shapeless=Xtreme Shapeless
+crafting.extreme_compression=Neutronium Compressor
+tip.infinity=Infinity
+death.attack.infinity=%2$s徹底抹殺了%1$s
+death.attack.infinity.item=%1$s被%2$s徹底毀滅
+death.attack.infinity.1=%1$s被%2$s切成虛無
+death.attack.infinity.2=%1$s的存在被%2$s徹底刪除
+death.attack.infinity.3=%1$s被%2$s根除
+death.attack.infinity.4=%2$s徹底湮滅了%1$s 
+#
+# Botania
+avaritia.flower.asgardandelion.name=Asgardandelion
+tile.botania:flower.asgardandelion.name=Asgardandelion
+tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
+avaritia.lexicon.asgardandelion=Asgardandelion
+avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a never-ending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reckoning.<BR>&oStill not a SAO reference.&r
+avaritia.lexicon.infinitato=Infinitato
+avaritia.lexicon.infinitato.0=Imprinting the essence of everything onto objects can have interesting results, and the Infinitato is no exception.<BR>Somewhat larger than its tiny sibling, and infused with the can-do attitude of a whole crowd of &1Tiny Potatoes&0 plus an &1Infinity Catalyst&0, the &1Infinitato&0 believes that you can do all the things, forever.
+avaritia.lexicon.infinitato.1=Trust me, &oit'll fit.&r
+avaritia.flower.soarleander.name=Soarleander
+tile.botania:flower.soarleander.name=Soarleander
+tile.avaritia.flower.soarleander.lore=Just hook it up to my &oveeeeins!&r
+avaritia.lexicon.soarleander=Soarleander
+avaritia.lexicon.soarleander.0=If you have a surfeit of chicken or chicken by-products, look no further!<BR>The Soarleander will devour any and all things chicken in the vicinity (chickens themselves included) while remaining totally disinterested in everything else.
+avaritia.lexicon.soarleander.1=&oAny random chests are an unintended side-effect.&r
+#
+# Thaumcraft
+item.Wand.infinity.rod=宇宙中子質
+item.Wand.matrix.cap=水晶杖端
+#
+# Tinkers Construct
+material.avaritia_neutronium=Neutronium
+material.avaritia_neutronium.ability=Supermassive
+material.avaritia_infinitymetal=Infinity
+material.avaritia_infinitymetal.ability=Cosmic
+#
+# Beeeeeeeeeeeees
+avaritia.bee.annoying=Annoying
+avaritia.bee.annoying.desc="How long can it take to build a single honeycomb?!"|Note found in an ancient time capsule
+avaritia.bee.tedious=Tedious
+avaritia.bee.tedious.desc=Their hives are actually built out of smaller hives, which are themselves built out of smaller hives...
+avaritia.bee.insufferable=Insufferable
+avaritia.bee.insufferable.desc=They often sabotage other bees they perceive as having any advantages or improper vocabulary.
+avaritia.bee.trippy=Trippy
+avaritia.bee.trippy.desc="Dude. Like... bees. Man. They're like... whoa."|SpitefulFox, Unlicensed Apiarist
+avaritia.bee.cosmic=Cosmic
+avaritia.bee.cosmic.desc=
+avaritia.bee.neutronium=Neutronium
+avaritia.bee.neutronium.desc=Small objects can often by found orbiting their hives.
+avaritia.bee.infinite=Infinite
+avaritia.bee.infinite.desc=
+
+classification.balanced=Balanced
+classification.balanced.desc=These bees get bored and drop dead the moment they complete whatever they're working on. They take the most long, convoluted routes and methods in order to keep themselves entertained.
+classification.infinite=Infinite
+classification.infinite.desc=They gather pranic energy from the hidden ley-lines and arcane geometries of the universe itself.
+
+avaritia.allele.speedNerfed=Nerfed
+avaritia.allele.lifespanArtificial=Artificial
+#
+# Research
+avaritia.research_name.BIG_PEARL=極端元初明珠
+avaritia.research_text.BIG_PEARL=當原初珍珠不夠強大時...
+avaritia.research_page.BIG_PEARL.1=直到現在，你仍然無法弄清楚元初明珠的秘密，但你已經可以設法讓它變得更...有趣。<BR><BR>在一個注魔儀式中，讓7顆原初珍珠的要素注在1顆原初珍珠上可以讓你獲得一顆極端元初明珠。<BR>你相信它更強大，且更接近元初明珠的真相。
+avaritia.research_name.AKASHIC=阿卡西記錄
+avaritia.research_text.AKASHIC=天空覆蓋之下
+avaritia.research_page.AKASHIC.1=儘管你對世界本質的研究已經讓你可以穿梭於現實和外域之間，但所謂學海無涯,你總是有研究的空間，對吧？<BR><BR>阿卡西記錄記錄著世界上所有的研究點數，確保您能夠繼續進行任何研究。<BR><BR>即使它對你沒有意義，你也可以把它贈送給你的秘術使朋友，幫他們一把的同時炫耀你的學識和財富之深厚。
