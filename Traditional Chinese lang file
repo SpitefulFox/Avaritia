@@ -116,20 +116,20 @@ death.attack.infinity.3=%1$s被%2$s根除
 death.attack.infinity.4=%2$s徹底湮滅了%1$s 
 #
 # Botania
-avaritia.flower.asgardandelion.name=Asgardandelion
-tile.botania:flower.asgardandelion.name=Asgardandelion
-tile.avaritia.flower.asgardandelion.lore=Watered with Vazkii's tears :c
-avaritia.lexicon.asgardandelion=Asgardandelion
-avaritia.lexicon.asgardandelion.0=Rumors abound about some kind of godlike flower that can produce a never-ending torrent of mana. If such a mythical flower were to exist, it would probably require wealth and resources beyond mortal reckoning.<BR>&oStill not a SAO reference.&r
-avaritia.lexicon.infinitato=Infinitato
+avaritia.flower.asgardandelion.name=阿斯加德蒲公英
+tile.botania:flower.asgardandelion.name=阿斯加德蒲公英
+tile.avaritia.flower.asgardandelion.lore=用Vazkii的淚水灌溉:c
+avaritia.lexicon.asgardandelion=阿斯加德蒲公英
+avaritia.lexicon.asgardandelion.0=有傳言說這個神話級的蒲公英可以免費生產無限的瑪那。如果它確實存在，取得它的代價可能超乎人類想象。                   *完全與SAO無關*
+avaritia.lexicon.infinitato=無限小土豆
 avaritia.lexicon.infinitato.0=Imprinting the essence of everything onto objects can have interesting results, and the Infinitato is no exception.<BR>Somewhat larger than its tiny sibling, and infused with the can-do attitude of a whole crowd of &1Tiny Potatoes&0 plus an &1Infinity Catalyst&0, the &1Infinitato&0 believes that you can do all the things, forever.
 avaritia.lexicon.infinitato.1=Trust me, &oit'll fit.&r
-avaritia.flower.soarleander.name=Soarleander
-tile.botania:flower.soarleander.name=Soarleander
-tile.avaritia.flower.soarleander.lore=Just hook it up to my &oveeeeins!&r
-avaritia.lexicon.soarleander=Soarleander
-avaritia.lexicon.soarleander.0=If you have a surfeit of chicken or chicken by-products, look no further!<BR>The Soarleander will devour any and all things chicken in the vicinity (chickens themselves included) while remaining totally disinterested in everything else.
-avaritia.lexicon.soarleander.1=&oAny random chests are an unintended side-effect.&r
+avaritia.flower.soarleander.name=索利安德
+tile.botania:flower.soarleander.name=索利安德
+tile.avaritia.flower.soarleander.lore=打在我的血管上就對了!!!!
+avaritia.lexicon.soarleander=索利安德
+avaritia.lexicon.soarleander.0=如果你認為自己有太多雞的掉落物（或者雞本身），那就別猶豫了!索利安德會吞噬它們且它對其他的食物沒有一點興趣。
+avaritia.lexicon.soarleander.1=(OS:這花有BUG不能用)
 #
 # Thaumcraft
 item.Wand.infinity.rod=宇宙中子質
@@ -171,4 +171,4 @@ avaritia.research_text.BIG_PEARL=當原初珍珠不夠強大時...
 avaritia.research_page.BIG_PEARL.1=直到現在，你仍然無法弄清楚元初明珠的秘密，但你已經可以設法讓它變得更...有趣。<BR><BR>在一個注魔儀式中，讓7顆原初珍珠的要素注在1顆原初珍珠上可以讓你獲得一顆極端元初明珠。<BR>你相信它更強大，且更接近元初明珠的真相。
 avaritia.research_name.AKASHIC=阿卡西記錄
 avaritia.research_text.AKASHIC=天空覆蓋之下
-avaritia.research_page.AKASHIC.1=儘管你對世界本質的研究已經讓你可以穿梭於現實和外域之間，但所謂學海無涯,你總是有研究的空間，對吧？<BR><BR>阿卡西記錄記錄著世界上所有的研究點數，確保您能夠繼續進行任何研究。<BR><BR>即使它對你沒有意義，你也可以把它贈送給你的秘術使朋友，幫他們一把的同時炫耀你的學識和財富之深厚。
+avaritia.research_page.AKASHIC.1=儘管你對世界本質的研究已經讓你可以穿梭於現實和外域之間，但所謂學海無涯,你總是有研究的空間，對吧？<BR><BR>阿卡西記錄記錄著世界上所有的研究點數，確保您能夠繼續進行任何研究。<BR><BR>即使它對你沒有意義，你也可以把它贈送給你的秘術使朋友，幫他們一把的同時炫耀你的學識和財富之深厚。<BR><BR>當然，他們的臉上浮現的恐懼和痛苦只是你的錯覺。
