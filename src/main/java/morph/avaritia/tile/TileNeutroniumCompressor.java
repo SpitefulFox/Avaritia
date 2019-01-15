@@ -95,12 +95,8 @@ public class TileNeutroniumCompressor extends TileMachineBase implements ISidedI
         if (input.isEmpty()) {
             return false;
         }
-        if (AvaritiaRecipeManager.hasCompressorRecipe(input) && AvaritiaRecipeManager.hasCompressorRecipe(input, target_stack)) {
-            if (output.isEmpty() || output.getCount() < Math.min(output.getMaxStackSize(), getInventoryStackLimit())) {
-                return true;
-            }
-        }
-        return false;
+        ICompressorRecipe recipe = AvaritiaRecipeManager.getCompressorRecipeFromInput(input);
+        return recipe != null && (output.isEmpty() || (recipe.getResult().isItemEqual(output) && output.getCount() < Math.min(output.getMaxStackSize(), getInventoryStackLimit())));
     }
 
     @Override
