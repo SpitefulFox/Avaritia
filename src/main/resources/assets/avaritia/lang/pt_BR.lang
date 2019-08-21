@@ -1,0 +1,108 @@
+# pt_BR
+#
+#############
+#   Items   #
+#############
+#
+# Resources
+item.resource.diamond_lattice.name=Treliça de Diamante
+item.resource.crystal_matrix_ingot.name=Barra de Cristal Matriz
+item.resource.neutron_pile.name=Pilha de Nêutrons
+item.resource.neutron_nugget.name=Pepita de Neutronium
+item.resource.neutronium_ingot.name=Barra de Neutronium
+item.resource.infinity_catalyst.name=Catalisador do Infinito
+item.resource.infinity_ingot.name=Barra do Infinito
+item.resource.record_fragment.name=Fragmento de Disco
+#
+# Singularities
+item.singularity.iron.name=Singularidade de Ferro
+item.singularity.gold.name=Singularidade de Ouro
+item.singularity.lapis.name=Singularidade de Lapis
+item.singularity.redstone.name=Singularidade de Redstone
+item.singularity.quartz.name=Singularidade de Quartzo 
+item.singularity.copper.name=Singularidade de Cobre
+item.singularity.tin.name=Singularidade de Estanho
+item.singularity.lead.name=Singularidade de Chumbo
+item.singularity.silver.name=Singularidade de Prata
+item.singularity.nickel.name=Singularidade de Níquel
+item.singularity.diamond.name=Singularidade de Diamante
+item.singularity.emerald.name=Singularidade de Esmeralda
+item.singularity.fluxed.name=Singularidade de Fluxed
+item.singularity.platinum.name=Singularidade de Platina
+item.singularity.iridium.name=Singularidade de Irídio
+#
+# Tools
+item.avaritia:infinity_sword.name=Espada do Cosmos
+item.avaritia:infinity_bow.name=Arco Longo dos Céus
+item.avaritia:infinity_pickaxe.name=Destruidor de Mundos
+item.avaritia:infinity_shovel.name=Comedor de Planetas
+item.avaritia:infinity_axe.name=Ruína da Natureza
+item.avaritia:infinity_hoe.name=Enxada da Terra Verde
+item.avaritia:skullfire_sword.name=Espada do Crânio Flamejante
+#
+# Armor
+item.avaritia:infinity_helmet.name=Elmo do Infinito
+item.avaritia:infinity_chestplate.name=Peitoral do Infinito
+item.avaritia:infinity_pants.name=Calças do Infinito
+item.avaritia:infinity_boots.name=Botas do Infinito
+#
+# Misc
+item.avaritia:endest_pearl.name=Pérola Endest
+item.avaritia:cosmic_meatballs.name=Almôndegas Cosmicas
+item.avaritia:ultimate_stew.name=Sopa Definitiva
+item.avaritia_fracturedore.name=Minério Fraturado Desconhecido
+item.avaritia_fracturedore.prefix=Fraturado
+item.avaritia:matter_cluster.name=Aglomerado de Matéria
+item.avaritia:matter_cluster.full.name=Aglomerado de Matéria Crítico
+#
+#
+##############
+#   Blocks   #
+##############
+#
+# Crafting
+tile.avaritia:compressed_crafting_table.name=Bancada de Trabalho Comprimida
+tile.avaritia:double_compressed_crafting_table.name=Bancada de Trabalho Duplamente Comprimida
+tile.avaritia:extreme_crafting_table.name=Bancada de Trabalho Extrema
+#
+# Resource
+tile.avaritia:block_resource.neutronium.name.name=Bloco de Neutronium
+tile.avaritia:block_resource.infinity.name.name=Bloco do Infinito
+tile.avaritia:block_resource.crystal_matrix.name.name=Cristal Matriz
+#
+# Machines
+tile.avaritia:neutron_collector.name=Coletor de Nêutrons
+tile.avaritia:neutronium_compressor.name=Compressor de Nêutrons
+
+############
+#   Misc   #
+############
+#
+#
+# Tooltips
+tooltip.item.resource.crystal_matrix_ingot.desc=Essa não é nem minha forma final.
+tooltip.item.resource.neutron_pile.desc=Não pense muito sobre isso.
+tooltip.item.resource.neutron_nugget.desc=Quase 35.6 milhões de toneladas métricas.
+tooltip.item.resource.neutronium_ingot.desc=O denso coração de uma estrela em uma conveniente forma de barra.
+tooltip.item.resource.infinity_catalyst.desc=Ele é tudo e tudo é ele.
+tooltip.item.resource.infinity_ingot.desc=A fúria do universo na palma da sua mão.
+tooltip.item.resource.record_fragment.desc=Ele gosta de acreditam em liberdade musical~
+tooltip.skullfire_sword.desc=Beheads skeletons and scorches them black.
+tooltip.matter_cluster.desc=Use para desconstruir.
+tooltip.matter_cluster.desc2=Segure SHIFT para ver o seu conteúdo.
+tooltip.matter_cluster.counter=itens
+#
+# Other
+itemGroup.avaritia=Avaritia
+container.neutron_collector=Coletor de Nêutrons
+container.neutronium_compressor=Compressor de Nêutrons
+crafting.extreme=Crafting Extremo
+crafting.extreme.shapeless=Crafting Extremo (Shapeless)
+crafting.extreme_compression=Compressor de Neutrôns
+tip.infinity=Infinito
+death.attack.infinity=%1$s foi obliterado por %2$s
+death.attack.infinity.item=%1$s foi obliterado por %2$s
+death.attack.infinity.1=%1$s foi cortado em pedaços por %2$s
+death.attack.infinity.2=%1$s foi retirado da existência por %2$s
+death.attack.infinity.3=%1$s foi supermorto por %2$s
+death.attack.infinity.4=%1$s foi aniquilado por %2$s
